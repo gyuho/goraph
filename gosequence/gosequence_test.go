@@ -263,7 +263,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/gyuholee/gosequence"
+	"github.com/gyuho/gosequence"
 )
 
 func main() {
@@ -317,7 +317,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/gyuholee/gosequence"
+	"github.com/gyuho/gosequence"
 )
 
 func main() {
