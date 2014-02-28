@@ -1,14 +1,13 @@
-// Package gosequence is a small package to handle sequence in Go.
-// It provides slice operations: insert and delete(pop) that can
-// be used for stack and queue data structure. The present methods
-// are already supported by the standard package 'container/list'
-// (http://golang.org/pkg/container/list/) that uses doubly linked list.
-// You may use slice for the sake of performance and type safety.
-// Refer to the link for more detail about whether to use list or slice.
-// (https://groups.google.com/d/msg/golang-nuts/mPKCoYNwsoU/tLefhE7tQjMJ)
-// It also provides map operations, trying to achieve the orderness in
-// unordered data structure map. Note that the biggest difference between
-// map and sequence is that map is unordered and sequence is ordered.
+// Package gosequence is a small package to handle
+// sequence in Go. It provides slice operations:
+// insert and delete(pop) that can be used for
+// stack and queue data structure.
+// The present methods are already supported
+// by the standard package 'container/list' that
+/// uses doubly linked list.
+// I use slice to mitigate the problem of slowness
+// when traversing the linked list.
+// You need Go version 1.2 or higher.
 package gosequence
 
 import (
