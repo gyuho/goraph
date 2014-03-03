@@ -18,7 +18,6 @@ E|B,18|C,24|D,2|F,6|T,19
 F|D,11|E,6|T,6
 T|A,44|D,16|F,6|E,19
 `
-	fmt.Println("Depth First Search on testgraph4:")
 	g4 := gsd.ParseToGraph(testgraph4)
 	g4s := DFS(g4)
 	g4c := "S → A → B → D → E → F → T → C"
@@ -37,7 +36,6 @@ T|A,44|D,16|F,6|E,19
 		test.Errorf("All vertices should be marked black")
 	}
 
-	println()
 	testgraph5 := `
 A|B,7|C,9|F,20
 B|A,7|C,10|D,15
@@ -46,7 +44,6 @@ D|B,15|C,11|E,2
 E|C,30|D,2|F,9
 F|A,20|C,2|E,9
 `
-	fmt.Println("Depth First Search on testgraph5:")
 	g5 := gsd.ParseToGraph(testgraph5)
 	g5s := DFS(g5)
 	g5c := "A → B → C → D → E → F"
