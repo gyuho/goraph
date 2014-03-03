@@ -222,12 +222,23 @@ func Output2DSlice(mat [][]float64) string {
 	s := ""
 	for r := range mat {
 		for c := range mat[r] {
-			if mat[r][c] < 10 {
-				s += "  " + strconv.FormatFloat(mat[r][c], 'f', -1, 64) + " "
-			} else if mat[r][c] < 100 {
-				s += " " + strconv.FormatFloat(mat[r][c], 'f', -1, 64) + " "
+			// to exclude trailing white space chracter
+			if c != len(mat[r])-1 {
+				if mat[r][c] < 10 {
+					s += "  " + strconv.FormatFloat(mat[r][c], 'f', -1, 64) + " "
+				} else if mat[r][c] < 100 {
+					s += " " + strconv.FormatFloat(mat[r][c], 'f', -1, 64) + " "
+				} else {
+					s += strconv.FormatFloat(mat[r][c], 'f', -1, 64) + " "
+				}
 			} else {
-				s += strconv.FormatFloat(mat[r][c], 'f', -1, 64) + " "
+				if mat[r][c] < 10 {
+					s += "  " + strconv.FormatFloat(mat[r][c], 'f', -1, 64)
+				} else if mat[r][c] < 100 {
+					s += " " + strconv.FormatFloat(mat[r][c], 'f', -1, 64)
+				} else {
+					s += strconv.FormatFloat(mat[r][c], 'f', -1, 64)
+				}
 			}
 		}
 		s += "\n"

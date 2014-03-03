@@ -1,7 +1,6 @@
 package tskahn
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/gyuho/goraph/graph/gsd"
@@ -14,7 +13,6 @@ E|C,1|F,1
 B|A,1
 A|F,1
 `
-	fmt.Println("Topological Sort on testgraph6:")
 	g6 := gsd.ParseToGraph(testgraph6)
 	g6s, ex6 := TSKahn(g6)
 	g6c := "D → E → B → C → A → F"
@@ -29,7 +27,6 @@ A|E,1|H,1
 D|F,1|G,1|H,1
 E|G,1
 `
-	fmt.Println("Topological Sort on testgraph7:")
 	g7 := gsd.ParseToGraph(testgraph7)
 	g7s, ex7 := TSKahn(g7)
 	g7c := "C → B → A → D → E → F → H → G"
@@ -45,7 +42,6 @@ E|C,1|F,1|D,1
 B|A,1
 A|F,1|E,1
 `
-	fmt.Println("Topological Sort on testgraph8:")
 	g8 := gsd.ParseToGraph(testgraph8)
 	g8s, ex8 := TSKahn(g8)
 	g8c := "No Topological Sort (Not a DAG, there is a cycle)"
@@ -64,7 +60,6 @@ E|G,1|A,1
 G|H,1
 F|E,1
 `
-	fmt.Println("Topological Sort on testgraph9:")
 	g9 := gsd.ParseToGraph(testgraph9)
 	g9s, ex9 := TSKahn(g9)
 	g9c := "No Topological Sort (Not a DAG, there is a cycle)"

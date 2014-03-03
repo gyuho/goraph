@@ -61,7 +61,7 @@ benchmark/			# Benchmark, Comparison of graph representations
 
 draw/				# Graph Visualization
 
-example/			# Code Example
+example/				# Example Code
 
 gosequence/			# Customized Slice(Array) Data Structure
 
