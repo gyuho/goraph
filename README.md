@@ -38,7 +38,11 @@ go run [path/filename]
 
 To-Do-List
 ==========
+- Construct Graph from JSON data
 - Add Graph Visualizing(Drawing) Feature
+- More Graph Algorithms
+	- Minimum Spanning Tree
+	- Strongly Connected Components
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
