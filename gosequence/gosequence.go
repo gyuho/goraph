@@ -61,6 +61,28 @@ func (s Sequence) Copy() Sequence {
 	return *ts
 }
 
+// Check returns true if the elem exists
+// in the Sequence.
+func (s Sequence) Check(elem interface{}) bool {
+	for _, value := range s {
+		if fmt.Sprintf("%v", value) == fmt.Sprintf("%v", elem) {
+			return true
+		}
+	}
+	return false
+}
+
+// IsEqual returns true if s1 is equal to s2.
+func (s1 Sequence) IsEqual(s2 Sequence) bool {
+	check := true
+	for _, value := range s2 {
+		check = s1.Check(value)
+		// if one element does not exist
+		// in s2, check will be updated as false
+	}
+	return check
+}
+
 // Find returns the index of input value
 // , with true if the value exists in the sequence.
 func (s Sequence) Find(val interface{}) (int, bool) {

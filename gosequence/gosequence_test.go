@@ -51,6 +51,21 @@ func Test_Copy(t *testing.T) {
 	}
 }
 
+func Test_Check(t *testing.T) {
+	sample := Sequence([]interface{}{1, "A", 3, -.9, "B"})
+	if !sample.Check("3") {
+		t.Errorf("Should return true but %v", sample.Check("3"))
+	}
+}
+
+func Test_IsEqual(t *testing.T) {
+	s1 := Sequence([]interface{}{1, "A", 3, -.9, "B"})
+	s2 := Sequence([]interface{}{3, -.9, "B", 1, "A"})
+	if !s1.IsEqual(s2) {
+		t.Errorf("Should return true but %v", s1.IsEqual(s2))
+	}
+}
+
 func Test_Find(t *testing.T) {
 	sample := Sequence([]interface{}{1, "A", 3, -.9, "B"})
 	a, b := sample.Find("A")
