@@ -74,13 +74,12 @@ func (s Sequence) Check(elem interface{}) bool {
 
 // IsEqual returns true if s1 is equal to s2.
 func (s1 Sequence) IsEqual(s2 Sequence) bool {
-	check := true
 	for _, value := range s2 {
-		check = s1.Check(value)
-		// if one element does not exist
-		// in s2, check will be updated as false
+		if !s1.Check(value) {
+			return false
+		}
 	}
-	return check
+	return true
 }
 
 // Find returns the index of input value
