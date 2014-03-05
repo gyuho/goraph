@@ -72,8 +72,12 @@ func (s Sequence) Check(elem interface{}) bool {
 	return false
 }
 
-// IsEqual returns true if s1 is equal to s2.
-func (s1 Sequence) IsEqual(s2 Sequence) bool {
+// IsEqual returns true if s1 is equal to s2
+// regardless of its ordering of elements.
+func IsEqual(s1, s2 Sequence) bool {
+	if s1.Len() != s2.Len() {
+		return false
+	}
 	for _, value := range s2 {
 		if !s1.Check(value) {
 			return false

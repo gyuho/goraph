@@ -61,8 +61,8 @@ func Test_Check(t *testing.T) {
 func Test_IsEqual(t *testing.T) {
 	s1 := Sequence([]interface{}{1, "A", 3, -.9, "B"})
 	s2 := Sequence([]interface{}{3, -.9, "B", 1, "A"})
-	if !s1.IsEqual(s2) {
-		t.Errorf("Should return true but %v", s1.IsEqual(s2))
+	if !IsEqual(s1, s2) {
+		t.Errorf("Should return true but %v", IsEqual(s1, s2))
 	}
 }
 
