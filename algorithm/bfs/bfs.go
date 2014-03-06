@@ -37,8 +37,8 @@ BFS(G, s)
 import (
 	"fmt"
 
-	slice "github.com/gyuho/goraph/gosequence"
 	"github.com/gyuho/goraph/graph/gsd"
+	slice "github.com/gyuho/gosequence"
 )
 
 // type Graph gsd.Graph

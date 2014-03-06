@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	slice "github.com/gyuho/goraph/gosequence"
+	slice "github.com/gyuho/gosequence"
 )
 
 // Graph is a graph represented in adjacency list, but implemented in slice.

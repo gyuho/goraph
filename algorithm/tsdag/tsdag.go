@@ -23,8 +23,8 @@ function visit(node n)
 import (
 	"fmt"
 
-	slice "github.com/gyuho/goraph/gosequence"
 	"github.com/gyuho/goraph/graph/gsd"
+	slice "github.com/gyuho/gosequence"
 )
 
 // TSDAG returns topological sort using DFS.

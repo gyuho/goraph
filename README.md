@@ -67,8 +67,6 @@ draw/				# Graph Visualization
 
 example/			# Example Code
 
-gosequence/			# Customized Slice(Array) Data Structure
-
 graph/				# Graph Representation
 		gl/			# Adjacency List, Linked List(container/list), No Duplicate Edges
 		gld/		# Adjacency List, Linked List(container/list), Allow Duplicate Edges
@@ -77,6 +75,11 @@ graph/				# Graph Representation
 		gsd/		# Adjacency List, Slice, Allow Duplicate Edges
 		gt/			# Adjacency Matrix, Map, No Duplicate Edges
 ```
+
+##### External Package
+- <a href="https://github.com/gyuho/gosequence" target="_blank">gosequence</a>: Customized Slice(Array) Data Structure
+- <a href="https://github.com/gyuho/dgo" target="_blank">dgo</a>: Drawing Package
+
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
 

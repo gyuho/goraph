@@ -41,8 +41,8 @@ DFS-Visit(G, u)
 import (
 	"fmt"
 
-	slice "github.com/gyuho/goraph/gosequence"
 	"github.com/gyuho/goraph/graph/gsd"
+	slice "github.com/gyuho/gosequence"
 )
 
 // Breadth First Search: Queue

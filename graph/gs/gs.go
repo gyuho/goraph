@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	slice "github.com/gyuho/goraph/gosequence"
+	slice "github.com/gyuho/gosequence"
 	// (Originally from: github.com/gyuho/gosequence)
 )
 

@@ -32,8 +32,8 @@ package spbf
 import (
 	"fmt"
 
-	slice "github.com/gyuho/goraph/gosequence"
 	"github.com/gyuho/goraph/graph/gsd"
+	slice "github.com/gyuho/gosequence"
 )
 
 // SPBF returns false if there is a negatively-weighted

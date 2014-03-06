@@ -34,8 +34,8 @@ import (
 	"container/heap"
 	"fmt"
 
-	slice "github.com/gyuho/goraph/gosequence"
 	"github.com/gyuho/goraph/graph/gsd"
+	slice "github.com/gyuho/gosequence"
 )
 
 // SPD finds the shortest path from src to dst vertex.

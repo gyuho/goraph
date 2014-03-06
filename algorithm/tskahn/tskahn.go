@@ -24,8 +24,8 @@ else
 import (
 	"fmt"
 
-	slice "github.com/gyuho/goraph/gosequence"
 	"github.com/gyuho/goraph/graph/gsd"
+	slice "github.com/gyuho/gosequence"
 )
 
 func TSKahn(g *gsd.Graph) (string, bool) {
