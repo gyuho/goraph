@@ -76,7 +76,7 @@ graph/				# Graph Representation
 	gsd/		# Adjacency List, Slice, Allow Duplicate Edges
 	gt/			# Adjacency Matrix, Map, No Duplicate Edges
 ```
-<br>
+
 ##### External Package
 - <a href="https://github.com/gyuho/goson" target="_blank"><b>goson</b></a>: JSON Import Package
 - <a href="https://github.com/gyuho/gosequence" target="_blank"><b>gosequence</b></a>: Customized Slice(Array) Data Structure
