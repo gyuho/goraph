@@ -5,7 +5,7 @@ goraph provides graph visualizing tools and graph algorithm implementations.
 
 - [Getting Started](https://github.com/gyuho/goraph#getting-started)
 - [To-Do-List](https://github.com/gyuho/goraph#to-do-list)
-- [Goraph Package Hierarchy](https://github.com/gyuho/goraph#goraph-package-hierarchy)
+- [Package Hierarchy](https://github.com/gyuho/goraph#package-hierarchy)
 - [Testing Graphs](https://github.com/gyuho/goraph#testing-graphs)
 - [List(Linked List) vs. Slice(Array)](https://github.com/gyuho/goraph#listlinked-list-vs-slicearray)
 - [What is Graph?](https://github.com/gyuho/goraph#what-is-graph)
@@ -34,12 +34,13 @@ import "github.com/gyuho/goraph"
 // to run, or go install
 go run [path/filename]
 ```
+
 [↑ top](https://github.com/gyuho/goraph#goraph---)
+
 
 To-Do-List
 ==========
-- Construct Graph from JSON data
-- Add Graph Visualizing(Drawing) Feature
+- Graph Visualizing(Drawing)
 - More Graph Algorithms
 	- Minimum Spanning Tree
 	- Strongly Connected Components
@@ -47,19 +48,19 @@ To-Do-List
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
 
-Goraph Package Hierarchy
+Package Hierarchy
 ==========
 ```go
 algorithm/			# Graph Algorithms
-		bfs/		# Breadth First Search Algorithm
-		dfs/		# Depth First Search Algorithm
-		sp/			# Shortest Path Algorithm (Dijkstra, Bellman-Ford)
-		spbf/		# Shortest Path Algorithm for Negative Edges (Bellman-Ford)
-		spd/		# Shortest Path Algorithm for Positive Edges (Dijkstra)
-		spfw/		# Shortest Path Algorithm for Positive Edges (Floyd-Warshall)
-		tsdag/		# Topological Sort, Detects whether it is a DAG
-		tsdfs/		# Topological Sort using DFS, Not Detecting DAG
-		tskahn/		# Topological Sort by Arthur Kahn(1962), Detects DAG
+	bfs/		# Breadth First Search Algorithm
+	dfs/		# Depth First Search Algorithm
+	sp/			# Shortest Path Algorithm (Dijkstra, Bellman-Ford)
+	spbf/		# Shortest Path Algorithm for Negative Edges (Bellman-Ford)
+	spd/		# Shortest Path Algorithm for Positive Edges (Dijkstra)
+	spfw/		# Shortest Path Algorithm for Positive Edges (Floyd-Warshall)
+	tsdag/		# Topological Sort, Detects whether it is a DAG
+	tsdfs/		# Topological Sort using DFS, Not Detecting DAG
+	tskahn/		# Topological Sort by Arthur Kahn(1962), Detects DAG
 
 benchmark/			# Benchmark, Comparison of graph representations
 
@@ -68,17 +69,18 @@ draw/				# Graph Visualization
 example/			# Example Code
 
 graph/				# Graph Representation
-		gl/			# Adjacency List, Linked List(container/list), No Duplicate Edges
-		gld/		# Adjacency List, Linked List(container/list), Allow Duplicate Edges
-		gm/			# Adjacency List, Map, No Duplicate Edges
-		gs/			# Adjacency List, Slice, No Duplicate Edges
-		gsd/		# Adjacency List, Slice, Allow Duplicate Edges
-		gt/			# Adjacency Matrix, Map, No Duplicate Edges
+	gl/			# Adjacency List, Linked List(container/list), No Duplicate Edges
+	gld/		# Adjacency List, Linked List(container/list), Allow Duplicate Edges
+	gm/			# Adjacency List, Map, No Duplicate Edges
+	gs/			# Adjacency List, Slice, No Duplicate Edges
+	gsd/		# Adjacency List, Slice, Allow Duplicate Edges
+	gt/			# Adjacency Matrix, Map, No Duplicate Edges
 ```
-
+<br>
 ##### External Package
-- <a href="https://github.com/gyuho/gosequence" target="_blank">gosequence</a>: Customized Slice(Array) Data Structure
-- <a href="https://github.com/gyuho/dgo" target="_blank">dgo</a>: Drawing Package
+- <a href="https://github.com/gyuho/goson" target="_blank"><b>goson</b></a>: JSON Import Package
+- <a href="https://github.com/gyuho/gosequence" target="_blank"><b>gosequence</b></a>: Customized Slice(Array) Data Structure
+- <a href="https://github.com/gyuho/dgo" target="_blank"><b>dgo</b></a>: Drawing Package
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
@@ -161,29 +163,29 @@ What is Graph?
 </ul>
 
 
-- Graph: Data Structure with Nodes and Edges
+- *Graph*: Data Structure with Nodes and Edges
 
 - There are various ways to connect nodes
 	- Doubly Connected Directed Graph (Undirected Graph)
 	- Singly Connected Directed Graph.
 
-- Path: sequence of vertices connected by edges
+- *Path*: sequence of vertices connected by edges
 
 - Simple Path: path with NO repeated vertices
 
-- Cycle: path with at least one edge whose first and last vertices are the same
+- *Cycle*: path with at least one edge whose first and last vertices are the same
 
-- Simple Cycle: cycle with NO repeated edges or vertices
+- *Simple Cycle*: cycle with NO repeated edges or vertices
 
 - Length of path, cycle: its number of edges
 
-- Connectivity: Graph is connected if there is a path from every vertex to every other vertex
+- *Connectivity*: Graph is connected if there is a path from every vertex to every other vertex
 
-- Acyclic Graph: graph with NO cycles
+- *Acyclic Graph*: graph with NO cycles
 
-- Acyclic Connected Graph: Tree is an Acyclic Connected Graph
+- *Acyclic Connected Graph*: Tree is an Acyclic Connected Graph
 
-- Forest: Disjoint Set of Trees (have no vertices in common)
+- *Forest*: Disjoint Set of Trees (have no vertices in common)
 
 - Spanning Tree of a Connected Graph
 	-	subgraph that contains all of that graph’s vertices subgraph that is a single tree
@@ -208,16 +210,19 @@ Tree (a graph G with V vertices)  if and only if it satisfies any of the followi
 - G is acyclic, and adding any edge creates a cycle in G
 - Exactly one simple path connects each pair of vertices in G
 
+[↑ top](https://github.com/gyuho/goraph#goraph---)
+
 Degree of a Vertex
 ========
 The number of edges incident to the vertex(loop counts as 2).
 
+[↑ top](https://github.com/gyuho/goraph#goraph---)
 
 Predecessor of a Vertex
 ========
 edge(u, v), then vertex v is the descendant of u. Vertex u is the predecessor, or parent/ancestor, of vertex v. v.d is the distance from the source; s.d is 0 when s is the source node. u.d is 1 when the distance from source to u is 1. This is implemented as <b>InVertices</b> in goraph.
 
-
+[↑ top](https://github.com/gyuho/goraph#goraph---)
 
 Adjacency List vs. Adjacency Matrix
 ========
