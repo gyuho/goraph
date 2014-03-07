@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gyuho/goson/jgd"
+	"github.com/gyuho/gson/jgd"
 )
 
 // string is just to map the ID to the Vertex.

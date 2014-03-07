@@ -78,7 +78,7 @@ graph/			# Graph Representation
 ```
 
 ##### External Package
-- <a href="https://github.com/gyuho/goson" target="_blank"><b>goson</b></a>: JSON Import Package
+- <a href="https://github.com/gyuho/gson" target="_blank"><b>gson</b></a>: JSON Import Package
 - <a href="https://github.com/gyuho/gosequence" target="_blank"><b>gosequence</b></a>: Customized Slice(Array) Data Structure
 - <a href="https://github.com/gyuho/dgo" target="_blank"><b>dgo</b></a>: Drawing Package
 

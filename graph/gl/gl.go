@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gyuho/goson/jgd"
+	"github.com/gyuho/gson/jgd"
 )
 
 // Graph is a graph represented in adjacency list. Vertices and edges
