@@ -1,89 +1,39 @@
 package gsd
 
-import (
-	"reflect"
-	"testing"
-)
+import "testing"
 
-// If there is a duplicate edges,
-// the value is added to the existent weight.
-var testgraph1 string = `
-S|A,100|C,200|B,14
-A|S,15|B,5|D,20|T,44
-B|S,14|A,5|D,30|E,18
-C|S,9|E,24
-D|A,20|B,30|E,2|F,11|T,16
-E|B,18|C,24|D,2|F,6|T,19
-F|D,11|E,6|T,6
-T|A,44|D,16|F,6|E,19
-`
+func Test_JSONGraph(test *testing.T) {
+	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.003")
+	vs := g.GetVerticesSize()
+	es := g.GetEdgesSize()
 
-var testgraph2 string = `
-S|A,100|C,200|B,14
-A|S,15|B,5|D,20|T,44
-B|S,14|A,5|D,30|E,18
-C|S,9|E,24
-E|B,18|D,2|F,6|T,19
-F|D,11|E,6|T,6
-T|A,44|D,16|F,6|E,19
-`
+	if vs != 8 {
+		test.Error("Should return 8 but: %v", vs)
+	}
 
-func Test_NewGraph(test *testing.T) {
-	a := NewGraph()
-	r := reflect.TypeOf(a)
-	c := &Graph{}
-	if r != reflect.TypeOf(c) {
-		test.Error("Type Error")
+	if es != 31 {
+		test.Error("Should return 31 but: %v", es)
 	}
 }
 
-func Test_NewVertex(test *testing.T) {
-	v := NewVertex("Google")
-	if v.ID != "Google" {
-		test.Error("ID should be Google but", v.ID)
-	}
-
-	r := v.GetOutVerticesSize()
-	if r != 0 {
-		test.Error("OutVertices should be empty but", r)
-	}
-
-	c := v.StampD
-	if c != 9999999999 {
-		test.Error("StampD should be 9999999999 but", c)
-	}
-}
-
-func Test_NewEdge(test *testing.T) {
-	a := NewVertex("Google")
-	b := NewVertex("Apple")
-	e := NewEdge(a, b, 123.45)
-	if e.Src.ID != a.ID {
-		test.Error("Source vertex should be Google but", e.Src.ID)
-	}
-	if e.Dst.ID != b.ID {
-		test.Error("Destination vertex should be Apple but", e.Dst.ID)
-	}
-}
-
-func Test_GetVertices(test *testing.T) {
-	g := ParseToGraph(testgraph1)
+func Test_JSON_GetVertices(test *testing.T) {
+	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 	l := g.GetVerticesSize()
 	if l != 8 {
 		test.Error("In testgraph1, It should have 8 vertices but", l)
 	}
 }
 
-func Test_GetVerticesSize(test *testing.T) {
-	g := ParseToGraph(testgraph1)
+func Test_JSON_GetVerticesSize(test *testing.T) {
+	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 	r := g.GetVerticesSize()
 	if r != 8 {
 		test.Error("In testgraph1, It should have 8 vertices but", r)
 	}
 }
 
-func Test_GetEdges(test *testing.T) {
-	g := ParseToGraph(testgraph1)
+func Test_JSON_GetEdges(test *testing.T) {
+	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 	l := g.GetEdgesSize()
 	// since it's bidirectional
 	if l != 30 {
@@ -91,21 +41,21 @@ func Test_GetEdges(test *testing.T) {
 	}
 }
 
-func Test_GetEdgesSize(test *testing.T) {
-	g1 := ParseToGraph(testgraph1)
+func Test_JSON_GetEdgesSize(test *testing.T) {
+	g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 	r1 := g1.GetEdgesSize()
 	if r1 != 30 {
 		test.Error("In testgraph1, It should have 30 edges but", r1)
 	}
-	g2 := ParseToGraph(testgraph2)
+	g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
 	r2 := g2.GetEdgesSize()
 	if r2 != 24 {
 		test.Error("In testgraph2, It should have 24 edges but", r2)
 	}
 }
 
-func Test_CreateAndAddToGraph(test *testing.T) {
-	g := ParseToGraph(testgraph1)
+func Test_JSON_CreateAndAddToGraph(test *testing.T) {
+	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 	_ = g.CreateAndAddToGraph("X")
 	s := g.GetVerticesSize()
 	if s != 9 {
@@ -113,8 +63,8 @@ func Test_CreateAndAddToGraph(test *testing.T) {
 	}
 }
 
-func Test_GetOutVertices(test *testing.T) {
-	g := ParseToGraph(testgraph1)
+func Test_JSON_GetOutVertices(test *testing.T) {
+	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 	d := g.FindVertexByID("D")
 	l := d.GetOutVerticesSize()
 	if l != 5 {
@@ -140,7 +90,7 @@ func Test_GetOutVertices(test *testing.T) {
 		test.Error("In testgraph1, F and B should exist as outgoing vertices of D but", existF, existB)
 	}
 
-	g2 := ParseToGraph(testgraph2)
+	g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
 	testCases := []struct {
 		vtx      string
 		outedges int
@@ -164,8 +114,8 @@ func Test_GetOutVertices(test *testing.T) {
 	}
 }
 
-func Test_GetInVertices(test *testing.T) {
-	g := ParseToGraph(testgraph1)
+func Test_JSON_GetInVertices(test *testing.T) {
+	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 	d := g.FindVertexByID("D")
 	l := d.GetInVerticesSize()
 	if l != 5 {
@@ -178,7 +128,7 @@ func Test_GetInVertices(test *testing.T) {
 		test.Error("In testgraph1, S only have 3 incoming vertices but", se)
 	}
 
-	g2 := ParseToGraph(testgraph2)
+	g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
 	testCases := []struct {
 		vtx     string
 		inedges int
@@ -202,7 +152,7 @@ func Test_GetInVertices(test *testing.T) {
 	}
 }
 
-func Test_ImmediateDominate(test *testing.T) {
+func Test_JSON_ImmediateDominate(test *testing.T) {
 	testCases2 := []struct {
 		vts []string
 		imd bool
@@ -220,7 +170,7 @@ func Test_ImmediateDominate(test *testing.T) {
 		{[]string{"T", "C"}, false},
 	}
 	for _, testCase := range testCases2 {
-		g2 := ParseToGraph(testgraph2)
+		g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
 		r := g2.ImmediateDominate(g2.FindVertexByID(testCase.vts[0]), g2.FindVertexByID(testCase.vts[1]))
 		if r != testCase.imd {
 			test.Errorf("testgraph2: %+v does not go to %#v with one edge", testCase.vts[0], testCase.vts[1])
@@ -228,8 +178,8 @@ func Test_ImmediateDominate(test *testing.T) {
 	}
 }
 
-func Test_GetEdgeWeight(test *testing.T) {
-	g := ParseToGraph(testgraph1)
+func Test_JSON_GetEdgeWeight(test *testing.T) {
+	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 	testCases := []struct {
 		vertices []string
 		weight   float64
@@ -312,8 +262,8 @@ T|A,44|D,16|F,6|E,19
 	}
 }
 
-func Test_UpdateWeight(test *testing.T) {
-	g := ParseToGraph(testgraph1)
+func Test_JSON_UpdateWeight(test *testing.T) {
+	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 	testCases := []struct {
 		vertices []string
 		weight   float64
@@ -350,7 +300,7 @@ func Test_UpdateWeight(test *testing.T) {
 	}
 }
 
-func Test_Connect(test *testing.T) {
+func Test_JSON_Connect(test *testing.T) {
 	g := NewGraph()
 	a := NewVertex("Google")
 	b := NewVertex("Apple")
@@ -367,7 +317,7 @@ func Test_Connect(test *testing.T) {
 	}
 }
 
-func Test_FindVertexByID(test *testing.T) {
+func Test_JSON_FindVertexByID(test *testing.T) {
 	testCases := []struct {
 		vtx   string
 		exist bool
@@ -382,14 +332,14 @@ func Test_FindVertexByID(test *testing.T) {
 		{"T", true},
 	}
 	for _, testCase := range testCases {
-		g1 := ParseToGraph(testgraph1)
+		g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 		r := g1.FindVertexByID(testCase.vtx)
 		if r == nil {
 			test.Errorf("In testgraph1, %+v should exist. But %#v", testCase.vtx, r)
 		}
 	}
 	for _, testCase := range testCases {
-		g2 := ParseToGraph(testgraph2)
+		g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
 		r := g2.FindVertexByID(testCase.vtx)
 		if r == nil {
 			test.Errorf("In testgraph2, %+v should exist. But %#v", testCase.vtx, r)
@@ -397,7 +347,7 @@ func Test_FindVertexByID(test *testing.T) {
 	}
 }
 
-func Test_DeleteInVertex(test *testing.T) {
+func Test_JSON_DeleteInVertex(test *testing.T) {
 	g := NewGraph()
 	a := g.CreateAndAddToGraph("Google")
 	b := g.CreateAndAddToGraph("Apple")
@@ -411,7 +361,7 @@ func Test_DeleteInVertex(test *testing.T) {
 	}
 }
 
-func Test_DeleteOutVertex(test *testing.T) {
+func Test_JSON_DeleteOutVertex(test *testing.T) {
 	g := NewGraph()
 	a := g.CreateAndAddToGraph("Google")
 	b := g.CreateAndAddToGraph("Apple")
@@ -425,7 +375,7 @@ func Test_DeleteOutVertex(test *testing.T) {
 	}
 }
 
-func Test_DeleteEdge(test *testing.T) {
+func Test_JSON_DeleteEdge(test *testing.T) {
 	g := NewGraph()
 	a := g.CreateAndAddToGraph("Google")
 	b := g.CreateAndAddToGraph("Apple")
@@ -477,7 +427,7 @@ func Test_DeleteEdge(test *testing.T) {
 		{[]string{"E", "T"}, 29},
 	}
 	for _, testCase := range testCases1 {
-		g1 := ParseToGraph(testgraph1)
+		g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 		o := g1.GetEdgesSize()
 		g1.DeleteEdge(g1.FindVertexByID(testCase.vts[0]), g1.FindVertexByID(testCase.vts[1]))
 		// g1.DeleteEdge(g1.FindVertexByID(testCase.vts[1]), g1.FindVertexByID(testCase.vts[0]))
@@ -510,7 +460,7 @@ func Test_DeleteEdge(test *testing.T) {
 		{[]string{"E", "T"}, 23},
 	}
 	for _, testCase := range testCases2 {
-		g2 := ParseToGraph(testgraph2)
+		g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
 		g2.DeleteEdge(g2.FindVertexByID(testCase.vts[0]), g2.FindVertexByID(testCase.vts[1]))
 		// g2.DeleteEdge(g2.FindVertexByID(testCase.vts[1]), g2.FindVertexByID(testCase.vts[0]))
 		n := g2.GetEdgesSize()
@@ -542,7 +492,7 @@ func Test_DeleteEdge(test *testing.T) {
 		{[]string{"E", "T"}, 28},
 	}
 	for _, testCase := range testCases1b {
-		g1 := ParseToGraph(testgraph1)
+		g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 		g1.DeleteEdge(g1.FindVertexByID(testCase.vts[0]), g1.FindVertexByID(testCase.vts[1]))
 		g1.DeleteEdge(g1.FindVertexByID(testCase.vts[1]), g1.FindVertexByID(testCase.vts[0]))
 		n := g1.GetEdgesSize()
@@ -574,7 +524,7 @@ func Test_DeleteEdge(test *testing.T) {
 		{[]string{"E", "T"}, 22},
 	}
 	for _, testCase := range testCases2b {
-		g2 := ParseToGraph(testgraph2)
+		g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
 		g2.DeleteEdge(g2.FindVertexByID(testCase.vts[0]), g2.FindVertexByID(testCase.vts[1]))
 		g2.DeleteEdge(g2.FindVertexByID(testCase.vts[1]), g2.FindVertexByID(testCase.vts[0]))
 		n := g2.GetEdgesSize()
@@ -584,7 +534,7 @@ func Test_DeleteEdge(test *testing.T) {
 	}
 }
 
-func Test_DeleteVertex(test *testing.T) {
+func Test_JSON_DeleteVertex(test *testing.T) {
 	testCases1 := []struct {
 		vts    []string
 		edgnum int
@@ -599,7 +549,7 @@ func Test_DeleteVertex(test *testing.T) {
 		{[]string{"D", "A", "T"}, 10},
 	}
 	for _, testCase := range testCases1 {
-		g1 := ParseToGraph(testgraph1)
+		g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 		for _, v := range testCase.vts {
 			g1.DeleteVertex(g1.FindVertexByID(v))
 		}
@@ -625,7 +575,7 @@ func Test_DeleteVertex(test *testing.T) {
 		{[]string{"D", "A", "T"}, 9},
 	}
 	for _, testCase := range testCases2 {
-		g2 := ParseToGraph(testgraph2)
+		g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
 		for _, v := range testCase.vts {
 			g2.DeleteVertex(g2.FindVertexByID(v))
 		}
