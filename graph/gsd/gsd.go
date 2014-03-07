@@ -267,40 +267,6 @@ func ParseToGraph(str string) *Graph {
 	return g
 }
 
-// JSONGraph parses JSON file to a graph.
-func JSONGraph(filename, graph string) *Graph {
-	nodes := jgd.GetNodes(filename, graph)
-	mm := jgd.MapGraph(filename, graph)
-	g := NewGraph()
-
-	for _, line := range lines {
-		fields := strings.Split(line, "|")
-
-		// srcID in string format
-		srcID := fields[0]
-
-		// source vertex
-		src := g.CreateAndAddToGraph(srcID)
-
-		edgepairs := fields[1:]
-
-		for _, pair := range edgepairs {
-			if len(strings.Split(pair, ",")) == 1 {
-				// to skip the lines below
-				// and go back to the for-loop
-				continue
-			}
-			dstID := strings.Split(pair, ",")[0]
-			dst := g.CreateAndAddToGraph(dstID)
-			// This is not constructing the bi-directional edge automatically.
-			// We need to input bi-directional graph data.
-			weight := strToFloat(strings.Split(pair, ",")[1])
-			g.Connect(src, dst, weight)
-		}
-	}
-	return g
-}
-
 // DeleteInVertex removes the input vertex v
 // from the vertex i's InVertices.
 func (i *Vertex) DeleteInVertex(v *Vertex) {
@@ -425,4 +391,31 @@ func (g *Graph) ShowPrev(id interface{}) string {
 		s += fmt.Sprintf(" %v", p.(*Vertex).ID)
 	}
 	return "Prev of " + fmt.Sprintf("%v", id) + ": " + s
+}
+
+// JSONGraph parses JSON file to a graph.
+func JSONGraph(filename, graph string) *Graph {
+	nodes := jgd.GetNodes(filename, graph)
+	gmap := jgd.MapGraph(filename, graph)
+	// map[string]map[string][]float64
+
+	g := NewGraph()
+	for _, node := range nodes {
+		// source vertex
+		src := g.CreateAndAddToGraph(node)
+
+		outvertices, _ := gmap[node]
+		// map[string] -> "map[string][]float64"
+
+		for dstID := range outvertices {
+			dst := g.CreateAndAddToGraph(dstID)
+			// This is not constructing the bi-directional edge automatically.
+			// We need to input bi-directional graph data.
+			weights, _ := outvertices[dstID]
+			for _, weight := range weights {
+				g.Connect(src, dst, weight)
+			}
+		}
+	}
+	return g
 }

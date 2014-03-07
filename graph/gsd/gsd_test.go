@@ -636,3 +636,17 @@ func Test_DeleteVertex(test *testing.T) {
 		}
 	}
 }
+
+func Test_JSONGraph(test *testing.T) {
+	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.003")
+	vs := g.GetVerticesSize()
+	es := g.GetEdgesSize()
+
+	if vs != 8 {
+		test.Error("Should return 8 but: %v", vs)
+	}
+
+	if es != 31 {
+		test.Error("Should return 31 but: %v", es)
+	}
+}
