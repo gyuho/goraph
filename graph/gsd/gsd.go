@@ -13,6 +13,7 @@ import (
 	"strings"
 
 	slice "github.com/gyuho/gosequence"
+	"github.com/gyuho/goson/jgd"
 )
 
 // Graph is a graph represented in adjacency list, but implemented in slice.
@@ -236,6 +237,40 @@ func ParseToGraph(str string) *Graph {
 	str = strings.TrimSpace(str)
 	lines := strings.Split(str, "\n")
 
+	g := NewGraph()
+
+	for _, line := range lines {
+		fields := strings.Split(line, "|")
+
+		// srcID in string format
+		srcID := fields[0]
+
+		// source vertex
+		src := g.CreateAndAddToGraph(srcID)
+
+		edgepairs := fields[1:]
+
+		for _, pair := range edgepairs {
+			if len(strings.Split(pair, ",")) == 1 {
+				// to skip the lines below
+				// and go back to the for-loop
+				continue
+			}
+			dstID := strings.Split(pair, ",")[0]
+			dst := g.CreateAndAddToGraph(dstID)
+			// This is not constructing the bi-directional edge automatically.
+			// We need to input bi-directional graph data.
+			weight := strToFloat(strings.Split(pair, ",")[1])
+			g.Connect(src, dst, weight)
+		}
+	}
+	return g
+}
+
+// JSONGraph parses JSON file to a graph.
+func JSONGraph(filename, graph string) *Graph {
+	nodes := jgd.GetNodes(filename, graph)
+	mm := jgd.MapGraph(filename, graph)
 	g := NewGraph()
 
 	for _, line := range lines {
