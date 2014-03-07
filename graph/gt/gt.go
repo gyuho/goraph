@@ -6,6 +6,8 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/gyuho/goson/jgd"
 )
 
 // Graph is a graph represented in adjacency matrix.
@@ -254,4 +256,30 @@ func strToFloat(str string) float64 {
 		panic("Fail")
 	}
 	return f
+}
+
+// JSONGraph parses JSON file to a graph.
+func JSONGraph(filename, graph string) *Graph {
+	nodes := jgd.GetNodes(filename, graph)
+	gmap := jgd.MapGraph(filename, graph)
+	// map[string]map[string][]float64
+
+	g := NewGraph(len(nodes))
+	*g.Size = len(nodes)
+
+	cn := 0
+	for _, node := range nodes {
+		g.Index[node] = cn
+		g.Label[cn] = node
+		cn++
+	}
+
+	for _, srcID := range nodes {
+		for dstID := range gmap[srcID] {
+			for _, weight := range gmap[srcID][dstID] {
+				g.AddEdge(srcID, dstID, weight)
+			}
+		}
+	}
+	return g
 }

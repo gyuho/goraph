@@ -400,19 +400,14 @@ func JSONGraph(filename, graph string) *Graph {
 	// map[string]map[string][]float64
 
 	g := NewGraph()
-	for _, node := range nodes {
+	for _, srcID := range nodes {
 		// source vertex
-		src := g.CreateAndAddToGraph(node)
-
-		outvertices, _ := gmap[node]
-		// map[string] -> "map[string][]float64"
-
-		for dstID := range outvertices {
+		src := g.CreateAndAddToGraph(srcID)
+		for dstID := range gmap[srcID] {
 			dst := g.CreateAndAddToGraph(dstID)
 			// This is not constructing the bi-directional edge automatically.
 			// We need to input bi-directional graph data.
-			weights, _ := outvertices[dstID]
-			for _, weight := range weights {
+			for _, weight := range gmap[srcID][dstID] {
 				g.Connect(src, dst, weight)
 			}
 		}
