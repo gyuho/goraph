@@ -51,7 +51,7 @@ To-Do-List
 Package Hierarchy
 ==========
 ```go
-algorithm/			# Graph Algorithms
+algorithm/		# Graph Algorithms
 	bfs/		# Breadth First Search Algorithm
 	dfs/		# Depth First Search Algorithm
 	sp/			# Shortest Path Algorithm (Dijkstra, Bellman-Ford)
@@ -62,13 +62,13 @@ algorithm/			# Graph Algorithms
 	tsdfs/		# Topological Sort using DFS, Not Detecting DAG
 	tskahn/		# Topological Sort by Arthur Kahn(1962), Detects DAG
 
-benchmark/			# Benchmark, Comparison of graph representations
+benchmark/		# Benchmark, Comparison of graph representations
 
-draw/				# Graph Visualization
+draw/			# Graph Visualization
 
-example/			# Example Code
+example/		# Example Code
 
-graph/				# Graph Representation
+graph/			# Graph Representation
 	gl/			# Adjacency List, Linked List(container/list), No Duplicate Edges
 	gld/		# Adjacency List, Linked List(container/list), Allow Duplicate Edges
 	gm/			# Adjacency List, Map, No Duplicate Edges
