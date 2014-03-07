@@ -10,7 +10,7 @@ import (
 	// go test -v /Users/gyuho/go/src/github.com/gyuho/goraph/example/bfs_json_test.go
 )
 
-func Test_BFS(test *testing.T) {
+func Test_JSON_BFS(test *testing.T) {
 	fmt.Println("Breadth First Search on testgraph4:")
 	g4 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.004")
 	fmt.Println(bfs.BFS(g4, g4.FindVertexByID("S")))

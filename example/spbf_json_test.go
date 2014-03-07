@@ -10,7 +10,7 @@ import (
 	// go test -v /Users/gyuho/go/src/github.com/gyuho/goraph/example/spbf_json_test.go
 )
 
-func Test_SPBF(test *testing.T) {
+func Test_JSON_SPBF(test *testing.T) {
 	fmt.Println("Bellman-Ford Shortest Path on testgraph12:")
 	g12 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.012")
 	fmt.Println(spbf.SPBF(g12, "S", "T"))

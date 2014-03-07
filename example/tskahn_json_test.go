@@ -10,7 +10,7 @@ import (
 	// go test -v /Users/gyuho/go/src/github.com/gyuho/goraph/example/tskahn_json_test.go
 )
 
-func Test_TSKahn(test *testing.T) {
+func Test_JSON_TSKahn(test *testing.T) {
 	fmt.Println("Topological Sort on testgraph6:")
 	g6 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.006")
 	g6s, ex6 := tskahn.TSKahn(g6)

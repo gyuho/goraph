@@ -10,7 +10,7 @@ import (
 	// go test -v /Users/gyuho/go/src/github.com/gyuho/goraph/example/spfw_json_test.go
 )
 
-func Test_SPFW(test *testing.T) {
+func Test_JSON_SPFW(test *testing.T) {
 	fmt.Println("SPFW on testgraph4:")
 	g4 := gt.JSONGraph("../testgraph/testgraph.json", "testgraph.004")
 	g4s, g4m := spfw.SPFW(g4, "S", "T")

@@ -10,7 +10,7 @@ import (
 	// go test -v /Users/gyuho/go/src/github.com/gyuho/goraph/example/dfs_json_test.go
 )
 
-func Test_DFS(test *testing.T) {
+func Test_JSON_DFS(test *testing.T) {
 	fmt.Println("Depth First Search on testgraph4:")
 	g4 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.004")
 	fmt.Println(dfs.DFS(g4))

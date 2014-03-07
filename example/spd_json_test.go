@@ -10,7 +10,7 @@ import (
 	// go test -v /Users/gyuho/go/src/github.com/gyuho/goraph/example/spd_json_test.go
 )
 
-func Test_SPD(test *testing.T) {
+func Test_JSON_SPD(test *testing.T) {
 	fmt.Println("Dijkstra Shortest Path on testgraph4:")
 	g4 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.004")
 	fmt.Println(spd.SPD(g4, "S", "T"))
