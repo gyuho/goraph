@@ -366,7 +366,6 @@ func strToFloat(str string) float64 {
 }
 
 // JSONGraph parses JSON file to a graph.
-// Add up duplicate values
 func JSONGraph(filename, graph string) *Graph {
 	nodes := jgd.GetNodes(filename, graph)
 	gmap := jgd.MapGraph(filename, graph)
