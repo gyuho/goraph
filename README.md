@@ -40,10 +40,12 @@ go run [path/filename]
 
 To-Do-List
 ==========
-- Graph Visualizing(Drawing)
 - More Graph Algorithms
+	- Floyd-Warshall
 	- Minimum Spanning Tree
+	- Network Flow
 	- Strongly Connected Components
+- Graph Visualizing(Drawing)
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
