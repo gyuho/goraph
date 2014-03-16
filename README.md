@@ -66,7 +66,7 @@ algorithm/		# Graph Algorithms
 
 benchmark/		# Benchmark, Comparison of graph representations
 
-draw/			# Graph Visualization
+vis/			# Graph Visualization
 
 example/		# Example Code
 
