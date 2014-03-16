@@ -176,19 +176,19 @@ What is Graph?
 
 - **Graph**: Data Structure with Nodes and Edges
 
-- There are various ways to connect nodes
+- There are various **ways to connect nodes**
 	- Doubly Connected Directed Graph (Undirected Graph)
 	- Singly Connected Directed Graph.
 
 - **Path**: sequence of vertices connected by edges
 
-- Simple Path: path with NO repeated vertices
+- **Simple Path**: path with NO repeated vertices
 
 - **Cycle**: path with at least one edge whose first and last vertices are the same
 
 - **Simple Cycle**: cycle with NO repeated edges or vertices
 
-- Length of path, cycle: its number of edges
+- **Length of path, cycle**: its number of edges
 
 - **Connectivity**: Graph is connected if there is a path from every vertex to every other vertex
 
@@ -198,13 +198,13 @@ What is Graph?
 
 - **Forest**: Disjoint Set of Trees (have no vertices in common)
 
-- Spanning Tree of a Connected Graph
+- **Spanning Tree of a Connected Graph**
 	-	subgraph that contains all of that graph’s vertices subgraph that is a single tree
 
-- Spanning Forest of a Graph
+- **Spanning Forest of a Graph**
 	-	the union of spanning trees of its connected components
 
-- Spanning Tree of a Connected Graph
+- **Spanning Tree of a Connected Graph**
 	- subgraph that contains all of that graph’s vertices
 subgraph that is a single tree
 
