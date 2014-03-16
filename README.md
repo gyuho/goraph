@@ -66,8 +66,6 @@ algorithm/		# Graph Algorithms
 
 benchmark/		# Benchmark, Comparison of graph representations
 
-vis/			# Graph Visualization
-
 example/		# Example Code
 
 graph/			# Graph Representation
@@ -77,6 +75,8 @@ graph/			# Graph Representation
 	gs/			# Adjacency List, Slice, No Duplicate Edges
 	gsd/		# Adjacency List, Slice, Allow Duplicate Edges
 	gt/			# Adjacency Matrix, Map, No Duplicate Edges
+
+vis/			# Graph Visualization
 ```
 
 ##### External Package
