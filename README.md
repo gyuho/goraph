@@ -33,8 +33,9 @@ import "github.com/gyuho/goraph"
 // to run, or go install
 go run [path/filename]
 ```
+<img src="./files/sample.gif" alt="sample" width="350px" height="350px"/>
 
-<img src="./testgraph/sample.png" alt="sample" width="250px" height="350px"/>
+<img src="./files/sample.png" alt="sample" width="290px" height="390px"/>
 
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
