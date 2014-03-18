@@ -44,7 +44,6 @@ To-Do-List
 	- Minimum Spanning Tree
 	- Network Flow
 	- Strongly Connected Components
-- Graph Visualizing(Drawing)
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
