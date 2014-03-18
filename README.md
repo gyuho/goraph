@@ -76,7 +76,7 @@ graph/			# Graph Representation
 	gsd/		# Adjacency List, Slice, Allow Duplicate Edges
 	gt/			# Adjacency Matrix, Map, No Duplicate Edges
 
-vis/			# Graph Visualization
+viz/			# Graph Visualization (Graphviz)
 ```
 
 ##### External Package
