@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"strings"
 	"time"
+
+	"github.com/gyuho/goraph/viz"
 )
 
 func main() {
@@ -69,7 +71,13 @@ Type "Ctrl + c" or "q" to exit.`)
 
 		switch choice {
 		case "1":
-			fmt.Println("1")
+			fmt.Print("✔ Type or Drag the JSON graph file: ")
+			var path string
+			fmt.Scanf("%s", &path)
+			fmt.Print("✔ Type the name of graph to visualize: ")
+			var name string
+			fmt.Scanf("%s", &name)
+			viz.Show(path, name, name+"-output.dot")
 		case "2":
 			fmt.Println("2")
 		case "3":

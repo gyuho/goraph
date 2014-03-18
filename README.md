@@ -34,6 +34,9 @@ import "github.com/gyuho/goraph"
 go run [path/filename]
 ```
 
+<img src="./testgraph/sample.png" alt="sample" width="250px" height="350px"/>
+
+
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
 
