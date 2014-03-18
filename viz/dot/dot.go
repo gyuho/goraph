@@ -20,12 +20,12 @@ func DeleteNonAlnum(str string) string {
 }
 
 // convert converts input JSON to DOT format.
-func convert(inputfile, graph string) string {
-	nodes := jgd.GetNodes(inputfile, graph)
-	gmap := jgd.MapGraph(inputfile, graph)
+func convert(inputfile, graphID string) string {
+	nodes := jgd.GetNodes(inputfile, graphID)
+	gmap := jgd.MapGraph(inputfile, graphID)
 	// map[string]map[string][]float64
 
-	graphname := DeleteNonAlnum(graph)
+	graphname := DeleteNonAlnum(graphID)
 	result := "digraph " + graphname + " {" + "\n"
 
 	// traverse all nodes in graph
@@ -51,12 +51,12 @@ func convert(inputfile, graph string) string {
 }
 
 // Convert converts input JSON graph data to DOT file.
-func Convert(inputfile, graph, outputfile string) {
+func Convert(inputfile, graphID, outputfile string) {
 	file, err := os.Create(outputfile)
 	defer file.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
-	str := convert(inputfile, graph)
+	str := convert(inputfile, graphID)
 	file.WriteString(str)
 }

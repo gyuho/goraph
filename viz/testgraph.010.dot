@@ -1,0 +1,14 @@
+digraph testgraph010 {
+	A -> C [label=9]
+	A -> F [label=20]
+	B -> A [label=1]
+	B -> D [label=15]
+	C -> B [label=10]
+	C -> E [label=30]
+	D -> C [label=11]
+	D -> E [label=2]
+	E -> C [label=30]
+	E -> F [label=9]
+	F -> A [label=20]
+	F -> C [label=2]
+}
