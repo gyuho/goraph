@@ -1,10 +1,4 @@
-package dot
-
-import "testing"
-
-func Test_Convert(test *testing.T) {
-	result := convert("testgraph.json", "testgraph.003")
-	sc := `digraph testgraph003 {
+digraph testgraph003 {
 	S -> A [label=100]
 	S -> B [label=6]
 	S -> B [label=14]
@@ -36,8 +30,4 @@ func Test_Convert(test *testing.T) {
 	T -> D [label=16]
 	T -> F [label=6]
 	T -> E [label=19]
-}`
-	if result != sc {
-		test.Errorf("Result and sc should be same but\n%v\n\n%v", result, sc)
-	}
 }

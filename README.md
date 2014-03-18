@@ -77,7 +77,7 @@ graph/			# Graph Representation
 	gt/			# Adjacency Matrix, Map, No Duplicate Edges
 
 viz/			# Graph Visualization (Graphviz)
-	dot/		# Convert a graph JSON file to a DOT file
+	dot/		# Convert JSON graph data to DOT
 ```
 
 ##### External Package
