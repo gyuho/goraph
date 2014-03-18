@@ -30,8 +30,10 @@ import "github.com/gyuho/goraph"
 // to call the function, in the code
 [package_name].[function]
 
-// to run, or go install
-go run [path/filename]
+// to execute
+go install
+// or
+go build
 ```
 <img src="./files/sample.gif" alt="sample" width="450px" height="350px"/>
 
