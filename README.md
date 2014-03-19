@@ -63,9 +63,9 @@ algorithm/		# Graph Algorithms
 	tsdag/		# Topological Sort, Detects whether it is a DAG
 	tsdfs/		# Topological Sort using DFS, Not Detecting DAG
 	tskahn/		# Topological Sort by Arthur Kahn(1962), Detects DAG
-	mst/	# Minimum Spanning Tree (Kruskal, Prim)
-	flow/	# Network Flow (Ford-Faulkerson)
-	scc/	# Strongly Connected Component (Tarjan)
+	mst/		# Minimum Spanning Tree (Kruskal, Prim)
+	flow/		# Network Flow (Ford-Faulkerson)
+	scc/		# Strongly Connected Component (Tarjan)
 
 benchmark/		# Benchmark, Comparison of graph representations
 
@@ -86,7 +86,8 @@ viz/			# Graph Visualization (Graphviz)
 ##### External Package
 - <a href="https://github.com/gyuho/gson" target="_blank"><b>gson</b></a>: JSON Import Package
 - <a href="https://github.com/gyuho/gosequence" target="_blank"><b>gosequence</b></a>: Customized Slice(Array) Data Structure
-- <a href="http://www.graphviz.org" target="_blank"><b>Graphviz</b></a>
+- <a href="https://github.com/gyuho/goroup" target="_blank"><b>goroup</b></a>: Set Theory, Disjoint Set
+- <a href="http://www.graphviz.org" target="_blank"><b>Graphviz</b></a>: Graph Visualization
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
