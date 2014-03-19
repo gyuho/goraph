@@ -46,9 +46,6 @@ go build
 To-Do-List
 ==========
 - More Graph Algorithms
-	- Minimum Spanning Tree
-	- Network Flow
-	- Strongly Connected Components
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
