@@ -243,25 +243,25 @@ edge(u, v), then vertex v is the descendant of u. Vertex u is the predecessor, o
 
 Adjacency List vs. Adjacency Matrix
 ========
-- When Graph G = (V, E) = (Vertex, Edge)
+- When Graph **G = (V, E)** = (Vertex, Edge)
 	- |V| is the number of vertices in a graph
 	- |E| is the number of edges in a graph
 
-- Sparse Graph
+- **Sparse Graph**
 	- |E| is much less than |V|^2
 	- Relatively few edges present
 
-- Dense Graph
+- **Dense Graph**
 	- |E| is close to |V|^2
 	- Relatively few edges missing
 
-- Adjacency List: good for Sparse Graph
+- **Adjacency List**: good for Sparse Graph
 	- Use memory in proportion to |E|
 	- So save memory when G is sparse
 	- Fast to iterate over all edges
 	- Slightly slower lookup to check for an edge
 
-- Adjacency Matrix: good for Dense Graph
+- **Adjacency Matrix**: good for Dense Graph
 	- Use O(n^2) memory
 	- Fast lookups to check for presence of an edge
 	- Slow to iterate over all edges
