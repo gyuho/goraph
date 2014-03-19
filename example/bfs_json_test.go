@@ -1,3 +1,5 @@
+// Package example is to show code usage.
+// It is to be run with the command go test -v.
 package example
 
 import (
