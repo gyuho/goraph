@@ -46,7 +46,6 @@ go build
 To-Do-List
 ==========
 - More Graph Algorithms
-	- Floyd-Warshall
 	- Minimum Spanning Tree
 	- Network Flow
 	- Strongly Connected Components
