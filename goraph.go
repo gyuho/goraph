@@ -1,4 +1,4 @@
-// goraph provides graph visualizing tools and graph algorithm implementations.
+// goraph provides graph visualizing tools and algorithm implementations.
 package main
 
 import (
