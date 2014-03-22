@@ -76,7 +76,7 @@ benchmark/		# Benchmark, Comparison of graph representations
 
 example/		# Example Code
 
-graph/			# Graph Representation
+graph/			# Graph Data Structure
 	gl/			# Adjacency List, Linked List(container/list), No Duplicate Edges
 	gld/		# Adjacency List, Linked List(container/list), Allow Duplicate Edges
 	gm/			# Adjacency List, Map, No Duplicate Edges
