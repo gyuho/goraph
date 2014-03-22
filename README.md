@@ -65,6 +65,8 @@ algorithm/		# Graph Algorithms
 	tsdag/		# Topological Sort, Detects whether it is a DAG
 	tsdfs/		# Topological Sort using DFS, Not Detecting DAG
 	tskahn/		# Topological Sort by Arthur Kahn(1962), Detects DAG
+
+	// In Progress
 	mst/		# Minimum Spanning Tree (Kruskal, Prim)
 	scc/		# Strongly Connected Component (Tarjan)
 	maxflow/	# Maximum Network Flow (Ford-Fulkerson)
