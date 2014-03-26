@@ -76,8 +76,8 @@ benchmark/		# Benchmark, Comparison of graph representations
 
 example/		# Example Code
 
-goroup/		# Disjoint Set for Graph Nodes
-	gsdset/	# Set Operation with graph/gsd
+goroup/			# Disjoint Set for Graph Nodes
+	gsdset/		# Set Operation with graph/gsd
 
 graph/			# Graph Data Structure
 	gl/			# Adjacency List, Linked List(container/list), No Duplicate Edges

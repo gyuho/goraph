@@ -8,29 +8,29 @@ import (
 	"github.com/gyuho/goraph/graph/gsd"
 )
 
-func Test_MakeSet(t *testing.T) {
-	s := MakeSet()
+func Test_NewSet(t *testing.T) {
+	s := NewSet()
 	if reflect.TypeOf(s) != reflect.TypeOf(Set{}) {
-		t.Errorf("MakeSet() should return Set type: %#v", s)
+		t.Errorf("NewSet() should return Set type: %#v", s)
 	}
 }
 
 func Test_Size(t *testing.T) {
-	s := MakeSet()
+	s := NewSet()
 	if s.Size() != 0 {
-		t.Errorf("MakeSet() should return Set of size 0: %#v", s)
+		t.Errorf("NewSet() should return Set of size 0: %#v", s)
 	}
 }
 
 func Test_IsEmpty(t *testing.T) {
-	s := MakeSet()
+	s := NewSet()
 	if s.IsEmpty() != true {
 		t.Errorf("IsEmpty() should return true: %#v", s)
 	}
 }
 
 func Test_Insert(t *testing.T) {
-	s := MakeSet()
+	s := NewSet()
 	a := gsd.NewVertex("Google")
 	b := gsd.NewVertex("Apple")
 	s.Insert(a, b)
@@ -242,6 +242,9 @@ func Test_String(t *testing.T) {
 		t.Errorf("Does not match: %#v", result)
 	}
 	if result != fmt.Sprintf("%s", set1) {
+		t.Errorf("Does not match: %#v", result)
+	}
+	if result != fmt.Sprintf("%v", set1) {
 		t.Errorf("Does not match: %#v", result)
 	}
 }

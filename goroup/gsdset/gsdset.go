@@ -8,11 +8,11 @@ import "github.com/gyuho/goraph/graph/gsd"
 // And every set contains unique elements.
 type Set map[*gsd.Vertex]int
 
-// MakeSet returns a new Set.
+// NewSet returns a new Set.
 // Map supports the built-in function "make"
 // so we do not have to use "new" and
 // "make" does not return pointer.
-func MakeSet() Set {
+func NewSet() Set {
 	return make(Set)
 }
 
@@ -40,7 +40,7 @@ func (s Set) Insert(vertices ...*gsd.Vertex) {
 // InstantiateSet instantiates a set object
 // with initial elements.
 func InstantiateSet(vertices ...*gsd.Vertex) Set {
-	n := MakeSet()
+	n := NewSet()
 	for _, value := range vertices {
 		n.Insert(value)
 	}
@@ -155,7 +155,7 @@ func (s Set) Clone() Set {
 	return InstantiateSet(sl...)
 }
 
-// String prints out the set information.
+// String prints out the Set information.
 func (s Set) String() string {
 	result := "Vertex Set: [ "
 	for _, vtx := range s.GetElements() {
