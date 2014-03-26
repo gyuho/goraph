@@ -104,35 +104,8 @@ viz/				# Graph Visualization (Graphviz)
 
 Example
 ==========
-##### Minimum Spanning Tree
-```go
-func Test_JSON_ShowMST(test *testing.T) {
-	g14 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.014")
-	ShowMST(g14, "g14mst.dot")
-}
-```
-<img src="./files/g14mst.png" alt="g14mst" width="260px" height="220px"/>
 
-[↑ top](https://github.com/gyuho/goraph#goraph---)
-
-
-Testing Graphs
-==========
-<img src="./testgraph/testgraph.001.png" alt="testgraph.001" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.002.png" alt="testgraph.002" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.003.png" alt="testgraph.003" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.004.png" alt="testgraph.004" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.005.png" alt="testgraph.005" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.006.png" alt="testgraph.006" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.007.png" alt="testgraph.007" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.008.png" alt="testgraph.008" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.009.png" alt="testgraph.009" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.010.png" alt="testgraph.010" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.011.png" alt="testgraph.011" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.012.png" alt="testgraph.012" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.013.png" alt="testgraph.013" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.014.png" alt="testgraph.014" width="260px" height="220px"/>
-
+##### Shortest Path
 ```go
 fmt.Println("Dijkstra Shortest Path on testgraph10:")
 g10 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.010")
@@ -177,6 +150,37 @@ fmt.Println(g10o.ShowPrev("E"))
    until we reach the source
 */
 ```
+[↑ top](https://github.com/gyuho/goraph#goraph---)
+
+##### Minimum Spanning Tree
+```go
+func Test_JSON_ShowMST(test *testing.T) {
+	g14 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.014")
+	ShowMST(g14, "g14mst.dot")
+}
+```
+<img src="./files/g14mst.png" alt="g14mst" width="260px" height="220px"/>
+
+[↑ top](https://github.com/gyuho/goraph#goraph---)
+
+
+Testing Graphs
+==========
+<img src="./testgraph/testgraph.001.png" alt="testgraph.001" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.002.png" alt="testgraph.002" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.003.png" alt="testgraph.003" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.004.png" alt="testgraph.004" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.005.png" alt="testgraph.005" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.006.png" alt="testgraph.006" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.007.png" alt="testgraph.007" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.008.png" alt="testgraph.008" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.009.png" alt="testgraph.009" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.010.png" alt="testgraph.010" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.011.png" alt="testgraph.011" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.012.png" alt="testgraph.012" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.013.png" alt="testgraph.013" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.014.png" alt="testgraph.014" width="260px" height="220px"/>
+
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
 
