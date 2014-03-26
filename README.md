@@ -11,7 +11,8 @@ goraph provides graph visualizing tools and algorithm implementations.
 - [List(Linked List) vs. Slice(Array)](https://github.com/gyuho/goraph#listlinked-list-vs-slicearray)
 - [What is Graph?](https://github.com/gyuho/goraph#what-is-graph)
 - [Adjacency List vs. Adjacency Matrix](https://github.com/gyuho/goraph#adjacency-list-vs-adjacency-matrix)
-
+- [Channel](https://github.com/gyuho/goraph#channel)
+- [C++ Version](https://github.com/gyuho/goraph#c++-version)
 
 
 Getting Started
@@ -315,5 +316,12 @@ func (v *VertexT) GetEdgeTsChannelFromThisVertex() chan *EdgeT {
 
 ```
 It's not idiomatic Go style to use channels, simply for the ability to iterate over them. It's not efficient, and it can easily lead to an accumulation of idle goroutines: Consider what happens when the caller of GetEdgeTsChannelFromThisVertex discards the channel before reading to the end. It's better to use container/list rather than channel.
+
+[↑ top](https://github.com/gyuho/goraph#goraph---)
+
+
+C++ Version
+=========
+I have another Graph Algorithm project written in C++. It is **NOT** maintained anymore, but if interested check out by clicking <a href="https://github.com/gyuho/learn-cpp/tree/master/code/cpp_graph_algorithm" target="_blank">HERE</a>.
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
