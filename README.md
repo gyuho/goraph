@@ -55,40 +55,42 @@ To-Do-List
 Package Hierarchy
 ==========
 ```go
-algorithm/		# Graph Algorithms
-	bfs/		# Breadth First Search Algorithm
-	dfs/		# Depth First Search Algorithm
-	sp/			# Shortest Path Algorithm (Dijkstra, Bellman-Ford)
-	spbf/		# Shortest Path Algorithm for Negative Edges (Bellman-Ford)
-	spd/		# Shortest Path Algorithm for Positive Edges (Dijkstra)
-	spfw/		# Shortest Path Algorithm for Positive Edges (Floyd-Warshall)
-	tsdag/		# Topological Sort, Detects whether it is a DAG
-	tsdfs/		# Topological Sort using DFS, Not Detecting DAG
-	tskahn/		# Topological Sort by Arthur Kahn(1962), Detects DAG
+algorithm/			# Graph Algorithms
+	bfs/			# Breadth First Search Algorithm
+	dfs/			# Depth First Search Algorithm
+	sp/				# Shortest Path Algorithm (Dijkstra, Bellman-Ford)
+	spbf/			# Shortest Path Algorithm for Negative Edges (Bellman-Ford)
+	spd/			# Shortest Path Algorithm for Positive Edges (Dijkstra)
+	spfw/			# Shortest Path Algorithm for Positive Edges (Floyd-Warshall)
+	tsdag/			# Topological Sort, Detects whether it is a DAG
+	tsdfs/			# Topological Sort using DFS, Not Detecting DAG
+	tskahn/			# Topological Sort by Arthur Kahn(1962), Detects DAG
 
 	// In Progress
-	mst/		# Minimum Spanning Tree (Kruskal, Prim)
-	scc/		# Strongly Connected Component (Tarjan)
-	maxflow/	# Maximum Network Flow (Ford-Fulkerson)
-	mincost/	# Minimum Cost Flow (Linear Programming)
+	mst/			# Minimum Spanning Tree (Kruskal, Prim)
+		kruskal/	# Kruskal's Minimum Spanning Tree Algorithm
+		prim/			# Prim's Minimum Spanning Tree Algorithm
+	scc/			# Strongly Connected Component (Tarjan)
+	maxflow/		# Maximum Network Flow (Ford-Fulkerson)
+	mincost/		# Minimum Cost Flow (Linear Programming)
 
-benchmark/		# Benchmark, Comparison of graph representations
+benchmark/			# Benchmark, Comparison of graph representations
 
-example/		# Example Code
+example/			# Example Code
 
-goroup/			# Disjoint Set for Graph Nodes
-	gsdset/		# Set Operation with graph/gsd
+goroup/				# Disjoint Set for Graph Nodes
+	gsdset/			# Set Operation with graph/gsd
 
-graph/			# Graph Data Structure
-	gl/			# Adjacency List, Linked List(container/list), No Duplicate Edges
-	gld/		# Adjacency List, Linked List(container/list), Allow Duplicate Edges
-	gm/			# Adjacency List, Map, No Duplicate Edges
-	gs/			# Adjacency List, Slice, No Duplicate Edges
-	gsd/		# Adjacency List, Slice, Allow Duplicate Edges
-	gt/			# Adjacency Matrix, Map, No Duplicate Edges
+graph/				# Graph Data Structure
+	gl/				# Adjacency List, Linked List(container/list), No Duplicate Edges
+	gld/			# Adjacency List, Linked List(container/list), Allow Duplicate Edges
+	gm/				# Adjacency List, Map, No Duplicate Edges
+	gs/				# Adjacency List, Slice, No Duplicate Edges
+	gsd/			# Adjacency List, Slice, Allow Duplicate Edges
+	gt/				# Adjacency Matrix, Map, No Duplicate Edges
 
-viz/			# Graph Visualization (Graphviz)
-	dot/		# Convert JSON graph data to DOT
+viz/				# Graph Visualization (Graphviz)
+	dot/			# Convert JSON graph data to DOT
 ```
 
 ##### External Package
