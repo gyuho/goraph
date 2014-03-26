@@ -12,7 +12,7 @@ goraph provides graph visualizing tools and algorithm implementations.
 - [What is Graph?](https://github.com/gyuho/goraph#what-is-graph)
 - [Adjacency List vs. Adjacency Matrix](https://github.com/gyuho/goraph#adjacency-list-vs-adjacency-matrix)
 - [Channel](https://github.com/gyuho/goraph#channel)
-- [C++ Version](https://github.com/gyuho/goraph#c++-version)
+- [C++ Version](https://github.com/gyuho/goraph#c-version)
 
 
 Getting Started
