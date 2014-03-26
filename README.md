@@ -103,20 +103,20 @@ viz/				# Graph Visualization (Graphviz)
 
 Testing Graphs
 ==========
-<img src="./testgraph/testgraph.001.png" alt="testgraph.001" width="290px" height="250px"/>
-<img src="./testgraph/testgraph.002.png" alt="testgraph.002" width="290px" height="250px"/>
-<img src="./testgraph/testgraph.003.png" alt="testgraph.003" width="290px" height="250px"/>
-<img src="./testgraph/testgraph.004.png" alt="testgraph.004" width="290px" height="250px"/>
-<img src="./testgraph/testgraph.005.png" alt="testgraph.005" width="290px" height="250px"/>
-<img src="./testgraph/testgraph.006.png" alt="testgraph.006" width="290px" height="250px"/>
-<img src="./testgraph/testgraph.007.png" alt="testgraph.007" width="290px" height="250px"/>
-<img src="./testgraph/testgraph.008.png" alt="testgraph.008" width="290px" height="250px"/>
-<img src="./testgraph/testgraph.009.png" alt="testgraph.009" width="290px" height="250px"/>
-<img src="./testgraph/testgraph.010.png" alt="testgraph.010" width="290px" height="250px"/>
-<img src="./testgraph/testgraph.011.png" alt="testgraph.011" width="290px" height="250px"/>
-<img src="./testgraph/testgraph.012.png" alt="testgraph.012" width="290px" height="250px"/>
-<img src="./testgraph/testgraph.013.png" alt="testgraph.013" width="290px" height="250px"/>
-
+<img src="./testgraph/testgraph.001.png" alt="testgraph.001" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.002.png" alt="testgraph.002" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.003.png" alt="testgraph.003" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.004.png" alt="testgraph.004" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.005.png" alt="testgraph.005" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.006.png" alt="testgraph.006" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.007.png" alt="testgraph.007" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.008.png" alt="testgraph.008" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.009.png" alt="testgraph.009" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.010.png" alt="testgraph.010" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.011.png" alt="testgraph.011" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.012.png" alt="testgraph.012" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.013.png" alt="testgraph.013" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.014.png" alt="testgraph.014" width="260px" height="220px"/>
 
 ```go
 fmt.Println("Dijkstra Shortest Path on testgraph10:")
