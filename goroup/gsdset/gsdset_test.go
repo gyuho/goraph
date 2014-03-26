@@ -42,7 +42,7 @@ func Test_Insert(t *testing.T) {
 	}
 
 	value, exist := s[a]
-	if value != 1 {
+	if !gsd.SameVertex(value, a) {
 		t.Errorf("s[a]'s value should be 1: %#v", value)
 	}
 	if exist != true {
@@ -61,8 +61,8 @@ func Test_InstantiateSet(t *testing.T) {
 		t.Errorf("Size() should return 5: %#v", s)
 	}
 	value, exist := s[a]
-	if value != 1 {
-		t.Errorf("value should be 1: %#v", s)
+	if !gsd.SameVertex(value, a) {
+		t.Errorf("Should be same: %#v", s)
 	}
 	if exist != true {
 		t.Errorf("s[2] should exist: %#v", s)
@@ -82,13 +82,13 @@ func Test_GetElements(t *testing.T) {
 	}
 }
 
-func Test_Find(t *testing.T) {
+func Test_Contains(t *testing.T) {
 	a := gsd.NewVertex("Google")
 	b := gsd.NewVertex("Apple")
 	s := InstantiateSet(a, b)
-	result := s.Find(a)
+	result := s.Contains(a)
 	if result != true {
-		t.Errorf("s.Find(a) should return true: %#v", s)
+		t.Errorf("s.Contains(a) should return true: %#v", s)
 	}
 }
 

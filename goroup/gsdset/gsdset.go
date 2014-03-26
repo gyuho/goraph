@@ -3,10 +3,8 @@ package gsdset
 
 import "github.com/gyuho/goraph/graph/gsd"
 
-// Set maps the keys with its frequency.
-// It count the frequency for its possible future usage.
-// And every set contains unique elements.
-type Set map[*gsd.Vertex]int
+// Set maps each Vertex of graph to its Representative of DisJointSet.
+type Set map[*gsd.Vertex]*gsd.Vertex
 
 // NewSet returns a new Set.
 // Map supports the built-in function "make"
@@ -29,10 +27,10 @@ func (s Set) IsEmpty() bool {
 // Insert insert values to the set.
 func (s Set) Insert(vertices ...*gsd.Vertex) {
 	for _, value := range vertices {
-		if v, exist := s[value]; exist {
-			s[value] = v + 1
+		if _, exist := s[value]; exist {
+			s[value] = value
 		} else {
-			s[value] = 1
+			s[value] = value
 		}
 	}
 }
@@ -59,8 +57,8 @@ func (s Set) GetElements() []*gsd.Vertex {
 	return slice
 }
 
-// Find returns true if the value exists in the set.
-func (s Set) Find(vtx *gsd.Vertex) bool {
+// Contains returns true if the value exists in the Set.
+func (s Set) Contains(vtx *gsd.Vertex) bool {
 	if _, exist := s[vtx]; exist {
 		return true
 	} else {
@@ -69,7 +67,7 @@ func (s Set) Find(vtx *gsd.Vertex) bool {
 }
 
 // Delete deletes the value, or return false
-// if the value does not exist in the set.
+// if the value does not exist in the Set.
 func (s Set) Delete(vtx *gsd.Vertex) bool {
 	if _, exist := s[vtx]; exist {
 		delete(s, vtx)
@@ -123,7 +121,7 @@ func (s Set) IsEqual(a Set) bool {
 	}
 	// for every element of s
 	for key, _ := range s {
-		// check if it exists in the set "a"
+		// check if it exists in the Set "a"
 		if _, exist := a[key]; !exist {
 			return false
 		}
