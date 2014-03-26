@@ -152,6 +152,8 @@ fmt.Println(g10o.ShowPrev("E"))
 ```
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
+<hr>
+
 ##### Minimum Spanning Tree
 ```go
 func Test_JSON_ShowMST(test *testing.T) {
