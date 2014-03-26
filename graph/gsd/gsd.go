@@ -70,6 +70,32 @@ func NewVertex(id string) *Vertex {
 	}
 }
 
+// SameVertex returns true if two vertices are the same.
+func SameVertex(v1, v2 *Vertex) bool {
+	if v1.ID != v2.ID {
+		return false
+	}
+	if v1.Color != v2.Color {
+		return false
+	}
+	if v1.StampD != v2.StampD {
+		return false
+	}
+	if v1.StampF != v2.StampF {
+		return false
+	}
+	if !slice.IsEqual(*v1.InVertices, *v2.InVertices) {
+		return false
+	}
+	if !slice.IsEqual(*v1.OutVertices, *v2.OutVertices) {
+		return false
+	}
+	if !slice.IsEqual(*v1.Prev, *v2.Prev) {
+		return false
+	}
+	return true
+}
+
 // Edge is an edge(arc) in a graph
 // that has direction from one to another vertex.
 type Edge struct {

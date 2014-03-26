@@ -54,6 +54,14 @@ func Test_NewVertex(test *testing.T) {
 	}
 }
 
+func Test_SameVertex(test *testing.T) {
+	a := NewVertex("Google")
+	b := NewVertex("Google")
+	if !SameVertex(a, b) {
+		test.Error("Should be same but %v", SameVertex(a, b))
+	}
+}
+
 func Test_NewEdge(test *testing.T) {
 	a := NewVertex("Google")
 	b := NewVertex("Apple")

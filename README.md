@@ -76,6 +76,9 @@ benchmark/		# Benchmark, Comparison of graph representations
 
 example/		# Example Code
 
+goroup/		# Disjoint Set for Graph Nodes
+	gsdset/	# Set Operation with graph/gsd
+
 graph/			# Graph Data Structure
 	gl/			# Adjacency List, Linked List(container/list), No Duplicate Edges
 	gld/		# Adjacency List, Linked List(container/list), Allow Duplicate Edges
@@ -91,7 +94,6 @@ viz/			# Graph Visualization (Graphviz)
 ##### External Package
 - <a href="https://github.com/gyuho/gson" target="_blank"><b>gson</b></a>: JSON Import Package
 - <a href="https://github.com/gyuho/gosequence" target="_blank"><b>gosequence</b></a>: Customized Slice(Array) Data Structure
-- <a href="https://github.com/gyuho/goroup" target="_blank"><b>goroup</b></a>: Set Theory, Disjoint Set
 - <a href="http://www.graphviz.org" target="_blank"><b>Graphviz</b></a>: Graph Visualization
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
