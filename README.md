@@ -6,6 +6,7 @@ goraph provides graph visualizing tools and algorithm implementations.
 - [Getting Started](https://github.com/gyuho/goraph#getting-started)
 - [To-Do-List](https://github.com/gyuho/goraph#to-do-list)
 - [Package Hierarchy](https://github.com/gyuho/goraph#package-hierarchy)
+- [Example](https://github.com/gyuho/goraph#example)
 - [Testing Graphs](https://github.com/gyuho/goraph#testing-graphs)
 - [List(Linked List) vs. Slice(Array)](https://github.com/gyuho/goraph#listlinked-list-vs-slicearray)
 - [What is Graph?](https://github.com/gyuho/goraph#what-is-graph)
@@ -97,6 +98,20 @@ viz/				# Graph Visualization (Graphviz)
 - <a href="https://github.com/gyuho/gson" target="_blank"><b>gson</b></a>: JSON Import Package
 - <a href="https://github.com/gyuho/gosequence" target="_blank"><b>gosequence</b></a>: Customized Slice(Array) Data Structure
 - <a href="http://www.graphviz.org" target="_blank"><b>Graphviz</b></a>: Graph Visualization
+
+[↑ top](https://github.com/gyuho/goraph#goraph---)
+
+
+Example
+==========
+##### Minimum Spanning Tree
+```go
+func Test_JSON_ShowMST(test *testing.T) {
+	g14 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.014")
+	ShowMST(g14, "g14mst.dot")
+}
+```
+<img src="./files/g14mst.png" alt="g14mst" width="260px" height="220px"/>
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 

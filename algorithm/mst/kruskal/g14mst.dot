@@ -1,0 +1,10 @@
+graph mst {
+	H -- G
+	C -- I
+	F -- G
+	A -- B
+	C -- F
+	D -- C
+	A -- H
+	D -- E
+}
