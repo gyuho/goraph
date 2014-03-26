@@ -9,7 +9,7 @@ goraph provides graph visualizing tools and algorithm implementations.
 - [Example](https://github.com/gyuho/goraph#example)
 - [Testing Graphs](https://github.com/gyuho/goraph#testing-graphs)
 - [List(Linked List) vs. Slice(Array)](https://github.com/gyuho/goraph#listlinked-list-vs-slicearray)
-- [What is Graph?](https://github.com/gyuho/goraph#what-is-graph)
+- [What is Graph? (YouTube Clips)](https://github.com/gyuho/goraph#what-is-graph-youtube-clips)
 - [Adjacency List vs. Adjacency Matrix](https://github.com/gyuho/goraph#adjacency-list-vs-adjacency-matrix)
 - [Channel](https://github.com/gyuho/goraph#channel)
 - [C++ Version](https://github.com/gyuho/goraph#c-version)
@@ -201,7 +201,7 @@ Goraph mainly uses customized slice(array) data structure implemented in package
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
 
-What is Graph?
+What is Graph? (YouTube Clips)
 ========
 
 <a href="http://www.youtube.com/watch?v=s4l_0sXpsBM" target="_blank"><img src="http://img.youtube.com/vi/s4l_0sXpsBM/0.jpg"></a>
