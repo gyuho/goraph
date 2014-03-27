@@ -1,4 +1,4 @@
-// Package kosaraju implements the Kosaraju's Strongly Connected Components algorithm.
+// Package kosaraju implements Kosaraju's Strongly Connected Components algorithm.
 package kosaraju
 
 /*
