@@ -1,4 +1,4 @@
-package kruskal
+package prim
 
 import (
 	"log"
@@ -8,20 +8,9 @@ import (
 	"github.com/gyuho/goraph/graph/gsd"
 )
 
-// MSTString returns the MST result in DOT format.
-func MSTString(g *gsd.Graph) string {
-	mstedges, _ := MST(g)
-	result := "graph KruskalMST {" + "\n"
-	for _, edge := range mstedges {
-		result += "\t" + edge.Src.ID + " -- " + edge.Dst.ID + "\n"
-	}
-	result += "}"
-	return result
-}
-
 // ShowMST shows the Minimum Spanning Tree.
 func ShowMST(g *gsd.Graph, outputfile string) {
-	str := MSTString(g)
+	str, _ := MST(g)
 	file, err := os.Create(outputfile)
 	defer file.Close()
 	if err != nil {

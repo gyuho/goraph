@@ -1,0 +1,10 @@
+graph KruskalMST {
+	H -- G
+	C -- I
+	G -- F
+	C -- F
+	B -- A
+	D -- C
+	H -- A
+	E -- D
+}

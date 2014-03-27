@@ -12,7 +12,7 @@ func Test_JSON_MSTString(test *testing.T) {
 	result := MSTString(g14)
 	fmt.Println(result)
 	/*
-	   graph mst {
+	   graph KruskalMST {
 	   	H -- G
 	   	G -- F
 	   	I -- C
@@ -33,5 +33,5 @@ func Test_JSON_MSTString(test *testing.T) {
 
 func Test_JSON_ShowMST(test *testing.T) {
 	// g14 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.014")
-	// ShowMST(g14, "g14mst.dot")
+	// ShowMST(g14, "g14mst_kruskal.dot")
 }

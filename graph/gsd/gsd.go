@@ -133,6 +133,18 @@ func (g Graph) GetEdges() *slice.Sequence {
 	return g.Edges
 }
 
+// GetEdge returns the Edge from src to dst Vertex.
+// (Assume that there is no duplicate Edge for now.)
+func (g Graph) GetEdge(src, dst *Vertex) *Edge {
+	slice := g.GetEdges()
+	for _, edge := range *slice {
+		if edge.(*Edge).Src == src && edge.(*Edge).Dst == dst {
+			return edge.(*Edge)
+		}
+	}
+	return nil
+}
+
 // GetEdgesSize returns the size of edge slice in a graph.
 func (g Graph) GetEdgesSize() int {
 	// dereference

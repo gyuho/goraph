@@ -1,4 +1,4 @@
-// Package kruskal implements the Kruskal Minimum Spanning Tree algorithm.
+// Package kruskal implements Kruskal's Minimum Spanning Tree algorithm.
 package kruskal
 
 import (
@@ -22,7 +22,8 @@ return A
 */
 
 // MST implements Kruskal's Minimum Spanning Tree algorithm.
-func MST(g *gsd.Graph) []*gsd.Edge {
+// It returns the edges and total weight of Minimum Spanning Tree.
+func MST(g *gsd.Graph) ([]*gsd.Edge, float64) {
 	mstedges := []*gsd.Edge{}
 
 	// for  each vertex  v ∈ G.V
@@ -46,6 +47,9 @@ func MST(g *gsd.Graph) []*gsd.Edge {
 			gsdset.UnionByRep(ru, rv, &dsets)
 		}
 	}
-
-	return mstedges
+	var total float64
+	for _, edg := range mstedges {
+		total += edg.Weight
+	}
+	return mstedges, total
 }

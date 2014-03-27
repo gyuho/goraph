@@ -1,0 +1,10 @@
+graph PrimMST {
+	B -- A
+	H -- A
+	C -- F
+	D -- C
+	F -- G
+	E -- D
+	G -- H
+	I -- C
+}

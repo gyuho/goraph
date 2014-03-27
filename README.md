@@ -67,11 +67,11 @@ algorithm/			# Graph Algorithms
 	tsdag/			# Topological Sort, Detects whether it is a DAG
 	tsdfs/			# Topological Sort using DFS, Not Detecting DAG
 	tskahn/			# Topological Sort by Arthur Kahn(1962), Detects DAG
-
-	// In Progress
 	mst/			# Minimum Spanning Tree (Kruskal, Prim)
 		kruskal/	# Kruskal Minimum Spanning Tree Algorithm
 		prim/		# Prim Minimum Spanning Tree Algorithm
+		
+	// In Progress
 	scc/			# Strongly Connected Component (Tarjan)
 	maxflow/		# Maximum Network Flow (Ford-Fulkerson)
 	mincost/		# Minimum Cost Flow (Linear Programming)
@@ -156,13 +156,27 @@ fmt.Println(g10o.ShowPrev("E"))
 <hr>
 
 ##### Minimum Spanning Tree
+**Kruskal Algorithm**
 ```go
 func Test_JSON_ShowMST(test *testing.T) {
 	g14 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.014")
-	ShowMST(g14, "g14mst.dot")
+	ShowMST(g14, "g14mst_kruskal.dot")
 }
 ```
-<img src="./files/g14mst.png" alt="g14mst" width="260px" height="220px"/>
+<img src="./files/g14mst_kruskal.png" alt="g14mst_kruskal"/>
+
+[↑ top](https://github.com/gyuho/goraph#goraph---)
+
+<hr>
+
+**Prim Algorithm**
+```go
+func Test_JSON_ShowMST(test *testing.T) {
+	g14 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.014")
+	ShowMST(g14, "g14mst_prim.dot")
+}
+```
+<img src="./files/g14mst_prim.png" alt="g14mst_prim"/>
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 

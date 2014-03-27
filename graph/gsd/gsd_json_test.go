@@ -20,7 +20,7 @@ func Test_JSON_GetVertices(test *testing.T) {
 	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 	l := g.GetVerticesSize()
 	if l != 8 {
-		test.Error("In testgraph1, It should have 8 vertices but", l)
+		test.Error("In testgraph1, it should have 8 vertices but", l)
 	}
 }
 
@@ -28,7 +28,7 @@ func Test_JSON_GetVerticesSize(test *testing.T) {
 	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 	r := g.GetVerticesSize()
 	if r != 8 {
-		test.Error("In testgraph1, It should have 8 vertices but", r)
+		test.Error("In testgraph1, it should have 8 vertices but", r)
 	}
 }
 
@@ -37,7 +37,17 @@ func Test_JSON_GetEdges(test *testing.T) {
 	l := g.GetEdgesSize()
 	// since it's bidirectional
 	if l != 30 {
-		test.Error("In testgraph1, It should have 30 edges but", l)
+		test.Error("In testgraph1, it should have 30 edges but", l)
+	}
+}
+
+func Test_JSON_GetEdge(test *testing.T) {
+	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	a := g.FindVertexByID("A")
+	t := g.FindVertexByID("T")
+	edge := g.GetEdge(a, t)
+	if edge.Weight != 44 {
+		test.Errorf("In testgraph1, it should return 44 edges but %+v", edge)
 	}
 }
 
@@ -45,7 +55,7 @@ func Test_JSON_GetEdgesSize(test *testing.T) {
 	g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
 	r1 := g1.GetEdgesSize()
 	if r1 != 30 {
-		test.Error("In testgraph1, It should have 30 edges but", r1)
+		test.Error("In testgraph1, it should have 30 edges but", r1)
 	}
 	g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
 	r2 := g2.GetEdgesSize()

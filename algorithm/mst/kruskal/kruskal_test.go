@@ -9,7 +9,7 @@ import (
 
 func Test_JSON_MST(test *testing.T) {
 	g14 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.014")
-	result := MST(g14)
+	result, twgt := MST(g14)
 	for _, edge := range result {
 		fmt.Println(edge.Src.ID + " -- " + edge.Dst.ID)
 	}
@@ -23,4 +23,7 @@ func Test_JSON_MST(test *testing.T) {
 	   C -- B
 	   D -- E
 	*/
+	if twgt != 37 {
+		test.Errorf("Total weights should be 37 but %+v", twgt)
+	}
 }

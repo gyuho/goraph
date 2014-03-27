@@ -71,6 +71,8 @@ func SPD(g *gsd.Graph, src, dst string) string {
 		   Reorder the vertex in the Queue
 		   Min-Heapify(Q)
 		   without this, the algorithm won't work
+
+		   We need to Heapify here, for every loop
 		*/
 		heap.Init(&minHeap)
 		u := minHeap.Pop().(*gsd.Vertex)
@@ -86,6 +88,7 @@ func SPD(g *gsd.Graph, src, dst string) string {
 				if vtx.(*gsd.Vertex).StampD > u.StampD+int64(wt) {
 					vtx.(*gsd.Vertex).StampD = u.StampD + int64(wt)
 
+					// v.π = u
 					// update using Stack
 					if vtx.(*gsd.Vertex).Prev.Len() == 0 {
 						vtx.(*gsd.Vertex).Prev.PushBack(u)
