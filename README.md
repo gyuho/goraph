@@ -183,7 +183,7 @@ func Test_JSON_ShowMST(test *testing.T) {
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
 
-Testing Graphs
+[Testing Graphs](https://github.com/gyuho/goraph/tree/master/testgraph)
 ==========
 <img src="./testgraph/testgraph.001.png" alt="testgraph.001" width="260px" height="220px"/>
 <img src="./testgraph/testgraph.002.png" alt="testgraph.002" width="260px" height="220px"/>
@@ -199,6 +199,8 @@ Testing Graphs
 <img src="./testgraph/testgraph.012.png" alt="testgraph.012" width="260px" height="220px"/>
 <img src="./testgraph/testgraph.013.png" alt="testgraph.013" width="260px" height="220px"/>
 <img src="./testgraph/testgraph.014.png" alt="testgraph.014" width="260px" height="220px"/>
+<img src="./testgraph/testgraph.015.png" alt="testgraph.015"/>
+<img src="./testgraph/testgraph.016.png" alt="testgraph.016"/>
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
