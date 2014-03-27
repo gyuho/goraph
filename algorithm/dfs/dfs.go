@@ -1,4 +1,4 @@
-// Package dfs implements the Dapth First Search algorithm (or DFS).
+// Package dfs implements Dapth First Search algorithm (or DFS).
 package dfs
 
 /*

@@ -1,4 +1,4 @@
-// Package bfs implements the Breadth First Search algorithm (or BFS).
+// Package bfs implements Breadth First Search algorithm (or BFS).
 package bfs
 
 /*
