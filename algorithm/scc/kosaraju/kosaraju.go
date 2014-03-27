@@ -39,11 +39,26 @@ While S is nonempty:
 
 // SCC returns the Strongly Connected Components using Kosaraju's algorithm.
 func SCC(g *gsd.Graph) string {
+	// Let G be a directed graph and S be an empty stack.
 	Stack := slice.NewSequence()
 	Vertices := g.GetVertices()
 
+	// While S does not contain all vertices:
 	for !slice.IsEqual(*Stack, *Vertices) {
+		// Choose an arbitrary vertex v not in S
+		var vtx *gsd.Vertex
+		for _, val := range *Vertices {
+			if !Contains(val.(*gsd.Vertex), Stack) {
+				vtx = val.(*gsd.Vertex)
+				break
+			}
+		}
+		_ = vtx
 
+		// Perform a depth-first search starting at v
+
+		// Each time that depth-first search finishes
+		// expanding a vertex u, push u onto S
 	}
 
 	for Stack.Len() != 0 {
@@ -51,4 +66,14 @@ func SCC(g *gsd.Graph) string {
 	}
 
 	return ""
+}
+
+// Contains returns true if vtx exists in the slice sl.
+func Contains(vtx *gsd.Vertex, sl *slice.Sequence) bool {
+	for _, val := range *sl {
+		if val.(*gsd.Vertex).ID == vtx.ID {
+			return true
+		}
+	}
+	return false
 }
