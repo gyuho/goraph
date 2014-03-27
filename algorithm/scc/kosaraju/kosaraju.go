@@ -1,6 +1,11 @@
 // Package kosaraju implements Kosaraju's Strongly Connected Components algorithm.
 package kosaraju
 
+import (
+	"github.com/gyuho/goraph/graph/gsd"
+	slice "github.com/gyuho/gosequence"
+)
+
 /*
 http://en.wikipedia.org/wiki/Kosaraju%27s_algorithm
 It makes use of the fact that the transpose graph
@@ -29,3 +34,19 @@ While S is nonempty:
 		record this and
 		remove all these vertices from the graph G and the stack S.
 */
+
+// SCC returns the Strongly Connected Components using Kosaraju's algorithm.
+func SCC(g *gsd.Graph) string {
+	Stack := slice.NewSequence()
+	Vertices := g.GetVertices()
+
+	for !slice.IsEqual(*Stack, *Vertices) {
+
+	}
+
+	for Stack.Len() != 0 {
+
+	}
+
+	return ""
+}

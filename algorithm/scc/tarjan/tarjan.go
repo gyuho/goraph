@@ -1,6 +1,10 @@
 // Package tarjan implements Tarjan's Strongly Connected Components algorithm.
 package tarjan
 
+import (
+	"github.com/gyuho/goraph/graph/gsd"
+)
+
 /*
 http://en.wikipedia.org/wiki/Strongly_connected_component
 
@@ -33,3 +37,8 @@ there is a path both from u to v and from v to u.
 http://en.wikipedia.org/wiki/Tarjan's_strongly_connected_components_algorithm
 
 */
+
+// SCC returns the Strongly Connected Components using Tarjan's algorithm.
+func SCC(g *gsd.Graph) string {
+	return ""
+}
