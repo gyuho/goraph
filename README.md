@@ -73,9 +73,9 @@ algorithm/			# Graph Algorithms
 	scc/			# Strongly Connected Component
 		tarjan/		# Tarjan Strongly Connected Component Algorithm
 	maxflow/		# Maximum Network Flow
-		fdfk/			# Ford-Fulkerson Maximum Network Flow Algorithm
+		fdfk/		# Ford-Fulkerson Maximum Network Flow Algorithm
 	mincost/		# Minimum Cost Flow
-		lp/				# Linear Programming Minimum Cost Flow Algorithm
+		lp/			# Linear Programming Minimum Cost Flow Algorithm
 
 benchmark/			# Benchmark, Comparison of graph representations
 
