@@ -72,8 +72,10 @@ algorithm/			# Graph Algorithms
 		prim/		# Prim Minimum Spanning Tree Algorithm
 	scc/			# Strongly Connected Component
 		tarjan/		# Tarjan Strongly Connected Component Algorithm
-	maxflow/		# Maximum Network Flow (Ford-Fulkerson)
-	mincost/		# Minimum Cost Flow (Linear Programming)
+	maxflow/		# Maximum Network Flow
+		fdfk/			# Ford-Fulkerson Maximum Network Flow Algorithm
+	mincost/		# Minimum Cost Flow
+		lp/				# Linear Programming Minimum Cost Flow Algorithm
 
 benchmark/			# Benchmark, Comparison of graph representations
 
