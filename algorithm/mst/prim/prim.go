@@ -3,6 +3,7 @@ package prim
 
 import (
 	"container/heap"
+	"strconv"
 
 	"github.com/gyuho/goraph/graph/gsd"
 )
@@ -145,18 +146,20 @@ func MST(g *gsd.Graph) (string, float64) {
 		}
 	}
 
-	rstr := "graph PrimMST {" + "\n"
+	result := "graph PrimMST {" + "\n"
 	var total float64
 	for _, mvt := range *g.GetVertices() {
 		if mvt.(*gsd.Vertex).Prev.Len() != 0 {
 			for _, vt := range *mvt.(*gsd.Vertex).Prev {
-				rstr += "\t" + mvt.(*gsd.Vertex).ID + " -- " + vt.(*gsd.Vertex).ID + "\n"
-				total += g.GetEdgeWeight(mvt.(*gsd.Vertex), vt.(*gsd.Vertex))[0]
+				wt := g.GetEdgeWeight(mvt.(*gsd.Vertex), vt.(*gsd.Vertex))[0]
+				wts := strconv.FormatFloat(wt, 'f', -1, 64)
+				result += "\t" + mvt.(*gsd.Vertex).ID + " -- " + vt.(*gsd.Vertex).ID + " [label=" + wts + "]" + "\n"
+				total += wt
 			}
 		}
 	}
-	rstr += "}"
-	return rstr, total
+	result += "}"
+	return result, total
 }
 
 // Min-Heap's first element is the minimum

@@ -1,10 +1,10 @@
 graph KruskalMST {
-	H -- G
-	C -- I
-	G -- F
-	C -- F
-	B -- A
-	D -- C
-	H -- A
-	E -- D
+	H -- G [label=1]
+	I -- C [label=2]
+	G -- F [label=2]
+	B -- A [label=4]
+	C -- F [label=4]
+	D -- C [label=7]
+	B -- C [label=8]
+	E -- D [label=9]
 }

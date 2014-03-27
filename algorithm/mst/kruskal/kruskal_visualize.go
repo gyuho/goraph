@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"strconv"
 
 	"github.com/gyuho/goraph/graph/gsd"
 )
@@ -13,7 +14,9 @@ func MSTString(g *gsd.Graph) string {
 	mstedges, _ := MST(g)
 	result := "graph KruskalMST {" + "\n"
 	for _, edge := range mstedges {
-		result += "\t" + edge.Src.ID + " -- " + edge.Dst.ID + "\n"
+		wt := g.GetEdgeWeight(edge.Src, edge.Dst)[0]
+		wts := strconv.FormatFloat(wt, 'f', -1, 64)
+		result += "\t" + edge.Src.ID + " -- " + edge.Dst.ID + " [label=" + wts + "]" + "\n"
 	}
 	result += "}"
 	return result

@@ -1,10 +1,10 @@
 graph PrimMST {
-	B -- A
-	H -- A
-	C -- F
-	D -- C
-	F -- G
-	E -- D
-	G -- H
-	I -- C
+	B -- A [label=4]
+	H -- A [label=8]
+	D -- C [label=7]
+	C -- F [label=4]
+	F -- G [label=2]
+	E -- D [label=9]
+	G -- H [label=1]
+	I -- C [label=2]
 }
