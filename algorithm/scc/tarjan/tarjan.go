@@ -1,11 +1,6 @@
 // Package tarjan implements Tarjan's Strongly Connected Components algorithm.
 package tarjan
 
-import (
-	"github.com/gyuho/goraph/graph/gsd"
-	slice "github.com/gyuho/gosequence"
-)
-
 /*
 http://en.wikipedia.org/wiki/Strongly_connected_component
 
@@ -41,6 +36,7 @@ http://en.wikipedia.org/wiki/Tarjan's_strongly_connected_components_algorithm
 
 // SCC returns the Strongly Connected Components using Tarjan's algorithm.
 // (http://en.wikipedia.org/wiki/Tarjan's_strongly_connected_components_algorithm)
+/*
 func SCC(g *gsd.Graph) string {
 	Stack := slice.NewSequence()
 	//
@@ -86,3 +82,4 @@ func scc(g *gsd.Graph) string {
 
 	return ""
 }
+*/
