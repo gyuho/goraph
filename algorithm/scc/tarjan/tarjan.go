@@ -1,6 +1,13 @@
 // Package tarjan implements Tarjan's Strongly Connected Components algorithm.
 package tarjan
 
+import (
+	"strings"
+
+	"github.com/gyuho/goraph/graph/gsd"
+	slice "github.com/gyuho/gosequence"
+)
+
 /*
 http://en.wikipedia.org/wiki/Strongly_connected_component
 
@@ -35,10 +42,8 @@ http://en.wikipedia.org/wiki/Tarjan's_strongly_connected_components_algorithm
 */
 
 // SCC returns the Strongly Connected Components using Tarjan's algorithm.
-// (http://en.wikipedia.org/wiki/Tarjan's_strongly_connected_components_algorithm)
-/*
+// (Wikipedia/Tarjan's_strongly_connected_components_algorithm)
 func SCC(g *gsd.Graph) string {
-	Stack := slice.NewSequence()
 	//
 	// v.index
 	//	numbers the nodes consecutively in the order
@@ -55,31 +60,69 @@ func SCC(g *gsd.Graph) string {
 	//	whereas v must be removed as the root
 	//	of a strongly connected component
 	//
-	index := 0
+	//
+	//	StampD:      9999999999,  <--- use as index
+	//	StampF:      9999999999,  <--- use as lowlink
+	//
+	result := []string{}
+	var idx int64
+	idx = 0
 	Vertices := g.GetVertices()
+	stack := slice.NewSequence()
 	for _, vtx := range *Vertices {
-
+		// if (v.index is undefined)
+		if vtx.(*gsd.Vertex).StampD > 9999999998 {
+			result = append(result, scc(g, &idx, vtx.(*gsd.Vertex), stack))
+		}
 	}
-
-	for Stack.Len() != 0 {
-
-	}
-
-	return ""
+	return strings.Join(result, "\n")
 }
 
-func scc(g *gsd.Graph) string {
-	Stack := slice.NewSequence()
-	Vertices := g.GetVertices()
-
-	for !slice.IsEqual(*Stack, *Vertices) {
-
+// GetMinimum64 returns the smaller element
+// between v1 and v2.
+func GetMinimum64(v1, v2 int64) int64 {
+	if v1 > v2 {
+		return v2
+	} else {
+		return v1
 	}
-
-	for Stack.Len() != 0 {
-
-	}
-
-	return ""
 }
-*/
+
+// Contains returns true if vtx exists in the slice sl.
+func Contains(vtx *gsd.Vertex, sl *slice.Sequence) bool {
+	for _, val := range *sl {
+		if val.(*gsd.Vertex).ID == vtx.ID {
+			return true
+		}
+	}
+	return false
+}
+
+func scc(g *gsd.Graph, idx *int64, vtx *gsd.Vertex, stack *slice.Sequence) string {
+	vtx.StampD = *idx
+	vtx.StampF = *idx
+	*idx = *idx + 1
+	stack.PushBack(vtx)
+
+	ovs := vtx.GetOutVertices()
+	for _, w := range *ovs {
+		if w.(*gsd.Vertex).StampD > 9999999998 {
+			scc(g, idx, w.(*gsd.Vertex), stack)
+			vtx.StampF = GetMinimum64(vtx.StampF, w.(*gsd.Vertex).StampF)
+		} else if Contains(w.(*gsd.Vertex), stack) {
+			vtx.StampF = GetMinimum64(vtx.StampF, w.(*gsd.Vertex).StampD)
+		}
+	}
+
+	result := []string{}
+
+	// if (v.lowlink = v.index)
+	if vtx.StampF == vtx.StampD {
+		w := stack.PopBack()
+		for !gsd.SameVertex(w.(*gsd.Vertex), vtx) {
+			w = stack.PopBack()
+			result = append(result, w.(*gsd.Vertex).ID)
+		}
+	}
+	return strings.Join(result, "\n")
+}
