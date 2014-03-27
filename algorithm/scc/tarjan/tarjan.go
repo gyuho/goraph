@@ -3,6 +3,7 @@ package tarjan
 
 import (
 	"github.com/gyuho/goraph/graph/gsd"
+	slice "github.com/gyuho/gosequence"
 )
 
 /*
@@ -39,6 +40,49 @@ http://en.wikipedia.org/wiki/Tarjan's_strongly_connected_components_algorithm
 */
 
 // SCC returns the Strongly Connected Components using Tarjan's algorithm.
+// (http://en.wikipedia.org/wiki/Tarjan's_strongly_connected_components_algorithm)
 func SCC(g *gsd.Graph) string {
+	Stack := slice.NewSequence()
+	//
+	// v.index
+	//	numbers the nodes consecutively in the order
+	//	in which they are discovered
+	//
+	// v.lowlink
+	//	represents (roughly speaking) the smallest index
+	//	of any node known to be reachable from v, including v itself
+	//
+	// if v.lowlink < v.index
+	// 	v must be left on the stack
+	//
+	// if v.lowlink == v.index
+	//	whereas v must be removed as the root
+	//	of a strongly connected component
+	//
+	index := 0
+	Vertices := g.GetVertices()
+	for _, vtx := range *Vertices {
+
+	}
+
+	for Stack.Len() != 0 {
+
+	}
+
+	return ""
+}
+
+func scc(g *gsd.Graph) string {
+	Stack := slice.NewSequence()
+	Vertices := g.GetVertices()
+
+	for !slice.IsEqual(*Stack, *Vertices) {
+
+	}
+
+	for Stack.Len() != 0 {
+
+	}
+
 	return ""
 }

@@ -7,6 +7,8 @@ import (
 )
 
 /*
+http://www.geeksforgeeks.org/strongly-connected-components/
+
 http://en.wikipedia.org/wiki/Kosaraju%27s_algorithm
 It makes use of the fact that the transpose graph
 (the same graph with the direction of every edge reversed)
