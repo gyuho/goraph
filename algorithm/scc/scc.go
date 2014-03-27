@@ -1,2 +1,2 @@
-// http://en.wikipedia.org/wiki/Tarjan's_strongly_connected_components_algorithm
+// Package scc implements the Strongly Connected Components algorithm.
 package scc

@@ -70,9 +70,8 @@ algorithm/			# Graph Algorithms
 	mst/			# Minimum Spanning Tree (Kruskal, Prim)
 		kruskal/	# Kruskal Minimum Spanning Tree Algorithm
 		prim/		# Prim Minimum Spanning Tree Algorithm
-		
-	// In Progress
-	scc/			# Strongly Connected Component (Tarjan)
+	scc/			# Strongly Connected Component
+		tarjan/	# Tarjan Strongly Connected Component Algorithm
 	maxflow/		# Maximum Network Flow (Ford-Fulkerson)
 	mincost/		# Minimum Cost Flow (Linear Programming)
 
