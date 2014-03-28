@@ -191,3 +191,89 @@ func (vs *VertexSlice) Pop() interface{} {
 	*vs = old[1:n]
 	return x
 }
+
+func spd(g *gsd.Graph, src, dst string) string {
+	start := g.FindVertexByID(src)
+	terminal := g.FindVertexByID(dst)
+
+	start.StampD = 0
+
+	// Min-Priority queue Q, keyed by their d values
+	// Q = G.V
+	// var minHeap VertexSlice
+	minHeap := make(VertexSlice, 0)
+
+	vertices := g.GetVertices()
+	for _, vtx := range *vertices {
+		if vtx == nil {
+			continue
+		}
+		heap.Push(&minHeap, vtx.(*gsd.Vertex))
+	}
+	// Build-Min-Heap
+	// first element with smallest timestamp
+	// heap.Init(&minHeap)
+
+	// while Q ≠ ∅
+	for minHeap.Len() != 0 {
+		/*
+		   Min-Priority queue Q, keyed by their d values
+		   u = Extract-Min(Q)
+		   first one is the start vertex since we initialized it to 0
+
+		   Reorder the vertex in the Queue
+		   Min-Heapify(Q)
+		   without this, the algorithm won't work
+
+		   We need to Heapify here, for every loop
+		*/
+		heap.Init(&minHeap)
+		u := minHeap.Pop().(*gsd.Vertex)
+
+		if u.StampD == 9999999999 {
+			break
+		}
+
+		ovs := u.GetOutVertices()
+		for _, vtx := range *ovs {
+			weights := g.GetEdgeWeight(u, vtx.(*gsd.Vertex))
+			for _, wt := range weights {
+				if vtx.(*gsd.Vertex).StampD > u.StampD+int64(wt) {
+					vtx.(*gsd.Vertex).StampD = u.StampD + int64(wt)
+
+					// v.π = u
+					// update using Stack
+					if vtx.(*gsd.Vertex).Prev.Len() == 0 {
+						vtx.(*gsd.Vertex).Prev.PushBack(u)
+					} else {
+						ex := false
+						ivs := vtx.(*gsd.Vertex).Prev
+						for _, vs := range *ivs {
+							// if fmt.Sprintf("%v", vs.(*gsd.Vertex).ID) == fmt.Sprintf("%v", u.ID) {
+							if vs.(*gsd.Vertex) == u {
+								ex = true
+							}
+						}
+
+						if ex == false {
+							vtx.(*gsd.Vertex).Prev.PushBack(u)
+						}
+					}
+
+					// not a good place to Heapify
+					// because we are inside the if-condition
+					// heap.Init(&minHeap)
+				}
+			}
+		}
+	}
+
+	result := slice.NewSequence()
+	TrackSPD(g, start, terminal, result)
+
+	s := ""
+	for _, v := range *result {
+		s += fmt.Sprintf("%v → ", v.(*gsd.Vertex).ID)
+	}
+	return s[:len(s)-5]
+}

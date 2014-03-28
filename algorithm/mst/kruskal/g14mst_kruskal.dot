@@ -1,10 +1,38 @@
 graph KruskalMST {
-	H -- G [label=1]
-	I -- C [label=2]
-	G -- F [label=2]
-	B -- A [label=4]
-	C -- F [label=4]
-	D -- C [label=7]
-	B -- C [label=8]
-	E -- D [label=9]
+	G -- H [label=1, color=blue]
+	G -- F [label=2, color=blue]
+	C -- I [label=2, color=blue]
+	C -- F [label=4, color=blue]
+	B -- A [label=4, color=blue]
+	C -- D [label=7, color=blue]
+	A -- H [label=8, color=blue]
+	E -- D [label=9, color=blue]
+	G -- H
+	H -- G
+	G -- F
+	C -- I
+	I -- C
+	F -- G
+	C -- F
+	B -- A
+	F -- C
+	A -- B
+	I -- G
+	G -- I
+	I -- H
+	C -- D
+	D -- C
+	H -- I
+	A -- H
+	C -- B
+	B -- C
+	H -- A
+	E -- D
+	D -- E
+	F -- E
+	E -- F
+	B -- H
+	H -- B
+	F -- D
+	D -- F
 }

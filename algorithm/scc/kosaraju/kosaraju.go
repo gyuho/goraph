@@ -47,6 +47,9 @@ func SCC(g, gr *gsd.Graph) [][]string {
 		// Choose an arbitrary vertex v not in S
 		var vtx *gsd.Vertex
 		for _, val := range *Vertices {
+			if val.(*gsd.Vertex) == nil {
+				continue
+			}
 			if !Contains(val.(*gsd.Vertex), Stack) {
 				vtx = val.(*gsd.Vertex)
 				break
@@ -112,6 +115,9 @@ func dfsSCC(g *gsd.Graph, start *gsd.Vertex, stack *slice.Sequence) {
 // Contains returns true if vtx exists in the slice sl.
 func Contains(vtx *gsd.Vertex, sl *slice.Sequence) bool {
 	for _, val := range *sl {
+		if val.(*gsd.Vertex) == nil {
+			continue
+		}
 		if val.(*gsd.Vertex).ID == vtx.ID {
 			return true
 		}

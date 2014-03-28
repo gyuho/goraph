@@ -13,11 +13,17 @@ import (
 func MSTString(g *gsd.Graph) string {
 	mstedges, _ := MST(g)
 	result := "graph KruskalMST {" + "\n"
+
 	for _, edge := range mstedges {
 		wt := g.GetEdgeWeight(edge.Src, edge.Dst)[0]
 		wts := strconv.FormatFloat(wt, 'f', -1, 64)
-		result += "\t" + edge.Src.ID + " -- " + edge.Dst.ID + " [label=" + wts + "]" + "\n"
+		result += "\t" + edge.Src.ID + " -- " + edge.Dst.ID + " [label=" + wts + ", color=blue]" + "\n"
 	}
+
+	for _, edge := range *g.GetEdges() {
+		result += "\t" + edge.(*gsd.Edge).Src.ID + " -- " + edge.(*gsd.Edge).Dst.ID + "\n"
+	}
+
 	result += "}"
 	return result
 }

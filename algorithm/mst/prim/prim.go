@@ -153,10 +153,13 @@ func MST(g *gsd.Graph) (string, float64) {
 			for _, vt := range *mvt.(*gsd.Vertex).Prev {
 				wt := g.GetEdgeWeight(mvt.(*gsd.Vertex), vt.(*gsd.Vertex))[0]
 				wts := strconv.FormatFloat(wt, 'f', -1, 64)
-				result += "\t" + mvt.(*gsd.Vertex).ID + " -- " + vt.(*gsd.Vertex).ID + " [label=" + wts + "]" + "\n"
+				result += "\t" + mvt.(*gsd.Vertex).ID + " -- " + vt.(*gsd.Vertex).ID + " [label=" + wts + ", color=blue]" + "\n"
 				total += wt
 			}
 		}
+	}
+	for _, edge := range *g.GetEdges() {
+		result += "\t" + edge.(*gsd.Edge).Src.ID + " -- " + edge.(*gsd.Edge).Dst.ID + "\n"
 	}
 	result += "}"
 	return result, total

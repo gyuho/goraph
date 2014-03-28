@@ -75,8 +75,6 @@ algorithm/			# Graph Algorithms
 		kosaraju/	# Kosaraju Strongly Connected Component Algorithm
 	maxflow/		# Maximum Network Flow
 		fdfk/		# Ford-Fulkerson Maximum Network Flow Algorithm
-	mincost/		# Minimum Cost Flow
-		lp/			# Linear Programming Minimum Cost Flow Algorithm
 
 benchmark/			# Benchmark, Comparison of graph representations
 
@@ -156,7 +154,39 @@ fmt.Println(g10o.ShowPrev("E"))
 ```
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
+```go
+func Test_JSON_ShowSPD(test *testing.T) {
+	g4 := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.004")
+	fmt.Println(ShowSPD(g4, "S", "T", "testgraph.004_spd.dot"))
+}
+```
+
+<img src="./files/testgraph.004_spd.png" alt="testgraph.004_spd"/>
+
+[↑ top](https://github.com/gyuho/goraph#goraph---)
+
 <hr>
+
+##### BFS, DFS
+```go
+func Test_JSON_ShowBFS(test *testing.T) {
+	g4 := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.004")
+	fmt.Println(ShowBFS(g4, g4.FindVertexByID("S"), "testgraph.004_bfs.dot"))
+}
+
+func Test_JSON_ShowDFS(test *testing.T) {
+	g4 := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.004")
+	fmt.Println(ShowDFS(g4, "testgraph.004_dfs.dot"))
+}
+
+```
+<img src="./files/testgraph.004_bfs.png" alt="testgraph.004_bfs"/>
+<img src="./files/testgraph.004_dfs.png" alt="testgraph.004_dfs"/>
+
+[↑ top](https://github.com/gyuho/goraph#goraph---)
+
+<hr>
+
 
 ##### Minimum Spanning Tree
 **Kruskal Algorithm**
