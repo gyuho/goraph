@@ -7,6 +7,9 @@ import (
 	"time"
 
 	"github.com/gyuho/goraph/algorithm/bfs"
+	"github.com/gyuho/goraph/algorithm/dfs"
+	"github.com/gyuho/goraph/algorithm/mst/kruskal"
+	"github.com/gyuho/goraph/algorithm/spd"
 	"github.com/gyuho/goraph/graph/gsd"
 	"github.com/gyuho/goraph/viz"
 )
@@ -84,7 +87,10 @@ Type "Ctrl + c" or "q" to exit.`)
 			var name string
 			fmt.Scanf("%s", &name)
 			g := gsd.JSONGraph(path, name)
-			bfs.ShowBFS(g, g.FindVertexByID("S"), name+"-output.dot")
+			fmt.Print("✔ Type the name of node to start: ")
+			var node string
+			fmt.Scanf("%s", &node)
+			bfs.ShowBFS(g, g.FindVertexByID(node), name+"-output.dot")
 		case "3":
 			fmt.Print("✔ Type or Drag the JSON graph file: ")
 			var path string
@@ -92,7 +98,8 @@ Type "Ctrl + c" or "q" to exit.`)
 			fmt.Print("✔ Type the name of graph to visualize: ")
 			var name string
 			fmt.Scanf("%s", &name)
-			viz.Show(path, name, name+"-output.dot")
+			g := gsd.JSONGraph(path, name)
+			dfs.ShowDFS(g, name+"-outputdfs.dot")
 		case "4":
 			fmt.Print("✔ Type or Drag the JSON graph file: ")
 			var path string
@@ -100,7 +107,14 @@ Type "Ctrl + c" or "q" to exit.`)
 			fmt.Print("✔ Type the name of graph to visualize: ")
 			var name string
 			fmt.Scanf("%s", &name)
-			viz.Show(path, name, name+"-output.dot")
+			g := gsd.JSONGraph(path, name)
+			fmt.Print("✔ Start Node: ")
+			var start string
+			fmt.Scanf("%s", &start)
+			fmt.Print("✔ End Node: ")
+			var end string
+			fmt.Scanf("%s", &end)
+			spd.ShowSPD(g, start, end, name+"-output.dot")
 		case "5":
 			fmt.Print("✔ Type or Drag the JSON graph file: ")
 			var path string
@@ -108,7 +122,8 @@ Type "Ctrl + c" or "q" to exit.`)
 			fmt.Print("✔ Type the name of graph to visualize: ")
 			var name string
 			fmt.Scanf("%s", &name)
-			viz.Show(path, name, name+"-output.dot")
+			g := gsd.JSONGraph(path, name)
+			kruskal.ShowMST(g, name+"-output.dot")
 		default:
 			fmt.Println("Done")
 		}
