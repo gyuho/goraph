@@ -11,7 +11,7 @@ import (
 func Test_JSON_BFS(test *testing.T) {
 	g4 := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.004")
 	g4s := BFS(g4, g4.FindVertexByID("S"))
-	g4c := "S → B → A → D → E → T → C → F"
+	g4c := "S → B → A → D → E → T → F → C"
 	if g4s != g4c {
 		test.Errorf("Should be same but\n%v\n%v", g4s, g4c)
 	}

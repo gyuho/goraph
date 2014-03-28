@@ -11,7 +11,7 @@ import (
 func Test_JSON_DFS(test *testing.T) {
 	g4 := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.004")
 	g4s := DFS(g4)
-	g4c := "S → B → A → T → F → E → C → D"
+	g4c := "S → B → A → D → E → F → T → C"
 	if g4s != g4c {
 		test.Errorf("Should be same but\n%v\n%v", g4s, g4c)
 	}

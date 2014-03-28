@@ -37,14 +37,15 @@ While S is nonempty:
 		remove all these vertices from the graph G and the stack S.
 */
 
-// SCC returns the Strongly Connected Components using Kosaraju's algorithm.
-func SCC(g *gsd.Graph) string {
+// SCC returns the Strongly Connected Components
+// using Kosaraju's algorithm.
+func SCC(g, gr *gsd.Graph) [][]string {
 	// Let G be a directed graph and S be an empty stack.
 	Stack := slice.NewSequence()
 	Vertices := g.GetVertices()
 
 	// While S does not contain all vertices:
-	for !slice.IsEqual(*Stack, *Vertices) {
+	for Stack.Len() != Vertices.Len() {
 		// Choose an arbitrary vertex v not in S
 		var vtx *gsd.Vertex
 		for _, val := range *Vertices {
@@ -53,19 +54,32 @@ func SCC(g *gsd.Graph) string {
 				break
 			}
 		}
-		_ = vtx
 
 		// Perform a depth-first search starting at v
-
 		// Each time that depth-first search finishes
 		// expanding a vertex u, push u onto S
+		Stack = DFS_SCC(g, vtx)
 	}
 
+	// Reverse the directions of all arcs
+	// to obtain the transpose graph.
+	// gr
+
+	result := [][]string{}
+	// While S is nonempty
 	for Stack.Len() != 0 {
-
+		top := Stack.PopBack()
+		rs := DFS_SCC(gr, gr.FindVertexByID(top.(string)))
+		sl := []string{}
+		for _, val := range *rs {
+			sl = append(sl, val.(string))
+		}
+		if len(sl) != 0 {
+			result = append(result, sl)
+		}
 	}
 
-	return ""
+	return result
 }
 
 // Contains returns true if vtx exists in the slice sl.
