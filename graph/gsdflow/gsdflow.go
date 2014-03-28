@@ -100,18 +100,6 @@ func (g Graph) GetEdges() *slice.Sequence {
 	return g.Edges
 }
 
-// GetEdge returns the Edge from src to dst Vertex.
-// (Assume that there is no duplicate Edge for now.)
-func (g Graph) GetEdge(src, dst *Vertex) *Edge {
-	slice := g.GetEdges()
-	for _, edge := range *slice {
-		if edge.(*Edge).Src == src && edge.(*Edge).Dst == dst {
-			return edge.(*Edge)
-		}
-	}
-	return nil
-}
-
 // GetEdgesSize returns the size of edge slice in a graph.
 func (g Graph) GetEdgesSize() int {
 	// dereference
@@ -204,31 +192,6 @@ func (g Graph) ImmediateDominate(A, B *Vertex) bool {
 		return true
 	}
 	return false
-}
-
-// GetEdgeWeight returns the slice of weight values
-// of the edge from source to destination vertex.
-// In case we need to allow duplicate edges,
-// we return a slice of weights.
-func (g Graph) GetEdgeWeight(src, dst *Vertex) []float64 {
-	slice := g.GetEdges()
-	result := []float64{}
-	for _, edge := range *slice {
-		if edge.(*Edge).Src == src && edge.(*Edge).Dst == dst {
-			result = append(result, edge.(*Edge).Weight)
-		}
-	}
-	return result
-}
-
-// UpdateWeight updates the weight value between vertices.
-func (g *Graph) UpdateWeight(src, dst *Vertex, value float64) {
-	edges := g.GetEdges()
-	for _, edge := range *edges {
-		if edge.(*Edge).Src == src && edge.(*Edge).Dst == dst {
-			edge.(*Edge).Weight = value
-		}
-	}
 }
 
 // Connect connects the vertex v to A, not A to v.

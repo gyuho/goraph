@@ -226,11 +226,9 @@ func (g Graph) GetEdgeWeight(src, dst *Vertex) []float64 {
 
 // UpdateWeight updates the weight value between vertices.
 func (g *Graph) UpdateWeight(src, dst *Vertex, value float64) {
-	edges := g.GetEdges()
-	for _, edge := range *edges {
-		if edge.(*Edge).Src == src && edge.(*Edge).Dst == dst {
-			edge.(*Edge).Weight = value
-		}
+	edge := g.GetEdge(src, dst)
+	if edge != nil {
+		edge.Weight = value
 	}
 }
 
