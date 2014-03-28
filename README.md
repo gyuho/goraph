@@ -39,7 +39,7 @@ go build
 ```
 <img src="./files/sample.gif" alt="sample" width="450px" height="350px"/>
 
-<img src="./files/sample.png" alt="sample"/>
+<img src="./files/testgraph.004_spd.png" alt="testgraph.004_spd"/>
 
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
