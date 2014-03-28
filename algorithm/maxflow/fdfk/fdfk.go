@@ -5,7 +5,6 @@ import (
 	"github.com/gyuho/goraph/graph/gt"
 )
 
-// http://web.archive.org/web/20050625021409/www.geocities.com/nayan_vt/C.htm
 const (
 	WHITE     int     = 0
 	GRAY      int     = 1
@@ -14,6 +13,8 @@ const (
 	oo        float64 = 1000000000.0
 )
 
+// MaxFlow returns the Maximum Network Flow.
+// http://web.archive.org/web/20050625021409/www.geocities.com/nayan_vt/C.htm
 func MaxFlow(g *gt.Graph, src, dst string) float64 {
 	size := g.GetVerticesSize()
 	// esz := g.GetEdgesSize()
