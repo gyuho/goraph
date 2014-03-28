@@ -390,3 +390,26 @@ func JSONGraph(filename, graph string) *Graph {
 	}
 	return g
 }
+
+// JSONGraphBi connects the graph bi-directionally.
+func JSONGraphBi(filename, graph string) *Graph {
+	nodes := jgd.GetNodes(filename, graph)
+	gmap := jgd.MapGraph(filename, graph)
+	// map[string]map[string][]float64
+
+	g := NewGraph()
+	for _, srcID := range nodes {
+		// source vertex
+		src := g.CreateAndAddToGraph(srcID)
+		for dstID := range gmap[srcID] {
+			dst := g.CreateAndAddToGraph(dstID)
+			// This is not constructing the bi-directional edge automatically.
+			// We need to input bi-directional graph data.
+			for _, weight := range gmap[srcID][dstID] {
+				g.Connect(src, dst, weight)
+				g.Connect(dst, src, 0)
+			}
+		}
+	}
+	return g
+}

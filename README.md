@@ -202,6 +202,7 @@ func Test_JSON_ShowMST(test *testing.T) {
 <img src="./testgraph/testgraph.014.png" alt="testgraph.014" width="260px" height="220px"/>
 <img src="./testgraph/testgraph.015.png" alt="testgraph.015"/>
 <img src="./testgraph/testgraph.016.png" alt="testgraph.016"/>
+<img src="./testgraph/testgraph.017.png" alt="testgraph.017"/>
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
