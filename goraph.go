@@ -83,7 +83,8 @@ Type "Ctrl + c" or "q" to exit.`)
 			fmt.Print("✔ Type the name of graph to visualize: ")
 			var name string
 			fmt.Scanf("%s", &name)
-			bfs.ShowBFS(gsd.JSONGraph(path, name), name+"-output.dot")
+			g := gsd.JSONGraph(path, name)
+			bfs.ShowBFS(g, g.FindVertexByID("S"), name+"-output.dot")
 		case "3":
 			fmt.Print("✔ Type or Drag the JSON graph file: ")
 			var path string
