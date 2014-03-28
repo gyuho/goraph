@@ -27,8 +27,6 @@ func main() {
 	fmt.Println("===================================================")
 
 	fmt.Println(`
-Hello World! This is Gyu-Ho (gyuho.cs@gmail.com).
-
 Goraph provides:
 	- graph visualizing tool
 	- graph algorithm implementations
