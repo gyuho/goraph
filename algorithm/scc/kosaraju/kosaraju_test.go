@@ -22,17 +22,9 @@ func Test_JSON_SCC(test *testing.T) {
 func Test_JSON_DFS_SCC(test *testing.T) {
 	g15 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.015")
 	fmt.Println(DFS_SCC(g15, g15.FindVertexByID("B")))
+	// [A H G F E D C B]
 
 	g16 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.016")
 	fmt.Println(DFS_SCC(g16, g16.FindVertexByID("C")))
-}
-
-func Test_JSON_Contains(test *testing.T) {
-	g15 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.015")
-	a := g15.FindVertexByID("A")
-	b := g15.FindVertexByID("B")
-	ovs := a.GetOutVertices()
-	if !Contains(b, ovs) {
-		test.Errorf("Should contain B in OutVertices but %+v", Contains(b, ovs))
-	}
+	// [H E J I D C]
 }

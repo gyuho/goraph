@@ -39,19 +39,18 @@ While S is nonempty:
 // using Kosaraju's algorithm.
 func SCC(g, gr *gsd.Graph) [][]string {
 	// Let G be a directed graph and S be an empty stack.
-	Stack := slice.NewSequence()
+	Stack := []string{}
 	Vertices := g.GetVertices()
 
 	// While S does not contain all vertices:
-	for Stack.Len() != Vertices.Len() {
+	for len(Stack) != Vertices.Len() {
 		// Choose an arbitrary vertex v not in S
-		var vtx *gsd.Vertex
 		for _, val := range *Vertices {
-			if val.(*gsd.Vertex) == nil {
+			if val == nil || Stack == nil {
 				continue
 			}
-			if !Contains(val.(*gsd.Vertex), Stack) {
-				vtx = val.(*gsd.Vertex)
+			if !Contains(val.(*gsd.Vertex).ID, Stack) {
+				Stack = DFS_SCC(g, val.(*gsd.Vertex))
 				break
 			}
 		}
@@ -59,7 +58,7 @@ func SCC(g, gr *gsd.Graph) [][]string {
 		// Perform a depth-first search starting at v
 		// Each time that depth-first search finishes
 		// expanding a vertex u, push u onto S
-		Stack = DFS_SCC(g, vtx)
+		// Stack = DFS_SCC(g, vtx)
 	}
 
 	// Reverse the directions of all arcs
@@ -68,12 +67,13 @@ func SCC(g, gr *gsd.Graph) [][]string {
 
 	result := [][]string{}
 	// While S is nonempty
-	for Stack.Len() != 0 {
-		top := Stack.PopBack()
-		rs := DFS_SCC(gr, gr.FindVertexByID(top.(string)))
+	for len(Stack) != 0 {
+		top := Stack[len(Stack)-1]
+		Stack = Stack[:len(Stack)-1 : len(Stack)-1]
+		rs := DFS_SCC(gr, gr.FindVertexByID(top))
 		sl := []string{}
-		for _, val := range *rs {
-			sl = append(sl, val.(string))
+		for _, val := range rs {
+			sl = append(sl, val)
 		}
 		if len(sl) != 0 {
 			result = append(result, sl)
@@ -84,15 +84,15 @@ func SCC(g, gr *gsd.Graph) [][]string {
 }
 
 // DFS_SCC performs dfsSCC.
-func DFS_SCC(g *gsd.Graph, start *gsd.Vertex) *slice.Sequence {
-	stack := slice.NewSequence()
-	dfsSCC(g, start, stack)
+func DFS_SCC(g *gsd.Graph, start *gsd.Vertex) []string {
+	stack := []string{}
+	dfsSCC(g, start, &stack)
 	return stack
 }
 
 // dfsSCC performs DFS and returns the result in stack.
 // We put vertices on a stack as we finish the recursive step.
-func dfsSCC(g *gsd.Graph, start *gsd.Vertex, stack *slice.Sequence) {
+func dfsSCC(g *gsd.Graph, start *gsd.Vertex, stack *[]string) {
 	if start == nil {
 		panic("Wrong Start Vertex Passed!")
 	}
@@ -107,18 +107,15 @@ func dfsSCC(g *gsd.Graph, start *gsd.Vertex, stack *slice.Sequence) {
 		DFSVisit(g, start, stamp, result)
 	}
 
-	for i := len(*result) - 1; i >= 0; i-- {
-		stack.PushBack((*result)[i].(string))
+	for i := result.Len() - 1; i >= 0; i-- {
+		*stack = append(*stack, ((*result)[i].(string)))
 	}
 }
 
 // Contains returns true if vtx exists in the slice sl.
-func Contains(vtx *gsd.Vertex, sl *slice.Sequence) bool {
-	for _, val := range *sl {
-		if val.(*gsd.Vertex) == nil {
-			continue
-		}
-		if val.(*gsd.Vertex).ID == vtx.ID {
+func Contains(vtx string, sl []string) bool {
+	for _, val := range sl {
+		if val == vtx {
 			return true
 		}
 	}

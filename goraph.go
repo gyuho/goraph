@@ -6,6 +6,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gyuho/goraph/algorithm/bfs"
+	"github.com/gyuho/goraph/graph/gsd"
 	"github.com/gyuho/goraph/viz"
 )
 
@@ -40,18 +42,14 @@ Type "Ctrl + c" or "q" to exit.`)
 [2] Algorithm Visualization : Breadth First Search
 [3] Algorithm Visualization : Depth First Search
 [4] Algorithm Visualization : Shortest Path
-[5] Algorithm Visualization : Topological Sort
-[6] Algorithm Visualization : Minimum Spanning Tree
-[7] Algorithm Visualization : Network Flow
+[5] Algorithm Visualization : Minimum Spanning Tree
 `)
 		mm := make(map[string]string)
 		mm["1"] = "Visualize a Graph"
 		mm["2"] = "Algorithm Visualization : Breadth First Search"
 		mm["3"] = "Algorithm Visualization : Depth First Search"
 		mm["4"] = "Algorithm Visualization : Shortest Path"
-		mm["5"] = "Algorithm Visualization : Topological Sort"
-		mm["6"] = "Algorithm Visualization : Minimum Spanning Tree"
-		mm["7"] = "Algorithm Visualization : Network Flow"
+		mm["5"] = "Algorithm Visualization : Minimum Spanning Tree"
 
 		fmt.Print("Select the menu: ")
 		var choice string
@@ -79,17 +77,37 @@ Type "Ctrl + c" or "q" to exit.`)
 			fmt.Scanf("%s", &name)
 			viz.Show(path, name, name+"-output.dot")
 		case "2":
-			fmt.Println("2")
+			fmt.Print("✔ Type or Drag the JSON graph file: ")
+			var path string
+			fmt.Scanf("%s", &path)
+			fmt.Print("✔ Type the name of graph to visualize: ")
+			var name string
+			fmt.Scanf("%s", &name)
+			bfs.ShowBFS(gsd.JSONGraph(path, name), name+"-output.dot")
 		case "3":
-			fmt.Println("3")
+			fmt.Print("✔ Type or Drag the JSON graph file: ")
+			var path string
+			fmt.Scanf("%s", &path)
+			fmt.Print("✔ Type the name of graph to visualize: ")
+			var name string
+			fmt.Scanf("%s", &name)
+			viz.Show(path, name, name+"-output.dot")
 		case "4":
-			fmt.Println("4")
+			fmt.Print("✔ Type or Drag the JSON graph file: ")
+			var path string
+			fmt.Scanf("%s", &path)
+			fmt.Print("✔ Type the name of graph to visualize: ")
+			var name string
+			fmt.Scanf("%s", &name)
+			viz.Show(path, name, name+"-output.dot")
 		case "5":
-			fmt.Println("5")
-		case "6":
-			fmt.Println("6")
-		case "7":
-			fmt.Println("7")
+			fmt.Print("✔ Type or Drag the JSON graph file: ")
+			var path string
+			fmt.Scanf("%s", &path)
+			fmt.Print("✔ Type the name of graph to visualize: ")
+			var name string
+			fmt.Scanf("%s", &name)
+			viz.Show(path, name, name+"-output.dot")
 		default:
 			fmt.Println("Done")
 		}
