@@ -46,9 +46,9 @@ func Test_JSON_DFS(test *testing.T) {
 	}
 }
 
-func Test_JSON_DFSs(test *testing.T) {
+func Test_JSON_DFSStart(test *testing.T) {
 	g4 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.004")
-	g4s := DFSs(g4, g4.FindVertexByID("S"))
+	g4s := DFSStart(g4, g4.FindVertexByID("S"))
 	g4c := "S → B → A → D → E → F → T → C"
 	if g4s != g4c {
 		test.Errorf("Should be same but\n%v\n%v", g4s, g4c)
@@ -65,7 +65,7 @@ func Test_JSON_DFSs(test *testing.T) {
 	}
 
 	g5 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.005")
-	g5s := DFSs(g5, g5.FindVertexByID("A"))
+	g5s := DFSStart(g5, g5.FindVertexByID("A"))
 	g5c := "A → B → C → D → E → F"
 	if g5s != g5c {
 		test.Errorf("Should be same but\n%v\n%v", g5s, g5c)
@@ -82,9 +82,9 @@ func Test_JSON_DFSs(test *testing.T) {
 	}
 }
 
-func Test_JSON_DFSs_1(test *testing.T) {
+func Test_JSON_DFSStart_1(test *testing.T) {
 	g4 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.004")
-	g4s := DFSs(g4, g4.FindVertexByID("A"))
+	g4s := DFSStart(g4, g4.FindVertexByID("A"))
 	g4c := "A → S → B → D → E → F → T → C"
 	if g4s != g4c {
 		test.Errorf("Should be same but\n%v\n%v", g4s, g4c)
@@ -101,7 +101,7 @@ func Test_JSON_DFSs_1(test *testing.T) {
 	}
 
 	g5 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.005")
-	g5s := DFSs(g5, g5.FindVertexByID("E"))
+	g5s := DFSStart(g5, g5.FindVertexByID("E"))
 	g5c := "E → F → A → B → C → D"
 	if g5s != g5c {
 		test.Errorf("Should be same but\n%v\n%v", g5s, g5c)
@@ -118,9 +118,9 @@ func Test_JSON_DFSs_1(test *testing.T) {
 	}
 }
 
-func Test_JSON_DFSs_2(test *testing.T) {
+func Test_JSON_DFSStart_2(test *testing.T) {
 	g4 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.004")
-	g4s := DFSs(g4, g4.FindVertexByID("D"))
+	g4s := DFSStart(g4, g4.FindVertexByID("D"))
 	g4c := "D → A → S → B → E → F → T → C"
 	if g4s != g4c {
 		test.Errorf("Should be same but\n%v\n%v", g4s, g4c)
@@ -137,7 +137,7 @@ func Test_JSON_DFSs_2(test *testing.T) {
 	}
 
 	g5 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.005")
-	g5s := DFSs(g5, g5.FindVertexByID("B"))
+	g5s := DFSStart(g5, g5.FindVertexByID("B"))
 	g5c := "B → A → C → D → E → F"
 	if g5s != g5c {
 		test.Errorf("Should be same but\n%v\n%v", g5s, g5c)
@@ -152,12 +152,4 @@ func Test_JSON_DFSs_2(test *testing.T) {
 	if !allvisited5 {
 		test.Errorf("All vertices should be marked black")
 	}
-}
-
-func Test_JSON_DFS_SCC(test *testing.T) {
-	g15 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.015")
-	fmt.Println(DFS_SCC(g15, g15.FindVertexByID("B")))
-
-	g16 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.016")
-	fmt.Println(DFS_SCC(g16, g16.FindVertexByID("C")))
 }

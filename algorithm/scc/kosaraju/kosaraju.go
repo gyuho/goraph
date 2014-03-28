@@ -7,8 +7,6 @@ import (
 )
 
 /*
-http://www.geeksforgeeks.org/strongly-connected-components/
-
 http://en.wikipedia.org/wiki/Kosaraju%27s_algorithm
 It makes use of the fact that the transpose graph
 (the same graph with the direction of every edge reversed)
@@ -80,6 +78,35 @@ func SCC(g, gr *gsd.Graph) [][]string {
 	}
 
 	return result
+}
+
+// DFS_SCC performs dfsSCC.
+func DFS_SCC(g *gsd.Graph, start *gsd.Vertex) *slice.Sequence {
+	stack := slice.NewSequence()
+	dfsSCC(g, start, stack)
+	return stack
+}
+
+// dfsSCC performs DFS and returns the result in stack.
+// We put vertices on a stack as we finish the recursive step.
+func dfsSCC(g *gsd.Graph, start *gsd.Vertex, stack *slice.Sequence) {
+	if start == nil {
+		panic("Wrong Start Vertex Passed!")
+	}
+
+	// time = 0
+	var stamp int64 = 0
+
+	// for each vertex u ∈ g.V
+	result := slice.NewSequence()
+
+	if start.Color == "white" {
+		DFSVisit(g, start, stamp, result)
+	}
+
+	for i := len(*result) - 1; i >= 0; i-- {
+		stack.PushBack((*result)[i].(string))
+	}
 }
 
 // Contains returns true if vtx exists in the slice sl.
