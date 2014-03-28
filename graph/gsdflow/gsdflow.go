@@ -70,7 +70,8 @@ func NewVertex(id string) *Vertex {
 type Edge struct {
 	Src    *Vertex // source vertex that this edge starts from
 	Dst    *Vertex // destination vertex that this edge goes to
-	Weight float64
+	Weight float64 // Used as capacify
+	Flow   float64
 }
 
 // NewEdge returns a new edge from src to dst.
@@ -79,6 +80,7 @@ func NewEdge(src, dst *Vertex, weight float64) *Edge {
 		src,
 		dst,
 		weight,
+		0,
 	}
 }
 
