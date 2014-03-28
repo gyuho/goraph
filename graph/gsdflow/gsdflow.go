@@ -1,10 +1,5 @@
-// Package gsd implements graph using adjacency
-// list and slice data structure. This is same as
-// the package gs except that this allows duplicate edges.
-// There can be multiple edges from one to the other node.
-// "Connect" and "GetEdgeWeight" are defined different.
-// And "DeleteEdge" works different than others.
-package gsd
+// Package gsdflow implements graph, almost same as package gsd.
+package gsdflow
 
 import (
 	"fmt"

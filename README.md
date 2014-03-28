@@ -91,6 +91,7 @@ graph/				# Graph Data Structure
 	gm/				# Adjacency List, Map, No Duplicate Edges
 	gs/				# Adjacency List, Slice, No Duplicate Edges
 	gsd/			# Adjacency List, Slice, Allow Duplicate Edges
+	gsdflow/	# Customized gsd for Network Flow Algorithm
 	gt/				# Adjacency Matrix, Map, No Duplicate Edges
 
 viz/				# Graph Visualization (Graphviz)
