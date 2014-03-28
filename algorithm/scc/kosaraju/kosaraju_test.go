@@ -13,9 +13,10 @@ func Test_JSON_SCC(test *testing.T) {
 	fmt.Println(SCC(g15, gr15))
 	// [[B E A] [D C] [G F] [H]]
 
-	g16 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.016")
-	gr16 := gsd.JSONGraphT("../../../testgraph/testgraph.json", "testgraph.016")
-	fmt.Println(SCC(g16, gr16))
+	// TODO
+	// g16 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.016")
+	// gr16 := gsd.JSONGraphT("../../../testgraph/testgraph.json", "testgraph.016")
+	// fmt.Println(SCC(g16, gr16))
 	// [[B F G A] [D H C] [I] [E J]]
 }
 
