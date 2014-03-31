@@ -46,7 +46,6 @@ func Test_JSON_DFS(test *testing.T) {
 	}
 }
 
-// Order is a bit different than ParseToGraph.
 func Test_JSON_Path(test *testing.T) {
 	g4 := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.004")
 	rb4 := Path(g4, g4.FindVertexByID("S"), g4.FindVertexByID("F"))

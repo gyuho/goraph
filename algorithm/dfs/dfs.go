@@ -98,8 +98,8 @@ func DFSVisit(g *gsd.Graph, src *gsd.Vertex, stamp int64, result *slice.Sequence
 
 // Path returns true if there is a path between two Vertices.
 func Path(g *gsd.Graph, src, end *gsd.Vertex) bool {
-	if src == nil {
-		panic("Wrong Start Vertex Passed!")
+	if src == nil || end == nil {
+		panic("Wrong Vertex Passed!")
 	}
 	rb := false
 	if src.Color == "white" {

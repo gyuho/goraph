@@ -78,3 +78,34 @@ func BFS(g *gsd.Graph, src *gsd.Vertex) string {
 
 	return s[:len(s)-5]
 }
+
+// Path returns true if there is a path between two Vertices.
+func Path(g *gsd.Graph, src, end *gsd.Vertex) bool {
+	if src == nil || end == nil {
+		panic("Wrong Vertex Passed!")
+	}
+	src.Color = "gray"
+
+	queue := slice.NewSequence() // Q = ∅
+	queue.PushBack(src)          // ENQUEUE(Q, s)
+
+	for queue.Len() != 0 {
+		u := queue.PopFront().(*gsd.Vertex)
+		ovs := u.GetOutVertices()
+		for _, vtx := range *ovs {
+			if vtx == nil {
+				continue
+			}
+			vt := vtx.(*gsd.Vertex)
+			if vt == end {
+				return true
+			}
+			if vt.Color == "white" {
+				vt.Color = "gray"
+				queue.PushBack(vt)
+			}
+		}
+		u.Color = "black"
+	}
+	return false
+}
