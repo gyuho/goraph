@@ -95,3 +95,34 @@ func DFSVisit(g *gsd.Graph, src *gsd.Vertex, stamp int64, result *slice.Sequence
 	stamp += 1
 	src.StampF = stamp
 }
+
+// Path returns true if there is a path between two Vertices.
+func Path(g *gsd.Graph, src, end *gsd.Vertex) bool {
+	if src == nil {
+		panic("Wrong Start Vertex Passed!")
+	}
+	rb := false
+	if src.Color == "white" {
+		path(g, src, end, &rb)
+	}
+	return rb
+}
+
+// path recursively visits the vertices in the graph.
+func path(g *gsd.Graph, src, end *gsd.Vertex, rb *bool) {
+	if src == end {
+		*rb = true
+		return
+	}
+	src.Color = "gray"
+	ovs := src.GetOutVertices()
+	for _, vtx := range *ovs {
+		if vtx == nil {
+			continue
+		}
+		if vtx.(*gsd.Vertex).Color == "white" {
+			path(g, vtx.(*gsd.Vertex), end, rb)
+		}
+	}
+	src.Color = "black"
+}
