@@ -13,7 +13,7 @@ goraph provides graph visualizing tools and algorithm implementations.
 - [Adjacency List vs. Adjacency Matrix](https://github.com/gyuho/goraph#adjacency-list-vs-adjacency-matrix)
 - [Channel](https://github.com/gyuho/goraph#channel)
 - [C++ Version](https://github.com/gyuho/goraph#c-version)
-- [Tree](https://github.com/gyuho/goraph#tree)
+- [package gotree](https://github.com/gyuho/goraph#package-gotree)
 
 
 Getting Started
@@ -295,32 +295,14 @@ What is Graph? (YouTube Clips)
 	- subgraph that contains all of that graph’s vertices
 subgraph that is a single tree
 
-[↑ top](https://github.com/gyuho/goraph#goraph---)
+- **Degree of a Vertex**
+	- number of edges incident to the vertex(loop counts as 2).
 
-
-Tree
-========
-Tree (a graph G with V vertices)  if and only if it satisfies any of the following 5 conditions.
-
-- G has V-1 edges and no cycles
-- G has V-1 edges and is connected
-- G is connected, and removing any edge disconnects the - G
-- G is acyclic, and adding any edge creates a cycle in G
-- Exactly one simple path connects each pair of vertices in G
+- **Predecessor of a Vertex**
+ - edge(u, v), then vertex v is the descendant of u. Vertex u is the predecessor, or parent/ancestor, of vertex v. v.d is the distance from the source; s.d is 0 when s is the source node. u.d is 1 when the distance from source to u is 1. This is implemented as <b>InVertices</b> in goraph.
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
-Degree of a Vertex
-========
-The number of edges incident to the vertex(loop counts as 2).
-
-[↑ top](https://github.com/gyuho/goraph#goraph---)
-
-Predecessor of a Vertex
-========
-edge(u, v), then vertex v is the descendant of u. Vertex u is the predecessor, or parent/ancestor, of vertex v. v.d is the distance from the source; s.d is 0 when s is the source node. u.d is 1 when the distance from source to u is 1. This is implemented as <b>InVertices</b> in goraph.
-
-[↑ top](https://github.com/gyuho/goraph#goraph---)
 
 Adjacency List vs. Adjacency Matrix
 ========
@@ -378,9 +360,22 @@ I have another Graph Algorithm project written in C++. It is **NOT** maintained 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
 
-Tree
+package gotree
 =========
 Tree is just another kind of graph data structure. If interested check out <a href="https://github.com/gyuho/gotree" target="_blank">gotree</a>.
+
+
+Tree
+========
+Tree (a graph G with V vertices)  if and only if it satisfies any of the following 5 conditions.
+
+- G has V-1 edges and no cycles
+- G has V-1 edges and is connected
+- G is connected, and removing any edge disconnects the - G
+- G is acyclic, and adding any edge creates a cycle in G
+- Exactly one simple path connects each pair of vertices in G
+
+[↑ top](https://github.com/gyuho/goraph#goraph---)
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
