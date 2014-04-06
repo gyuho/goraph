@@ -108,7 +108,12 @@ func (g Graph) GetEdges() *slice.Sequence {
 func (g Graph) GetEdge(src, dst *Vertex) *Edge {
 	slice := g.GetEdges()
 	for _, edge := range *slice {
-		if edge.(*Edge).Src == src && edge.(*Edge).Dst == dst {
+		//
+		// This does not work when used with CopyGraph and SameGraph
+		// because the copy has different pointer values.
+		// (X) if edge.(*Edge).Src == src && edge.(*Edge).Dst == dst {
+		//
+		if edge.(*Edge).Src.ID == src.ID && edge.(*Edge).Dst.ID == dst.ID {
 			return edge.(*Edge)
 		}
 	}
@@ -151,8 +156,8 @@ func (v Vertex) GetPrevSize() int {
 	return v.Prev.Len()
 }
 
-// FindVertexByID returns the vertex with input ID
-// , or return nil if it doesn't exist.
+// FindVertexByID returns the vertex with input ID,
+// or return nil if it doesn't exist.
 func (g Graph) FindVertexByID(id interface{}) *Vertex {
 	slice := g.GetVertices()
 	for _, v := range *slice {

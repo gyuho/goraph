@@ -1,5 +1,7 @@
 package gsd
 
+import "log"
+
 // SameVertex returns true if two vertices are the same.
 func SameVertex(v1, v2 *Vertex) bool {
 	if v1.ID != v2.ID {
@@ -86,9 +88,11 @@ func SameEdge(e1, e2 *Edge) bool {
 // SameGraph returns true if two graphs are equal.
 func SameGraph(g1, g2 *Graph) bool {
 	if g1.GetVerticesSize() != g2.GetVerticesSize() {
+		log.Fatalln("Vertex Size Different")
 		return false
 	}
 	if g1.GetEdgesSize() != g2.GetEdgesSize() {
+		log.Fatalln("Edge Size Different")
 		return false
 	}
 
@@ -96,9 +100,11 @@ func SameGraph(g1, g2 *Graph) bool {
 	for _, vt1 := range *vtxsl1 {
 		vt2 := g2.FindVertexByID(vt1.(*Vertex).ID)
 		if vt2 == nil {
+			log.Fatalln("Vertex Does Not Exist", vt1.(*Vertex).ID)
 			return false
 		}
 		if !SameVertex(vt2, vt1.(*Vertex)) {
+			log.Fatalln("Vertex with Same ID but different Vertex", vt1.(*Vertex).ID)
 			return false
 		}
 	}
@@ -107,6 +113,7 @@ func SameGraph(g1, g2 *Graph) bool {
 	for _, eg1 := range *edgsl1 {
 		eg2 := g2.GetEdge(g2.FindVertexByID(eg1.(*Edge).Src.ID), g2.FindVertexByID(eg1.(*Edge).Dst.ID))
 		if eg2 == nil {
+			log.Fatalln("Edge Does Not Exist", eg1.(*Edge).Src.ID, eg1.(*Edge).Dst.ID)
 			return false
 		}
 	}
