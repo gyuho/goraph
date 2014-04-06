@@ -13,6 +13,7 @@ goraph provides graph visualizing tools and algorithm implementations.
 - [Adjacency List vs. Adjacency Matrix](https://github.com/gyuho/goraph#adjacency-list-vs-adjacency-matrix)
 - [Channel](https://github.com/gyuho/goraph#channel)
 - [C++ Version](https://github.com/gyuho/goraph#c-version)
+- [Tree](https://github.com/gyuho/goraph#tree)
 
 
 Getting Started
@@ -375,3 +376,11 @@ C++ Version
 I have another Graph Algorithm project written in C++. It is **NOT** maintained anymore, but if interested check out <a href="https://github.com/gyuho/learn-cpp/tree/master/code/cpp_graph_algorithm" target="_blank">HERE</a>.
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
+
+
+Tree
+=========
+Tree is just another kind of graph data structure. If interested check out <a href="https://github.com/gyuho/gotree" target="_blank">gotree</a>.
+
+[↑ top](https://github.com/gyuho/goraph#goraph---)
+
