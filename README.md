@@ -364,6 +364,8 @@ package gotree
 =========
 Tree is just another kind of graph data structure. If interested check out <a href="https://github.com/gyuho/gotree" target="_blank">gotree</a>.
 
+[↑ top](https://github.com/gyuho/goraph#goraph---)
+
 
 Tree
 ========
@@ -374,8 +376,6 @@ Tree (a graph G with V vertices)  if and only if it satisfies any of the followi
 - G is connected, and removing any edge disconnects the - G
 - G is acyclic, and adding any edge creates a cycle in G
 - Exactly one simple path connects each pair of vertices in G
-
-[↑ top](https://github.com/gyuho/goraph#goraph---)
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
