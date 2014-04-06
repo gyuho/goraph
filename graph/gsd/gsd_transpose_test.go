@@ -62,6 +62,7 @@ func Test_JSONGraphT(test *testing.T) {
 	}
 }
 
+/*
 func Test_Transpose(test *testing.T) {
 	g7 := JSONGraph("../../testgraph/testgraph.json", "testgraph.007")
 	g7.Transpose()
@@ -123,3 +124,4 @@ func Test_Transpose(test *testing.T) {
 		test.Errorf("Should be 2 but %+v", g10.FindVertexByID("E").GetOutVerticesSize())
 	}
 }
+*/

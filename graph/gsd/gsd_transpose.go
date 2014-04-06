@@ -29,17 +29,16 @@ func JSONGraphT(filename, graph string) *Graph {
 	return g
 }
 
+/*
 // Transpose transposes the original Graph.
 func (g *Graph) Transpose() *Graph {
 	// To change the direction of edges
 	edges := g.GetEdges()
-	/*
-	   type Edge struct {
-	   	Src *Vertex
-	   	Dst *Vertex
-	   	Weight float64
-	   }
-	*/
+	// type Edge struct {
+	// 	Src *Vertex
+	// 	Dst *Vertex
+	// 	Weight float64
+	// }
 	for _, edge := range *edges {
 		src := edge.(*Edge).Src
 		dst := edge.(*Edge).Dst
@@ -47,14 +46,11 @@ func (g *Graph) Transpose() *Graph {
 		*src = *dst
 		*dst = temp
 	}
-
 	// To update the Vertex
 	// we can just swap InVertices and OutVertices
 	vertices := g.GetVertices()
-	/*
-	   InVertices *slice.Sequence
-	   OutVertices *slice.Sequence
-	*/
+	// InVertices *slice.Sequence
+	// OutVertices *slice.Sequence
 	for _, vtx := range *vertices {
 		in := vtx.(*Vertex).GetInVertices()
 		out := vtx.(*Vertex).GetOutVertices()
@@ -62,6 +58,6 @@ func (g *Graph) Transpose() *Graph {
 		*in = *out
 		*out = temp
 	}
-
 	return g
 }
+*/
