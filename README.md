@@ -355,7 +355,7 @@ It's not idiomatic Go style to use channels, simply for the ability to iterate o
 
 C++ Version
 =========
-I have another Graph Algorithm project written in C++. It is **NOT** maintained anymore, but if interested check out <a href="https://github.com/gyuho/learn-cpp/tree/master/code/cpp_graph_algorithm" target="_blank">HERE</a>.
+I have another Graph Algorithm project written in C++. It is **NOT** maintained anymore, but if interested check out <a href="https://github.com/gyuho/learn/tree/master/learn_cpp/code/cpp_graph_algorithm" target="_blank">HERE</a>.
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
