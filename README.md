@@ -22,21 +22,7 @@ Getting Started
 - [gowalker.org](http://gowalker.org/github.com/gyuho/goraph#_index)
 
 ```go
-// to install, in the command line
-mkdir $HOME/go
-export GOPATH=$HOME/go
 go get github.com/gyuho/goraph
-
-// to include, in the code
-import "github.com/gyuho/goraph"
-
-// to call the function, in the code
-[package_name].[function]
-
-// to execute
-go install
-// or
-go build
 ```
 <img src="./files/sample.gif" alt="sample" width="450px" height="350px"/>
 
