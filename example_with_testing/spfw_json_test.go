@@ -12,7 +12,7 @@ import (
 
 func Test_JSON_SPFW(test *testing.T) {
 	fmt.Println("SPFW on testgraph4:")
-	g4 := gt.JSONGraph("../testgraph/testgraph.json", "testgraph.004")
+	g4 := gt.JSONGraph("../example_files/testgraph.json", "testgraph.004")
 	g4s, g4m := spfw.SPFW(g4, "S", "T")
 	fmt.Println(g4s) // 44
 	fmt.Println(g4m)
@@ -29,7 +29,7 @@ func Test_JSON_SPFW(test *testing.T) {
 
 	println()
 	fmt.Println("SPFW on testgraph5:")
-	g5 := gt.JSONGraph("../testgraph/testgraph.json", "testgraph.005")
+	g5 := gt.JSONGraph("../example_files/testgraph.json", "testgraph.005")
 	g5s, g5m := spfw.SPFW(g5, "A", "E")
 	fmt.Println(g5s) // 20
 	fmt.Println(g5m)
@@ -44,7 +44,7 @@ func Test_JSON_SPFW(test *testing.T) {
 
 	println()
 	fmt.Println("SPFW on testgraph10:")
-	g10 := gt.JSONGraph("../testgraph/testgraph.json", "testgraph.010")
+	g10 := gt.JSONGraph("../example_files/testgraph.json", "testgraph.010")
 	g10s, g10m := spfw.SPFW(g10, "A", "E")
 	fmt.Println(g10s) // 36
 	fmt.Println(g10m)
@@ -59,7 +59,7 @@ func Test_JSON_SPFW(test *testing.T) {
 
 	println()
 	fmt.Println("SPFW on testgraph10:")
-	g10o := gt.JSONGraph("../testgraph/testgraph.json", "testgraph.010")
+	g10o := gt.JSONGraph("../example_files/testgraph.json", "testgraph.010")
 	g10so, g10m := spfw.SPFW(g10o, "E", "A")
 	fmt.Println(g10so) // 22
 	fmt.Println(g10m)
@@ -74,7 +74,7 @@ func Test_JSON_SPFW(test *testing.T) {
 
 	println()
 	fmt.Println("SPFW on testgraph10:")
-	g11 := gt.JSONGraph("../testgraph/testgraph.json", "testgraph.011")
+	g11 := gt.JSONGraph("../example_files/testgraph.json", "testgraph.011")
 	g11s, g11m := spfw.SPFW(g11, "S", "T")
 	fmt.Println(g11s) // 68
 	fmt.Println(g11m)
@@ -91,7 +91,7 @@ func Test_JSON_SPFW(test *testing.T) {
 
 	println()
 	fmt.Println("SPFW on testgraph11:")
-	g11o := gt.JSONGraph("../testgraph/testgraph.json", "testgraph.011")
+	g11o := gt.JSONGraph("../example_files/testgraph.json", "testgraph.011")
 	g11so, g11om := spfw.SPFW(g11o, "T", "S")
 	fmt.Println(g11so) // 48
 	fmt.Println(g11om)

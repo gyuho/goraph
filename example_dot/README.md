@@ -1,4 +1,4 @@
-Learn DOT
+DOT
 =========
 
 DOT is a graph description language for <a href="http://www.graphviz.org/" target="_blank">Graphviz</a>.

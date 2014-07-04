@@ -9,7 +9,7 @@ import (
 )
 
 func Test_JSON_Contains(test *testing.T) {
-	g14 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.014")
+	g14 := gsd.JSONGraph("../../../example_files/testgraph.json", "testgraph.014")
 	vertices := g14.GetVertices()
 	minHeap := make(VertexSlice, 0)
 	for _, vtx := range *vertices {
@@ -24,7 +24,7 @@ func Test_JSON_Contains(test *testing.T) {
 }
 
 func Test_JSON_MST(test *testing.T) {
-	g14 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.014")
+	g14 := gsd.JSONGraph("../../../example_files/testgraph.json", "testgraph.014")
 	result, twgt := MST(g14)
 	fmt.Println(result)
 	/*

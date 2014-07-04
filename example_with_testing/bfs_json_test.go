@@ -14,7 +14,7 @@ import (
 
 func Test_JSON_BFS(test *testing.T) {
 	fmt.Println("Breadth First Search on testgraph4:")
-	g4 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.004")
+	g4 := gsd.JSONGraph("../example_files/testgraph.json", "testgraph.004")
 	fmt.Println(bfs.BFS(g4, g4.FindVertexByID("S")))
 	// S → B → A → D → E → T → C → F
 
@@ -26,7 +26,7 @@ func Test_JSON_BFS(test *testing.T) {
 
 	println()
 	fmt.Println("Breadth First Search on testgraph5:")
-	g5 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.005")
+	g5 := gsd.JSONGraph("../example_files/testgraph.json", "testgraph.005")
 	fmt.Println(bfs.BFS(g5, g5.FindVertexByID("A")))
 	// A → B → C → F → D → E
 

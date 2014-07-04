@@ -12,7 +12,7 @@ import (
 
 func Test_JSON_SPBF(test *testing.T) {
 	fmt.Println("Bellman-Ford Shortest Path on testgraph12:")
-	g12 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.012")
+	g12 := gsd.JSONGraph("../example_files/testgraph.json", "testgraph.012")
 	fmt.Println(spbf.SPBF(g12, "S", "T"))
 	// S(=0) → A(=7) → C(=4) → B(=2) → T(=-2) true
 	fmt.Println(g12.ShowPrev("T"), "/ T's StampD:", g12.FindVertexByID("T").StampD)
@@ -33,7 +33,7 @@ func Test_JSON_SPBF(test *testing.T) {
 	*/
 
 	fmt.Println("Bellman-Ford Shortest Path on testgraph13:")
-	g13 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.013")
+	g13 := gsd.JSONGraph("../example_files/testgraph.json", "testgraph.013")
 	fmt.Println(spbf.SPBF(g13, "S", "T"))
 	// There is negative weighted cycle (No Shortest Path) false
 }

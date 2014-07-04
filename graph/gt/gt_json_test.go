@@ -3,25 +3,25 @@ package gt
 import "testing"
 
 func Test_JSON_ParseToGraph(test *testing.T) {
-	g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g1 := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	if g1.GetVerticesSize() != 8 {
 		test.Error("The graph should be of vertex size 8 but:", g1.GetVerticesSize())
 	}
 
-	g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
+	g2 := JSONGraph("../../example_files/testgraph.json", "testgraph.002")
 	if g2.GetVerticesSize() != 8 {
 		test.Error("The graph should be of vertex size 8 but:", g2.GetVerticesSize())
 	}
 }
 
 func Test_JSON_GetVertices(test *testing.T) {
-	g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g1 := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	vs1 := g1.GetVertices()
 	if len(vs1) != 8 {
 		test.Errorf("The graph should be of 8 vertices but: %v", vs1)
 	}
 
-	g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
+	g2 := JSONGraph("../../example_files/testgraph.json", "testgraph.002")
 	vs2 := g2.GetVertices()
 	if len(vs2) != 8 {
 		test.Errorf("The graph should be of 8 vertices but: %v", vs2)
@@ -29,24 +29,24 @@ func Test_JSON_GetVertices(test *testing.T) {
 }
 
 func Test_JSON_GetEdgesSize(test *testing.T) {
-	g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g1 := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	if g1.GetEdgesSize() != 30 {
 		test.Error("The graph should be of edge size 30 but:", g1.GetEdgesSize())
 	}
 
-	g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
+	g2 := JSONGraph("../../example_files/testgraph.json", "testgraph.002")
 	if g2.GetEdgesSize() != 24 {
 		test.Error("The graph should be of edge size 24 but:", g1.GetEdgesSize())
 	}
 }
 
 func Test_JSON_GetEdgeWeight(test *testing.T) {
-	g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g1 := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	if g1.GetEdgeWeight("S", "C") != 200 {
 		test.Error("Should return 200 but:", g1.GetEdgeWeight("S", "C"))
 	}
 
-	g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
+	g2 := JSONGraph("../../example_files/testgraph.json", "testgraph.002")
 	if g2.GetEdgeWeight("D", "B") != 0.0 {
 		test.Error("Should return 0.0 but:", g2.GetEdgeWeight("D", "B"))
 	}
@@ -56,13 +56,13 @@ func Test_JSON_GetEdgeWeight(test *testing.T) {
 }
 
 func Test_JSON_RemoveEdge(test *testing.T) {
-	g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g1 := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	g1.RemoveEdge("S", "C")
 	if g1.GetEdgesSize() != 29 {
 		test.Error("Should return 29 but:", g1.GetEdgesSize())
 	}
 
-	g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
+	g2 := JSONGraph("../../example_files/testgraph.json", "testgraph.002")
 	g2.RemoveEdge("D", "B")
 	if g2.GetEdgesSize() != 24 {
 		test.Error("Should return 24 but:", g1.GetEdgesSize())
@@ -75,12 +75,12 @@ func Test_JSON_RemoveEdge(test *testing.T) {
 }
 
 func Test_JSON_HasEdge(test *testing.T) {
-	g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g1 := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	if g1.HasEdge("S", "C") != true {
 		test.Error("Should return true but:", g1.HasEdge("S", "C"))
 	}
 
-	g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
+	g2 := JSONGraph("../../example_files/testgraph.json", "testgraph.002")
 	if g2.HasEdge("D", "B") != false {
 		test.Error("Should return false but:", g2.HasEdge("D", "B"))
 	}
@@ -91,12 +91,12 @@ func Test_JSON_HasEdge(test *testing.T) {
 }
 
 func Test_JSON_GetInVertices(test *testing.T) {
-	g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g1 := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	if len(g1.GetInVertices("S")) != 3 {
 		test.Error("Should return 3 but:", len(g1.GetInVertices("S")))
 	}
 
-	g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
+	g2 := JSONGraph("../../example_files/testgraph.json", "testgraph.002")
 	if len(g2.GetInVertices("B")) != 3 {
 		test.Error("Should return 3 but:", len(g2.GetInVertices("B")))
 	}
@@ -107,12 +107,12 @@ func Test_JSON_GetInVertices(test *testing.T) {
 }
 
 func Test_JSON_GetOutVertices(test *testing.T) {
-	g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g1 := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	if len(g1.GetOutVertices("S")) != 3 {
 		test.Error("Should return 3 but:", len(g1.GetOutVertices("S")))
 	}
 
-	g2 := JSONGraph("../../testgraph/testgraph.json", "testgraph.002")
+	g2 := JSONGraph("../../example_files/testgraph.json", "testgraph.002")
 	if len(g2.GetOutVertices("B")) != 4 {
 		test.Error("Should return 4 but:", len(g2.GetOutVertices("B")))
 	}
@@ -127,7 +127,7 @@ func Test_JSON_GetOutVertices(test *testing.T) {
 }
 
 func Test_JSON_Initialize(test *testing.T) {
-	g1 := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g1 := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	g1.Initialize(99999.999)
 
 	cnum := true

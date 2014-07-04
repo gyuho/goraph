@@ -1,4 +1,4 @@
-// Package gsdset implements set operations with graph/gsd.
+// Package gsdset implements set operations with the package graph/gsd.
 package gsdset
 
 import "github.com/gyuho/goraph/graph/gsd"

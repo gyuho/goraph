@@ -7,7 +7,7 @@ import (
 )
 
 func Test_JSON_MaxFlow(test *testing.T) {
-	g := gt.JSONGraph("../../../testgraph/testgraph.json", "testgraph.017")
+	g := gt.JSONGraph("../../../example_files/testgraph.json", "testgraph.017")
 	mf := MaxFlow(g, "S", "T")
 	if mf != 28 {
 		test.Errorf("Should return 28 but %+v", mf)

@@ -25,7 +25,7 @@ func Test_MakeSet(test *testing.T) {
 }
 
 func Test_MakeGraphSet(test *testing.T) {
-	g := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.003")
+	g := gsd.JSONGraph("../../example_files/testgraph.json", "testgraph.003")
 	s := MakeGraphSet(g)
 	// fmt.Printf("%+v", s[0])
 	// DisJoint Set (Rep: S) / Vertex Set: [ S ]
@@ -35,7 +35,7 @@ func Test_MakeGraphSet(test *testing.T) {
 }
 
 func Test_SetContains(test *testing.T) {
-	g := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.003")
+	g := gsd.JSONGraph("../../example_files/testgraph.json", "testgraph.003")
 	s := MakeGraphSet(g)
 	vertices := g.GetVertices()
 	if !s[0].SetContains((*vertices)[0].(*gsd.Vertex)) {
@@ -44,7 +44,7 @@ func Test_SetContains(test *testing.T) {
 }
 
 func Test_GetSet(test *testing.T) {
-	g := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.003")
+	g := gsd.JSONGraph("../../example_files/testgraph.json", "testgraph.003")
 	s := MakeGraphSet(g)
 	vertices := g.GetVertices()
 	ds := GetSet((*vertices)[0].(*gsd.Vertex), s)
@@ -56,7 +56,7 @@ func Test_GetSet(test *testing.T) {
 }
 
 func Test_FindSet(test *testing.T) {
-	g := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.003")
+	g := gsd.JSONGraph("../../example_files/testgraph.json", "testgraph.003")
 	s := MakeGraphSet(g)
 	vertices := g.GetVertices()
 	fs := FindSet((*vertices)[0].(*gsd.Vertex), s)
@@ -68,7 +68,7 @@ func Test_FindSet(test *testing.T) {
 }
 
 func Test_UnionDisJointSet(test *testing.T) {
-	g := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.003")
+	g := gsd.JSONGraph("../../example_files/testgraph.json", "testgraph.003")
 	s := MakeGraphSet(g)
 	us := UnionDisJointSet(s[0], s[1])
 	result := fmt.Sprintf("%+v", us)
@@ -79,7 +79,7 @@ func Test_UnionDisJointSet(test *testing.T) {
 }
 
 func Test_UnionByRep(test *testing.T) {
-	g := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.003")
+	g := gsd.JSONGraph("../../example_files/testgraph.json", "testgraph.003")
 	s := MakeGraphSet(g)
 	vertices := g.GetVertices()
 	fs := UnionByRep((*vertices)[0].(*gsd.Vertex), (*vertices)[1].(*gsd.Vertex), &s)
@@ -94,7 +94,7 @@ func Test_UnionByRep(test *testing.T) {
 }
 
 func Test_UnionByVtx(test *testing.T) {
-	g := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.003")
+	g := gsd.JSONGraph("../../example_files/testgraph.json", "testgraph.003")
 	s := MakeGraphSet(g)
 	vertices := g.GetVertices()
 	fs := UnionByVtx((*vertices)[0].(*gsd.Vertex), (*vertices)[1].(*gsd.Vertex), &s)
@@ -109,7 +109,7 @@ func Test_UnionByVtx(test *testing.T) {
 }
 
 func Test_SortEdges(test *testing.T) {
-	g := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.003")
+	g := gsd.JSONGraph("../../example_files/testgraph.json", "testgraph.003")
 	edges := g.GetEdges()
 	fmt.Println("Before Sorting:")
 	for _, edge := range *edges {

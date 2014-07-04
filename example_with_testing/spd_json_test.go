@@ -12,7 +12,7 @@ import (
 
 func Test_JSON_SPD(test *testing.T) {
 	fmt.Println("Dijkstra Shortest Path on testgraph4:")
-	g4 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.004")
+	g4 := gsd.JSONGraph("../example_files/testgraph.json", "testgraph.004")
 	fmt.Println(spd.SPD(g4, "S", "T"))
 	fmt.Println(g4.ShowPrev("T"))
 	fmt.Println(g4.ShowPrev("F"))
@@ -34,7 +34,7 @@ func Test_JSON_SPD(test *testing.T) {
 
 	println()
 	fmt.Println("Dijkstra Shortest Path on testgraph5:")
-	g5 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.005")
+	g5 := gsd.JSONGraph("../example_files/testgraph.json", "testgraph.005")
 	fmt.Println(spd.SPD(g5, "A", "E"))
 	fmt.Println(g5.ShowPrev("E"))
 	fmt.Println(g5.ShowPrev("F"))
@@ -54,7 +54,7 @@ func Test_JSON_SPD(test *testing.T) {
 
 	println()
 	fmt.Println("Dijkstra Shortest Path on testgraph10:")
-	g10 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.010")
+	g10 := gsd.JSONGraph("../example_files/testgraph.json", "testgraph.010")
 	fmt.Println(spd.SPD(g10, "A", "E"))
 	fmt.Println(g10.ShowPrev("E"))
 	fmt.Println(g10.ShowPrev("D"))
@@ -76,7 +76,7 @@ func Test_JSON_SPD(test *testing.T) {
 
 	println()
 	fmt.Println("Dijkstra Shortest Path on testgraph10o:")
-	g10o := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.010")
+	g10o := gsd.JSONGraph("../example_files/testgraph.json", "testgraph.010")
 	fmt.Println(spd.SPD(g10o, "E", "A"))
 	fmt.Println(g10o.ShowPrev("A"))
 	fmt.Println(g10o.ShowPrev("B"))
@@ -98,7 +98,7 @@ func Test_JSON_SPD(test *testing.T) {
 
 	println()
 	fmt.Println("Dijkstra Shortest Path on testgraph11:")
-	g11 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.011")
+	g11 := gsd.JSONGraph("../example_files/testgraph.json", "testgraph.011")
 	fmt.Println(spd.SPD(g11, "S", "T"))
 	fmt.Println(g11.ShowPrev("T"))
 	fmt.Println(g11.ShowPrev("E"))
@@ -122,7 +122,7 @@ func Test_JSON_SPD(test *testing.T) {
 
 	println()
 	fmt.Println("Dijkstra Shortest Path on testgraph11o:")
-	g11o := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.011")
+	g11o := gsd.JSONGraph("../example_files/testgraph.json", "testgraph.011")
 	fmt.Println(spd.SPD(g11o, "T", "S"))
 	fmt.Println(g11o.ShowPrev("S"))
 	fmt.Println(g11o.ShowPrev("B"))

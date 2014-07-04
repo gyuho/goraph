@@ -4,7 +4,6 @@ goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](h
 goraph provides graph visualizing tools and algorithm implementations.
 
 - [Getting Started](https://github.com/gyuho/goraph#getting-started)
-- [To-Do-List](https://github.com/gyuho/goraph#to-do-list)
 - [Package Hierarchy](https://github.com/gyuho/goraph#package-hierarchy)
 - [Example](https://github.com/gyuho/goraph#example)
 - [Testing Graphs](https://github.com/gyuho/goraph#testing-graphs)
@@ -24,19 +23,10 @@ Getting Started
 ```go
 go get github.com/gyuho/goraph
 ```
-<img src="./files/sample.gif" alt="sample" width="450px" height="350px"/>
+<img src="./example_files/sample.gif" alt="sample" width="450px" height="350px"/>
 
-<img src="./files/testgraph.004_spd.png" alt="testgraph.004_spd"/>
+<img src="./example_files/testgraph.004_spd.png" alt="testgraph.004_spd"/>
 
-
-[↑ top](https://github.com/gyuho/goraph#goraph---)
-
-
-To-Do-List
-==========
-**Non-Committal on a Timeline**
-
-- More Graph Algorithms
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
@@ -44,43 +34,48 @@ To-Do-List
 Package Hierarchy
 ==========
 ```go
-algorithm/			# Graph Algorithms
-	bfs/			# Breadth First Search Algorithm
-	dfs/			# Depth First Search Algorithm
-	sp/				# Shortest Path Algorithm (Dijkstra, Bellman-Ford)
-	spbf/			# Shortest Path Algorithm for Negative Edges (Bellman-Ford)
-	spd/			# Shortest Path Algorithm for Positive Edges (Dijkstra)
-	spfw/			# Shortest Path Algorithm for Positive Edges (Floyd-Warshall)
-	tsdag/			# Topological Sort, Detects whether it is a DAG
-	tsdfs/			# Topological Sort using DFS, Not Detecting DAG
-	tskahn/			# Topological Sort by Arthur Kahn(1962), Detects DAG
-	mst/			# Minimum Spanning Tree (Kruskal, Prim)
-		kruskal/	# Kruskal Minimum Spanning Tree Algorithm
-		prim/		# Prim Minimum Spanning Tree Algorithm
-	scc/			# Strongly Connected Component
-		tarjan/		# Tarjan Strongly Connected Component Algorithm
-		kosaraju/	# Kosaraju Strongly Connected Component Algorithm
-	maxflow/		# Maximum Network Flow
-		fdfk/		# Ford-Fulkerson Maximum Network Flow Algorithm
+goraph/							# Top Package
+	
+	algorithm/					# Package: Graph Algorithms
+		bfs/					# Package: Breadth First Search Algorithm
+		dfs/					# Package: Depth First Search Algorithm
+		sp/						# Package: Shortest Path Algorithm (Dijkstra, Bellman-Ford)
+		spbf/					# Package: Shortest Path Algorithm for Negative Edges (Bellman-Ford)
+		spd/					# Package: Shortest Path Algorithm for Positive Edges (Dijkstra)
+		spfw/					# Package: Shortest Path Algorithm for Positive Edges (Floyd-Warshall)
+		tsdag/					# Package: Topological Sort, Detects whether it is a DAG
+		tsdfs/					# Package: Topological Sort using DFS, Not Detecting DAG
+		tskahn/					# Package: Topological Sort by Arthur Kahn(1962), Detects DAG
+		mst/					# Package: Minimum Spanning Tree (Kruskal, Prim)
+			kruskal/			# Package: Kruskal Minimum Spanning Tree Algorithm
+			prim/				# Package: Prim Minimum Spanning Tree Algorithm
+		scc/					# Package: Strongly Connected Component
+			tarjan/				# Package: Tarjan Strongly Connected Component Algorithm
+			kosaraju/			# Package: Kosaraju Strongly Connected Component Algorithm
+		maxflow/				# Package: Maximum Network Flow
+			fdfk/				# Package: Ford-Fulkerson Maximum Network Flow Algorithm
 
-benchmark/			# Benchmark, Comparison of graph representations
+	benchmark/					# Package: Benchmark, Comparison of graph representations
 
-example/			# Example Code
+	example_files/				# Learn DOT
+	example_files/				# Files for Example
+	example_with_script/		# Example Script (Program)
+	example_with_testing/		# Example Code
 
-goroup/				# Disjoint Set for Graph Nodes
-	gsdset/			# Set Operation with graph/gsd
+	goroup/						# Package: Disjoint Set for Graph Nodes
+		gsdset/					# Package: Set Operation with the package graph/gsd
 
-graph/				# Graph Data Structure
-	gl/				# Adjacency List, Linked List(container/list), No Duplicate Edges
-	gld/			# Adjacency List, Linked List(container/list), Allow Duplicate Edges
-	gm/				# Adjacency List, Map, No Duplicate Edges
-	gs/				# Adjacency List, Slice, No Duplicate Edges
-	gsd/			# Adjacency List, Slice, Allow Duplicate Edges
-	gsdflow/		# Customized gsd for Network Flow Algorithm
-	gt/				# Adjacency Matrix, Map, No Duplicate Edges
+	graph/						# Package: Graph Data Structure
+		gl/						# Package: Adjacency List, Linked List(container/list), No Duplicate Edges
+		gld/					# Package: Adjacency List, Linked List(container/list), Allow Duplicate Edges
+		gm/						# Package: Adjacency List, Map, No Duplicate Edges
+		gs/						# Package: Adjacency List, Slice, No Duplicate Edges
+		gsd/					# Package: Adjacency List, Slice, Allow Duplicate Edges
+		gsdflow/				# Package: Customized gsd for Network Flow Algorithm
+		gt/						# Package: Adjacency Matrix, Map, No Duplicate Edges
 
-viz/				# Graph Visualization (Graphviz)
-	dot/			# Convert JSON graph data to DOT
+	viz/						# Package: Graph Visualization (Graphviz)
+		dot/					# Package: Convert JSON graph data to DOT
 ```
 
 ##### External Package
@@ -97,7 +92,7 @@ Example
 ##### Shortest Path
 ```go
 fmt.Println("Dijkstra Shortest Path on testgraph10:")
-g10 := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.010")
+g10 := gsd.JSONGraph("../example_files/testgraph.json", "testgraph.010")
 fmt.Println(spd.SPD(g10, "A", "E"))
 fmt.Println(g10.ShowPrev("E"))
 fmt.Println(g10.ShowPrev("D"))
@@ -119,7 +114,7 @@ fmt.Println(g10.ShowPrev("A"))
 
 println()
 fmt.Println("Dijkstra Shortest Path on testgraph10o:")
-g10o := gsd.JSONGraph("../testgraph/testgraph.json", "testgraph.010")
+g10o := gsd.JSONGraph("../example_files/testgraph.json", "testgraph.010")
 fmt.Println(spd.SPD(g10o, "E", "A"))
 fmt.Println(g10o.ShowPrev("A"))
 fmt.Println(g10o.ShowPrev("B"))
@@ -143,12 +138,12 @@ fmt.Println(g10o.ShowPrev("E"))
 
 ```go
 func Test_JSON_ShowSPD(test *testing.T) {
-	g4 := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.004")
+	g4 := gsd.JSONGraph("../../example_files/testgraph.json", "testgraph.004")
 	fmt.Println(ShowSPD(g4, "S", "T", "testgraph.004_spd.dot"))
 }
 ```
 
-<img src="./files/testgraph.004_spd.png" alt="testgraph.004_spd"/>
+<img src="./example_files/testgraph.004_spd.png" alt="testgraph.004_spd"/>
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
@@ -157,18 +152,18 @@ func Test_JSON_ShowSPD(test *testing.T) {
 ##### BFS, DFS
 ```go
 func Test_JSON_ShowBFS(test *testing.T) {
-	g4 := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.004")
+	g4 := gsd.JSONGraph("../../example_files/testgraph.json", "testgraph.004")
 	fmt.Println(ShowBFS(g4, g4.FindVertexByID("S"), "testgraph.004_bfs.dot"))
 }
 
 func Test_JSON_ShowDFS(test *testing.T) {
-	g4 := gsd.JSONGraph("../../testgraph/testgraph.json", "testgraph.004")
+	g4 := gsd.JSONGraph("../../example_files/testgraph.json", "testgraph.004")
 	fmt.Println(ShowDFS(g4, "testgraph.004_dfs.dot"))
 }
 
 ```
-<img src="./files/testgraph.004_bfs.png" alt="testgraph.004_bfs"/>
-<img src="./files/testgraph.004_dfs.png" alt="testgraph.004_dfs"/>
+<img src="./example_files/testgraph.004_bfs.png" alt="testgraph.004_bfs"/>
+<img src="./example_files/testgraph.004_dfs.png" alt="testgraph.004_dfs"/>
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
@@ -179,11 +174,11 @@ func Test_JSON_ShowDFS(test *testing.T) {
 **Kruskal Algorithm**
 ```go
 func Test_JSON_ShowMST(test *testing.T) {
-	g14 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.014")
+	g14 := gsd.JSONGraph("../../../example_files/testgraph.json", "testgraph.014")
 	ShowMST(g14, "g14mst_kruskal.dot")
 }
 ```
-<img src="./files/g14mst_kruskal.png" alt="g14mst_kruskal"/>
+<img src="./example_files/g14mst_kruskal.png" alt="g14mst_kruskal"/>
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
@@ -192,34 +187,34 @@ func Test_JSON_ShowMST(test *testing.T) {
 **Prim Algorithm**
 ```go
 func Test_JSON_ShowMST(test *testing.T) {
-	g14 := gsd.JSONGraph("../../../testgraph/testgraph.json", "testgraph.014")
+	g14 := gsd.JSONGraph("../../../example_files/testgraph.json", "testgraph.014")
 	ShowMST(g14, "g14mst_prim.dot")
 }
 ```
-<img src="./files/g14mst_prim.png" alt="g14mst_prim"/>
+<img src="./example_files/g14mst_prim.png" alt="g14mst_prim"/>
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
 
 [Testing Graphs](https://github.com/gyuho/goraph/tree/master/testgraph)
 ==========
-<img src="./testgraph/testgraph.001.png" alt="testgraph.001" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.002.png" alt="testgraph.002" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.003.png" alt="testgraph.003" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.004.png" alt="testgraph.004" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.005.png" alt="testgraph.005" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.006.png" alt="testgraph.006" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.007.png" alt="testgraph.007" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.008.png" alt="testgraph.008" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.009.png" alt="testgraph.009" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.010.png" alt="testgraph.010" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.011.png" alt="testgraph.011" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.012.png" alt="testgraph.012" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.013.png" alt="testgraph.013" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.014.png" alt="testgraph.014" width="260px" height="220px"/>
-<img src="./testgraph/testgraph.015.png" alt="testgraph.015"/>
-<img src="./testgraph/testgraph.016.png" alt="testgraph.016"/>
-<img src="./testgraph/testgraph.017.png" alt="testgraph.017"/>
+<img src="./example_files/testgraph.001.png" alt="testgraph.001" width="260px" height="220px"/>
+<img src="./example_files/testgraph.002.png" alt="testgraph.002" width="260px" height="220px"/>
+<img src="./example_files/testgraph.003.png" alt="testgraph.003" width="260px" height="220px"/>
+<img src="./example_files/testgraph.004.png" alt="testgraph.004" width="260px" height="220px"/>
+<img src="./example_files/testgraph.005.png" alt="testgraph.005" width="260px" height="220px"/>
+<img src="./example_files/testgraph.006.png" alt="testgraph.006" width="260px" height="220px"/>
+<img src="./example_files/testgraph.007.png" alt="testgraph.007" width="260px" height="220px"/>
+<img src="./example_files/testgraph.008.png" alt="testgraph.008" width="260px" height="220px"/>
+<img src="./example_files/testgraph.009.png" alt="testgraph.009" width="260px" height="220px"/>
+<img src="./example_files/testgraph.010.png" alt="testgraph.010" width="260px" height="220px"/>
+<img src="./example_files/testgraph.011.png" alt="testgraph.011" width="260px" height="220px"/>
+<img src="./example_files/testgraph.012.png" alt="testgraph.012" width="260px" height="220px"/>
+<img src="./example_files/testgraph.013.png" alt="testgraph.013" width="260px" height="220px"/>
+<img src="./example_files/testgraph.014.png" alt="testgraph.014" width="260px" height="220px"/>
+<img src="./example_files/testgraph.015.png" alt="testgraph.015"/>
+<img src="./example_files/testgraph.016.png" alt="testgraph.016"/>
+<img src="./example_files/testgraph.017.png" alt="testgraph.017"/>
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 

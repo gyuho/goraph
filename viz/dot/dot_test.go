@@ -3,7 +3,7 @@ package dot
 import "testing"
 
 func Test_Convert(test *testing.T) {
-	result := convert("../../testgraph/testgraph.json", "testgraph.003")
+	result := convert("../../example_files/testgraph.json", "testgraph.003")
 	sc := `digraph testgraph003 {
 	S -> A [label=100]
 	S -> B [label=6]

@@ -3,7 +3,7 @@ package gsdflow
 import "testing"
 
 func Test_JSONGraphT(test *testing.T) {
-	g7 := JSONGraphT("../../testgraph/testgraph.json", "testgraph.007")
+	g7 := JSONGraphT("../../example_files/testgraph.json", "testgraph.007")
 	if g7.FindVertexByID("B").GetInVerticesSize() != 1 {
 		test.Errorf("Should be 1 but %+v", g7.FindVertexByID("B").GetInVerticesSize())
 	}
@@ -29,7 +29,7 @@ func Test_JSONGraphT(test *testing.T) {
 		test.Errorf("Should be 2 but %+v", g7.FindVertexByID("H").GetOutVerticesSize())
 	}
 
-	g10 := JSONGraphT("../../testgraph/testgraph.json", "testgraph.010")
+	g10 := JSONGraphT("../../example_files/testgraph.json", "testgraph.010")
 	if g10.FindVertexByID("A").GetInVerticesSize() != 2 {
 		test.Errorf("Should be 2 but %+v", g10.FindVertexByID("A").GetInVerticesSize())
 	}
@@ -63,7 +63,7 @@ func Test_JSONGraphT(test *testing.T) {
 }
 
 func Test_Transpose(test *testing.T) {
-	g7 := JSONGraph("../../testgraph/testgraph.json", "testgraph.007")
+	g7 := JSONGraph("../../example_files/testgraph.json", "testgraph.007")
 	g7.Transpose()
 	if g7.FindVertexByID("B").GetInVerticesSize() != 1 {
 		test.Errorf("Should be 1 but %+v", g7.FindVertexByID("B").GetInVerticesSize())
@@ -90,7 +90,7 @@ func Test_Transpose(test *testing.T) {
 		test.Errorf("Should be 2 but %+v", g7.FindVertexByID("H").GetOutVerticesSize())
 	}
 
-	g10 := JSONGraph("../../testgraph/testgraph.json", "testgraph.010")
+	g10 := JSONGraph("../../example_files/testgraph.json", "testgraph.010")
 	g10.Transpose()
 	if g10.FindVertexByID("A").GetInVerticesSize() != 2 {
 		test.Errorf("Should be 2 but %+v", g10.FindVertexByID("A").GetInVerticesSize())

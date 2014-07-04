@@ -3,7 +3,7 @@ package gsdflow
 import "testing"
 
 func Test_JSON_GetEdge(test *testing.T) {
-	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	a := g.FindVertexByID("A")
 	t := g.FindVertexByID("T")
 	edge := g.GetEdge(a, t)
@@ -13,7 +13,7 @@ func Test_JSON_GetEdge(test *testing.T) {
 }
 
 func Test_JSON_GetEdgeWeight(test *testing.T) {
-	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	testCases := []struct {
 		vertices []string
 		weight   float64
@@ -97,7 +97,7 @@ T|A,44|D,16|F,6|E,19
 }
 
 func Test_JSON_GetEdgeFlow(test *testing.T) {
-	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	testCases := []struct {
 		vertices []string
 		flow     float64
@@ -134,7 +134,7 @@ func Test_JSON_GetEdgeFlow(test *testing.T) {
 
 }
 func Test_JSON_UpdateWeight(test *testing.T) {
-	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	testCases := []struct {
 		vertices []string
 		weight   float64
@@ -172,7 +172,7 @@ func Test_JSON_UpdateWeight(test *testing.T) {
 }
 
 func Test_JSON_UpdateFlow(test *testing.T) {
-	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	testCases := []struct {
 		vertices []string
 		flow     float64
@@ -210,7 +210,7 @@ func Test_JSON_UpdateFlow(test *testing.T) {
 }
 
 func Test_JSON_AddFlow(test *testing.T) {
-	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	testCases := []struct {
 		vertices []string
 		flow     float64
@@ -248,7 +248,7 @@ func Test_JSON_AddFlow(test *testing.T) {
 }
 
 func Test_JSON_SubFlow(test *testing.T) {
-	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	testCases := []struct {
 		vertices []string
 		flow     float64
@@ -287,7 +287,7 @@ func Test_JSON_SubFlow(test *testing.T) {
 }
 
 func Test_JSON_IsFull(test *testing.T) {
-	g := JSONGraph("../../testgraph/testgraph.json", "testgraph.001")
+	g := JSONGraph("../../example_files/testgraph.json", "testgraph.001")
 	testCases := []struct {
 		vertices []string
 	}{
