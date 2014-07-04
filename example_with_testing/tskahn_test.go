@@ -1,4 +1,4 @@
-package example
+package example_with_testing
 
 import (
 	"fmt"
@@ -6,8 +6,8 @@ import (
 
 	"github.com/gyuho/goraph/algorithm/tskahn"
 	"github.com/gyuho/goraph/graph/gsd"
-	// go test -v github.com/gyuho/goraph/example
-	// go test -v /Users/gyuho/go/src/github.com/gyuho/goraph/example/tskahn_test.go
+	// go test -v github.com/gyuho/goraph/example_with_testing
+	// go test -v /Users/gyuho/go/src/github.com/gyuho/goraph/example_with_testing/tskahn_test.go
 )
 
 func Test_TSKahn(test *testing.T) {

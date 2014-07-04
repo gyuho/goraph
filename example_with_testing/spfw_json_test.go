@@ -1,4 +1,4 @@
-package example
+package example_with_testing
 
 import (
 	"fmt"
@@ -6,8 +6,8 @@ import (
 
 	"github.com/gyuho/goraph/algorithm/spfw"
 	"github.com/gyuho/goraph/graph/gt"
-	// go test -v github.com/gyuho/goraph/example
-	// go test -v /Users/gyuho/go/src/github.com/gyuho/goraph/example/spfw_json_test.go
+	// go test -v github.com/gyuho/goraph/example_with_testing
+	// go test -v /Users/gyuho/go/src/github.com/gyuho/goraph/example_with_testing/spfw_json_test.go
 )
 
 func Test_JSON_SPFW(test *testing.T) {

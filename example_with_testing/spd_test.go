@@ -1,4 +1,4 @@
-package example
+package example_with_testing
 
 import (
 	"fmt"
@@ -6,8 +6,8 @@ import (
 
 	"github.com/gyuho/goraph/algorithm/spd"
 	"github.com/gyuho/goraph/graph/gsd"
-	// go test -v github.com/gyuho/goraph/example
-	// go test -v /Users/gyuho/go/src/github.com/gyuho/goraph/example/spd_test.go
+	// go test -v github.com/gyuho/goraph/example_with_testing
+	// go test -v /Users/gyuho/go/src/github.com/gyuho/goraph/example_with_testing/spd_test.go
 )
 
 func Test_SPD(test *testing.T) {
