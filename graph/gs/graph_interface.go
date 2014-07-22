@@ -5,11 +5,11 @@ import slice "github.com/gyuho/goraph/gosequence"
 // GSInterface is a set of methods for gs graph data structure
 // that receives Graph as an input.
 type GSInterface interface {
-	// ToJSON converts a graph data structure to JSON format.
-	ToJSON()
+	// ToJSON converts a receiver graph data structure to JSON format.
+	ToJSON() string
 
-	// ToDOT converts a graph data structure to DOT format.
-	ToDOT()
+	// ToDOT converts a receiver graph data structure to DOT format.
+	ToDOT() string
 
 	// GetVertices returns the vertex slice.
 	GetVertices() *slice.Sequence
