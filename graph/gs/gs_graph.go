@@ -72,7 +72,7 @@ func NewEdge(src, dst *Vertex, weight float64) *Edge {
 	}
 }
 
-// FromJSON parses JSON file to a graph.
+// FromJSON parses a JSON file to a graph data structure.
 func FromJSON(fpath, gname string) *Graph {
 	nodes := jsonx.GetNodes(fpath, gname)
 	gmap := jsonx.GetGraphMap(fpath, gname)
