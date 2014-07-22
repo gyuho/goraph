@@ -3,6 +3,7 @@ package jsonx
 import (
 	"io/ioutil"
 	"log"
+	"sort"
 
 	"github.com/gyuho/goraph/gson"
 	"github.com/gyuho/goraph/parsex"
@@ -123,7 +124,11 @@ func GetGraphMap(fpath, gname string) map[string]map[string]float64 {
 		for vtx := range mn {
 			// d, _ := mn[vtx]
 			// ms[vtx] = d.(float64)
+
 			fs, _ := js.Get(gname).Get(nodeName).Get(vtx).Float64Slice()
+
+			// Overwrite the duplicate edges with the largest edge value
+			sort.Float64s(fs)
 			ms[vtx] = fs[len(fs)-1]
 		}
 		rm[nodeName] = ms
