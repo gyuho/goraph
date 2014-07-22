@@ -21,3 +21,11 @@ func TestCheckStr(t *testing.T) {
 		t.Errorf("expected false but %v", CheckStr("F", slice))
 	}
 }
+
+func TestStrToFloat64(t *testing.T) {
+	num1 := 123.123
+	num2 := StrToFloat64("123.123")
+	if num1 != num2 {
+		t.Fatalf("expected\n%v\n%v", num1, num2)
+	}
+}

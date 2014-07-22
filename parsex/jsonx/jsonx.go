@@ -78,7 +78,10 @@ func GetNodes(fpath, gname string) []string {
 // It first maps each node to its outgoing vertices.
 // Each of which then maps to the edge weights.
 // Duplicate edges are to be overwritten.
-func GetGraphMap(fpath, gname string) map[string]map[string]float64 {
+// And the float64 slice always has only one element.
+// We use a slice to be consistent with the package `gsd`
+// that allows duplicate edges.
+func GetGraphMap(fpath, gname string) map[string]map[string][]float64 {
 	file, err := ioutil.ReadFile(fpath)
 	if err != nil {
 		log.Fatal(err)
@@ -113,23 +116,22 @@ func GetGraphMap(fpath, gname string) map[string]map[string]float64 {
 
 	nodes := parsex.UniqElemStr(result)
 
-	rm := make(map[string]map[string]float64)
+	rm := make(map[string]map[string][]float64)
 	for _, nodeName := range nodes {
 		// each node's outgoing vertices
 		mn, err := js.Get(gname).Get(nodeName).Map()
 		if err != nil {
 			log.Fatal(err)
 		}
-		ms := make(map[string]float64)
+		ms := make(map[string][]float64)
 		for vtx := range mn {
 			// d, _ := mn[vtx]
 			// ms[vtx] = d.(float64)
-
 			fs, _ := js.Get(gname).Get(nodeName).Get(vtx).Float64Slice()
 
 			// Overwrite the duplicate edges with the largest edge value
 			sort.Float64s(fs)
-			ms[vtx] = fs[len(fs)-1]
+			ms[vtx] = []float64{fs[len(fs)-1]}
 		}
 		rm[nodeName] = ms
 	}

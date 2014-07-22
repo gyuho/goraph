@@ -1,5 +1,10 @@
 package parsex
 
+import (
+	"log"
+	"strconv"
+)
+
 // UniqElemStr deletes the duplicate elements
 // and returns the new string slice of unique elements.
 func UniqElemStr(slice []string) []string {
@@ -45,4 +50,13 @@ func CheckStr(str string, slice []string) bool {
 		}
 	}
 	return exist
+}
+
+// StrToFloat64 converts string to float64.
+func StrToFloat64(str string) float64 {
+	f, err := strconv.ParseFloat(str, 64)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return f
 }

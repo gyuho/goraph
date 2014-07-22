@@ -126,7 +126,7 @@ func TestGetGraphMap(t *testing.T) {
 	if len(ns) != len(sl) {
 		t.Errorf("expected 8 but: %v", ns)
 	}
-	if v, ok := ns["S"]["B"]; v != 14 || !ok {
+	if v, ok := ns["S"]["B"]; v[0] != 14 || !ok {
 		t.Errorf("expected 14, true but %v", v, ok)
 	}
 }
