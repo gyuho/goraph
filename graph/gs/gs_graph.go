@@ -2,6 +2,7 @@ package gs
 
 import (
 	slice "github.com/gyuho/goraph/gosequence"
+	"github.com/gyuho/goraph/parsex/dotx"
 	"github.com/gyuho/goraph/parsex/jsonx"
 )
 
@@ -89,20 +90,22 @@ func FromJSON(fpath, gname string) *Graph {
 
 			// This is not constructing the bi-directional edge automatically.
 			// We need to specify the edge direction in graph data.
-			weights, _ := gmap[srcID][dstID]
+			// weights, _ := gmap[srcID][dstID]
 
 			// gs always has one element in the weight value slice.
-			g.Connect(src, dst, weights[0])
+			// g.Connect(src, dst, weights[0])
+			for _, weight := range gmap[srcID][dstID] {
+				g.Connect(src, dst, weight)
+			}
 		}
 	}
 	return g
 }
 
-/*
-// FromDOT parses DOT file to a graph.
-func FromDOT(fpath, graph string) *Graph {
-	nodes := jsonx.GetNodes(fpath, graph)
-	gmap := jsonx.GetGraphMap(fpath, graph)
+// FromDOT parses a DOT file to a graph data structure.
+func FromDOT(fpath string) *Graph {
+	nodes := dotx.GetNodes(fpath)
+	_, gmap := dotx.GetGraphMap(fpath)
 	// map[string]map[string][]float64
 
 	g := NewGraph()
@@ -120,4 +123,3 @@ func FromDOT(fpath, graph string) *Graph {
 	}
 	return g
 }
-*/

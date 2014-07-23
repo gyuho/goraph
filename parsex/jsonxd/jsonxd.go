@@ -3,6 +3,7 @@ package jsonxd
 import (
 	"io/ioutil"
 	"log"
+	"sort"
 
 	"github.com/gyuho/goraph/gson"
 	"github.com/gyuho/goraph/parsex"
@@ -120,6 +121,7 @@ func GetGraphMapD(fpath, gname string) map[string]map[string][]float64 {
 		ms := make(map[string][]float64)
 		for vtx := range mn {
 			fs, _ := js.Get(gname).Get(nodeName).Get(vtx).Float64Slice()
+			sort.Float64s(fs)
 			ms[vtx] = fs
 		}
 		rm[nodeName] = ms

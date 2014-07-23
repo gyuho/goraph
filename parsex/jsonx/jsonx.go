@@ -3,7 +3,6 @@ package jsonx
 import (
 	"io/ioutil"
 	"log"
-	"sort"
 
 	"github.com/gyuho/goraph/gson"
 	"github.com/gyuho/goraph/parsex"
@@ -84,15 +83,15 @@ func GetNodes(fpath, gname string) []string {
 func GetGraphMap(fpath, gname string) map[string]map[string][]float64 {
 	file, err := ioutil.ReadFile(fpath)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("File error: %v\n", err)
 	}
 	js, err := gson.NewJSON([]byte(file))
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("NewJSON error: %v\n", err)
 	}
 	gm, err := js.Get(gname).Map()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Map error: %v\n", err)
 	}
 
 	// keyslice contains the keys of the map
@@ -107,7 +106,7 @@ func GetGraphMap(fpath, gname string) map[string]map[string][]float64 {
 	for _, v := range keyslice {
 		mn, err := js.Get(gname).Get(v).Map()
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalf("keyslice err: %v", err)
 		}
 		for n := range mn {
 			result = append(result, n)
@@ -117,23 +116,32 @@ func GetGraphMap(fpath, gname string) map[string]map[string][]float64 {
 	nodes := parsex.UniqElemStr(result)
 
 	rm := make(map[string]map[string][]float64)
-	for _, nodeName := range nodes {
+	for _, srcNode := range nodes {
 		// each node's outgoing vertices
-		mn, err := js.Get(gname).Get(nodeName).Map()
+		mn, _ := js.Get(gname).Get(srcNode).Map()
 		if err != nil {
-			log.Fatal(err)
+			// log.Fatal(err)
+			// in case, there is no outgoing vertices
+			continue
 		}
 		ms := make(map[string][]float64)
-		for vtx := range mn {
-			// d, _ := mn[vtx]
-			// ms[vtx] = d.(float64)
-			fs, _ := js.Get(gname).Get(nodeName).Get(vtx).Float64Slice()
+		for dstNode := range mn {
+			// d, _ := mn[dstNode]
+			// ms[dstNode] = d.(float64)
+			fs, _ := js.Get(gname).Get(srcNode).Get(dstNode).Float64Slice()
 
 			// Overwrite the duplicate edges with the largest edge value
-			sort.Float64s(fs)
-			ms[vtx] = []float64{fs[len(fs)-1]}
+			// sort.Float64s(fs)
+			// ms[dstNode] = []float64{fs[len(fs)-1]}
+
+			// Overwrite with sum
+			sum := 0.0
+			for _, v := range fs {
+				sum = sum + v
+			}
+			ms[dstNode] = []float64{sum}
 		}
-		rm[nodeName] = ms
+		rm[srcNode] = ms
 	}
 
 	return rm

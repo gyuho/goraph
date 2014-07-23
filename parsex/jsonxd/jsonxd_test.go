@@ -145,4 +145,8 @@ func TestGetGraphMapD(t *testing.T) {
 
 	   map[string]map[string][]float64
 	*/
+
+	if v, ok := ns["S"]["B"]; v[1] != 14 || !ok {
+		t.Errorf("expected 14, true but %v %v", v, ok)
+	}
 }

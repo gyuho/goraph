@@ -6,6 +6,16 @@ import (
 	slice "github.com/gyuho/goraph/gosequence"
 )
 
+// ToJSON converts a receiver graph data structure to JSON format.
+func (g Graph) ToJSON() string {
+	return ""
+}
+
+// ToDOT converts a receiver graph data structure to DOT format.
+func (g Graph) ToDOT() string {
+	return ""
+}
+
 // GetVertices returns the vertex slice.
 func (g Graph) GetVertices() *slice.Sequence {
 	return g.Vertices

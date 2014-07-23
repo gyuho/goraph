@@ -107,6 +107,8 @@ func TestJG(t *testing.T) {
 
 func TestGetGraph(t *testing.T) {
 	m := GetGraph("../../files/testgraph.json", "testgraph.003")
+	fmt.Println(m)
+
 	if len(m) != 8 {
 		t.Fatalf("expected 8 but %v", m)
 	}
@@ -122,11 +124,13 @@ func TestGetNodes(t *testing.T) {
 
 func TestGetGraphMap(t *testing.T) {
 	ns := GetGraphMap("../../files/testgraph.json", "testgraph.003")
+	fmt.Println(ns)
+
 	sl := []string{"S", "A", "B", "C", "D", "E", "F", "T"}
 	if len(ns) != len(sl) {
 		t.Errorf("expected 8 but: %v", ns)
 	}
-	if v, ok := ns["S"]["B"]; v[0] != 14 || !ok {
-		t.Errorf("expected 14, true but %v", v, ok)
+	if v, ok := ns["S"]["B"]; v[0] != 20 || !ok {
+		t.Errorf("expected 20, true but %v %v", v, ok)
 	}
 }

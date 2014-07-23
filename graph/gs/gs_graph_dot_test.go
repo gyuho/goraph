@@ -2,8 +2,8 @@ package gs
 
 import "testing"
 
-func TestFromJSON(t *testing.T) {
-	g := FromJSON("../../files/testgraph.json", "testgraph.003")
+func TestFromDOT(t *testing.T) {
+	g := FromDOT("../../files/testgraph.003.dot")
 	vs := g.GetVerticesSize()
 	es := g.GetEdgesSize()
 
@@ -12,6 +12,6 @@ func TestFromJSON(t *testing.T) {
 	}
 
 	if es != 30 {
-		t.Error("expected 30 but %v", es)
+		t.Error("expected 31 but %v", es)
 	}
 }
