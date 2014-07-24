@@ -42,14 +42,25 @@ func (g Graph) ToMAP() map[string]map[string][]float64 {
 
 // ToJSON converts a receiver graph data structure to JSON format.
 func (g Graph) ToJSON() string {
-
-	// from here, we need to construct node by node
-	tmplSrcvtx := "\t\t\"%s\": {\n"
-	tmplOutvtx := "\t\t\t\"%s\": [%v]"
-
-	rstr := ""
+	/*
+	   {
+	       "testgraph.017": {
+	           "S": {
+	               "A": [10],
+	               "B": [5],
+	               "C": [15]
+	           },
+	           "A": {
+	               "B": [4],
+	               "D": [9],
+	               "E": [15]
+	   }
+	*/
 	// map[string]map[string][]float64
 	rm := g.ToMAP()
+	tmplSrcvtx := "\t\t\"%s\": {\n"
+	tmplOutvtx := "\t\t\t\"%s\": [%v]"
+	rstr := ""
 	cn := 0
 	for srcNodeID, outMap := range rm {
 		vtxSlice := []string{}
@@ -80,21 +91,6 @@ func (g Graph) ToJSON() string {
 
 	return line0 + line1 + rstr + line2
 }
-
-/*
-{
-    "testgraph.017": {
-        "S": {
-            "A": [10],
-            "B": [5],
-            "C": [15]
-        },
-        "A": {
-            "B": [4],
-            "D": [9],
-            "E": [15]
-}
-*/
 
 // OpenToOverwrite creates or opens a file for overwriting.
 // Make sure to close the file.
@@ -130,15 +126,32 @@ func (g Graph) ToJSONFile(fpath string) {
 
 // ToDOT converts a receiver graph data structure to DOT format.
 func (g Graph) ToDOT() string {
-	//rm := g.ToMAP()
-	//line0 := "digraph goraph {\n"
-	//lineE := "}"
-	return ""
+	/*
+	   digraph testgraph003 {
+	   	S -> A [label=100]
+	   	S -> B [label=6]
+	   	S -> B [label=14]
+	   	...
+	*/
+	// map[string]map[string][]float64
+	rm := g.ToMAP()
+	tmpl := "\t%s -> %s [label=%v]"
+	lines := []string{}
+	for srcNodeID, outMap := range rm {
+		for outNodeID, fs := range outMap {
+			lines = append(lines, fmt.Sprintf(tmpl, srcNodeID, outNodeID, fs[0]))
+		}
+	}
+
+	line0 := "digraph goraph {\n"
+	lineE := "\n}"
+	return line0 + strings.Join(lines, "\n") + lineE
 }
 
 // ToDOTFile converts a graph to a DOT file.
 func (g Graph) ToDOTFile(fpath string) {
-
+	dstr := g.ToDOT()
+	WriteToFile(fpath, dstr)
 }
 
 // GetVertices returns the vertex slice.
