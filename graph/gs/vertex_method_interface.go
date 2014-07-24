@@ -2,9 +2,9 @@ package gs
 
 import slice "github.com/gyuho/goraph/gosequence"
 
-// GSVertexInterface is a set of methods for gs graph data structure
+// Vertexer is a set of methods for gs graph data structure
 // that receives Vertex as an input.
-type GSVertexInterface interface {
+type Vertexer interface {
 	// GetOutVertices returns a slice of adjacent vertices from the receiver Vertex.
 	GetOutVertices() *slice.Sequence
 

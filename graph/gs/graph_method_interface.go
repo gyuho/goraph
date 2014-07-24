@@ -2,9 +2,9 @@ package gs
 
 import slice "github.com/gyuho/goraph/gosequence"
 
-// GSInterface is a set of methods for gs graph data structure
+// Grapher is a set of methods for gs graph data structure
 // that receives Graph as an input.
-type GSInterface interface {
+type Grapher interface {
 	// ToJSON converts a receiver graph data structure to JSON format.
 	ToJSON() string
 
