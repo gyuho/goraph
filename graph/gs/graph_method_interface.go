@@ -8,8 +8,14 @@ type GSInterface interface {
 	// ToJSON converts a receiver graph data structure to JSON format.
 	ToJSON() string
 
+	// ToJSONFile converts a graph to a JSON file.
+	ToJSONFile(fpath string)
+
 	// ToDOT converts a receiver graph data structure to DOT format.
 	ToDOT() string
+
+	// ToDOTFile converts a graph to a DOT file.
+	ToDOTFile(fpath string)
 
 	// GetVertices returns the vertex slice.
 	GetVertices() *slice.Sequence

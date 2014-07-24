@@ -1,7 +1,9 @@
 package gs
 
 import (
-	"fmt"
+	"bufio"
+	"log"
+	"os"
 	"testing"
 )
 
@@ -11,25 +13,111 @@ func Test_JSON_ToMAP(t *testing.T) {
 	if len(rm) != 8 {
 		t.Errorf("In testgraph1, expected 8 vertices but %+v", rm)
 	}
-}
-
-func Test_JSON_ToJSON(t *testing.T) {
-	g3 := FromJSON("../../files/testgraph.json", "testgraph.003")
-	l3 := g3.GetVerticesSize()
-	if l3 != 8 {
-		fmt.Println(g3.ToJSON())
-		// t.Errorf("In testgraph1, expected 8 vertices but %v", l)
+	testCases3 := []struct {
+		vertices []string
+		weight   float64
+	}{
+		{[]string{"S", "B"}, 20.0}, // Updated (Added 6)
+		{[]string{"A", "B"}, 5.0},
+		{[]string{"A", "D"}, 20.0},
+		{[]string{"A", "T"}, 44.0},
+		{[]string{"T", "A"}, 44.0},
+		{[]string{"D", "E"}, 2.0},
+		{[]string{"E", "D"}, 2.0},
+		{[]string{"C", "E"}, 24.0},
+		{[]string{"B", "E"}, 18.0},
+		{[]string{"D", "T"}, 16.0},
+		{[]string{"T", "D"}, 16.0},
+		{[]string{"F", "E"}, 6.0},
+		{[]string{"E", "F"}, 6.0},
+		{[]string{"E", "T"}, 19.0},
+		{[]string{"S", "C"}, 200.0},
+		{[]string{"S", "A"}, 100.0},
 	}
-	/*
-		g17 := FromJSON("../../files/testgraph.json", "testgraph.017")
-		l17 := g.GetVerticesSize()
-		if l17 != 81 {
-			fmt.Println(g.ToJSON())
-			// t.Errorf("In testgraph1, expected 8 vertices but %v", l)
-		}*/
+	for _, testCase := range testCases3 {
+		wgt := rm[testCase.vertices[0]][testCase.vertices[1]][0]
+		if wgt != testCase.weight {
+			t.Errorf("In testgraph3, Expected '%#v'. But %#v.",
+				testCase.weight, wgt,
+				rm[testCase.vertices[0]][testCase.vertices[1]])
+		}
+	}
 }
 
-func Test_JSON_ToDOT(t *testing.T) {
+func Test_JSON_ToJSONFile(t *testing.T) {
+	g3 := FromJSON("../../files/testgraph.json", "testgraph.003")
+	g3.ToJSONFile("./tmp.json")
+	g3j := FromJSON("./tmp.json", "goraph")
+	l3j := g3j.GetVerticesSize()
+	if l3j != 8 {
+		t.Errorf("In testgraph3, expected 8 vertices but %v", l3j)
+	}
+	testCases3 := []struct {
+		vertices []string
+		weight   float64
+	}{
+		{[]string{"S", "B"}, 20.0}, // Updated (Added 6)
+		{[]string{"A", "B"}, 5.0},
+		{[]string{"A", "D"}, 20.0},
+		{[]string{"A", "T"}, 44.0},
+		{[]string{"T", "A"}, 44.0},
+		{[]string{"D", "E"}, 2.0},
+		{[]string{"E", "D"}, 2.0},
+		{[]string{"C", "E"}, 24.0},
+		{[]string{"B", "E"}, 18.0},
+		{[]string{"D", "T"}, 16.0},
+		{[]string{"T", "D"}, 16.0},
+		{[]string{"F", "E"}, 6.0},
+		{[]string{"E", "F"}, 6.0},
+		{[]string{"E", "T"}, 19.0},
+		{[]string{"S", "C"}, 200.0},
+		{[]string{"S", "A"}, 100.0},
+	}
+	for _, testCase := range testCases3 {
+		wgt := g3j.GetEdgeWeight(g3j.FindVertexByID(testCase.vertices[0]), g3j.FindVertexByID(testCase.vertices[1]))
+		if wgt != testCase.weight {
+			t.Errorf("In testgraph3, Expected '%#v'. But %#v. %#v, %#v, %#v",
+				testCase.weight, wgt,
+				g3j.GetEdgeWeight(
+					g3j.FindVertexByID("S"),
+					g3j.FindVertexByID("A")),
+				testCase.vertices[0], testCase.vertices[1])
+		}
+	}
+	os.RemoveAll("./tmp.json")
+}
+
+// ReadLines reads lines from a specified file,
+// and returns them in string slice format.
+func ReadLines(fpath string) []string {
+	file, err := os.OpenFile(fpath, os.O_RDONLY, 0444)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	lines := []string{}
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+	return lines
+}
+
+// CountLines returns the number of lines.
+func CountLines(fpath string) int {
+	return len(ReadLines(fpath))
+}
+
+func Test_JSON_WriteToFile(t *testing.T) {
+	WriteToFile("./tmp.txt", "A\nB\nC")
+	if CountLines("./tmp.txt") != 3 {
+		t.Fatalf("expected 3 but %v", CountLines("./tmp.txt"))
+	}
+	os.RemoveAll("./tmp.txt")
+}
+
+func Test_JSON_ToDOTFile(t *testing.T) {
 	g := FromJSON("../../files/testgraph.json", "testgraph.001")
 	l := g.GetVerticesSize()
 	if l != 8 {
