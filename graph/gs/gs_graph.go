@@ -91,9 +91,10 @@ func FromJSON(fpath, gname string) *Graph {
 			// This is not constructing the bi-directional edge automatically.
 			// We need to specify the edge direction in graph data.
 			// weights, _ := gmap[srcID][dstID]
-
+			//
 			// gs always has one element in the weight value slice.
 			// g.Connect(src, dst, weights[0])
+			//
 			for _, weight := range gmap[srcID][dstID] {
 				g.Connect(src, dst, weight)
 			}

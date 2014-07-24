@@ -1,12 +1,47 @@
 package gs
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
+
+func Test_JSON_ToMAP(t *testing.T) {
+	g := FromJSON("../../files/testgraph.json", "testgraph.003")
+	rm := g.ToMAP()
+	if len(rm) != 8 {
+		t.Errorf("In testgraph1, expected 8 vertices but %+v", rm)
+	}
+}
+
+func Test_JSON_ToJSON(t *testing.T) {
+	g3 := FromJSON("../../files/testgraph.json", "testgraph.003")
+	l3 := g3.GetVerticesSize()
+	if l3 != 81 {
+		fmt.Println(g.ToJSON())
+		// t.Errorf("In testgraph1, expected 8 vertices but %v", l)
+	}
+
+	g17 := FromJSON("../../files/testgraph.json", "testgraph.017")
+	l17 := g.GetVerticesSize()
+	if l17 != 81 {
+		fmt.Println(g.ToJSON())
+		// t.Errorf("In testgraph1, expected 8 vertices but %v", l)
+	}
+}
+
+func Test_JSON_ToDOT(t *testing.T) {
+	g := FromJSON("../../files/testgraph.json", "testgraph.001")
+	l := g.GetVerticesSize()
+	if l != 8 {
+		// t.Errorf("In testgraph1, expected 8 vertices but %v", l)
+	}
+}
 
 func Test_JSON_GetVertices(t *testing.T) {
 	g := FromJSON("../../files/testgraph.json", "testgraph.001")
 	l := g.GetVerticesSize()
 	if l != 8 {
-		t.Errorf("In testgraph1, It should have 8 vertices but %v", l)
+		t.Errorf("In testgraph1, expected 8 vertices but %v", l)
 	}
 }
 
@@ -14,7 +49,7 @@ func Test_JSON_GetVerticesSize(t *testing.T) {
 	g := FromJSON("../../files/testgraph.json", "testgraph.001")
 	r := g.GetVerticesSize()
 	if r != 8 {
-		t.Errorf("In testgraph1, It should have 8 vertices but %v", r)
+		t.Errorf("In testgraph1, expected 8 vertices but %v", r)
 	}
 }
 
@@ -23,7 +58,7 @@ func Test_JSON_GetEdges(t *testing.T) {
 	l := g.GetEdgesSize()
 	// since it's bidirectional
 	if l != 30 {
-		t.Errorf("In testgraph1, It should have 30 edges but %v", l)
+		t.Errorf("In testgraph1, expected 30 edges but %v", l)
 	}
 }
 
@@ -31,12 +66,12 @@ func Test_JSON_GetEdgesSize(t *testing.T) {
 	g1 := FromJSON("../../files/testgraph.json", "testgraph.001")
 	r1 := g1.GetEdgesSize()
 	if r1 != 30 {
-		t.Errorf("In testgraph1, It should have 30 edges but %v", r1)
+		t.Errorf("In testgraph1, expected 30 edges but %v", r1)
 	}
 	g2 := FromJSON("../../files/testgraph.json", "testgraph.002")
 	r2 := g2.GetEdgesSize()
 	if r2 != 24 {
-		t.Errorf("In testgraph2, It should have 24 edges but %v", r2)
+		t.Errorf("In testgraph2, expected 24 edges but %v", r2)
 	}
 }
 

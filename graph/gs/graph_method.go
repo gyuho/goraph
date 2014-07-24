@@ -2,17 +2,123 @@ package gs
 
 import (
 	"fmt"
+	"strings"
 
 	slice "github.com/gyuho/goraph/gosequence"
 )
 
+// ToMAP converts a receiver graph data structure to a map.
+func (g Graph) ToMAP() map[string]map[string][]float64 {
+	rm := make(map[string]map[string][]float64)
+
+	gVts := g.GetVertices()
+	for _, src := range *gVts {
+
+		srcNode := src.(*Vertex)
+		srcNodeID := src.(*Vertex).ID
+
+		outVts := srcNode.GetOutVertices()
+		tmap := make(map[string][]float64)
+		for _, ov := range *outVts {
+			ovNode := ov.(*Vertex)
+			ovNodeID := ov.(*Vertex).ID
+			wgt := g.GetEdgeWeight(srcNode, ovNode)
+
+			// Not here
+			// tmap := make(map[string][]float64)
+			tmap[ovNodeID] = []float64{wgt}
+
+			// Not here
+			// rm[srcNodeID] = tmap
+		}
+		rm[srcNodeID] = tmap
+	}
+
+	return rm
+}
+
 // ToJSON converts a receiver graph data structure to JSON format.
 func (g Graph) ToJSON() string {
-	return ""
+
+	// from here, we need to construct node by node
+	tmplSrcvtx := "\t\t\"%s\": {\n"
+	tmplOutvtx := "\t\t\t\"%s\": [%v]"
+
+	rstr := ""
+	// map[string]map[string][]float64
+	rm := g.ToMAP()
+	cn := 0
+	for srcNodeID, outMap := range rm {
+		vtxSlice := []string{}
+		if cn == 0 {
+			rstr = rstr + fmt.Sprintf(tmplSrcvtx, srcNodeID)
+		} else {
+			rstr = rstr + ",\n" + fmt.Sprintf(tmplSrcvtx, srcNodeID)
+		}
+		cn++
+		outSlice := []string{}
+		for outNodeID, fs := range outMap {
+			fsl := []string{}
+			for _, val := range fs {
+				fsl = append(fsl, fmt.Sprintf("%v", val))
+			}
+			fslStr := strings.Join(fsl, ", ")
+			tstr := fmt.Sprintf(tmplOutvtx, outNodeID, fslStr)
+			outSlice = append(outSlice, tstr)
+		}
+		vtxSlice = append(vtxSlice, strings.Join(outSlice, ",\n")+"\n\t\t}")
+		rstr = rstr + strings.Join(vtxSlice, ",")
+	}
+
+	line0 := "{\n"
+	line1 := "\t\"goraph\": {\n"
+	line2 := "\n\t}\n}"
+	// rstr = rstr + lineE
+
+	return line0 + line1 + rstr + line2
 }
+
+/*
+{
+    "testgraph.017": {
+        "S": {
+            "A": [10],
+            "B": [5],
+            "C": [15]
+        },
+        "A": {
+            "B": [4],
+            "D": [9],
+            "E": [15]
+        },
+        "B": {
+            "C": [4],
+            "E": [8]
+        },
+        "C": {
+            "F": [16]
+        },
+        "D": {
+            "E": [15],
+            "T": [10]
+        },
+        "E": {
+            "T": [10],
+            "F": [15]
+        },
+        "F": {
+            "T": [10],
+            "B": [6]
+        }
+    }
+}
+*/
 
 // ToDOT converts a receiver graph data structure to DOT format.
 func (g Graph) ToDOT() string {
+	//rm := g.ToMAP()
+	//line0 := "digraph goraph {\n"
+	//lineE := "}"
 	return ""
 }
 
