@@ -1,6 +1,111 @@
 package gs
 
-import "testing"
+import (
+	"os"
+	"testing"
+)
+
+func Test_DOT_ToDOTFile_1(t *testing.T) {
+	g3 := FromJSON("../../files/testgraph.json", "testgraph.003")
+	g3.ToDOTFile("./tmp1.dot")
+	g3d := FromDOT("./tmp1.dot")
+	l3d := g3d.GetVerticesSize()
+	if l3d != 8 {
+		t.Errorf("In testgraph3, expected 8 vertices but %v", l3d)
+	}
+	testCases3 := []struct {
+		vertices []string
+		weight   float64
+	}{
+		{[]string{"S", "B"}, 20.0}, // Updated (Added 6)
+		{[]string{"A", "B"}, 5.0},
+		{[]string{"A", "D"}, 20.0},
+		{[]string{"A", "T"}, 44.0},
+		{[]string{"T", "A"}, 44.0},
+		{[]string{"D", "E"}, 2.0},
+		{[]string{"E", "D"}, 2.0},
+		{[]string{"C", "E"}, 24.0},
+		{[]string{"B", "E"}, 18.0},
+		{[]string{"D", "T"}, 16.0},
+		{[]string{"T", "D"}, 16.0},
+		{[]string{"F", "E"}, 6.0},
+		{[]string{"E", "F"}, 6.0},
+		{[]string{"E", "T"}, 19.0},
+		{[]string{"S", "C"}, 200.0},
+		{[]string{"S", "A"}, 100.0},
+	}
+	for _, testCase := range testCases3 {
+		wgt := g3d.GetEdgeWeight(g3d.FindVertexByID(testCase.vertices[0]), g3d.FindVertexByID(testCase.vertices[1]))
+		if wgt != testCase.weight {
+			t.Errorf("In testgraph3, Expected '%#v'. But %#v. %#v, %#v, %#v",
+				testCase.weight, wgt,
+				g3d.GetEdgeWeight(
+					g3d.FindVertexByID("S"),
+					g3d.FindVertexByID("A")),
+				testCase.vertices[0], testCase.vertices[1])
+		}
+	}
+	os.RemoveAll("./tmp1.dot")
+}
+
+func Test_DOT_ToDOTFile_2(t *testing.T) {
+	testCases3 := []struct {
+		vertices []string
+		weight   float64
+	}{
+		{[]string{"S", "B"}, 20.0}, // Updated (Added 6)
+		{[]string{"A", "B"}, 5.0},
+		{[]string{"A", "D"}, 20.0},
+		{[]string{"A", "T"}, 44.0},
+		{[]string{"T", "A"}, 44.0},
+		{[]string{"D", "E"}, 2.0},
+		{[]string{"E", "D"}, 2.0},
+		{[]string{"C", "E"}, 24.0},
+		{[]string{"B", "E"}, 18.0},
+		{[]string{"D", "T"}, 16.0},
+		{[]string{"T", "D"}, 16.0},
+		{[]string{"F", "E"}, 6.0},
+		{[]string{"E", "F"}, 6.0},
+		{[]string{"E", "T"}, 19.0},
+		{[]string{"S", "C"}, 200.0},
+		{[]string{"S", "A"}, 100.0},
+	}
+	g3 := FromDOT("../../files/testgraph.003.dot")
+	l3 := g3.GetVerticesSize()
+	if l3 != 8 {
+		t.Errorf("In testgraph3, expected 8 vertices but %v", l3)
+	}
+	for _, testCase := range testCases3 {
+		wgt := g3.GetEdgeWeight(g3.FindVertexByID(testCase.vertices[0]), g3.FindVertexByID(testCase.vertices[1]))
+		if wgt != testCase.weight {
+			t.Errorf("In testgraph3, Expected '%#v'. But %#v. %#v, %#v, %#v",
+				testCase.weight, wgt,
+				g3.GetEdgeWeight(
+					g3.FindVertexByID("S"),
+					g3.FindVertexByID("A")),
+				testCase.vertices[0], testCase.vertices[1])
+		}
+	}
+
+	g3.ToDOTFile("./tmp2.dot")
+	g3d := FromDOT("./tmp2.dot")
+	l3d := g3d.GetVerticesSize()
+	if l3d != 8 {
+		t.Errorf("In testgraph3, expected 8 vertices but %v", l3d)
+	}
+	for _, testCase := range testCases3 {
+		wgt := g3d.GetEdgeWeight(g3d.FindVertexByID(testCase.vertices[0]), g3d.FindVertexByID(testCase.vertices[1]))
+		if wgt != testCase.weight {
+			t.Errorf("In testgraph3, Expected '%#v'. But %#v. %#v, %#v, %#v",
+				testCase.weight, wgt,
+				g3.GetEdgeWeight(
+					g3.FindVertexByID("S"),
+					g3.FindVertexByID("A")),
+				testCase.vertices[0], testCase.vertices[1])
+		}
+	}
+	os.RemoveAll("./tmp2.dot")
+}
 
 func Test_DOT_GetVertices(t *testing.T) {
 	g := FromDOT("../../files/testgraph.001.dot")

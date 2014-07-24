@@ -25,14 +25,32 @@ Getting Started
 go get github.com/gyuho/goraph
 ```
 
-`goraph` features is being developed with the package `gsd` as default. The difference between `gs` and `gsd` is that `Connect` and `GetEdgeWeight` and `DeleteEdge` work different. Default formats are `JSON` and `DOT` as follows:
+`goraph` uses the package `gs` as default, which discourage to have duplicate edges but still provides ways to implement it. Default formats are `JSON` and `DOT` as follows:
 
 ```json
-
+{
+    "testgraph": {
+        "S": {
+            "A": [100],
+            "B": [14],
+            "C": [200]
+        },
+        "A": {
+            "S": [15],
+            "B": [5],
+            "D": [20],
+            "T": [44]
+        }
+    }
+}
 ```
 
 ```dot
-
+digraph testgraph {
+	S -> A [label=100]
+	S -> B [label=14]
+	S -> C [label=200]
+}
 ```
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)

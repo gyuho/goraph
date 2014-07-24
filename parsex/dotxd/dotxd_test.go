@@ -14,8 +14,8 @@ func TestGetNodes(t *testing.T) {
 	}
 }
 
-func TestGetGraphMap(t *testing.T) {
-	gname, ns := GetGraphMap("../../files/testgraph.003.dot")
+func TestGetGraphMapDupl(t *testing.T) {
+	gname, ns := GetGraphMapDupl("../../files/testgraph.003.dot")
 	sl := []string{"S", "A", "B", "C", "D", "E", "F", "T"}
 	if gname != "testgraph003" {
 		t.Errorf("expected testgraph003 but %v", gname)

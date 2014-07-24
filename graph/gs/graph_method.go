@@ -170,6 +170,23 @@ func (g Graph) GetEdges() *slice.Sequence {
 	return g.Edges
 }
 
+// GetEdge returns the Edge from src to dst Vertex.
+// (Assume that there is no duplicate Edge for now.)
+func (g Graph) GetEdge(src, dst *Vertex) *Edge {
+	slice := g.GetEdges()
+	for _, edge := range *slice {
+		//
+		// This does not work when used with CopyGraph and SameGraph
+		// because the copy has different pointer values.
+		// (X) if edge.(*Edge).Src == src && edge.(*Edge).Dst == dst {
+		//
+		if edge.(*Edge).Src.ID == src.ID && edge.(*Edge).Dst.ID == dst.ID {
+			return edge.(*Edge)
+		}
+	}
+	return nil
+}
+
 // GetEdgesSize returns the size of edge slice in a graph.
 func (g Graph) GetEdgesSize() int {
 	// dereference
@@ -242,6 +259,7 @@ func (g *Graph) UpdateWeight(src, dst *Vertex, value float64) {
 }
 
 // Connect connects the vertex v to A, not A to v.
+// When there is more than one edge, it adds up the weight values.
 func (g *Graph) Connect(A, B *Vertex, weight float64) {
 	// if there is already an edge from A to B
 	if g.ImmediateDominate(A, B) {

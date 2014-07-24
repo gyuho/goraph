@@ -11,7 +11,7 @@ import (
 
 // GetNodes returns the list of nodes in the specified graph.
 func GetNodes(fpath string) []string {
-	_, nmap := GetGraphMap(fpath)
+	_, nmap := GetGraphMapDupl(fpath)
 	result := []string{}
 	for k := range nmap {
 		result = append(result, k)
@@ -19,8 +19,8 @@ func GetNodes(fpath string) []string {
 	return parsex.UniqElemStr(result)
 }
 
-// GetGraphMap reads lines from a DOT file.
-func GetGraphMap(fpath string) (string, map[string]map[string][]float64) {
+// GetGraphMapDupl reads lines from a DOT file.
+func GetGraphMapDupl(fpath string) (string, map[string]map[string][]float64) {
 	file, err := os.OpenFile(fpath, os.O_RDONLY, 0444)
 	if err != nil {
 		log.Fatal(err)

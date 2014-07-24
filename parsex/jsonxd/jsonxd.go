@@ -74,11 +74,11 @@ func GetNodes(fpath, gname string) []string {
 	return parsex.UniqElemStr(result)
 }
 
-// GetGraphMapD returns the graph data in map format.
+// GetGraphMapDupl returns the graph data in map format.
 // It first maps each node to its outgoing vertices.
 // Each of which then maps to the edge weights.
 // It uses slices in order to allow duplicate edges.
-func GetGraphMapD(fpath, gname string) map[string]map[string][]float64 {
+func GetGraphMapDupl(fpath, gname string) map[string]map[string][]float64 {
 	// func GetGraphMap(fpath, gname string) map[string]map[string]float64 {
 	file, err := ioutil.ReadFile(fpath)
 	if err != nil {

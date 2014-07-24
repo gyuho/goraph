@@ -124,8 +124,8 @@ func TestGetNodes(t *testing.T) {
 	}
 }
 
-func TestGetGraphMapD(t *testing.T) {
-	ns := GetGraphMapD("../../files/testgraph.json", "testgraph.003")
+func TestGetGraphMapDupl(t *testing.T) {
+	ns := GetGraphMapDupl("../../files/testgraph.json", "testgraph.003")
 	sl := []string{"S", "A", "B", "C", "D", "E", "F", "T"}
 	if len(ns) != len(sl) {
 		t.Errorf("expected 8 but: %v", ns)

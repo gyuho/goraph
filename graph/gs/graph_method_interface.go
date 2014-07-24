@@ -26,6 +26,10 @@ type Grapher interface {
 	// GetEdges returns the edge slice.
 	GetEdges() *slice.Sequence
 
+	// GetEdge returns the Edge from src to dst Vertex.
+	// (Assume that there is no duplicate Edge for now.)
+	GetEdge(src, dst *Vertex) *Edge
+
 	// GetEdgesSize returns the size of edge slice in a graph.
 	GetEdgesSize() int
 
