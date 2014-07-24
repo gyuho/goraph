@@ -1,5 +1,6 @@
 <h3>Being rewritten from scratch...</h3>
 
+
 goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](https://travis-ci.org/gyuho/goraph) [![GoDoc](https://godoc.org/github.com/gyuho/goraph?status.png)](http://godoc.org/github.com/gyuho/goraph) [![Project Stats](http://www.ohloh.net/p/714468/widgets/project_thin_badge.gif)](http://www.ohloh.net/p/714468)
 ==========
 
@@ -22,6 +23,16 @@ Getting Started
 
 ```go
 go get github.com/gyuho/goraph
+```
+
+`goraph` features is being developed with the package `gsd` as default. The difference between `gs` and `gsd` is that `Connect` and `GetEdgeWeight` and `DeleteEdge` work different. Default formats are `JSON` and `DOT` as follows:
+
+```json
+
+```
+
+```dot
+
 ```
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)

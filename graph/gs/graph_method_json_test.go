@@ -16,17 +16,17 @@ func Test_JSON_ToMAP(t *testing.T) {
 func Test_JSON_ToJSON(t *testing.T) {
 	g3 := FromJSON("../../files/testgraph.json", "testgraph.003")
 	l3 := g3.GetVerticesSize()
-	if l3 != 81 {
-		fmt.Println(g.ToJSON())
+	if l3 != 8 {
+		fmt.Println(g3.ToJSON())
 		// t.Errorf("In testgraph1, expected 8 vertices but %v", l)
 	}
-
-	g17 := FromJSON("../../files/testgraph.json", "testgraph.017")
-	l17 := g.GetVerticesSize()
-	if l17 != 81 {
-		fmt.Println(g.ToJSON())
-		// t.Errorf("In testgraph1, expected 8 vertices but %v", l)
-	}
+	/*
+		g17 := FromJSON("../../files/testgraph.json", "testgraph.017")
+		l17 := g.GetVerticesSize()
+		if l17 != 81 {
+			fmt.Println(g.ToJSON())
+			// t.Errorf("In testgraph1, expected 8 vertices but %v", l)
+		}*/
 }
 
 func Test_JSON_ToDOT(t *testing.T) {
