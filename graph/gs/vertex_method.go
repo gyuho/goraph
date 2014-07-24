@@ -23,6 +23,21 @@ func (v Vertex) GetInVerticesSize() int {
 	return v.InVertices.Len()
 }
 
+// GetPrev returns a slice of Prev.
+func (v Vertex) GetPrev() *slice.Sequence {
+	return v.Prev
+}
+
+// GetPrevSize returns the size of thereceiver Vertex's Prev.
+func (v Vertex) GetPrevSize() int {
+	return v.Prev.Len()
+}
+
+// AddPrevVertex adds the vertex v to a receiver's Prev.
+func (v *Vertex) AddPrevVertex(vtx *Vertex) {
+	v.Prev.PushBack(vtx)
+}
+
 // AddInVertex adds a vertex to a receiver's InVertices.
 func (v *Vertex) AddInVertex(vtx *Vertex) {
 	v.InVertices.PushBack(vtx)

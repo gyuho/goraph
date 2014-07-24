@@ -38,6 +38,13 @@ type Vertex struct {
 
 	// StampF is another timestamp to be used in other algorithms
 	StampF int64
+
+	// By having this empty Sequence,
+	// when implementing graph algorithms
+	// we do not need to initialize the InVertices
+	// with vtx.(*gsd.Vertex).InVertices.Init()
+	// and do not modify the original graph
+	Prev *slice.Sequence
 }
 
 // NewVertex returns a pointer to a new Vertex.
@@ -49,6 +56,7 @@ func NewVertex(id string) *Vertex {
 		OutVertices: slice.NewSequence(),
 		StampD:      9999999999,
 		StampF:      9999999999,
+		Prev:        slice.NewSequence(),
 	}
 }
 

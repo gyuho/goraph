@@ -237,6 +237,25 @@ func Test_JSON_ImmediateDominate(t *testing.T) {
 	}
 }
 
+func Test_JSON_Prev(t *testing.T) {
+	g2 := FromJSON("../../files/testgraph.json", "testgraph.002")
+	pr := g2.ShowPrev(g2.FindVertexByID("S"))
+	if pr != "Prev of S: " {
+		t.Errorf("testgraph2: expected ~ but\n%v", pr)
+	}
+
+	g2.FindVertexByID("S").AddPrevVertex(NewVertex("X"))
+	g2.FindVertexByID("S").AddPrevVertex(NewVertex("Y"))
+	pr = g2.ShowPrev(g2.FindVertexByID("S"))
+	if pr != "Prev of S: X, Y" {
+		t.Errorf("testgraph2: expected ~ but\n%v", pr)
+	}
+
+	if prs := g2.FindVertexByID("S").GetPrevSize(); prs != 2 {
+		t.Errorf("testgraph2: expected ~ but\n%v", prs)
+	}
+}
+
 func Test_JSON_GetEdgeWeight(t *testing.T) {
 	g := FromJSON("../../files/testgraph.json", "testgraph.001")
 	testCases := []struct {

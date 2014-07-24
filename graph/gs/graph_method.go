@@ -194,10 +194,10 @@ func (g Graph) GetEdgesSize() int {
 }
 
 // FindVertexByID returns the vertex with input ID, or return nil if it doesn't exist.
-func (g Graph) FindVertexByID(id interface{}) *Vertex {
+func (g Graph) FindVertexByID(id string) *Vertex {
 	slice := g.GetVertices()
 	for _, v := range *slice {
-		if fmt.Sprintf("%v", v.(*Vertex).ID) == fmt.Sprintf("%v", id) {
+		if v.(*Vertex).ID == id {
 			return v.(*Vertex)
 		}
 	}
@@ -235,6 +235,19 @@ func (g Graph) ImmediateDominate(A, B *Vertex) bool {
 		return true
 	}
 	return false
+}
+
+// ShowPrev shows the Prev of Vertex.
+// This is useful when debugging Dijkstra shortest path algorithm.
+func (g Graph) ShowPrev(src *Vertex) string {
+	sl := []string{}
+	for _, p := range *src.Prev {
+		if p == nil {
+			continue
+		}
+		sl = append(sl, p.(*Vertex).ID)
+	}
+	return "Prev of " + src.ID + ": " + strings.Join(sl, ", ")
 }
 
 // GetEdgeWeight returns the weight value of the edge from source to destination vertex.

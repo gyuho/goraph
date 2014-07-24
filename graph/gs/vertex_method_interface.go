@@ -17,6 +17,15 @@ type Vertexer interface {
 	// GetInVerticesSize returns the size of the receiver Vertex's InVertices.
 	GetInVerticesSize() int
 
+	// GetPrev returns a slice of Prev.
+	GetPrev() *slice.Sequence
+
+	// GetPrevSize returns the size of thereceiver Vertex's Prev.
+	GetPrevSize() int
+
+	// AddPrevVertex adds the vertex v to a receiver's Prev.
+	AddPrevVertex(vtx *Vertex)
+
 	// AddInVertex adds a vertex to a receiver's InVertices.
 	AddInVertex(vtx *Vertex)
 

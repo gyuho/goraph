@@ -34,7 +34,7 @@ type Grapher interface {
 	GetEdgesSize() int
 
 	// FindVertexByID returns the vertex with input ID, or return nil if it doesn't exist.
-	FindVertexByID(id interface{}) *Vertex
+	FindVertexByID(id string) *Vertex
 
 	// CreateAndAddToGrammar finds the vertex with the ID, and if it does not exist, create it.
 	CreateAndAddToGraph(id string) *Vertex
@@ -48,6 +48,10 @@ type Grapher interface {
 	// ImmediateDominate returns true if A immediately dominates B.
 	// That is, true if A can go to B with only one edge.
 	ImmediateDominate(A, B *Vertex) bool
+
+	// ShowPrev shows the Prev of Vertex.
+	// This is useful when debugging Dijkstra shortest path algorithm.
+	ShowPrev(src *Vertex) string
 
 	// GetEdgeWeight returns the weight value of the edge from source to destination vertex.
 	GetEdgeWeight(src, dst *Vertex) float64
