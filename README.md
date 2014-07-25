@@ -6,6 +6,8 @@ goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](h
 
 Package goraph implements graph data structures and algorithms. It interacts with DOT and JSON format files.
 
+To visualize, use the method [`ToDOTFile`](https://github.com/gyuho/goraph/blob/master/graph/gs/graph_method.go#L152) and open the `dot` file with `Graphviz`
+
 - [Getting Started](https://github.com/gyuho/goraph#getting-started)
 - [Package Hierarchy](https://github.com/gyuho/goraph#package-hierarchy)
 - [List(Linked List) vs. Slice(Array)](https://github.com/gyuho/goraph#listlinked-list-vs-slicearray)
