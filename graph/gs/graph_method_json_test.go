@@ -164,6 +164,11 @@ func Test_JSON_GetEdgesSize(t *testing.T) {
 	if r2 != 24 {
 		t.Errorf("In testgraph2, expected 24 edges but %v", r2)
 	}
+	g3 := FromJSON("../../files/testgraph.json", "testgraph.003")
+	r3 := g3.GetEdgesSize()
+	if r3 != 30 {
+		t.Errorf("In testgraph3, expected 30 edges but %v", r3)
+	}
 }
 
 func Test_JSON_FindVertexByID(t *testing.T) {
