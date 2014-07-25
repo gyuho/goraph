@@ -1,7 +1,2 @@
 language: go
 go: 1.3
-
-deploy:
-  on:
-    tags: true
-    all_branches: true
