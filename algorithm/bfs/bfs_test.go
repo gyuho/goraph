@@ -11,7 +11,7 @@ import (
 
 func TestBFS(t *testing.T) {
 	g4 := gs.FromJSON("../../files/testgraph.json", "testgraph.004")
-	g4s := BFS(g4, g4.FindVertexByID("S"))
+	_ = BFS(g4, g4.FindVertexByID("S"))
 	/*
 		g4c1 := "S → B → A → D → E → T → F → C"
 		g4c2 := "S → B → D → E → A → T → F → C"
@@ -33,7 +33,7 @@ func TestBFS(t *testing.T) {
 	}
 
 	g5 := gs.FromJSON("../../files/testgraph.json", "testgraph.005")
-	g5s := BFS(g5, g5.FindVertexByID("A"))
+	_ = BFS(g5, g5.FindVertexByID("A"))
 	/*
 		g5c1 := "A → C → F → B → D → E"
 		g5c2 := "A → B → C → F → D → E"
