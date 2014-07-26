@@ -78,6 +78,7 @@ goraph
 		tskahn		//
 	
 	goroup			// Set
+	
 	gosequence		// Sequence using slice
 	
 	graph 			// Graph Data Structure
@@ -87,6 +88,7 @@ goraph
 		gt 			// Adjacency Matrix
 		
 	gson 			// JSON Encoding, Decoding
+	
 	parsex			// Parser for JSON, DOT files
 		dotx 		// `dot` file parser
 		dotxd		// allow duplicate edges
