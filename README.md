@@ -89,7 +89,7 @@ goraph
 		tskahn			// Topological Sort based on Arthur Kahn(1962)'s paper
 	
 	
-	goroup				// Set
+	goroup				// Set Theory
 	
 	gosequence			// Sequence using slice
 	
