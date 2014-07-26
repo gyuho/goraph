@@ -106,6 +106,8 @@ goraph
 		dotxd			// allow duplicate edges
 		jsonx 			// `json` file parser
 		jsonxd			// allow duplicate edges
+	
+	usage 				// Example Scripts, Programs
 ```
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
