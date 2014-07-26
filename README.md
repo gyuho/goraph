@@ -64,13 +64,21 @@ Package Hierarchy
 goraph
 
 	algorithm 				// Graph Algorithms
+	
 		bfs					//
 		dfs					//
+		
 		maxflow				//
+			fdfk			//
+			
 		mst 				// 
+			kruskal		//
+			prim			//
+			
 		scc 				//
-			kosaraju	//
-			tarjan		//
+			kosaraju		//
+			tarjan			//
+			
 		sp 					//
 		spbf				//
 		spd					//
@@ -79,9 +87,10 @@ goraph
 		tsdfs				//
 		tskahn				//
 	
+	
 	goroup					// Set
 	
-	gosequence			// Sequence using slice
+	gosequence				// Sequence using slice
 	
 	graph 					// Graph Data Structure
 		gl 					// Adjacency List, `container/list`
@@ -92,7 +101,7 @@ goraph
 	gson 					// JSON Encoding, Decoding
 	
 	parsex					// Parser for JSON, DOT files
-		dotx 					// `dot` file parser
+		dotx 				// `dot` file parser
 		dotxd				// allow duplicate edges
 		jsonx 				// `json` file parser
 		jsonxd				// allow duplicate edges
