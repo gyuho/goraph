@@ -64,17 +64,17 @@ Package Hierarchy
 goraph
 
 	algorithm 		// Graph Algorithms
-		bfs				//
-		dfs				//
+		bfs			//
+		dfs			//
 		maxflow		//
-		mst 			// 
-		scc 			//
-		sp 				//
-		spbf			//
-		spd				//
-		spfw			//
-		tsdag			//
-		tsdfs			//
+		mst 		// 
+		scc 		//
+		sp 			//
+		spbf		//
+		spd			//
+		spfw		//
+		tsdag		//
+		tsdfs		//
 		tskahn		//
 	
 	goroup			// Set
