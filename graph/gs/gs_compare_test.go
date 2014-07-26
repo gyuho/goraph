@@ -1,4 +1,4 @@
-package gsflow
+package gs
 
 import "testing"
 
@@ -26,13 +26,5 @@ func Test_SameEdge(test *testing.T) {
 
 	if !SameEdge(edge1, edge2) {
 		test.Error("Should be same but %v", SameEdge(edge1, edge2))
-	}
-}
-
-func Test_SameGraph(test *testing.T) {
-	g1 := FromJSON("../../files/testgraph.json", "testgraph.003")
-	g2 := FromJSON("../../files/testgraph.json", "testgraph.003")
-	if !SameGraph(g1, g2) {
-		test.Errorf("Should be same but %v", SameGraph(g1, g2))
 	}
 }

@@ -8,14 +8,14 @@ Package goraph implements graph data structures and algorithms. It interacts wit
 
 To visualize, use the method [`ToDOTFile`](https://github.com/gyuho/goraph/blob/master/graph/gs/graph_method.go#L152) and open the `dot` file with `Graphviz`
 
-- [Getting Started](https://github.com/gyuho/goraph#getting-started)
-- [Package Hierarchy](https://github.com/gyuho/goraph#package-hierarchy)
-- [List(Linked List) vs. Slice(Array)](https://github.com/gyuho/goraph#listlinked-list-vs-slicearray)
-- [What is Graph? (YouTube Clips)](https://github.com/gyuho/goraph#what-is-graph-youtube-clips)
-- [Adjacency List vs. Adjacency Matrix](https://github.com/gyuho/goraph#adjacency-list-vs-adjacency-matrix)
-- [Channel](https://github.com/gyuho/goraph#channel)
-- [C++ Version](https://github.com/gyuho/goraph#c-version)
-- [package gotree](https://github.com/gyuho/goraph#package-gotree)
+- [Getting Started](#getting-started)
+- [Package Hierarchy](#package-hierarchy)
+- [List(Linked List) vs. Slice(Array)](#listlinked-list-vs-slicearray)
+- [What is Graph? (YouTube Clips)](#what-is-graph-youtube-clips)
+- [Adjacency List vs. Adjacency Matrix](#adjacency-list-vs-adjacency-matrix)
+- [Channel](#channel)
+- [C++ Version](#c-version)
+- [package gotree](#package-gotree)
 
 
 Getting Started
@@ -55,7 +55,7 @@ digraph testgraph {
 }
 ```
 
-[↑ top](https://github.com/gyuho/goraph#goraph---)
+[↑ top](#goraph)
 
 
 Package Hierarchy
@@ -64,7 +64,7 @@ Package Hierarchy
 
 ```
 
-[↑ top](https://github.com/gyuho/goraph#goraph---)
+[↑ top](#goraph)
 
 
 
@@ -79,7 +79,7 @@ Goraph mainly uses customized slice(array) data structure implemented in package
 	<li><a href="http://www.codeproject.com/Articles/340797/Number-crunching-Why-you-should-never-ever-EVER-us" target="_blank">Why you should never use linked-list</a></li>
 </ul>
 
-[↑ top](https://github.com/gyuho/goraph#goraph---)
+[↑ top](#goraph)
 
 
 What is Graph? (YouTube Clips)
@@ -131,7 +131,7 @@ subgraph that is a single tree
 - **Predecessor of a Vertex**
  - edge(u, v), then vertex v is the descendant of u. Vertex u is the predecessor, or parent/ancestor, of vertex v. v.d is the distance from the source; s.d is 0 when s is the source node. u.d is 1 when the distance from source to u is 1. This is implemented as <b>InVertices</b> in goraph.
 
-[↑ top](https://github.com/gyuho/goraph#goraph---)
+[↑ top](#goraph)
 
 
 Adjacency List vs. Adjacency Matrix
@@ -159,7 +159,7 @@ Adjacency List vs. Adjacency Matrix
 	- Fast lookups to check for presence of an edge
 	- Slow to iterate over all edges
 
-[↑ top](https://github.com/gyuho/goraph#goraph---)
+[↑ top](#goraph)
 
 
 Channel
@@ -180,21 +180,21 @@ func (v *VertexT) GetEdgeTsChannelFromThisVertex() chan *EdgeT {
 ```
 It's not idiomatic Go style to use channels, simply for the ability to iterate over them. It's not efficient, and it can easily lead to an accumulation of idle goroutines: Consider what happens when the caller of GetEdgeTsChannelFromThisVertex discards the channel before reading to the end. It's better to use container/list rather than channel.
 
-[↑ top](https://github.com/gyuho/goraph#goraph---)
+[↑ top](#goraph)
 
 
 C++ Version
 =========
 I have another Graph Algorithm project written in C++. It is **NOT** maintained anymore, but if interested check out <a href="https://github.com/gyuho/learn/tree/master/learn_cpp/code/cpp_graph_algorithm" target="_blank">HERE</a>.
 
-[↑ top](https://github.com/gyuho/goraph#goraph---)
+[↑ top](#goraph)
 
 
 package gotree
 =========
 Tree is just another kind of graph data structure. If interested check out <a href="https://github.com/gyuho/gotree" target="_blank">gotree</a>.
 
-[↑ top](https://github.com/gyuho/goraph#goraph---)
+[↑ top](#goraph)
 
 
 Tree
@@ -207,5 +207,5 @@ Tree (a graph G with V vertices)  if and only if it satisfies any of the followi
 - G is acyclic, and adding any edge creates a cycle in G
 - Exactly one simple path connects each pair of vertices in G
 
-[↑ top](https://github.com/gyuho/goraph#goraph---)
+[↑ top](#goraph)
 

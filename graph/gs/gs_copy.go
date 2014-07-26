@@ -1,4 +1,4 @@
-package gsflow
+package gs
 
 // CopyVertex returns the copy of input Vertex.
 func CopyVertex(vtx *Vertex) *Vertex {
@@ -18,12 +18,4 @@ func CopyEdge(edge *Edge) *Edge {
 	ds := CopyVertex(edge.Dst)
 	nw := edge.Weight
 	return NewEdge(cs, ds, nw)
-}
-
-// CopyGraph returns the copy of input Graph.
-func CopyGraph(graph *Graph) *Graph {
-	cp := NewGraph()
-	cp.Vertices = graph.Vertices.CopySeqPt()
-	cp.Edges = graph.Edges.CopySeqPt()
-	return cp
 }

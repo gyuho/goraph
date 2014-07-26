@@ -1,4 +1,4 @@
-package gsflow
+package gs
 
 import (
 	"github.com/gyuho/goraph/parsex/jsonx"

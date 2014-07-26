@@ -105,6 +105,9 @@ func FromJSON(fpath, gname string) *Graph {
 			//
 			for _, weight := range gmap[srcID][dstID] {
 				g.Connect(src, dst, weight)
+				//
+				// to connect in bi-direction
+				// g.Connect(dst, src, 0)
 			}
 		}
 	}

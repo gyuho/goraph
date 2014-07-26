@@ -1,4 +1,4 @@
-package gsflow
+package gs
 
 // SameVertex returns true if two vertices are the same.
 func SameVertex(v1, v2 *Vertex) bool {
@@ -80,36 +80,5 @@ func SameEdge(e1, e2 *Edge) bool {
 	if !SameVertex(e1.Src, e2.Src) {
 		return false
 	}
-	return true
-}
-
-// SameGraph returns true if two graphs are equal.
-func SameGraph(g1, g2 *Graph) bool {
-	if g1.GetVerticesSize() != g2.GetVerticesSize() {
-		return false
-	}
-	if g1.GetEdgesSize() != g2.GetEdgesSize() {
-		return false
-	}
-
-	vtxsl1 := g1.GetVertices()
-	for _, vt1 := range *vtxsl1 {
-		vt2 := g2.FindVertexByID(vt1.(*Vertex).ID)
-		if vt2 == nil {
-			return false
-		}
-		if !SameVertex(vt2, vt1.(*Vertex)) {
-			return false
-		}
-	}
-
-	edgsl1 := g1.GetEdges()
-	for _, eg1 := range *edgsl1 {
-		eg2 := g2.GetEdge(g2.FindVertexByID(eg1.(*Edge).Src.ID), g2.FindVertexByID(eg1.(*Edge).Dst.ID))
-		if eg2 == nil {
-			return false
-		}
-	}
-
 	return true
 }
