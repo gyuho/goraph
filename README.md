@@ -65,16 +65,16 @@ goraph
 
 	algorithm 		// Graph Algorithms
 	
-	goroup				// Set
+	goroup			// Set
 	gosequence		// Sequence using slice
 	
-	graph 				// Graph Data Structure
-		gl 					// Adjacency List, `container/list`
-		gm 					// Map Data Structure
-		gs 					// Slice, Sequence (Default in Goraph)
-		gt 					// Adjacency Matrix
+	graph 			// Graph Data Structure
+		gl 			// Adjacency List, `container/list`
+		gm 			// Map Data Structure
+		gs 			// Slice, Sequence (Default in Goraph)
+		gt 			// Adjacency Matrix
 		
-	gson 					// JSON Encoding, Decoding
+	gson 				// JSON Encoding, Decoding
 	parsex				// Parser for JSON, DOT files
 ```
 
