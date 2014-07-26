@@ -76,8 +76,8 @@ goraph
 			prim		// Prim's Minimum Spanning Tree
 			
 		scc 			// Strongly Connected Components
-			kosaraju	//
-			tarjan		//
+			kosaraju	// Kosaraju's Strongly Connected Components
+			tarjan		// Tarjan's Strongly Connected Components
 			
 		sp 				// Shortest Path
 		spbf			// Shortest Path using Bellman-Ford algorithm
