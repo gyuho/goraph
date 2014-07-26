@@ -65,27 +65,28 @@ goraph
 
 	algorithm 			// Graph Algorithms
 	
-		bfs				//
-		dfs				//
+		bfs				// Breadth First Search (BFS)
+		dfs				// Depth First Search (DFS)
 		
-		maxflow			//
-			fdfk		//
+		maxflow			// Maximum Flow
+			fdfk		// Ford-Fulkerson's Maximum Network Flow
 			
-		mst 			// 
-			kruskal		//
-			prim		//
+		mst 			// Minimum Spanning Tree
+			kruskal		// Kruskal's Minimum Spanning Tree
+			prim		// Prim's Minimum Spanning Tree
 			
-		scc 			//
+		scc 			// Strongly Connected Components
 			kosaraju	//
 			tarjan		//
 			
-		sp 				//
-		spbf			//
-		spd				//
-		spfw			//
-		tsdag			//
-		tsdfs			//
-		tskahn			//
+		sp 				// Shortest Path
+		spbf			// Shortest Path using Bellman-Ford algorithm
+		spd				// Shortest Path using Dijkstra algorithm
+		spfw			// Shortest Path using Floyd-Warshall algorithm
+		
+		tsdag			// Topological Sort
+		tsdfs			// Topological Sort using DFS
+		tskahn			// Topological Sort based on Arthur Kahn(1962)'s paper
 	
 	
 	goroup				// Set
