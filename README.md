@@ -64,6 +64,18 @@ Package Hierarchy
 goraph
 
 	algorithm 		// Graph Algorithms
+		bfs				//
+		dfs				//
+		maxflow		//
+		mst 			// 
+		scc 			//
+		sp 				//
+		spbf			//
+		spd				//
+		spfw			//
+		tsdag			//
+		tsdfs			//
+		tskahn		//
 	
 	goroup			// Set
 	gosequence		// Sequence using slice
@@ -76,6 +88,10 @@ goraph
 		
 	gson 			// JSON Encoding, Decoding
 	parsex			// Parser for JSON, DOT files
+		dotx 		// `dot` file parser
+		dotxd		// allow duplicate edges
+		jsonx 	// `json` file parser
+		jsonxd	// allow duplicate edges
 ```
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
