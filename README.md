@@ -63,37 +63,39 @@ Package Hierarchy
 ```go
 goraph
 
-	algorithm 		// Graph Algorithms
-		bfs			//
-		dfs			//
-		maxflow		//
-		mst 		// 
-		scc 		//
-		sp 			//
-		spbf		//
-		spd			//
-		spfw		//
-		tsdag		//
-		tsdfs		//
-		tskahn		//
+	algorithm 				// Graph Algorithms
+		bfs					//
+		dfs					//
+		maxflow				//
+		mst 				// 
+		scc 				//
+			kosaraju	//
+			tarjan		//
+		sp 					//
+		spbf				//
+		spd					//
+		spfw				//
+		tsdag				//
+		tsdfs				//
+		tskahn				//
 	
-	goroup			// Set
+	goroup					// Set
 	
-	gosequence		// Sequence using slice
+	gosequence			// Sequence using slice
 	
-	graph 			// Graph Data Structure
-		gl 			// Adjacency List, `container/list`
-		gm 			// Map Data Structure
-		gs 			// Slice, Sequence (Default in Goraph)
-		gt 			// Adjacency Matrix
+	graph 					// Graph Data Structure
+		gl 					// Adjacency List, `container/list`
+		gm 					// Map Data Structure
+		gs 					// Slice, Sequence (Default in Goraph)
+		gt 					// Adjacency Matrix
 		
-	gson 			// JSON Encoding, Decoding
+	gson 					// JSON Encoding, Decoding
 	
-	parsex			// Parser for JSON, DOT files
-		dotx 		// `dot` file parser
-		dotxd		// allow duplicate edges
-		jsonx 		// `json` file parser
-		jsonxd		// allow duplicate edges
+	parsex					// Parser for JSON, DOT files
+		dotx 					// `dot` file parser
+		dotxd				// allow duplicate edges
+		jsonx 				// `json` file parser
+		jsonxd				// allow duplicate edges
 ```
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
