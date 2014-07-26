@@ -74,8 +74,8 @@ goraph
 		gs 			// Slice, Sequence (Default in Goraph)
 		gt 			// Adjacency Matrix
 		
-	gson 				// JSON Encoding, Decoding
-	parsex				// Parser for JSON, DOT files
+	gson 		// JSON Encoding, Decoding
+	parsex		// Parser for JSON, DOT files
 ```
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
