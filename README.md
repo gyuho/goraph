@@ -122,6 +122,8 @@ List(Linked List) vs. Slice(Array)
 ========
 Goraph mainly uses customized slice(array) data structure implemented in package gsd, instead of using linked list. To store vertices and edges, we can either use "container/list" or slice(array) data structure. It depends on the number of elements in the lists. Linked list will be more efficient, when we need to do many deletions in the 'middle' of the list. The more elements we have in graph , the less efficient a slice becomes. When the ordering of the elements isn't important, then it is most efficient to use a slice and deleting an element by replacing it by the last element and reslicing to shrink the size(len) by 1. We can mitigate the deletion problem using this slice trick but there is no way to mitigate the slowness of traversing linked list. Both ways are implemented, but mainly this will be run with slice. 
 
+Here's my benchmarks on [List(Linked List) vs. Slice(Array)](https://github.com/gyuho/goraph/tree/master/benchmark/graph_iterate_test.go) that shows `slice` is **x20,000** faster when traversing 5,0000 nodes.
+
 <b>Reference</b>
 <ul>
 	<li><a href="https://groups.google.com/d/msg/golang-nuts/mPKCoYNwsoU/tLefhE7tQjMJ" target="_blank">Go(Golang) Slice vs. List?</a></li>
