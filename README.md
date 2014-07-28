@@ -122,13 +122,23 @@ goraph
 Sample Usage
 ==========
 
-[Code]() to calculate and visualize the shortest path from ~ to ~:
+[Code](./usage/algorithm-visualize/spd) to calculate and visualize the shortest path from ~ to ~:
 ```go
+package main
 
+import (
+	"github.com/gyuho/goraph/algorithm/spd"
+	"github.com/gyuho/goraph/graph/gs"
+)
+
+func main() {
+	g4 := gs.FromJSON("../../../files/testgraph.json", "testgraph.004")
+	spd.VizDOTFile(g4, g4.FindVertexByID("S"), g4.FindVertexByID("T"), "test.dot")
+}
 ```
 
 Output:
-<img src="./files/!!.png" alt="!!" width="170px" height="230px"/>
+<img src="./files/spd.png" alt="spd" width="250px" height="150px"/>
 
 Other examples can be found [here]().
 
