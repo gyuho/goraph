@@ -100,7 +100,7 @@ goraph
 		gs 				// Slice, Sequence (Default in Goraph)
 		gt 				// Adjacency Matrix
 		
-		helper	// Helper function for graphs
+		helper			// Helper function for graphs
 		
 		
 	gson 				// JSON Encoding, Decoding
