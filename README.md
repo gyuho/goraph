@@ -10,6 +10,7 @@ To visualize, use the method [`ToDOTFile`](https://github.com/gyuho/goraph/blob/
 
 - [Getting Started](#getting-started)
 - [Package Hierarchy](#package-hierarchy)
+- [Sample Usage](#sample-usage)
 - [List(Linked List) vs. Slice(Array)](#listlinked-list-vs-slicearray)
 - [What is Graph? (YouTube Clips)](#what-is-graph-youtube-clips)
 - [Adjacency List vs. Adjacency Matrix](#adjacency-list-vs-adjacency-matrix)
@@ -113,6 +114,23 @@ goraph
 	
 	usage 				// Example Scripts, Programs
 ```
+
+[↑ top](https://github.com/gyuho/goraph#goraph---)
+
+
+
+Sample Usage
+==========
+
+[Code]() to calculate and visualize the shortest path from ~ to ~:
+```go
+
+```
+
+Output:
+<img src="./files/!!.png" alt="!!" width="170px" height="230px"/>
+
+Other examples can be found [here]().
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
