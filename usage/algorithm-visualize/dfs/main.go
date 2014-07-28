@@ -1,6 +1,6 @@
+/*
 package main
 
-/*
 import (
 	"github.com/gyuho/goraph/algorithm/dfs"
 	"github.com/gyuho/goraph/graph/gs"
