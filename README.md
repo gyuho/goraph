@@ -93,11 +93,15 @@ goraph
 	
 	gosequence			// Sequence using slice
 	
+	
 	graph 				// Graph Data Structure
 		gl 				// Adjacency List, `container/list`
 		gm 				// Map Data Structure
 		gs 				// Slice, Sequence (Default in Goraph)
 		gt 				// Adjacency Matrix
+		
+		helper	// Helper function for graphs
+		
 		
 	gson 				// JSON Encoding, Decoding
 	
