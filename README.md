@@ -138,7 +138,8 @@ func main() {
 ```
 
 Output:
-<img src="./files/spd.png" alt="spd" width="250px" height="150px"/>
+
+<img src="./files/spd.png" alt="spd" width="400px" height="270px"/>
 
 Other examples can be found [here]().
 
