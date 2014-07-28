@@ -1,13 +1,12 @@
 package gs
 
 import (
-	"bufio"
 	"fmt"
-	"log"
-	"os"
+
 	"strings"
 
 	slice "github.com/gyuho/goraph/gosequence"
+	"github.com/gyuho/goraph/graph/helper"
 )
 
 // ToMAP converts a receiver graph data structure to a map.
@@ -92,36 +91,10 @@ func (g Graph) ToJSON() string {
 	return line0 + line1 + rstr + line2
 }
 
-// OpenToOverwrite creates or opens a file for overwriting.
-// Make sure to close the file.
-func OpenToOverwrite(fpath string) *os.File {
-	file, err := os.OpenFile(fpath, os.O_RDWR|os.O_TRUNC, 0777)
-	if err != nil {
-		// log.Fatal(err)
-		file, err = os.Create(fpath)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
-	return file
-}
-
-// WriteToFile writes the input string slice into a text file.
-func WriteToFile(fpath, str string) {
-	file := OpenToOverwrite(fpath)
-	defer file.Close()
-	txt := bufio.NewWriter(file)
-	_, err := txt.WriteString(str)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer txt.Flush()
-}
-
 // ToJSONFile converts a graph to a JSON file.
 func (g Graph) ToJSONFile(fpath string) {
 	jstr := g.ToJSON()
-	WriteToFile(fpath, jstr)
+	helper.WriteToFile(fpath, jstr)
 }
 
 // ToDOT converts a receiver graph data structure to DOT format.
@@ -151,7 +124,7 @@ func (g Graph) ToDOT() string {
 // ToDOTFile converts a graph to a DOT file.
 func (g Graph) ToDOTFile(fpath string) {
 	dstr := g.ToDOT()
-	WriteToFile(fpath, dstr)
+	helper.WriteToFile(fpath, dstr)
 }
 
 // GetVertices returns the vertex slice.

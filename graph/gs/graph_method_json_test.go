@@ -1,8 +1,6 @@
 package gs
 
 import (
-	"bufio"
-	"log"
 	"os"
 	"testing"
 )
@@ -96,36 +94,6 @@ func Test_JSON_ToJSONFile(t *testing.T) {
 		}
 	}
 	os.RemoveAll("./tmp.json")
-}
-
-// ReadLines reads lines from a specified file,
-// and returns them in string slice format.
-func ReadLines(fpath string) []string {
-	file, err := os.OpenFile(fpath, os.O_RDONLY, 0444)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	lines := []string{}
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines
-}
-
-// CountLines returns the number of lines.
-func CountLines(fpath string) int {
-	return len(ReadLines(fpath))
-}
-
-func Test_JSON_WriteToFile(t *testing.T) {
-	WriteToFile("./tmp.txt", "A\nB\nC")
-	if CountLines("./tmp.txt") != 3 {
-		t.Fatalf("expected 3 but %v", CountLines("./tmp.txt"))
-	}
-	os.RemoveAll("./tmp.txt")
 }
 
 func Test_JSON_GetVertices(t *testing.T) {

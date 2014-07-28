@@ -68,4 +68,7 @@ type Grapher interface {
 	// DeleteEdge deletes the edge from the vertex A to B.
 	// Note that this only delete one direction from A to B.
 	DeleteEdge(A, B *Vertex)
+
+	// Path returns true if there is a path between two Vertices.
+	Path(src, end *Vertex) bool
 }
