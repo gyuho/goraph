@@ -122,7 +122,7 @@ goraph
 Sample Usage
 ==========
 
-[Code](./usage/algorithm-visualize/spd) to calculate and visualize the shortest path from ~ to ~:
+[Code](./usage/algorithm-visualize/spd) to calculate and visualize the shortest path from `S` to `T`:
 ```go
 package main
 
@@ -137,11 +137,12 @@ func main() {
 }
 ```
 
-Output:
 
-<img src="./files/spd.png" alt="spd" width="400px" height="270px"/>
+**Output**:
 
-Other examples can be found [here]().
+<img src="./files/spd.png" alt="spd" width="430px" height="300px"/>
+
+Other examples can be found [here](./usage/algorithm-visualize/spd).
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 
