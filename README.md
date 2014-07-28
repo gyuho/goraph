@@ -140,9 +140,9 @@ func main() {
 
 **Output**:
 
-<img src="./files/spd.png" alt="spd" width="430px" height="300px"/>
+<img src="./files/spd.png" alt="spd" width="480px" height="350px"/>
 
-Other examples can be found [here](./usage/algorithm-visualize/spd).
+More examples can be found [here](./usage/).
 
 [↑ top](https://github.com/gyuho/goraph#goraph---)
 

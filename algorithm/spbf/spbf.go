@@ -13,11 +13,8 @@ import (
 // since the negatively-weighted cycle adds up the
 // infinite negative. Otherwise it returns the shortest
 // path in the graph that can contain negative edges.
-func SPBF(g *gs.Graph, src, dst string) (string, bool) {
-	source := g.FindVertexByID(src)
-	destin := g.FindVertexByID(dst)
-
-	source.StampD = 0
+func SPBF(g *gs.Graph, src, dst *gs.Vertex) (string, bool) {
+	src.StampD = 0
 
 	// for each vertex u ∈ g.V
 	vertices := g.GetVertices()
@@ -77,20 +74,20 @@ func SPBF(g *gs.Graph, src, dst string) (string, bool) {
 		}
 	}
 	result := slice.NewSequence()
-	TrackSPBF(g, source, destin, destin, result)
+	TrackSPBF(g, src, dst, dst, result)
 
-	s := ""
+	var rs string
 	for _, v := range *result {
 		if v == nil {
 			continue
 		}
-		s += fmt.Sprintf("%v(=%v) → ", v.(*gs.Vertex).ID, v.(*gs.Vertex).StampD)
+		rs += fmt.Sprintf("%v(=%v) → ", v.(*gs.Vertex).ID, v.(*gs.Vertex).StampD)
 	}
 
-	return s[:len(s)-5], true
+	return rs[:len(rs)-5], true
 }
 
-func TrackSPBF(g *gs.Graph, source, target, end *gs.Vertex, result *slice.Sequence) {
+func TrackSPBF(g *gs.Graph, src, dst, end *gs.Vertex, result *slice.Sequence) {
 	// Add target first
 	if result.Len() == 0 {
 		result.PushFront(end)
@@ -98,22 +95,22 @@ func TrackSPBF(g *gs.Graph, source, target, end *gs.Vertex, result *slice.Sequen
 
 	// End recursion when we have NON-connected graph (len = 0)
 	// End recursion when we get to Source that has no Prev
-	if target.Prev.Len() == 0 {
+	if dst.Prev.Len() == 0 {
 		return
 	}
 
 	// when there is only start source and another vertex
 	// that is already visited
 	// which means that there is only source vertex left to visit
-	tps := target.Prev
+	tps := dst.Prev
 	if tps.Len() == 2 {
 		for _, vtx := range *tps {
-			// if fmt.Sprintf("%v", source.ID) != fmt.Sprintf("%v", vtx.(*gs.Vertex).ID) {
-			if source != vtx.(*gs.Vertex) {
+			// if fmt.Sprintf("%v", src.ID) != fmt.Sprintf("%v", vtx.(*gs.Vertex).ID) {
+			if src != vtx.(*gs.Vertex) {
 				for _, v := range *result {
 					// if fmt.Sprintf("%v", vtx.(*gs.Vertex).ID) == fmt.Sprintf("%v", v.(*gs.Vertex).ID) {
 					if vtx.(*gs.Vertex) == v.(*gs.Vertex) {
-						result.PushFront(source)
+						result.PushFront(src)
 						return
 					}
 				}
@@ -124,15 +121,15 @@ func TrackSPBF(g *gs.Graph, source, target, end *gs.Vertex, result *slice.Sequen
 	// Add the smallest vertex from back
 	// that is not source, destination
 	// that is not in the result
-	ps := target.Prev
+	ps := dst.Prev
 	ts := []string{}
 	for _, vtx1 := range *ps {
 		if vtx1 == nil {
 			continue
 		}
-		// b1 := fmt.Sprintf("%v", vtx1.(*gs.Vertex).ID) == fmt.Sprintf("%v", source.ID)
+		// b1 := fmt.Sprintf("%v", vtx1.(*gs.Vertex).ID) == fmt.Sprintf("%v", src.ID)
 		// b2 := fmt.Sprintf("%v", vtx1.(*gs.Vertex).ID) == fmt.Sprintf("%v", end.ID)
-		b1 := vtx1.(*gs.Vertex) == source
+		b1 := vtx1.(*gs.Vertex) == src
 		b2 := vtx1.(*gs.Vertex) == end
 
 		b3 := false
@@ -165,5 +162,5 @@ func TrackSPBF(g *gs.Graph, source, target, end *gs.Vertex, result *slice.Sequen
 	// now we know what is the smallest one
 
 	result.PushFront(sm)
-	TrackSPBF(g, source, sm, end, result)
+	TrackSPBF(g, src, sm, end, result)
 }
