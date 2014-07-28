@@ -120,13 +120,3 @@ func dfsSCC(g *gs.Graph, start *gs.Vertex, stack *[]string) {
 		*stack = append(*stack, ((*result)[i].(string)))
 	}
 }
-
-// Contains returns true if vtx exists in the slice sl.
-func Contains(vtx string, sl []string) bool {
-	for _, val := range sl {
-		if val == vtx {
-			return true
-		}
-	}
-	return false
-}

@@ -16,7 +16,7 @@ func SCC(g, gr *gs.Graph) [][]string {
 			if val == nil || Stack == nil {
 				continue
 			}
-			if !Contains(val.(*gs.Vertex).ID, Stack) {
+			if !contains(val.(*gs.Vertex).ID, Stack) {
 				Stack = DFSandSCC(g, val.(*gs.Vertex))
 				break
 			}
@@ -48,4 +48,14 @@ func SCC(g, gr *gs.Graph) [][]string {
 	}
 
 	return result
+}
+
+// contains returns true if vtx exists in the slice sl.
+func contains(vtx string, sl []string) bool {
+	for _, val := range sl {
+		if val == vtx {
+			return true
+		}
+	}
+	return false
 }
