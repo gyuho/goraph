@@ -8,6 +8,7 @@ import (
 )
 
 // BFS does Breadth First Search and return the result in visited order.
+// BFS traverses graphs in an arbitrary order.
 func BFS(g *gs.Graph, src *gs.Vertex) string {
 	src.Color = "gray"
 	src.StampD = 0
