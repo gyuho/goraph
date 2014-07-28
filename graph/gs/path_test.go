@@ -39,3 +39,41 @@ func TestPath(t *testing.T) {
 		t.Errorf("expected true but %+v\n", rb16d)
 	}
 }
+
+func TestPathRecur(t *testing.T) {
+	g4 := FromJSON("../../files/testgraph.json", "testgraph.004")
+	rb4 := g4.PathRecur(g4.FindVertexByID("S"), g4.FindVertexByID("F"))
+	if !rb4 {
+		t.Errorf("expected true but %+v\n", rb4)
+	}
+
+	g5 := FromJSON("../../files/testgraph.json", "testgraph.005")
+	rb5 := g5.PathRecur(g5.FindVertexByID("F"), g5.FindVertexByID("B"))
+	if !rb5 {
+		t.Errorf("expected true but %+v\n", rb5)
+	}
+
+	g16 := FromJSON("../../files/testgraph.json", "testgraph.016")
+	rb16 := g16.PathRecur(g16.FindVertexByID("C"), g16.FindVertexByID("B"))
+	if rb16 {
+		t.Errorf("expected false but %+v\n", rb16)
+	}
+
+	g16i := FromJSON("../../files/testgraph.json", "testgraph.016")
+	rb16i := g16i.PathRecur(g16i.FindVertexByID("I"), g16i.FindVertexByID("J"))
+	if !rb16i {
+		t.Errorf("expected true but %+v\n", rb16i)
+	}
+
+	g16j := FromJSON("../../files/testgraph.json", "testgraph.016")
+	rb16j := g16j.PathRecur(g16j.FindVertexByID("J"), g16j.FindVertexByID("I"))
+	if rb16j {
+		t.Errorf("expected false but %+v\n", rb16j)
+	}
+
+	g16d := FromJSON("../../files/testgraph.json", "testgraph.016")
+	rb16d := g16d.PathRecur(g16d.FindVertexByID("D"), g16d.FindVertexByID("E"))
+	if !rb16d {
+		t.Errorf("expected true but %+v\n", rb16d)
+	}
+}

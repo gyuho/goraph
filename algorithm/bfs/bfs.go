@@ -16,7 +16,7 @@ func BFS(g *gs.Graph, src *gs.Vertex) string {
 	queue := slice.NewSequence() // Q = ∅
 	queue.PushBack(src)          // ENQUEUE(Q, s)
 
-	s := ""
+	var rs string
 	for queue.Len() != 0 {
 		u := queue.PopFront().(*gs.Vertex)
 		ovs := u.GetOutVertices()
@@ -36,9 +36,9 @@ func BFS(g *gs.Graph, src *gs.Vertex) string {
 			}
 		}
 		u.Color = "black"
-		s += fmt.Sprintf("%v → ", u.ID)
-		// s += fmt.Sprintf("%v(timestamp: %v) → ", u.ID, u.StampD)
+		rs += fmt.Sprintf("%v → ", u.ID)
+		// rs += fmt.Sprintf("%v(timestamp: %v) → ", u.ID, u.StampD)
 	}
 
-	return s[:len(s)-5]
+	return rs[:len(rs)-5]
 }

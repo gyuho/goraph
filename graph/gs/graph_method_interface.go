@@ -71,4 +71,7 @@ type Grapher interface {
 
 	// Path returns true if there is a path between two Vertices.
 	Path(src, end *Vertex) bool
+
+	// PathRecur returns true if there is a path between two Vertices.
+	PathRecur(src, end *Vertex) bool
 }
