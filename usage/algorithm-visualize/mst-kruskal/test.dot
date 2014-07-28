@@ -1,0 +1,10 @@
+graph goraph {
+	H -- G [label=1, color=blue]
+	I -- C [label=2, color=blue]
+	F -- G [label=2, color=blue]
+	C -- F [label=4, color=blue]
+	B -- A [label=4, color=blue]
+	D -- C [label=7, color=blue]
+	A -- H [label=8, color=blue]
+	D -- E [label=9, color=blue]
+}

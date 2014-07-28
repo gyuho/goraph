@@ -9,7 +9,7 @@ import (
 	"github.com/gyuho/goraph/graph/helper"
 )
 
-// VizDOT outputs the Breadth First Search in DOT format.
+// VizDOT outputs the Depth First Search in DOT format.
 func VizDOT(g *gs.Graph) string {
 	// map[string]map[string][]float64
 	rm := g.ToMAP()
@@ -32,7 +32,7 @@ func VizDOT(g *gs.Graph) string {
 	return line0 + strings.Join(lines, "\n") + "\n\t" + path + lineE
 }
 
-// VizDOTFile outputs the Breadth First Search to a DOT format file.
+// VizDOTFile outputs the Depth First Search to a DOT format file.
 func VizDOTFile(g *gs.Graph, fpath string) {
 	sp := VizDOT(g)
 	helper.WriteToFile(fpath, sp)
