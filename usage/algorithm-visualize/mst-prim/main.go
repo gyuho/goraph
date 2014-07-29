@@ -1,4 +1,4 @@
-/*
+// +build
 package main
 
 import (
@@ -10,4 +10,3 @@ func main() {
 	g14 := gs.FromJSON("../../../files/testgraph.json", "testgraph.014")
 	prim.VizDOTFile(g14, "test.dot")
 }
-*/

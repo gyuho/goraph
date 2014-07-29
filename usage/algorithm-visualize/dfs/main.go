@@ -1,4 +1,4 @@
-/*
+// +build
 package main
 
 import (
@@ -10,4 +10,3 @@ func main() {
 	g4 := gs.FromJSON("../../../files/testgraph.json", "testgraph.004")
 	dfs.VizDOTFile(g4, "test.dot")
 }
-*/

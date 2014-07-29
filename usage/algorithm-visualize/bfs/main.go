@@ -1,4 +1,5 @@
-/*
+// +build
+// http://golang.org/pkg/go/build/#pkg-overview
 package main
 
 import (
@@ -10,4 +11,3 @@ func main() {
 	g4 := gs.FromJSON("../../../files/testgraph.json", "testgraph.004")
 	bfs.VizDOTFile(g4, g4.FindVertexByID("S"), "test.dot")
 }
-*/
