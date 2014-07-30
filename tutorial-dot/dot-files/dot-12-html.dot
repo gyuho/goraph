@@ -1,0 +1,7 @@
+digraph notebook {
+  exp1 [label="experiment 1",URL="http://example.com/1"]
+  exp2 [label="experiment 2",URL="http://example.com/2"]
+  exp3 [label="experiment 3",URL="http://example.com/3"]
+  exp1 -> exp3;
+  exp2 -> exp3;
+}
