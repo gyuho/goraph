@@ -1,0 +1,22 @@
+digraph dfd2{
+        node[shape=record]
+        subgraph level0{
+        enti1 [label="Customer" shape=box];
+        enti2 [label="Manager" shape=box];
+        }
+        subgraph cluster_level1{
+                        label ="Level 1";
+                        proc1 [label="{<f0> 1.0|<f1> One process here\n\n\n}" shape=Mrecord];
+                        proc2 [label="{<f0> 2.0|<f1> Other process here\n\n\n}" shape=Mrecord];
+                        store1 [label="<f0>    |<f1> Data store one"];
+                        store2 [label="<f0>   |<f1> Data store two"];
+                        {rank=same; store1, store2}
+
+        }
+        enti1 -> proc1
+        enti2 -> proc2
+        store1 -> proc1
+        store2 -> proc2
+        proc1 -> store2
+        store2 -> proc1 
+}
