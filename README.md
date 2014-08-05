@@ -1,4 +1,4 @@
-`goraph` is a pure Go library for graph data structure. This is rather a reference project. This contains complicated pointer examples and other data structure usage in Go. For graph APIs, I highly recommend <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
+`goraph` is a pure Go library for graph data structure. Use this as a reference. It provides basic graph functions: `add`, `delete`,`connect`, etc. For graph APIs, I highly recommend <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
 
 
 goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](https://travis-ci.org/gyuho/goraph) [![GoDoc](https://godoc.org/github.com/gyuho/goraph?status.png)](http://godoc.org/github.com/gyuho/goraph) [![Project Stats](http://www.ohloh.net/p/714468/widgets/project_thin_badge.gif)](http://www.ohloh.net/p/714468)
