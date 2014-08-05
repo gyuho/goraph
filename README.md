@@ -28,7 +28,7 @@ Getting Started
 go get github.com/gyuho/goraph
 ```
 
-`goraph` uses the package `gs` as default, which discourage to have duplicate edges but still provides ways to implement it. Default formats are `JSON` and `DOT` as follows:
+`goraph` uses the package `gs` as default, and I recommend to have no duplicate edge, although it would still work. You can also pass `JSON` or`DOT` files:
 
 ```json
 {
