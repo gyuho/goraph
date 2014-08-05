@@ -1,7 +1,9 @@
-// Output differs every time it runs.
-/*
 package tsdfs
 
+func main() {}
+
+// Output differs every time it runs.
+/*
 import (
 	"testing"
 
