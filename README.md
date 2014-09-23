@@ -1,7 +1,7 @@
-*`UPDATE`*: Use `LevelDB` with package `glevel` if you plan to scale your graph.
+**`UPDATE`**: Use LevelDB with package `glevel` if you plan to scale your graph.
 
 
-<br>
+<hr>
 
 
 `goraph` is a pure Go library, designed for graph database analytics. It has straightforward APIs (`add`, `delete`,`connect`), with minimal external package dependencies.
@@ -107,7 +107,7 @@ goraph
 	
 	
 	graph 				// Graph Data Structure
-		glevel 	// Graph database using `LevelDB`
+		glevel 	    // Graph database using `LevelDB`
 
 		gl 				// Adjacency List, `container/list`
 		gm 				// Map Data Structure
