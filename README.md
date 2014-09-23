@@ -1,4 +1,4 @@
-**`UPDATE`**: If you want to scale, use **LevelDB**(http://leveldb.org) with package `glevel`.
+`**UPDATE**`: If you want to scale, use **LevelDB**(http://leveldb.org) with package `glevel`.
 
 
 <hr>
@@ -104,7 +104,7 @@ goraph
 	
 	
 	graph 				// Graph Data Structure
-		glevel 	       // Graph database using `LevelDB`
+		glevel 	        // Graph database using `LevelDB`
 
 		gl 				// Adjacency List, `container/list`
 		gm 				// Map Data Structure
