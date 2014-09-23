@@ -1,10 +1,12 @@
-Rewriting to support `levelDB` backend.
+*`UPDATE`*: Use `LevelDB` with package `glevel` if you plan to scale your graph.
 
+
+<br>
 
 
 `goraph` is a pure Go library, designed for graph database analytics. It has straightforward APIs (`add`, `delete`,`connect`), with minimal external package dependencies.
 
-For fast query and retrieval, I highly recommend <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
+For fast query and retrieval, use <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
 
 
 goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](https://travis-ci.org/gyuho/goraph) [![GoDoc](https://godoc.org/github.com/gyuho/goraph?status.png)](http://godoc.org/github.com/gyuho/goraph) [![Project Stats](http://www.ohloh.net/p/714468/widgets/project_thin_badge.gif)](http://www.ohloh.net/p/714468)
@@ -34,7 +36,10 @@ Getting Started
 go get github.com/gyuho/goraph
 ```
 
-`goraph` uses the package `gs` as default, and I recommend to have no duplicate edge, although it would still work. You can also pass `JSON` or`DOT` files:
+I updated `goraph` to work with `LevelDB`(http://leveldb.org/).
+
+
+Otherwise, `goraph` has several other packages. I recommend to use `gs`, which discourages to have duplicate edges, although still possible. You can either generate graphs in memory or pass `JSON` or`DOT` files:
 
 ```json
 {
@@ -102,6 +107,8 @@ goraph
 	
 	
 	graph 				// Graph Data Structure
+		glevel 	// Graph database using `LevelDB`
+
 		gl 				// Adjacency List, `container/list`
 		gm 				// Map Data Structure
 		gs 				// Slice, Sequence (Default in Goraph)
