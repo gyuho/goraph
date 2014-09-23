@@ -1,4 +1,4 @@
-**`UPDATE`**: Use LevelDB with package `glevel` if you plan to scale your graph.
+**`UPDATE`**: If you want to scale, use **LevelDB**(http://leveldb.org) with package `glevel`.
 
 
 <hr>
@@ -36,10 +36,7 @@ Getting Started
 go get github.com/gyuho/goraph
 ```
 
-I updated `goraph` to work with `LevelDB`(http://leveldb.org/).
-
-
-Otherwise, `goraph` has several other packages. I recommend to use `gs`, which discourages to have duplicate edges, although still possible. You can either generate graphs in memory or pass `JSON` or`DOT` files:
+Use `glevel` package if you need bigger backend storage. Otherwise, `goraph` has several other packages. I recommend to use `gs`, which discourages to have duplicate edges, although still possible. You can either generate graphs in memory or pass `JSON` or`DOT` files:
 
 ```json
 {
@@ -107,7 +104,7 @@ goraph
 	
 	
 	graph 				// Graph Data Structure
-		glevel 	    // Graph database using `LevelDB`
+		glevel 	       // Graph database using `LevelDB`
 
 		gl 				// Adjacency List, `container/list`
 		gm 				// Map Data Structure
