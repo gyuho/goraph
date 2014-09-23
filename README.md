@@ -1,4 +1,10 @@
-`goraph` is a pure Go library for graph data structure. Use this as a reference. It provides basic graph functions: `add`, `delete`,`connect`, etc. For graph APIs, I highly recommend <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
+Rewriting to support `levelDB` backend.
+
+
+
+`goraph` is a pure Go library, designed for graph database analytics. It has straightforward APIs (`add`, `delete`,`connect`), with minimal external package dependencies.
+
+For fast query and retrieval, I highly recommend <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
 
 
 goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](https://travis-ci.org/gyuho/goraph) [![GoDoc](https://godoc.org/github.com/gyuho/goraph?status.png)](http://godoc.org/github.com/gyuho/goraph) [![Project Stats](http://www.ohloh.net/p/714468/widgets/project_thin_badge.gif)](http://www.ohloh.net/p/714468)
@@ -154,11 +160,15 @@ Goraph mainly uses customized slice(array) data structure implemented in package
 
 Here's my benchmarks on "[List(Linked List) vs. Slice(Array)](https://github.com/gyuho/goraph/tree/master/graph/graph-iterate_test.go)", in which `slice` is **x20,000** faster than `linked list` when traversing 5,0000 nodes.
 
+> I wrote container/list, and I'm not proud of it. It came from an earlier time before we had a good feel for how to write good Go code, and we should not have included it (or container/ring) in Go 1. In almost every situation you'd want to use container/list, a slice is a better option, and in the few cases where container/list would be better it would be better still to simply write your own linked list. A linked list is one of those data structures that is simple enough to write out as required. Forcing everything through interface{} is a bad idea unless you have no other option. Also, a linked list is usually really bad in a garbage collected language, since it massively increases the number of references you have just for the data structure (e.g. O(N) for a list, versus O(1) for a slice), and has lots of small allocations instead of a single larger allocation. Since modern computers are very good at copying memory around there is very little practical overhead when a slice needs reallocating. <cite>David Symonds, Google Go team</cite>
+
+
 <b>Reference</b>
 <ul>
 	<li><a href="https://groups.google.com/d/msg/golang-nuts/mPKCoYNwsoU/tLefhE7tQjMJ" target="_blank">Go(Golang) Slice vs. List?</a></li>
 	<li><a href="http://www.youtube.com/watch?v=YQs6IC-vgmo" target="_blank">Bjarne Stroustrup: Why you should avoid Linked Lists (C++)</a></li>
 	<li><a href="http://www.codeproject.com/Articles/340797/Number-crunching-Why-you-should-never-ever-EVER-us" target="_blank">Why you should never use linked-list</a></li>
+	<li><a href="http://www.reddit.com/r/golang/comments/25oxg0/three_reasons_you_should_not_use_martini/chkvkym" target="_blank">David Symonds on Linked List</a></li>
 </ul>
 
 [↑ top](./README.md)
