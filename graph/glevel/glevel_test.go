@@ -195,6 +195,64 @@ No Incoming Vertices...
 	db.Close()
 }
 
+func TestSearchVertexBy(t *testing.T) {
+	defer os.RemoveAll("test_searchvtxby")
+	db := OpenGraph("test_searchvtxby")
+
+	PutVertex(db, "credit", 123.23)
+
+	PutVertex(db, "credit-1231232", 123.23)
+	PutVertex(db, "credit-sadsf", 123.23)
+	PutVertex(db, "creditasdfdas231232", 123.23)
+	PutVertex(db, "creditasdf31232", 123.23)
+	PutVertex(db, "creditasdfasdf1232", 123.23)
+
+	PutVertex(db, "sdfasdf1232credit", 123.23)
+	PutVertex(db, "s123213232credit", 123.23)
+	PutVertex(db, "asdfdasfasdf1232credit", 123.23)
+	PutVertex(db, "zxvzxcvdf1232credit", 123.23)
+	PutVertex(db, "zxcvczxvxvsdfsdf1232credit", 123.23)
+
+	PutVertex(db, "sdfasdf1credit453454235432", 123.23)
+	PutVertex(db, "s1232132credit4235432", 123.23)
+	PutVertex(db, "asdfdasfacredit23453454235432", 123.23)
+	PutVertex(db, "zxvzxcvdf12credit235432", 123.23)
+	PutVertex(db, "zxcvczxcreditfsdf12323453454235432", 123.23)
+
+	PutEdge(db, "credit", 123.23, "card1")
+	PutEdge(db, "credit", 123.23, "card2")
+	PutEdge(db, "credit", 123.23, "card3")
+	PutEdge(db, "credit", 123.23, "card4")
+	PutEdge(db, "credit", 123.23, "card5")
+
+	PutEdge(db, "credit1", 123.23, "card")
+	PutEdge(db, "credit2", 123.23, "card")
+	PutEdge(db, "credit3", 123.23, "card")
+	PutEdge(db, "credit4", 123.23, "card")
+	PutEdge(db, "credit5", 123.23, "card")
+
+	db.Close()
+
+	db = OpenGraph("test_searchvtxby")
+
+	rs1 := SearchVertexByPrefix(db, "credit")
+	if len(rs1) != 6 {
+		t.Fatalf("Expected 6 but\n%v", rs1)
+	}
+
+	rs2 := SearchVertexBySuffix(db, "credit")
+	if len(rs2) != 6 {
+		t.Fatalf("Expected 6 but\n%v", rs2)
+	}
+
+	rs3 := SearchVertexBySubstring(db, "credit")
+	if len(rs3) != 16 {
+		t.Fatalf("Expected 16 but\n%v", rs3)
+	}
+
+	db.Close()
+}
+
 func TestStringToFloat64(t *testing.T) {
 	num1 := 123.123
 	num2 := StringToFloat64("123.123")
