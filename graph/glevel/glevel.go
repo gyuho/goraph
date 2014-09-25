@@ -1,6 +1,7 @@
 package glevel
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"strconv"
@@ -9,6 +10,12 @@ import (
 	"github.com/syndtr/goleveldb/leveldb"
 	"github.com/syndtr/goleveldb/leveldb/util"
 )
+
+// TODO(gyuho)
+// LevelDB stores data by key order.
+// Would it be better if we tag vertex and edge
+// by prefix, so that we can specify the retrieval range?
+//
 
 // OpenGraph returns the `LevelDB` database.
 // Make sure to `defer db.Close()` to save.
@@ -104,10 +111,10 @@ func GetInEdges(db *leveldb.DB, object string) map[string]float64 {
 	rs := make(map[string]float64)
 	iter := db.NewIterator(nil, nil)
 	for iter.Next() {
-		key := string(iter.Key())
-		if strings.HasSuffix(key, "----->"+object) {
+		key := iter.Key()
+		if bytes.HasSuffix(key, []byte("----->"+object)) {
 			value := StringToFloat64(string(iter.Value()))
-			rs[key] = value
+			rs[string(key)] = value
 		}
 	}
 	iter.Release()
@@ -185,6 +192,73 @@ func StringVertex(db *leveldb.DB, id string) string {
 		}
 	}
 
+	return rs
+}
+
+// SearchVertexByPrefix returns all vertices containing the prefix.
+// It is relatively faster.
+func SearchVertexByPrefix(db *leveldb.DB, prefix string) map[string]float64 {
+	rs := make(map[string]float64)
+	iter := db.NewIterator(util.BytesPrefix([]byte(prefix)), nil)
+	for iter.Next() {
+		key := iter.Key()
+		// only when it's not an edge
+		if !bytes.Contains(key, []byte("----->")) {
+			value := StringToFloat64(string(iter.Value()))
+			rs[string(key)] = value
+		}
+	}
+	iter.Release()
+	err := iter.Error()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return rs
+}
+
+// SearchVertexBySuffix returns all vertices containing the suffix.
+// It is relatively slower.
+func SearchVertexBySuffix(db *leveldb.DB, suffix string) map[string]float64 {
+	rs := make(map[string]float64)
+	iter := db.NewIterator(nil, nil)
+	for iter.Next() {
+		key := iter.Key()
+		// only when it's not an edge
+		if !bytes.Contains(key, []byte("----->")) {
+			if bytes.HasSuffix(key, []byte(suffix)) {
+				value := StringToFloat64(string(iter.Value()))
+				rs[string(key)] = value
+			}
+		}
+	}
+	iter.Release()
+	err := iter.Error()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return rs
+}
+
+// SearchVertexBySubstring returns all vertices containing the substring.
+// Use only when you need. This can be slow.
+func SearchVertexBySubstring(db *leveldb.DB, sub string) map[string]float64 {
+	rs := make(map[string]float64)
+	iter := db.NewIterator(nil, nil)
+	for iter.Next() {
+		key := iter.Key()
+		// only when it's not an edge
+		if !bytes.Contains(key, []byte("----->")) {
+			if bytes.Contains(key, []byte(sub)) {
+				value := StringToFloat64(string(iter.Value()))
+				rs[string(key)] = value
+			}
+		}
+	}
+	iter.Release()
+	err := iter.Error()
+	if err != nil {
+		log.Fatal(err)
+	}
 	return rs
 }
 
