@@ -11,10 +11,30 @@ import (
 	"github.com/syndtr/goleveldb/leveldb/util"
 )
 
+//
 // TODO(gyuho)
 // LevelDB stores data by key order.
 // Would it be better if we tag vertex and edge
 // by prefix, so that we can specify the retrieval range?
+//
+//
+
+//
+// TODO(gyuho)
+// It might not be best to return 0 for non-existent keyword
+// instead of return error, but it makes easier
+// maybe harder to debug...
+//
+//
+
+//
+// TODO(gyuho)
+// For now, we will assume only one outgoing edge from a vertex.
+// GetOutEdges and GetOutVertices returns the slice of map
+// with length 1.
+// (I implemented this package specifically to use for hierarchy.
+// Having more than two hypernym makes things too complicated. )
+//
 //
 
 // OpenGraph returns the `LevelDB` database.
@@ -29,7 +49,7 @@ func OpenGraph(filepath string) *leveldb.DB {
 
 // PutVertex adds a vertex to the graph database.
 func PutVertex(db *leveldb.DB, id string, val float64) {
-	err := db.Put([]byte(id), []byte(fmt.Sprintf("%v", val)), nil)
+	err := db.Put([]byte(id), []byte(strconv.FormatFloat(val, 'f', 6, 64)), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -39,7 +59,8 @@ func PutVertex(db *leveldb.DB, id string, val float64) {
 func GetVertex(db *leveldb.DB, id string) float64 {
 	data, err := db.Get([]byte(id), nil)
 	if err != nil {
-		log.Fatal(err)
+		// log.Fatal(err)
+		return 0.0
 	}
 	return StringToFloat64(string(data))
 }
@@ -57,7 +78,7 @@ func DeleteVertex(db *leveldb.DB, id string) {
 // The key will be a concatenated string of `Subject` + `----->` + `Object`.
 func PutEdge(db *leveldb.DB, subject string, val float64, object string) {
 	key := subject + "----->" + object
-	err := db.Put([]byte(key), []byte(fmt.Sprintf("%v", val)), nil)
+	err := db.Put([]byte(key), []byte(strconv.FormatFloat(val, 'f', 6, 64)), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -68,7 +89,8 @@ func GetEdge(db *leveldb.DB, subject, object string) float64 {
 	key := subject + "----->" + object
 	data, err := db.Get([]byte(key), nil)
 	if err != nil {
-		log.Fatal(err)
+		// log.Fatal(err)
+		return 0.0
 	}
 	return StringToFloat64(string(data))
 }

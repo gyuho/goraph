@@ -56,6 +56,53 @@ func TestDeleteVertex(t *testing.T) {
 	if err == nil {
 		t.Fatal(err, data)
 	}
+
+	db = OpenGraph("test_deletevertex")
+	PutVertex(db, "1", 123.23)
+	PutVertex(db, "2", 123.23)
+	PutVertex(db, "3", 123.23)
+	data, err = db.Get([]byte("3"), nil)
+	if err != nil {
+		t.Fatal(err, data)
+	}
+
+	DeleteVertex(db, "3")
+	data, err = db.Get([]byte("3"), nil)
+	if err == nil {
+		t.Fatal(err, data)
+	}
+
+	PutVertex(db, "4", 123.23)
+	PutVertex(db, "5", 123.23)
+	PutVertex(db, "6", 123.23)
+	PutVertex(db, "7", 123.23)
+
+	// we can delete while iteration
+	iter := db.NewIterator(nil, nil)
+	for iter.Next() {
+		db.Delete(iter.Key(), nil)
+		// Should be deleted by now
+		data, err = db.Get(iter.Key(), nil)
+		if err == nil {
+			t.Fatal(err, data)
+		}
+	}
+	iter.Release()
+	err = iter.Error()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	num := 0
+	iter = db.NewIterator(nil, nil)
+	for iter.Next() {
+		num = num + 1
+	}
+	iter.Release()
+	err = iter.Error()
+	if num != 0 {
+		t.Fatal(err, num)
+	}
 }
 
 func TestPutGetEdge(t *testing.T) {
