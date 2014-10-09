@@ -1,4 +1,4 @@
-**UPDATE**: If you want to scale, use **LevelDB**(http://leveldb.org) with package `glevel`.
+**UPDATE**: **LevelDB**(http://leveldb.org) implementation with package `glevel`.
 
 
 <hr>
