@@ -1,4 +1,4 @@
-**UPDATE**: **LevelDB**(http://leveldb.org) implementation with package `glevel`.
+UPDATE: **LevelDB**(http://leveldb.org) implementation with package `glevel`.
 
 
 <hr>
