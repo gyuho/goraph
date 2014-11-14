@@ -1,9 +1,3 @@
-UPDATE: **LevelDB**(http://leveldb.org) implementation with package `glevel`.
-
-
-<hr>
-
-
 `goraph` is a pure Go library, designed for graph database analytics. It has straightforward APIs (`add`, `delete`,`connect`), with minimal external package dependencies.
 
 For fast query and retrieval, use <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
