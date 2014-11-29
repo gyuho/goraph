@@ -1,6 +1,15 @@
-Being rewritten... in a separate branch. No timeline... but it will be better!
+Road Map for v0.9.0
 
-`goraph` is a pure Go library, designed for graph database analytics. It has straightforward APIs (`add`, `delete`,`connect`, etc), with minimum external package dependency. This is an ongoing project, mainly for learning purposes. For fast query and retrieval, please use <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
+- Merge with `gotree`
+- Be more consistent with visualizing (Support only `dot` and `JSON`) 
+- More visualizing feature (Refer to Dave Cheney)
+- Add more algorithms and tests
+- Back-end?
+
+
+<hr>
+
+`goraph` is a package for graph database analytics in Go. Everything is handcrafted and extensively tested. It was my first coding project written from scratch. This is an ongoing project with no timeline. I update intermittently as I learn. This is mainly to learn `Go`, algorithms, data structures, etc. Please join me Gophers! For fast query and retrieval, please check out <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
 
 
 goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](https://travis-ci.org/gyuho/goraph) [![GoDoc](https://godoc.org/github.com/gyuho/goraph?status.png)](http://godoc.org/github.com/gyuho/goraph) [![Project Stats](http://www.openhub.net/p/714468/widgets/project_thin_badge.gif)](http://www.openhub.net/p/714468)
@@ -11,7 +20,7 @@ Package goraph implements graph data structures and algorithms. It interacts wit
 To visualize, use the method [`ToDOTFile`](https://github.com/gyuho/goraph/blob/master/graph/gs/graph_method.go) and open the `dot` file with `Graphviz`. Examples can be found [here](https://github.com/gyuho/goraph/tree/master/usage).
 
 - [Getting Started](#getting-started)
-- [Package Hierarchy](#package-hierarchy)
+- [Package](#package)
 - [Sample Usage](#sample-usage)
 - [List(Linked List) vs. Slice(Array)](#listlinked-list-vs-slicearray)
 - [What is Graph? (YouTube Clips)](#what-is-graph-youtube-clips)
@@ -23,12 +32,6 @@ To visualize, use the method [`ToDOTFile`](https://github.com/gyuho/goraph/blob/
 
 Getting Started
 ==========
-- [godoc.org](http://godoc.org/github.com/gyuho/goraph)
-- [gowalker.org](http://gowalker.org/github.com/gyuho/goraph#_index)
-
-```go
-go get github.com/gyuho/goraph
-```
 
 Use `glevel` package if you need bigger backend storage. Otherwise, `goraph` has several other packages. I recommend to use `gs`, which discourages to have duplicate edges, although still possible. You can either generate graphs in memory or pass `JSON` or`DOT` files:
 
@@ -61,7 +64,7 @@ digraph testgraph {
 [↑ top](./README.md)
 
 
-Package Hierarchy
+Package
 ==========
 ```go
 goraph
