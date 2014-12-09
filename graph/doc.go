@@ -1,2 +1,2 @@
-// Package graph contains several graph data structure implementations.
+// Package graph implements Graph data structure.
 package graph
