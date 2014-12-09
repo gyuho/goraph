@@ -1,15 +1,15 @@
-Road Map for v0.9.0
-
-- Merge with `gotree`
-- Be more consistent with visualizing (Support only `dot` and `JSON`) 
-- More visualizing feature (Refer to Dave Cheney)
-- Add more algorithms and tests
-- Back-end?
-
+Release Note v0.7.0
+- Rewrote everything from scratch.
+  - More consistent, efficient data structure implementation.
+  - Cleaned redundant, unnecessary packages.
+- Merge with `gotree`.
+- More algorithms.
+- More testings.
+- Better visualization.
 
 <hr>
 
-`goraph` is a package for graph database analytics in Go. Everything is handcrafted and extensively tested. It was my first coding project written from scratch. This is an ongoing project with no timeline. I update intermittently as I learn. This is mainly to learn `Go`, algorithms, data structures, etc. Please join me Gophers! For fast query and retrieval, please check out <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
+`goraph` is a package for graph database analytics in Go. Everything is handcrafted and extensively tested. It was my first coding project written from scratch. This is an ongoing project with no timeline. I update intermittently as I learn. This is mainly to learn `Go`, algorithms, data structures, etc. For fast query and retrieval, please check out <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
 
 
 goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](https://travis-ci.org/gyuho/goraph) [![GoDoc](https://godoc.org/github.com/gyuho/goraph?status.png)](http://godoc.org/github.com/gyuho/goraph) [![Project Stats](http://www.openhub.net/p/714468/widgets/project_thin_badge.gif)](http://www.openhub.net/p/714468)
