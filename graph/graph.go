@@ -31,10 +31,34 @@ type Data struct {
 
 // Vertex is a vertex(node) in Graph.
 type Vertex struct {
-	ID    string
+	// ID of Vertex is assumed to be unique between vertices.
+	ID string
+
+	// Color is used for graph traversal.
 	Color string
+
 	sync.Mutex
-	StampMap map[string]float64 // storage for algorithms
+
+	// StamMap stores stamp records for several graph algorithms.
+	StampMap map[string]float64
+}
+
+// Edge is an edge(arc) in a graph that has direction from one to another vertex.
+type Edge struct {
+	// Vtx can be either source or destination
+	Vtx *Vertex
+
+	// Weight contains the weight value in float64.
+	Weight float64
+}
+
+// NewData returns a new Data.
+func NewData() *Data {
+	return &Data{
+		Vertices: []*Vertex{},
+		OutEdges: make(map[*Vertex][]Edge),
+		InEdges:  make(map[*Vertex][]Edge),
+	}
 }
 
 // NewVertex returns a new Vertex.
@@ -51,40 +75,19 @@ func (d *Data) AddVertex(vtx *Vertex) {
 	d.Vertices = append(d.Vertices, vtx)
 }
 
-// Edge is an edge(arc) in a graph that has direction from one to another vertex.
-type Edge struct {
-	// Vtx can be either source or destination
-	Vtx *Vertex
-
-	// Weight contains the weight value in float64.
-	Weight float64
-}
-
-// NewData returns a new Data.
-func NewData() *Data {
-	vtxs := []*Vertex{}
-	outedges := make(map[*Vertex][]Edge)
-	inedges := make(map[*Vertex][]Edge)
-	return &Data{
-		Vertices: vtxs,
-		OutEdges: outedges,
-		InEdges:  inedges,
-	}
-}
-
 // Connect adds an edge from src to dst Vertex, to a graph Data.
 func (d *Data) Connect(src, dst *Vertex, weight float64) {
-	edge1 := Edge{
+	edgeSrc := Edge{
 		Vtx:    src,
 		Weight: weight,
 	}
-	edge2 := Edge{
+	edgeDst := Edge{
 		Vtx:    dst,
 		Weight: weight,
 	}
 	d.Mutex.Lock()
 	if _, ok := d.OutEdges[src]; !ok {
-		d.OutEdges[src] = []Edge{edge2}
+		d.OutEdges[src] = []Edge{edgeDst}
 	} else {
 		// if OutEdges already exists
 		duplicate := false
@@ -100,11 +103,11 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 		}
 		// if this is just another edge from `src` Vertex
 		if !duplicate {
-			d.OutEdges[src] = append(d.OutEdges[src], edge2)
+			d.OutEdges[src] = append(d.OutEdges[src], edgeDst)
 		}
 	}
 	if _, ok := d.InEdges[dst]; !ok {
-		d.InEdges[dst] = []Edge{edge1}
+		d.InEdges[dst] = []Edge{edgeSrc}
 	} else {
 		// if InEdges already exists
 		duplicate := false
@@ -120,7 +123,7 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 		}
 		// if this is just another edge to `dst` Vertex
 		if !duplicate {
-			d.InEdges[dst] = append(d.InEdges[dst], edge1)
+			d.InEdges[dst] = append(d.InEdges[dst], edgeSrc)
 		}
 	}
 	d.Mutex.Unlock()
@@ -167,4 +170,25 @@ func (d Data) String() string {
 		d.Mutex.Unlock()
 	}
 	return strings.Join(slice, "\n")
+}
+
+// FindVertexByID finds a Vertex by ID.
+func (d Data) FindVertexByID(id string) *Vertex {
+}
+
+// DeleteVertex deletes a Vertex from the graph Data.
+func (d *Data) DeleteVertex(vtx *Vertex) {
+
+}
+
+// DeleteEdge deletes an Edge from src to dst from the graph Data.
+func (d *Data) DeleteEdge(src, dst *Vertex) {
+
+}
+
+// Clone clones the graph Data.
+// It does `Deep Copy`.
+// That is, changing the cloned Data would not affect the original Data.
+func (d *Data) Clone() *Data {
+
 }
