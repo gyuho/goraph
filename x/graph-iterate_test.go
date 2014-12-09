@@ -1,13 +1,13 @@
-package graph
+package x
 
 import (
 	"fmt"
 	"strconv"
 	"testing"
 
-	"github.com/gyuho/goraph/graph/gl"
-	"github.com/gyuho/goraph/graph/gm"
-	"github.com/gyuho/goraph/graph/gs"
+	"github.com/gyuho/goraph/x/gl"
+	"github.com/gyuho/goraph/x/gm"
+	"github.com/gyuho/goraph/x/gs"
 )
 
 func Benchmark_FindVertexByID_gl(b *testing.B) {
