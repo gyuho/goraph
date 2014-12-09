@@ -14,7 +14,7 @@ Release Note v0.7.0
 
 
 
-goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](https://travis-ci.org/gyuho/goraph) [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/gyuho/goraph) [![Coverage Status](https://img.shields.io/coveralls/gyuho/goraph.svg?branch=master)](https://coveralls.io/r/gyuho/goraph?branch=master) [![Project Stats](http://www.openhub.net/p/714468/widgets/project_thin_badge.gif)](http://www.openhub.net/p/714468)
+goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](https://travis-ci.org/gyuho/goraph) [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/gyuho/goraph) [![Coverage Status](https://img.shields.io/coveralls/gyuho/goraph.svg)](https://coveralls.io/r/gyuho/goraph) [![Project Stats](http://www.openhub.net/p/714468/widgets/project_thin_badge.gif)](http://www.openhub.net/p/714468)
 ==========
 
 Package goraph implements graph data structures and algorithms. It interacts with DOT and JSON format files.
