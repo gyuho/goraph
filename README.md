@@ -9,15 +9,18 @@ Release Note v0.7.0
 
 <hr>
 
+
 `goraph` is a package for graph database analytics in Go. Everything is handcrafted and extensively tested. It was my first coding project written from scratch. This is an ongoing project with no timeline. I update intermittently as I learn. This is mainly to learn `Go`, algorithms, data structures, etc. For fast query and retrieval, please check out <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
-
-
 
 
 goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](https://travis-ci.org/gyuho/goraph) [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/gyuho/goraph) [![Project Stats](http://www.openhub.net/p/714468/widgets/project_thin_badge.gif)](http://www.openhub.net/p/714468)
 ==========
 
-Package goraph implements graph data structures and algorithms. It interacts with DOT and JSON format files.
+Package goraph implements graph, tree data structures and algorithms with visualization.
+
+
+
+
 
 To visualize, use the method [`ToDOTFile`](https://github.com/gyuho/goraph/blob/master/graph/gs/graph_method.go) and open the `dot` file with `Graphviz`. Examples can be found [here](https://github.com/gyuho/goraph/tree/master/usage).
 
