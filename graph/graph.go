@@ -19,15 +19,25 @@ import (
 // Data contains graph data, represented in adjacency list and slice.
 type Data struct {
 	Vertices []*Vertex
+	Edges    []*Edge
+}
 
+type Data1 struct {
+	Vertices []*Vertex
 	sync.Mutex
 
-	// OutEdges maps each Vertex to its outgoing edges
-	OutEdges map[*Vertex][]Edge
+	// edgeFrom maps each source Vertex to its destination(target)
+	// Vertices with weight values
+	edgeFrom map[*Vertex]map[*Vertex]float64
 
-	// InEdges maps each Vertex to its incoming edges
-	InEdges map[*Vertex][]Edge
+	// edgeTo maps each destination Vertex to its source(incoming)
+	// Vertices with weight values
+	edgeTo map[*Vertex]map[*Vertex]float64
 }
+
+// In progress
+// Use hash to map each vertex to ~
+// http://en.wikipedia.org/wiki/Adjacency_list
 
 // Vertex is a vertex(node) in Graph.
 type Vertex struct {
@@ -39,14 +49,15 @@ type Vertex struct {
 
 	sync.Mutex
 
-	// StamMap stores stamp records for several graph algorithms.
-	StampMap map[string]float64
+	// record stores records for graph algorithms.
+	record map[string]float64
 }
 
-// Edge is an edge(arc) in a graph that has direction from one to another vertex.
+// Edge is an edge(arc) in a graph that has a direction
+// from `Source` vertex to `Destination` vertex.
 type Edge struct {
-	// Vtx can be either source or destination
-	Vtx *Vertex
+	Source      *Vertex
+	Destination *Vertex
 
 	// Weight contains the weight value in float64.
 	Weight float64
@@ -56,17 +67,16 @@ type Edge struct {
 func NewData() *Data {
 	return &Data{
 		Vertices: []*Vertex{},
-		OutEdges: make(map[*Vertex][]Edge),
-		InEdges:  make(map[*Vertex][]Edge),
+		Edges:    []*Edge{},
 	}
 }
 
 // NewVertex returns a new Vertex.
 func NewVertex(id string) *Vertex {
 	return &Vertex{
-		ID:      id,
-		Color:   "",
-		StamMap: make(map[string]float64),
+		ID:     id,
+		Color:  "",
+		record: make(map[string]float64),
 	}
 }
 
@@ -75,58 +85,49 @@ func (d *Data) AddVertex(vtx *Vertex) {
 	d.Vertices = append(d.Vertices, vtx)
 }
 
+// AddRecord adds a record to a Vertex.
+func (v *Vertex) AddRecord(overWrite bool, key string, value float64) error {
+	v.Mutex.Lock()
+	if !overWrite {
+		if val, ok := v.record[key]; ok {
+			return fmt.Errorf("%s already exists with %f | %+v", key, val, v.record)
+		}
+	}
+	v.record[key] = value
+	v.Mutex.Unlock()
+	return nil
+}
+
+// DeleteRecord deletes a record from a Vertex, by its key.
+func (v *Vertex) DeleteRecord(key string) {
+	v.Mutex.Lock()
+	delete(v.record, key)
+	v.Mutex.Unlock()
+}
+
 // Connect adds an edge from src to dst Vertex, to a graph Data.
 func (d *Data) Connect(src, dst *Vertex, weight float64) {
-	edgeSrc := Edge{
-		Vtx:    src,
-		Weight: weight,
-	}
-	edgeDst := Edge{
-		Vtx:    dst,
-		Weight: weight,
-	}
-	d.Mutex.Lock()
-	if _, ok := d.OutEdges[src]; !ok {
-		d.OutEdges[src] = []Edge{edgeDst}
-	} else {
-		// if OutEdges already exists
-		duplicate := false
-		for _, elem := range d.OutEdges[src] {
-			// if there is a duplicate(parallel) edge
-			if elem.Vtx == src {
-				log.Println("Duplicate(Parallel) Edge Found. Overwriting the Weight value.")
-				log.Printf("%v --> %v + %v\n", elem.Weight, elem.Weight, weight)
-				elem.Weight += weight
-				duplicate = true
-				break
+	isDuplicate := false
+	for _, edge := range d.Edges {
+		if edge.Source == src {
+			if edge.Destination == dst {
+				log.Printf("Overwriting Edge Weight:\n%s -- [Weight %f] --> %s\n",
+					edge.Source.ID, edge.Weight, edge.Destination.ID)
+				log.Printf("%s -- [Weight %f] --> %s\n",
+					edge.Source.ID, weight, edge.Destination.ID)
+				edge.Weight = weight
+				isDuplicate = true
 			}
 		}
-		// if this is just another edge from `src` Vertex
-		if !duplicate {
-			d.OutEdges[src] = append(d.OutEdges[src], edgeDst)
-		}
 	}
-	if _, ok := d.InEdges[dst]; !ok {
-		d.InEdges[dst] = []Edge{edgeSrc}
-	} else {
-		// if InEdges already exists
-		duplicate := false
-		for _, elem := range d.InEdges[dst] {
-			// if there is a duplicate(parallel) edge
-			if elem.Vtx == dst {
-				log.Println("Duplicate(Parallel) Edge Found. Overwriting the Weight value.")
-				log.Printf("%v --> %v + %v\n", elem.Weight, elem.Weight, weight)
-				elem.Weight += weight
-				duplicate = true
-				break
-			}
+	if !isDuplicate {
+		newEdge := Edge{
+			Source:      src,
+			Destination: dst,
+			Weight:      weight,
 		}
-		// if this is just another edge to `dst` Vertex
-		if !duplicate {
-			d.InEdges[dst] = append(d.InEdges[dst], edgeSrc)
-		}
+		d.Edge = append(d.Edge, &newEdge)
 	}
-	d.Mutex.Unlock()
 }
 
 // Init initializes the graph Data.
@@ -138,14 +139,9 @@ func (d *Data) Init() {
 	*d = *NewData()
 }
 
-// GetVertexSize returns the size of Vertex of the graph Data.
-func (d Data) GetVertexSize() int64 {
-	return int64(len(d.Vertices))
-}
-
 // String describes the graph Data.
 func (d Data) String() string {
-	if d.GetVertexSize() == 0 {
+	if len(d.Vertices) == 0 {
 		return "Graph is empty."
 	}
 	slice := []string{}
