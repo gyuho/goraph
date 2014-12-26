@@ -207,6 +207,7 @@ func (d Data) FindVertexByID(id string) *Vertex {
 
 // DeleteVertex deletes a Vertex from the graph Data.
 func (d *Data) DeleteVertex(vtx *Vertex) {
+	// delete from d.Vertices
 	for idx, elem := range d.Vertices {
 		if elem == vtx {
 			copy(d.Vertices[idx:], d.Vertices[idx+1:])
@@ -215,15 +216,34 @@ func (d *Data) DeleteVertex(vtx *Vertex) {
 			break
 		}
 	}
+	// delete from maps
 	d.Mutex.Lock()
 	delete(d.OutEdges, vtx)
 	delete(d.InEdges, vtx)
+	delete(d.vertexIDs, vtx.ID)
 	d.Mutex.Unlock()
 }
 
 // DeleteEdge deletes an Edge from src to dst from the graph Data.
 func (d *Data) DeleteEdge(src, dst *Vertex) {
-
+	// delete an edge from OutEdges
+	for idx, edge := range d.OutEdges[src] {
+		if edge.Vtx == dst {
+			copy(d.OutEdges[src][idx:], d.OutEdges[src][idx+1:])
+			d.OutEdges[src][len(d.OutEdges[src])-1] = nil // zero value of type or nil
+			d.OutEdges[src] = d.OutEdges[src][:len(d.OutEdges[src])-1 : len(d.OutEdges[src])-1]
+			break
+		}
+	}
+	// delete an edge from InEdges
+	for idx, edge := range d.InEdges[dst] {
+		if edge.Vtx == src {
+			copy(d.InEdges[src][idx:], d.InEdges[src][idx+1:])
+			d.InEdges[src][len(d.InEdges[src])-1] = nil // zero value of type or nil
+			d.InEdges[src] = d.InEdges[src][:len(d.InEdges[src])-1 : len(d.InEdges[src])-1]
+			break
+		}
+	}
 }
 
 // Clone clones the graph Data.
