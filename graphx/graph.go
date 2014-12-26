@@ -199,13 +199,26 @@ func (d Data) String() string {
 // FindVertexByID finds a Vertex by ID.
 func (d Data) FindVertexByID(id string) *Vertex {
 	for _, vtx := range d.Vertices {
-
+		if vtx.ID == id {
+			return vtx
+		}
 	}
 }
 
 // DeleteVertex deletes a Vertex from the graph Data.
 func (d *Data) DeleteVertex(vtx *Vertex) {
-
+	for idx, elem := range d.Vertices {
+		if elem == vtx {
+			copy(d.Vertices[idx:], d.Vertices[idx+1:])
+			d.Vertices[len(d.Vertices)-1] = nil // zero value of type or nil
+			d.Vertices = d.Vertices[:len(d.Vertices)-1 : len(d.Vertices)-1]
+			break
+		}
+	}
+	d.Mutex.Lock()
+	delete(d.OutEdges, vtx)
+	delete(d.InEdges, vtx)
+	d.Mutex.Unlock()
 }
 
 // DeleteEdge deletes an Edge from src to dst from the graph Data.
