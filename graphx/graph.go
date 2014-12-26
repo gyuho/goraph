@@ -27,6 +27,9 @@ type Data struct {
 
 	// InEdges maps each Vertex to its incoming edges
 	InEdges map[*Vertex][]Edge
+
+	// to prevent duplicating vertex IDs
+	vertexIDs map[string]bool
 }
 
 // Vertex is a vertex(node) in Graph.
@@ -39,8 +42,8 @@ type Vertex struct {
 
 	sync.Mutex
 
-	// StamMap stores stamp records for several graph algorithms.
-	StampMap map[string]float64
+	// Stamp stores stamp records for several graph algorithms.
+	Stamp map[string]float64
 }
 
 // Edge is an edge(arc) in a graph that has direction from one to another vertex.
@@ -49,6 +52,8 @@ type Edge struct {
 	Vtx *Vertex
 
 	// Weight contains the weight value in float64.
+	// Note that `Weight` is a single floating value.
+	// Define with []float64 if we want duplicate edge values.
 	Weight float64
 }
 
@@ -64,19 +69,38 @@ func NewData() *Data {
 // NewVertex returns a new Vertex.
 func NewVertex(id string) *Vertex {
 	return &Vertex{
-		ID:      id,
-		Color:   "",
-		StamMap: make(map[string]float64),
+		ID:    id,
+		Color: "",
+		Stamp: make(map[string]float64),
 	}
 }
 
 // AddVertex adds a vertex to a graph Data.
-func (d *Data) AddVertex(vtx *Vertex) {
+func (d *Data) AddVertex(vtx *Vertex) (bool, error) {
+	if _, ok := vertexIDs[vtx.ID]; ok {
+		return false, fmt.Errorf("`%s` already exists", vtx.ID)
+	}
+	d.Mutex.Lock()
+	d.vertexIDs[vtx.ID] = true
+	d.Mutex.Unlock()
 	d.Vertices = append(d.Vertices, vtx)
+	return true, nil
 }
 
 // Connect adds an edge from src to dst Vertex, to a graph Data.
 func (d *Data) Connect(src, dst *Vertex, weight float64) {
+	added, _ := d.AddVertex(src)
+	if added {
+		log.Printf("`%s` was previously added to Data\n", src.ID)
+	} else {
+		log.Printf("`%s` is added to Data\n", dst.ID)
+	}
+	added, _ = d.AddVertex(dst)
+	if added {
+		log.Printf("`%s` was previously added to Data\n", dst.ID)
+	} else {
+		log.Printf("`%s` is added to Data\n", dst.ID)
+	}
 	edgeSrc := Edge{
 		Vtx:    src,
 		Weight: weight,
@@ -174,6 +198,9 @@ func (d Data) String() string {
 
 // FindVertexByID finds a Vertex by ID.
 func (d Data) FindVertexByID(id string) *Vertex {
+	for _, vtx := range d.Vertices {
+
+	}
 }
 
 // DeleteVertex deletes a Vertex from the graph Data.
