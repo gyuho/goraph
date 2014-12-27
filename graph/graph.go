@@ -141,6 +141,9 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 				log.Println("Duplicate(Parallel) Edge Found. Overwriting the Weight value.")
 				log.Printf("%v --> %v + %v\n", edge.Weight, edge.Weight, weight)
 				edge.Weight += weight
+
+				// `range` iterates over values
+				// Make sure to overwrite with assignment
 				d.InEdges[dst][idx] = edge
 				isDuplicate = true
 				break
@@ -297,6 +300,8 @@ func (d Data) GetEdgeWeight(src, dst *Vertex) float64 {
 
 // UpdateEdgeWeight overwrites an Edge's weight value.
 func (d *Data) UpdateEdgeWeight(src, dst *Vertex, weight float64) {
+	// `range` iterates over values
+	// Make sure to overwrite with assignment
 	for idx, edge := range d.OutEdges[src] {
 		if edge.Vtx == dst {
 			edge.Weight = weight
