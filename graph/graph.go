@@ -54,9 +54,10 @@ type Edge struct {
 // NewData returns a new Data.
 func NewData() *Data {
 	return &Data{
-		Vertices: []*Vertex{},
-		OutEdges: make(map[*Vertex][]Edge),
-		InEdges:  make(map[*Vertex][]Edge),
+		Vertices:  []*Vertex{},
+		OutEdges:  make(map[*Vertex][]Edge),
+		InEdges:   make(map[*Vertex][]Edge),
+		vertexIDs: make(map[string]bool),
 	}
 }
 
@@ -83,14 +84,14 @@ func (d *Data) AddVertex(vtx *Vertex) (bool, error) {
 
 // Connect adds an edge from src to dst Vertex, to a graph Data.
 func (d *Data) Connect(src, dst *Vertex, weight float64) {
-	added, _ := d.AddVertex(src)
-	if added {
+	isAdded, _ := d.AddVertex(src)
+	if !isAdded {
 		log.Printf("`%s` was previously added to Data\n", src.ID)
 	} else {
-		log.Printf("`%s` is added to Data\n", dst.ID)
+		log.Printf("`%s` is added to Data\n", src.ID)
 	}
-	added, _ = d.AddVertex(dst)
-	if added {
+	isAdded, _ = d.AddVertex(dst)
+	if !isAdded {
 		log.Printf("`%s` was previously added to Data\n", dst.ID)
 	} else {
 		log.Printf("`%s` is added to Data\n", dst.ID)
