@@ -104,43 +104,45 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 		Weight: weight,
 	}
 	d.Mutex.Lock()
+	// update Outgoing Edges
 	if _, ok := d.OutEdges[src]; !ok {
 		d.OutEdges[src] = []Edge{edgeDst}
 	} else {
 		// if OutEdges already exists
-		duplicate := false
+		isDuplicate := false
 		for _, elem := range d.OutEdges[src] {
 			// if there is a duplicate(parallel) edge
 			if elem.Vtx == src {
 				log.Println("Duplicate(Parallel) Edge Found. Overwriting the Weight value.")
 				log.Printf("%v --> %v + %v\n", elem.Weight, elem.Weight, weight)
 				elem.Weight += weight
-				duplicate = true
+				isDuplicate = true
 				break
 			}
 		}
 		// if this is just another edge from `src` Vertex
-		if !duplicate {
+		if !isDuplicate {
 			d.OutEdges[src] = append(d.OutEdges[src], edgeDst)
 		}
 	}
+	// update Incoming Edges
 	if _, ok := d.InEdges[dst]; !ok {
 		d.InEdges[dst] = []Edge{edgeSrc}
 	} else {
 		// if InEdges already exists
-		duplicate := false
+		isDuplicate := false
 		for _, elem := range d.InEdges[dst] {
 			// if there is a duplicate(parallel) edge
 			if elem.Vtx == dst {
 				log.Println("Duplicate(Parallel) Edge Found. Overwriting the Weight value.")
 				log.Printf("%v --> %v + %v\n", elem.Weight, elem.Weight, weight)
 				elem.Weight += weight
-				duplicate = true
+				isDuplicate = true
 				break
 			}
 		}
 		// if this is just another edge to `dst` Vertex
-		if !duplicate {
+		if !isDuplicate {
 			d.InEdges[dst] = append(d.InEdges[dst], edgeSrc)
 		}
 	}
@@ -219,6 +221,7 @@ func (d *Data) DeleteVertex(vtx *Vertex) {
 }
 
 // DeleteEdge deletes an Edge from src to dst from the graph Data.
+// This does not delete Vertices.
 func (d *Data) DeleteEdge(src, dst *Vertex) {
 	// delete an edge from OutEdges
 	for idx, edge := range d.OutEdges[src] {
@@ -235,6 +238,16 @@ func (d *Data) DeleteEdge(src, dst *Vertex) {
 			copy(d.InEdges[src][idx:], d.InEdges[src][idx+1:])
 			d.InEdges[src][len(d.InEdges[src])-1] = nil // zero value of type or nil
 			d.InEdges[src] = d.InEdges[src][:len(d.InEdges[src])-1 : len(d.InEdges[src])-1]
+			break
+		}
+	}
+}
+
+// UpdateEdge overwrites an Edge's weight value.
+func (d *Data) UpdateEdge(src, dst *Vertex, weight float64) {
+	for _, edge := range d.OutEdges[src] {
+		if edge.Vtx == dst {
+			edge.Weight = weight
 			break
 		}
 	}
