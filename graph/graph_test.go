@@ -155,3 +155,40 @@ Vertex: C | Outgoing Edges: [C] -- 20.000 --> [A]`
 		t.Errorf("Expected the same but\n%s\n\n%s", str1, str2)
 	}
 }
+
+func TestGetUpdateEdgeWeight(t *testing.T) {
+	data := NewData()
+	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
+	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 1.0)
+	str1 := `Vertex: A | Outgoing Edges: [A] -- 1.000 --> [B]
+Vertex: A | Incoming Edges: [C] -- 21.000 --> [A]
+Vertex: B | Outgoing Edges: [B] -- 10.000 --> [C]
+Vertex: B | Incoming Edges: [A] -- 1.000 --> [B]
+Vertex: C | Outgoing Edges: [C] -- 21.000 --> [A]
+Vertex: C | Incoming Edges: [B] -- 10.000 --> [C]`
+	str2 := data.String()
+	if str1 != str2 {
+		t.Errorf("Expected the same but\n%s\n\n%s", str1, str2)
+	}
+	if data.GetEdgeWeight(data.FindVertexByID("C"), data.FindVertexByID("A")) != 21.000 {
+		t.Errorf("Expected 21 but\n%+v", data)
+	}
+
+	data.UpdateEdgeWeight(data.FindVertexByID("C"), data.FindVertexByID("A"), 1.0)
+	str3 := `Vertex: A | Outgoing Edges: [A] -- 1.000 --> [B]
+Vertex: A | Incoming Edges: [C] -- 21.000 --> [A]
+Vertex: B | Outgoing Edges: [B] -- 10.000 --> [C]
+Vertex: B | Incoming Edges: [A] -- 1.000 --> [B]
+Vertex: C | Outgoing Edges: [C] -- 1.000 --> [A]
+Vertex: C | Incoming Edges: [B] -- 10.000 --> [C]`
+	str4 := data.String()
+	if str3 != str4 {
+		t.Errorf("Expected the same but\n%s\n\n%s", str3, str4)
+	}
+	if data.GetEdgeWeight(data.FindVertexByID("C"), data.FindVertexByID("A")) != 1.000 {
+		t.Errorf("Expected 1 but\n%+v", data)
+	}
+}

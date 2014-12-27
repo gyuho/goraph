@@ -285,11 +285,22 @@ func (d *Data) DeleteEdge(src, dst *Vertex) {
 	}
 }
 
-// UpdateEdge overwrites an Edge's weight value.
-func (d *Data) UpdateEdge(src, dst *Vertex, weight float64) {
+// GetEdgeWeight returns the weight value of an edge from src to dst Vertex.
+func (d Data) GetEdgeWeight(src, dst *Vertex) float64 {
 	for _, edge := range d.OutEdges[src] {
 		if edge.Vtx == dst {
+			return edge.Weight
+		}
+	}
+	return 0.0
+}
+
+// UpdateEdgeWeight overwrites an Edge's weight value.
+func (d *Data) UpdateEdgeWeight(src, dst *Vertex, weight float64) {
+	for idx, edge := range d.OutEdges[src] {
+		if edge.Vtx == dst {
 			edge.Weight = weight
+			d.OutEdges[src][idx] = edge
 			break
 		}
 	}
