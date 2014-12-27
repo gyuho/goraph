@@ -1,4 +1,4 @@
-package graph
+package graph // import "github.com/gyuho/goraph/graph"
 
 import (
 	"fmt"
