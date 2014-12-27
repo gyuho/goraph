@@ -87,12 +87,14 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 	isAdded, _ := d.AddVertex(src)
 	if !isAdded {
 		log.Printf("`%s` was previously added to Data\n", src.ID)
+		src = d.FindVertexByID(src.ID)
 	} else {
 		log.Printf("`%s` is added to Data\n", src.ID)
 	}
 	isAdded, _ = d.AddVertex(dst)
 	if !isAdded {
 		log.Printf("`%s` was previously added to Data\n", dst.ID)
+		dst = d.FindVertexByID(dst.ID)
 	} else {
 		log.Printf("`%s` is added to Data\n", dst.ID)
 	}
@@ -111,12 +113,13 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 	} else {
 		// if OutEdges already exists
 		isDuplicate := false
-		for _, elem := range d.OutEdges[src] {
+		for idx, edge := range d.OutEdges[src] {
 			// if there is a duplicate(parallel) edge
-			if elem.Vtx == src {
+			if edge.Vtx == dst {
 				log.Println("Duplicate(Parallel) Edge Found. Overwriting the Weight value.")
-				log.Printf("%v --> %v + %v\n", elem.Weight, elem.Weight, weight)
-				elem.Weight += weight
+				log.Printf("%v --> %v + %v\n", edge.Weight, edge.Weight, weight)
+				edge.Weight += weight
+				d.OutEdges[src][idx] = edge
 				isDuplicate = true
 				break
 			}
@@ -132,12 +135,13 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 	} else {
 		// if InEdges already exists
 		isDuplicate := false
-		for _, elem := range d.InEdges[dst] {
+		for idx, edge := range d.InEdges[dst] {
 			// if there is a duplicate(parallel) edge
-			if elem.Vtx == dst {
+			if edge.Vtx == src {
 				log.Println("Duplicate(Parallel) Edge Found. Overwriting the Weight value.")
-				log.Printf("%v --> %v + %v\n", elem.Weight, elem.Weight, weight)
-				elem.Weight += weight
+				log.Printf("%v --> %v + %v\n", edge.Weight, edge.Weight, weight)
+				edge.Weight += weight
+				d.InEdges[dst][idx] = edge
 				isDuplicate = true
 				break
 			}
@@ -211,6 +215,44 @@ func (d *Data) DeleteVertex(vtx *Vertex) {
 			break
 		}
 	}
+	// delete edges from neighbor vertex's outgoing, incoming edges
+	for _, edge1 := range d.OutEdges[vtx] {
+		for idx, edge2 := range d.OutEdges[edge1.Vtx] {
+			if edge2.Vtx == vtx {
+				copy(d.OutEdges[edge1.Vtx][idx:], d.OutEdges[edge1.Vtx][idx+1:])
+				d.OutEdges[edge1.Vtx][len(d.OutEdges[edge1.Vtx])-1] = Edge{}
+				d.OutEdges[edge1.Vtx] = d.OutEdges[edge1.Vtx][:len(d.OutEdges[edge1.Vtx])-1 : len(d.OutEdges[edge1.Vtx])-1]
+				break
+			}
+		}
+		for idx, edge2 := range d.InEdges[edge1.Vtx] {
+			if edge2.Vtx == vtx {
+				copy(d.InEdges[edge1.Vtx][idx:], d.InEdges[edge1.Vtx][idx+1:])
+				d.InEdges[edge1.Vtx][len(d.InEdges[edge1.Vtx])-1] = Edge{}
+				d.InEdges[edge1.Vtx] = d.InEdges[edge1.Vtx][:len(d.InEdges[edge1.Vtx])-1 : len(d.InEdges[edge1.Vtx])-1]
+				break
+			}
+		}
+	}
+	for _, edge1 := range d.InEdges[vtx] {
+		for idx, edge2 := range d.OutEdges[edge1.Vtx] {
+			if edge2.Vtx == vtx {
+				copy(d.OutEdges[edge1.Vtx][idx:], d.OutEdges[edge1.Vtx][idx+1:])
+				d.OutEdges[edge1.Vtx][len(d.OutEdges[edge1.Vtx])-1] = Edge{}
+				d.OutEdges[edge1.Vtx] = d.OutEdges[edge1.Vtx][:len(d.OutEdges[edge1.Vtx])-1 : len(d.OutEdges[edge1.Vtx])-1]
+				break
+			}
+		}
+		for idx, edge2 := range d.InEdges[edge1.Vtx] {
+			if edge2.Vtx == vtx {
+				copy(d.InEdges[edge1.Vtx][idx:], d.InEdges[edge1.Vtx][idx+1:])
+				d.InEdges[edge1.Vtx][len(d.InEdges[edge1.Vtx])-1] = Edge{}
+				d.InEdges[edge1.Vtx] = d.InEdges[edge1.Vtx][:len(d.InEdges[edge1.Vtx])-1 : len(d.InEdges[edge1.Vtx])-1]
+				break
+			}
+		}
+	}
+
 	// delete from maps
 	d.Mutex.Lock()
 	delete(d.OutEdges, vtx)
@@ -235,9 +277,9 @@ func (d *Data) DeleteEdge(src, dst *Vertex) {
 	// delete an edge from InEdges
 	for idx, edge := range d.InEdges[dst] {
 		if edge.Vtx == src {
-			copy(d.InEdges[src][idx:], d.InEdges[src][idx+1:])
-			d.InEdges[src][len(d.InEdges[src])-1] = Edge{}
-			d.InEdges[src] = d.InEdges[src][:len(d.InEdges[src])-1 : len(d.InEdges[src])-1]
+			copy(d.InEdges[dst][idx:], d.InEdges[dst][idx+1:])
+			d.InEdges[dst][len(d.InEdges[dst])-1] = Edge{}
+			d.InEdges[dst] = d.InEdges[dst][:len(d.InEdges[dst])-1 : len(d.InEdges[dst])-1]
 			break
 		}
 	}

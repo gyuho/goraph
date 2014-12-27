@@ -87,17 +87,16 @@ func TestString(t *testing.T) {
 	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
 	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
 	str := `Vertex: A | Outgoing Edges: [A] -- 1.000 --> [B]
-Vertex: A | Incoming Edges: none --> [A]
-Vertex: B | Outgoing Edges: [B] -- none
+Vertex: A | Incoming Edges: [C] -- 20.000 --> [A]
+Vertex: B | Outgoing Edges: [B] -- 10.000 --> [C]
 Vertex: B | Incoming Edges: [A] -- 1.000 --> [B]
-Vertex: C | Outgoing Edges: [C] -- none
+Vertex: C | Outgoing Edges: [C] -- 20.000 --> [A]
 Vertex: C | Incoming Edges: [B] -- 10.000 --> [C]`
 	str1 := fmt.Sprintf("%+v", data)
 	str2 := fmt.Sprintf("%s", data)
 	str3 := data.String()
-
 	if str != str1 || str1 != str2 || str2 != str3 || str3 != str1 {
-		t.Errorf("Expected the same:\n%s\n%s\n%s\n%s",
+		t.Errorf("Expected the same:\n%s\n\n%s\n\n%s\n\n%s",
 			str, str1, str2, str3)
 	}
 }
@@ -115,13 +114,44 @@ func TestFindVertexByID(t *testing.T) {
 }
 
 func TestDeleteVertex(t *testing.T) {
-
+	data := NewData()
+	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
+	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
+	t.Logf("\n%+v", data)
+	vtx := data.FindVertexByID("B")
+	data.DeleteVertex(vtx)
+	if data.GetVertexSize() != 2 {
+		t.Errorf("Expected 2 but %+v", data)
+	}
+	if _, ok := data.OutEdges[vtx]; ok {
+		t.Errorf("Expected false but %+v", data)
+	}
+	t.Logf("\n%+v", data)
 }
 
 func TestDeleteEdge(t *testing.T) {
-
-}
-
-func TestClone(t *testing.T) {
-
+	data := NewData()
+	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
+	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
+	vtx1 := data.FindVertexByID("B")
+	vtx2 := data.FindVertexByID("C")
+	data.DeleteEdge(vtx1, vtx2)
+	if data.GetVertexSize() != 3 {
+		t.Errorf("Expected 2 but %+v", data)
+	}
+	if len(data.OutEdges[vtx1]) != 0 {
+		t.Errorf("Expected false but\n%+v", data)
+	}
+	str1 := `Vertex: A | Outgoing Edges: [A] -- 1.000 --> [B]
+Vertex: A | Incoming Edges: [C] -- 20.000 --> [A]
+Vertex: B | Incoming Edges: [A] -- 1.000 --> [B]
+Vertex: C | Outgoing Edges: [C] -- 20.000 --> [A]`
+	str2 := data.String()
+	if str1 != str2 {
+		t.Errorf("Expected the same but\n%s\n\n%s", str1, str2)
+	}
 }
