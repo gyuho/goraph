@@ -13,7 +13,10 @@ func TestNewData(t *testing.T) {
 }
 
 func TestNewVertex(t *testing.T) {
-
+	vtx := NewVertex("A")
+	if reflect.TypeOf(vtx) != reflect.TypeOf(&Vertex{}) {
+		t.Errorf("Should be same but \n%+v\n%+v", vtx, &Vertex{})
+	}
 }
 
 func TestAddVertex(t *testing.T) {
