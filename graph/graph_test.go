@@ -1,6 +1,7 @@
 package graph
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -57,25 +58,60 @@ func TestConnect(t *testing.T) {
 	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
 	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
 	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
+	t.Logf("%+v\n", data)
 	if data.GetVertexSize() != 3 {
 		t.Errorf("Expected 3 but %+v\n", data)
 	}
 }
 
 func TestInit(t *testing.T) {
-
-}
-
-func TestGetVertexSize(t *testing.T) {
-
+	data := NewData()
+	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
+	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
+	if data.GetVertexSize() != 3 {
+		t.Errorf("Expected 3 but %+v\n", data)
+	}
+	data.Init()
+	if data.GetVertexSize() != 0 {
+		t.Errorf("Expected 0 but %+v\n", data)
+	}
 }
 
 func TestString(t *testing.T) {
+	data := NewData()
+	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
+	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
+	str := `Vertex: A | Outgoing Edges: [A] -- 1.000 --> [B]
+Vertex: A | Incoming Edges: none --> [A]
+Vertex: B | Outgoing Edges: [B] -- none
+Vertex: B | Incoming Edges: [A] -- 1.000 --> [B]
+Vertex: C | Outgoing Edges: [C] -- none
+Vertex: C | Incoming Edges: [B] -- 10.000 --> [C]`
+	str1 := fmt.Sprintf("%+v", data)
+	str2 := fmt.Sprintf("%s", data)
+	str3 := data.String()
 
+	if str != str1 || str1 != str2 || str2 != str3 || str3 != str1 {
+		t.Errorf("Expected the same:\n%s\n%s\n%s\n%s",
+			str, str1, str2, str3)
+	}
 }
 
 func TestFindVertexByID(t *testing.T) {
-
+	data := NewData()
+	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
+	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
+	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
+	vtx := data.FindVertexByID("B")
+	if vtx.ID != "B" {
+		t.Errorf("Expected B but %+v", vtx)
+	}
 }
 
 func TestDeleteVertex(t *testing.T) {

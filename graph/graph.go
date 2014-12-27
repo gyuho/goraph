@@ -171,24 +171,21 @@ func (d Data) String() string {
 	}
 	slice := []string{}
 	for _, vtx := range d.Vertices {
-		slice = append(slice, fmt.Sprintf("Vertex: %s", vtx.ID))
-		d.Mutex.Lock()
+		vtxLabel := fmt.Sprintf("Vertex: %s | ", vtx.ID)
 		if _, ok := d.OutEdges[vtx]; !ok {
-			slice = append(slice, fmt.Sprintf("No Outgoing Edge from %s", vtx.ID))
+			slice = append(slice, fmt.Sprintf(vtxLabel+"Outgoing Edges: [%s] -- none", vtx.ID))
 		} else {
 			for _, edge := range d.OutEdges[vtx] {
-				slice = append(slice, fmt.Sprintf("Outgoing Edges: [%s] -- %f --> [%s]\n", edge.Vtx.ID, edge.Weight, vtx.ID))
+				slice = append(slice, fmt.Sprintf(vtxLabel+"Outgoing Edges: [%s] -- %.3f --> [%s]", vtx.ID, edge.Weight, edge.Vtx.ID))
 			}
 		}
 		if _, ok := d.InEdges[vtx]; !ok {
-			slice = append(slice, fmt.Sprintf("No Incoming Edge from %s", vtx.ID))
+			slice = append(slice, fmt.Sprintf(vtxLabel+"Incoming Edges: none --> [%s]", vtx.ID))
 		} else {
 			for _, edge := range d.InEdges[vtx] {
-				slice = append(slice, fmt.Sprintf("Incoming Edges: [%s] -- %f --> [%s]\n", edge.Vtx.ID, edge.Weight, vtx.ID))
+				slice = append(slice, fmt.Sprintf(vtxLabel+"Incoming Edges: [%s] -- %.3f --> [%s]", edge.Vtx.ID, edge.Weight, vtx.ID))
 			}
 		}
-		slice = append(slice, "\n")
-		d.Mutex.Unlock()
 	}
 	return strings.Join(slice, "\n")
 }
