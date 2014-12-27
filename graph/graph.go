@@ -1,4 +1,4 @@
-package main
+package graph
 
 import (
 	"fmt"
@@ -71,7 +71,7 @@ func NewVertex(id string) *Vertex {
 
 // AddVertex adds a vertex to a graph Data.
 func (d *Data) AddVertex(vtx *Vertex) (bool, error) {
-	if _, ok := vertexIDs[vtx.ID]; ok {
+	if _, ok := d.vertexIDs[vtx.ID]; ok {
 		return false, fmt.Errorf("`%s` already exists", vtx.ID)
 	}
 	d.Mutex.Lock()
@@ -199,6 +199,7 @@ func (d Data) FindVertexByID(id string) *Vertex {
 			return vtx
 		}
 	}
+	return nil
 }
 
 // DeleteVertex deletes a Vertex from the graph Data.
@@ -227,7 +228,8 @@ func (d *Data) DeleteEdge(src, dst *Vertex) {
 	for idx, edge := range d.OutEdges[src] {
 		if edge.Vtx == dst {
 			copy(d.OutEdges[src][idx:], d.OutEdges[src][idx+1:])
-			d.OutEdges[src][len(d.OutEdges[src])-1] = nil // zero value of type or nil
+			// d.OutEdges[src][len(d.OutEdges[src])-1] = nil // zero value of type or nil
+			d.OutEdges[src][len(d.OutEdges[src])-1] = Edge{}
 			d.OutEdges[src] = d.OutEdges[src][:len(d.OutEdges[src])-1 : len(d.OutEdges[src])-1]
 			break
 		}
@@ -236,7 +238,7 @@ func (d *Data) DeleteEdge(src, dst *Vertex) {
 	for idx, edge := range d.InEdges[dst] {
 		if edge.Vtx == src {
 			copy(d.InEdges[src][idx:], d.InEdges[src][idx+1:])
-			d.InEdges[src][len(d.InEdges[src])-1] = nil // zero value of type or nil
+			d.InEdges[src][len(d.InEdges[src])-1] = Edge{}
 			d.InEdges[src] = d.InEdges[src][:len(d.InEdges[src])-1 : len(d.InEdges[src])-1]
 			break
 		}
@@ -251,11 +253,4 @@ func (d *Data) UpdateEdge(src, dst *Vertex, weight float64) {
 			break
 		}
 	}
-}
-
-// Clone clones the graph Data.
-// It does `Deep Copy`.
-// That is, changing the cloned Data would not affect the original Data.
-func (d *Data) Clone() *Data {
-
 }
