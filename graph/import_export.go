@@ -19,7 +19,10 @@ func FromJSON(fpath string) (map[string]map[string]map[string]float64, error) {
 	if err != nil {
 		return nil, err
 	}
-	// graphMap := make(map[string]map[string]map[string]float64)
+
+	// If we want parallel edges in graph, use and define weights with []float64
+	// graphMap := make(map[string]map[string]map[string][]float64)
+	//
 	graphMap := make(map[string]map[string]map[string]float64)
 	dec := json.NewDecoder(bytes.NewReader(jsonStream))
 	for {
@@ -38,7 +41,7 @@ func (d Data) ToJSON(fpath string) error {
 }
 
 // FromDOT constructs Data from DOT file.
-func FromDOT(fpath string) (*Data, error) {
+func FromDOT(fpath string) (map[string]map[string]map[string]float64, error) {
 	return nil, nil
 }
 
