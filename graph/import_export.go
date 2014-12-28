@@ -8,8 +8,8 @@ import (
 	"os"
 )
 
-// FromJSON constructs Data from JSON file.
-func FromJSON(fpath string) (map[string]map[string]map[string]float64, error) {
+// fromJSON imports JSON file.
+func fromJSON(fpath string) (map[string]map[string]map[string]float64, error) {
 	file, err := os.Open(fpath)
 	if err != nil {
 		return nil, err
