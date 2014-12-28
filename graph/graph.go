@@ -17,10 +17,10 @@ type Data struct {
 	sync.Mutex
 
 	// OutEdges maps each Vertex to its outgoing edges
-	OutEdges map[*Vertex][]Edge
+	OutEdges map[*Vertex][]*Edge
 
 	// InEdges maps each Vertex to its incoming edges
-	InEdges map[*Vertex][]Edge
+	InEdges map[*Vertex][]*Edge
 
 	// to prevent duplicating vertex IDs
 	vertexIDs map[string]bool
@@ -55,8 +55,8 @@ type Edge struct {
 func NewData() *Data {
 	return &Data{
 		Vertices:  []*Vertex{},
-		OutEdges:  make(map[*Vertex][]Edge),
-		InEdges:   make(map[*Vertex][]Edge),
+		OutEdges:  make(map[*Vertex][]*Edge),
+		InEdges:   make(map[*Vertex][]*Edge),
 		vertexIDs: make(map[string]bool),
 	}
 }
@@ -109,49 +109,53 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 	d.Mutex.Lock()
 	// update Outgoing Edges
 	if _, ok := d.OutEdges[src]; !ok {
-		d.OutEdges[src] = []Edge{edgeDst}
+		d.OutEdges[src] = []*Edge{&edgeDst}
 	} else {
 		// if OutEdges already exists
 		isDuplicate := false
-		for idx, edge := range d.OutEdges[src] {
+		for _, edge := range d.OutEdges[src] {
 			// if there is a duplicate(parallel) edge
 			if edge.Vtx == dst {
 				log.Println("Duplicate(Parallel) Edge Found. Overwriting the Weight value.")
 				log.Printf("%v --> %v + %v\n", edge.Weight, edge.Weight, weight)
 				edge.Weight += weight
-				d.OutEdges[src][idx] = edge
+				// d.OutEdges[src][idx] = edge
 				isDuplicate = true
 				break
 			}
 		}
 		// if this is just another edge from `src` Vertex
 		if !isDuplicate {
-			d.OutEdges[src] = append(d.OutEdges[src], edgeDst)
+			d.OutEdges[src] = append(d.OutEdges[src], &edgeDst)
 		}
 	}
 	// update Incoming Edges
 	if _, ok := d.InEdges[dst]; !ok {
-		d.InEdges[dst] = []Edge{edgeSrc}
+		d.InEdges[dst] = []*Edge{&edgeSrc}
 	} else {
 		// if InEdges already exists
 		isDuplicate := false
-		for idx, edge := range d.InEdges[dst] {
+		for _, edge := range d.InEdges[dst] {
 			// if there is a duplicate(parallel) edge
 			if edge.Vtx == src {
 				log.Println("Duplicate(Parallel) Edge Found. Overwriting the Weight value.")
 				log.Printf("%v --> %v + %v\n", edge.Weight, edge.Weight, weight)
 				edge.Weight += weight
 
+				//
+				// if
+				// OutEdges map[*Vertex][]Edge
+				//
 				// `range` iterates over values
 				// Make sure to overwrite with assignment
-				d.InEdges[dst][idx] = edge
+				// d.InEdges[dst][idx] = edge
 				isDuplicate = true
 				break
 			}
 		}
 		// if this is just another edge to `dst` Vertex
 		if !isDuplicate {
-			d.InEdges[dst] = append(d.InEdges[dst], edgeSrc)
+			d.InEdges[dst] = append(d.InEdges[dst], &edgeSrc)
 		}
 	}
 	d.Mutex.Unlock()
@@ -223,7 +227,7 @@ func (d *Data) DeleteVertex(vtx *Vertex) {
 		for idx, edge2 := range d.OutEdges[edge1.Vtx] {
 			if edge2.Vtx == vtx {
 				copy(d.OutEdges[edge1.Vtx][idx:], d.OutEdges[edge1.Vtx][idx+1:])
-				d.OutEdges[edge1.Vtx][len(d.OutEdges[edge1.Vtx])-1] = Edge{}
+				d.OutEdges[edge1.Vtx][len(d.OutEdges[edge1.Vtx])-1] = nil
 				d.OutEdges[edge1.Vtx] = d.OutEdges[edge1.Vtx][:len(d.OutEdges[edge1.Vtx])-1 : len(d.OutEdges[edge1.Vtx])-1]
 				break
 			}
@@ -231,7 +235,7 @@ func (d *Data) DeleteVertex(vtx *Vertex) {
 		for idx, edge2 := range d.InEdges[edge1.Vtx] {
 			if edge2.Vtx == vtx {
 				copy(d.InEdges[edge1.Vtx][idx:], d.InEdges[edge1.Vtx][idx+1:])
-				d.InEdges[edge1.Vtx][len(d.InEdges[edge1.Vtx])-1] = Edge{}
+				d.InEdges[edge1.Vtx][len(d.InEdges[edge1.Vtx])-1] = nil
 				d.InEdges[edge1.Vtx] = d.InEdges[edge1.Vtx][:len(d.InEdges[edge1.Vtx])-1 : len(d.InEdges[edge1.Vtx])-1]
 				break
 			}
@@ -241,7 +245,7 @@ func (d *Data) DeleteVertex(vtx *Vertex) {
 		for idx, edge2 := range d.OutEdges[edge1.Vtx] {
 			if edge2.Vtx == vtx {
 				copy(d.OutEdges[edge1.Vtx][idx:], d.OutEdges[edge1.Vtx][idx+1:])
-				d.OutEdges[edge1.Vtx][len(d.OutEdges[edge1.Vtx])-1] = Edge{}
+				d.OutEdges[edge1.Vtx][len(d.OutEdges[edge1.Vtx])-1] = nil
 				d.OutEdges[edge1.Vtx] = d.OutEdges[edge1.Vtx][:len(d.OutEdges[edge1.Vtx])-1 : len(d.OutEdges[edge1.Vtx])-1]
 				break
 			}
@@ -249,7 +253,7 @@ func (d *Data) DeleteVertex(vtx *Vertex) {
 		for idx, edge2 := range d.InEdges[edge1.Vtx] {
 			if edge2.Vtx == vtx {
 				copy(d.InEdges[edge1.Vtx][idx:], d.InEdges[edge1.Vtx][idx+1:])
-				d.InEdges[edge1.Vtx][len(d.InEdges[edge1.Vtx])-1] = Edge{}
+				d.InEdges[edge1.Vtx][len(d.InEdges[edge1.Vtx])-1] = nil
 				d.InEdges[edge1.Vtx] = d.InEdges[edge1.Vtx][:len(d.InEdges[edge1.Vtx])-1 : len(d.InEdges[edge1.Vtx])-1]
 				break
 			}
@@ -271,8 +275,7 @@ func (d *Data) DeleteEdge(src, dst *Vertex) {
 	for idx, edge := range d.OutEdges[src] {
 		if edge.Vtx == dst {
 			copy(d.OutEdges[src][idx:], d.OutEdges[src][idx+1:])
-			// d.OutEdges[src][len(d.OutEdges[src])-1] = nil // zero value of type or nil
-			d.OutEdges[src][len(d.OutEdges[src])-1] = Edge{}
+			d.OutEdges[src][len(d.OutEdges[src])-1] = nil // zero value of type or nil
 			d.OutEdges[src] = d.OutEdges[src][:len(d.OutEdges[src])-1 : len(d.OutEdges[src])-1]
 			break
 		}
@@ -281,7 +284,7 @@ func (d *Data) DeleteEdge(src, dst *Vertex) {
 	for idx, edge := range d.InEdges[dst] {
 		if edge.Vtx == src {
 			copy(d.InEdges[dst][idx:], d.InEdges[dst][idx+1:])
-			d.InEdges[dst][len(d.InEdges[dst])-1] = Edge{}
+			d.InEdges[dst][len(d.InEdges[dst])-1] = nil
 			d.InEdges[dst] = d.InEdges[dst][:len(d.InEdges[dst])-1 : len(d.InEdges[dst])-1]
 			break
 		}
