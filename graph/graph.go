@@ -161,6 +161,8 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 	d.Mutex.Unlock()
 }
 
+// TODO(gyuho): return Data?
+
 // Init initializes the graph Data.
 func (d *Data) Init() {
 	// (X) d = NewData()
