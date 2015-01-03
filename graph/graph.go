@@ -71,27 +71,27 @@ func NewVertex(id string) *Vertex {
 }
 
 // AddVertex adds a vertex to a graph Data.
-func (d *Data) AddVertex(vtx *Vertex) (bool, error) {
+func (d *Data) AddVertex(vtx *Vertex) bool {
 	if _, ok := d.vertexIDs[vtx.ID]; ok {
-		return false, fmt.Errorf("`%s` already exists", vtx.ID)
+		return false
 	}
 	d.Mutex.Lock()
 	d.vertexIDs[vtx.ID] = true
 	d.Mutex.Unlock()
 	d.Vertices = append(d.Vertices, vtx)
-	return true, nil
+	return true
 }
 
 // Connect adds an edge from src to dst Vertex, to a graph Data.
 func (d *Data) Connect(src, dst *Vertex, weight float64) {
-	isAdded, _ := d.AddVertex(src)
+	isAdded := d.AddVertex(src)
 	if !isAdded {
 		log.Printf("`%s` was previously added to Data\n", src.ID)
 		src = d.FindVertexByID(src.ID)
 	} else {
 		log.Printf("`%s` is added to Data\n", src.ID)
 	}
-	isAdded, _ = d.AddVertex(dst)
+	isAdded = d.AddVertex(dst)
 	if !isAdded {
 		log.Printf("`%s` was previously added to Data\n", dst.ID)
 		dst = d.FindVertexByID(dst.ID)

@@ -28,18 +28,18 @@ func TestAddVertex(t *testing.T) {
 	}
 	data := NewData()
 	for _, vtx := range vertexToAdd1 {
-		exist, err := data.AddVertex(vtx)
-		if !exist || err != nil {
-			t.Errorf("Expected no error: %+v\n", data)
+		exist := data.AddVertex(vtx)
+		if !exist {
+			t.Errorf("Shouldn't be false: %+v\n", data)
 		}
 	}
 	vertexToAdd2 := []*Vertex{
 		NewVertex("A"), NewVertex("B"), NewVertex("C"),
 	}
 	for _, vtx := range vertexToAdd2 {
-		exist, err := data.AddVertex(vtx)
-		if exist || err == nil {
-			t.Errorf("Expected error: %+v\n", data)
+		exist := data.AddVertex(vtx)
+		if exist {
+			t.Errorf("Shouldn't be false: %+v\n", data)
 		}
 	}
 	if data.GetVertexSize() != 7 {
