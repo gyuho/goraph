@@ -72,10 +72,11 @@ func NewVertex(id string) *Vertex {
 
 // AddVertex adds a vertex to a graph Data.
 func (d *Data) AddVertex(vtx *Vertex) bool {
+	d.Mutex.Lock()
 	if _, ok := d.vertexIDs[vtx.ID]; ok {
+		d.Mutex.Unlock()
 		return false
 	}
-	d.Mutex.Lock()
 	d.vertexIDs[vtx.ID] = true
 	d.Mutex.Unlock()
 	d.Vertices = append(d.Vertices, vtx)
