@@ -1,4 +1,4 @@
-package graph // import "github.com/gyuho/goraph/graph"
+package graph
 
 import (
 	"fmt"
@@ -72,28 +72,28 @@ func NewVertex(id string) *Vertex {
 
 // AddVertex adds a vertex to a graph Data.
 func (d *Data) AddVertex(vtx *Vertex) bool {
-	d.Mutex.Lock()
+	d.Lock()
 	if _, ok := d.vertexIDs[vtx.ID]; ok {
-		d.Mutex.Unlock()
+		d.Unlock()
 		return false
 	}
 	d.vertexIDs[vtx.ID] = true
-	d.Mutex.Unlock()
+	d.Unlock()
 	d.Vertices = append(d.Vertices, vtx)
 	return true
 }
 
 // Connect adds an edge from src to dst Vertex, to a graph Data.
 func (d *Data) Connect(src, dst *Vertex, weight float64) {
-	isAdded := d.AddVertex(src)
-	if !isAdded {
+	isAddedSrc := d.AddVertex(src)
+	if !isAddedSrc {
 		log.Printf("`%s` was previously added to Data\n", src.ID)
 		src = d.FindVertexByID(src.ID)
 	} else {
 		log.Printf("`%s` is added to Data\n", src.ID)
 	}
-	isAdded = d.AddVertex(dst)
-	if !isAdded {
+	isAddedDst := d.AddVertex(dst)
+	if !isAddedDst {
 		log.Printf("`%s` was previously added to Data\n", dst.ID)
 		dst = d.FindVertexByID(dst.ID)
 	} else {
@@ -107,7 +107,9 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 		Vtx:    dst,
 		Weight: weight,
 	}
-	d.Mutex.Lock()
+
+	d.Lock()
+
 	// update Outgoing Edges
 	if _, ok := d.OutEdges[src]; !ok {
 		d.OutEdges[src] = []*Edge{&edgeDst}
@@ -130,6 +132,7 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 			d.OutEdges[src] = append(d.OutEdges[src], &edgeDst)
 		}
 	}
+
 	// update Incoming Edges
 	if _, ok := d.InEdges[dst]; !ok {
 		d.InEdges[dst] = []*Edge{&edgeSrc}
@@ -159,10 +162,9 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 			d.InEdges[dst] = append(d.InEdges[dst], &edgeSrc)
 		}
 	}
-	d.Mutex.Unlock()
-}
 
-// TODO(gyuho): return Data?
+	d.Unlock()
+}
 
 // Init initializes the graph Data.
 func (d *Data) Init() {
@@ -216,6 +218,7 @@ func (d Data) FindVertexByID(id string) *Vertex {
 
 // DeleteVertex deletes a Vertex from the graph Data.
 func (d *Data) DeleteVertex(vtx *Vertex) {
+
 	// delete from d.Vertices
 	for idx, elem := range d.Vertices {
 		if elem == vtx {
@@ -225,6 +228,7 @@ func (d *Data) DeleteVertex(vtx *Vertex) {
 			break
 		}
 	}
+
 	// delete edges from neighbor vertex's outgoing, incoming edges
 	for _, edge1 := range d.OutEdges[vtx] {
 		for idx, edge2 := range d.OutEdges[edge1.Vtx] {
@@ -264,11 +268,11 @@ func (d *Data) DeleteVertex(vtx *Vertex) {
 	}
 
 	// delete from maps
-	d.Mutex.Lock()
+	d.Lock()
 	delete(d.OutEdges, vtx)
 	delete(d.InEdges, vtx)
 	delete(d.vertexIDs, vtx.ID)
-	d.Mutex.Unlock()
+	d.Unlock()
 }
 
 // DeleteEdge deletes an Edge from src to dst from the graph Data.
