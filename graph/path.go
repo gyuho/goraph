@@ -1,7 +1,7 @@
 package graph
 
-// Path returns true if there is an edge from src to dst Vertex.
-func (d Data) Path(src, dst *Vertex) bool {
+// Path returns true if there is an edge from src to dst Node.
+func (d Data) Path(src, dst *Node) bool {
 	return true
 }
 
