@@ -1,4 +1,4 @@
-// Package graph implements Graph data structure with adjacency list and slice.
+// Package graph implements graph data structure with Go structs, pointers, and map.
 // (http://en.wikipedia.org/wiki/Adjacency_list)
 // Note that this does not allow duplicate(parallel) edges.
 // Duplicate edges will be updated by adding weight values.
