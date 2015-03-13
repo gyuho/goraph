@@ -47,7 +47,7 @@ type Vertex struct {
 	Color string
 
 	// Stamp stores stamp records for graph algorithms.
-	Stamp map[string]float64
+	// Stamp map[string]float64
 
 	sync.Mutex
 	WeightTo   map[*Vertex]float64
@@ -57,11 +57,11 @@ type Vertex struct {
 // NewVertex returns a new Vertex.
 func NewVertex(id string) *Vertex {
 	return &Vertex{
+		ID:    id,
+		Color: "white",
+		// Stamp:      make(map[string]float64),
 		WeightTo:   make(map[*Vertex]float64),
 		WeightFrom: make(map[*Vertex]float64),
-		ID:         id,
-		Color:      "white",
-		Stamp:      make(map[string]float64),
 	}
 }
 
