@@ -1,3 +1,2 @@
-// Package goraph implements graph data structures and algorithms.
-// It interacts with DOT and JSON format files.
-package goraph
+// Package goraph implements graph, tree data structures and algorithms.
+package goraph // import "github.com/gyuho/goraph"
