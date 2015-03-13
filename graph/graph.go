@@ -60,7 +60,7 @@ func NewVertex(id string) *Vertex {
 		WeightTo:   make(map[*Vertex]float64),
 		WeightFrom: make(map[*Vertex]float64),
 		ID:         id,
-		Color:      "",
+		Color:      "white",
 		Stamp:      make(map[string]float64),
 	}
 }
@@ -106,11 +106,11 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 
 	// add to Data
 	if !d.AddVertex(src) {
-		log.Printf("`%s` was previously added to Data\n", src.ID)
+		// log.Printf("`%s` was previously added to Data\n", src.ID)
 		src = d.FindVertexByID(src.ID)
 	}
 	if !d.AddVertex(dst) {
-		log.Printf("`%s` was previously added to Data\n", dst.ID)
+		// log.Printf("`%s` was previously added to Data\n", dst.ID)
 		dst = d.FindVertexByID(dst.ID)
 	}
 
