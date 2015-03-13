@@ -3,6 +3,7 @@ package graph
 import (
 	"fmt"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -86,18 +87,11 @@ func TestString(t *testing.T) {
 	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
 	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
 	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
-	str := `Vertex: A | Outgoing Edges: [A] -- 1.000 --> [B]
-Vertex: A | Incoming Edges: [C] -- 20.000 --> [A]
-Vertex: B | Outgoing Edges: [B] -- 10.000 --> [C]
-Vertex: B | Incoming Edges: [A] -- 1.000 --> [B]
-Vertex: C | Outgoing Edges: [C] -- 20.000 --> [A]
-Vertex: C | Incoming Edges: [B] -- 10.000 --> [C]`
-	str1 := fmt.Sprintf("%+v", data)
-	str2 := fmt.Sprintf("%s", data)
-	str3 := data.String()
-	if str != str1 || str1 != str2 || str2 != str3 || str3 != str1 {
-		t.Errorf("Expected the same:\n%s\n\n%s\n\n%s\n\n%s",
-			str, str1, str2, str3)
+	str1 := fmt.Sprintf("%s", data)
+	str2 := data.String()
+	if !strings.Contains(str1, "Vertex: A | Outgoing Edge: [A] -- 1.000 --> [B]") ||
+		!strings.Contains(str2, "Vertex: A | Outgoing Edge: [A] -- 1.000 --> [B]") {
+		t.Error(str1, str2)
 	}
 }
 
@@ -125,9 +119,6 @@ func TestDeleteVertex(t *testing.T) {
 	if data.GetVertexSize() != 2 {
 		t.Errorf("Expected 2 but %+v", data)
 	}
-	if _, ok := data.OutEdges[vtx]; ok {
-		t.Errorf("Expected false but %+v", data)
-	}
 	t.Logf("\n%+v", data)
 }
 
@@ -143,17 +134,6 @@ func TestDeleteEdge(t *testing.T) {
 	if data.GetVertexSize() != 3 {
 		t.Errorf("Expected 2 but %+v", data)
 	}
-	if len(data.OutEdges[vtx1]) != 0 {
-		t.Errorf("Expected false but\n%+v", data)
-	}
-	str1 := `Vertex: A | Outgoing Edges: [A] -- 1.000 --> [B]
-Vertex: A | Incoming Edges: [C] -- 20.000 --> [A]
-Vertex: B | Incoming Edges: [A] -- 1.000 --> [B]
-Vertex: C | Outgoing Edges: [C] -- 20.000 --> [A]`
-	str2 := data.String()
-	if str1 != str2 {
-		t.Errorf("Expected the same but\n%s\n\n%s", str1, str2)
-	}
 }
 
 func TestGetUpdateEdgeWeight(t *testing.T) {
@@ -163,31 +143,10 @@ func TestGetUpdateEdgeWeight(t *testing.T) {
 	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
 	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
 	data.Connect(NewVertex("C"), NewVertex("A"), 1.0)
-	str1 := `Vertex: A | Outgoing Edges: [A] -- 1.000 --> [B]
-Vertex: A | Incoming Edges: [C] -- 21.000 --> [A]
-Vertex: B | Outgoing Edges: [B] -- 10.000 --> [C]
-Vertex: B | Incoming Edges: [A] -- 1.000 --> [B]
-Vertex: C | Outgoing Edges: [C] -- 21.000 --> [A]
-Vertex: C | Incoming Edges: [B] -- 10.000 --> [C]`
-	str2 := data.String()
-	if str1 != str2 {
-		t.Errorf("Expected the same but\n%s\n\n%s", str1, str2)
-	}
 	if data.GetEdgeWeight(data.FindVertexByID("C"), data.FindVertexByID("A")) != 21.000 {
 		t.Errorf("Expected 21 but\n%+v", data)
 	}
-
 	data.UpdateEdgeWeight(data.FindVertexByID("C"), data.FindVertexByID("A"), 1.0)
-	str3 := `Vertex: A | Outgoing Edges: [A] -- 1.000 --> [B]
-Vertex: A | Incoming Edges: [C] -- 21.000 --> [A]
-Vertex: B | Outgoing Edges: [B] -- 10.000 --> [C]
-Vertex: B | Incoming Edges: [A] -- 1.000 --> [B]
-Vertex: C | Outgoing Edges: [C] -- 1.000 --> [A]
-Vertex: C | Incoming Edges: [B] -- 10.000 --> [C]`
-	str4 := data.String()
-	if str3 != str4 {
-		t.Errorf("Expected the same but\n%s\n\n%s", str3, str4)
-	}
 	if data.GetEdgeWeight(data.FindVertexByID("C"), data.FindVertexByID("A")) != 1.000 {
 		t.Errorf("Expected 1 but\n%+v", data)
 	}

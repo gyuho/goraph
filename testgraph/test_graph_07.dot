@@ -1,0 +1,11 @@
+digraph testgraph007 {
+	A -> E [label=1]
+	A -> H [label=1]
+	B -> D [label=1]
+	C -> D [label=1]
+	C -> E [label=1]
+	D -> F [label=1]
+	D -> G [label=1]
+	D -> H [label=1]
+	E -> G [label=1]
+}

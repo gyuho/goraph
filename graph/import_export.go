@@ -1,30 +1,16 @@
 package graph
 
 import (
-	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
-	"io/ioutil"
-	"os"
 )
 
 // fromJSON imports JSON file.
-func fromJSON(fpath string) (map[string]map[string]map[string]float64, error) {
-	file, err := os.Open(fpath)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-	jsonStream, err := ioutil.ReadAll(file)
-	if err != nil {
-		return nil, err
-	}
-
+func fromJSON(reader io.Reader) (map[string]map[string]map[string]float64, error) {
 	// If we want parallel edges in graph, use and define weights with []float64
-	// graphMap := make(map[string]map[string]map[string][]float64)
-	//
 	graphMap := make(map[string]map[string]map[string]float64)
-	dec := json.NewDecoder(bytes.NewReader(jsonStream))
+	dec := json.NewDecoder(reader)
 	for {
 		if err := dec.Decode(&graphMap); err == io.EOF {
 			break
@@ -35,17 +21,21 @@ func fromJSON(fpath string) (map[string]map[string]map[string]float64, error) {
 	return graphMap, nil
 }
 
-// ToJSON exports a graph Data to JSON file.
-func (d Data) ToJSON(fpath string) error {
-	return nil
-}
-
-// FromDOT constructs Data from DOT file.
-func FromDOT(fpath string) (map[string]map[string]map[string]float64, error) {
-	return nil, nil
-}
-
-// ToDOT exports a graph Data to DOT file.
-func (d Data) ToDOT(fpath string) error {
-	return nil
+// FromJSON creates a graph Data from JSON.
+func FromJSON(reader io.Reader, graphName string) (*Data, error) {
+	gmap1, err := fromJSON(reader)
+	if err != nil {
+		return nil, err
+	}
+	if _, ok := gmap1[graphName]; !ok {
+		return nil, fmt.Errorf("%s does not exist", graphName)
+	}
+	gmap2 := gmap1[graphName]
+	data := NewData()
+	for vtxID1, weightToMap := range gmap2 {
+		for vtxID2, weight := range weightToMap {
+			data.Connect(NewVertex(vtxID1), NewVertex(vtxID2), weight)
+		}
+	}
+	return data, nil
 }
