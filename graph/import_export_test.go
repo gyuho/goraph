@@ -37,11 +37,11 @@ func TestFromJSON01(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 8 {
-		t.Errorf("Expected 8 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 8 {
+		t.Errorf("Expected 8 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph01 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -59,11 +59,11 @@ func TestFromJSON02(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 8 {
-		t.Errorf("Expected 8 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 8 {
+		t.Errorf("Expected 8 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph02 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -81,11 +81,11 @@ func TestFromJSON03(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 8 {
-		t.Errorf("Expected 8 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 8 {
+		t.Errorf("Expected 8 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph03 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -103,11 +103,11 @@ func TestFromJSON04(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 8 {
-		t.Errorf("Expected 8 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 8 {
+		t.Errorf("Expected 8 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph04 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -125,11 +125,11 @@ func TestFromJSON05(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 6 {
-		t.Errorf("Expected 6 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 6 {
+		t.Errorf("Expected 6 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph05 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -147,11 +147,11 @@ func TestFromJSON06(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 6 {
-		t.Errorf("Expected 6 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 6 {
+		t.Errorf("Expected 6 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph06 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -169,11 +169,11 @@ func TestFromJSON07(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 8 {
-		t.Errorf("Expected 8 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 8 {
+		t.Errorf("Expected 8 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph07 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -191,11 +191,11 @@ func TestFromJSON08(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 6 {
-		t.Errorf("Expected 6 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 6 {
+		t.Errorf("Expected 6 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph08 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -213,11 +213,11 @@ func TestFromJSON09(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 8 {
-		t.Errorf("Expected 8 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 8 {
+		t.Errorf("Expected 8 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph09 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -235,11 +235,11 @@ func TestFromJSON10(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 6 {
-		t.Errorf("Expected 6 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 6 {
+		t.Errorf("Expected 6 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph10 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -257,11 +257,11 @@ func TestFromJSON11(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 8 {
-		t.Errorf("Expected 8 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 8 {
+		t.Errorf("Expected 8 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph11 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -279,11 +279,11 @@ func TestFromJSON12(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 5 {
-		t.Errorf("Expected 5 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 5 {
+		t.Errorf("Expected 5 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph12 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -301,11 +301,11 @@ func TestFromJSON13(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 5 {
-		t.Errorf("Expected 5 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 5 {
+		t.Errorf("Expected 5 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph13 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -323,11 +323,11 @@ func TestFromJSON14(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 9 {
-		t.Errorf("Expected 9 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 9 {
+		t.Errorf("Expected 9 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph14 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -345,11 +345,11 @@ func TestFromJSON15(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 8 {
-		t.Errorf("Expected 8 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 8 {
+		t.Errorf("Expected 8 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph15 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -367,11 +367,11 @@ func TestFromJSON16(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 10 {
-		t.Errorf("Expected 10 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 10 {
+		t.Errorf("Expected 10 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph16 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)
@@ -389,11 +389,11 @@ func TestFromJSON17(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	if data.GetVertexSize() != 8 {
-		t.Errorf("Expected 8 but %v", data.GetVertexSize())
+	if data.GetNodeSize() != 8 {
+		t.Errorf("Expected 8 but %v", data.GetNodeSize())
 	}
 	for _, elem := range testgraph.Graph17 {
-		weight1 := data.GetEdgeWeight(data.FindVertexByID(elem.Vertices[0]), data.FindVertexByID(elem.Vertices[1]))
+		weight1 := data.GetEdgeWeight(data.GetNodeByID(elem.Vertices[0]), data.GetNodeByID(elem.Vertices[1]))
 		weight2 := elem.Weight
 		if weight1 != weight2 {
 			t.Errorf("Expected %f but %f", weight2, weight1)

@@ -13,17 +13,17 @@ import (
 // Data contains graph data, represented in adjacency list and slice.
 type Data struct {
 	sync.Mutex
-	VertexMap map[*Vertex]bool
+	NodeMap map[*Node]bool
 
-	// maintain vertexID to prevent having duplicate Vertex ID
-	vertexID map[string]bool
+	// maintain nodeID to prevent having duplicate Node ID
+	nodeID map[string]bool
 }
 
 // NewData returns a new Data.
 func NewData() *Data {
 	return &Data{
-		VertexMap: make(map[*Vertex]bool),
-		vertexID:  make(map[string]bool),
+		NodeMap: make(map[*Node]bool),
+		nodeID:  make(map[string]bool),
 		// without this
 		// panic: assignment to entry in nil map
 	}
@@ -38,9 +38,9 @@ func (d *Data) Init() {
 	*d = *NewData()
 }
 
-// Vertex is a vertex(node) in Graph.
-type Vertex struct {
-	// ID of Vertex is assumed to be unique among vertices.
+// Node is a Node(node) in Graph.
+type Node struct {
+	// ID of Node is assumed to be unique among Nodes.
 	ID string
 
 	// Color is used for graph traversal.
@@ -50,54 +50,54 @@ type Vertex struct {
 	// Stamp map[string]float64
 
 	sync.Mutex
-	WeightTo   map[*Vertex]float64
-	WeightFrom map[*Vertex]float64
+	WeightTo   map[*Node]float64
+	WeightFrom map[*Node]float64
 }
 
-// NewVertex returns a new Vertex.
-func NewVertex(id string) *Vertex {
-	return &Vertex{
+// NewNode returns a new Node.
+func NewNode(id string) *Node {
+	return &Node{
 		ID:    id,
 		Color: "white",
 		// Stamp:      make(map[string]float64),
-		WeightTo:   make(map[*Vertex]float64),
-		WeightFrom: make(map[*Vertex]float64),
+		WeightTo:   make(map[*Node]float64),
+		WeightFrom: make(map[*Node]float64),
 	}
 }
 
-// AddVertex adds a vertex to a graph Data.
-func (d *Data) AddVertex(vtx *Vertex) bool {
+// AddNode adds a Node to a graph Data.
+func (d *Data) AddNode(nd *Node) bool {
 	d.Lock()
 	defer d.Unlock()
-	if _, ok := d.vertexID[vtx.ID]; ok {
+	if _, ok := d.nodeID[nd.ID]; ok {
 		return false
 	}
-	if _, ok := d.VertexMap[vtx]; ok {
+	if _, ok := d.NodeMap[nd]; ok {
 		return false
 	}
-	d.vertexID[vtx.ID] = true
-	d.VertexMap[vtx] = true
+	d.nodeID[nd.ID] = true
+	d.NodeMap[nd] = true
 	return true
 }
 
-// GetVertexSize returns the size of Vertex of the graph Data.
-func (d Data) GetVertexSize() int64 {
-	return int64(len(d.VertexMap))
+// GetNodeSize returns the size of Node of the graph Data.
+func (d Data) GetNodeSize() int64 {
+	return int64(len(d.NodeMap))
 }
 
-// FindVertexByID finds a Vertex by ID.
-func (d Data) FindVertexByID(id string) *Vertex {
-	for vtx := range d.VertexMap {
-		if vtx.ID == id {
-			return vtx
+//GetNodeByID finds a Node by ID.
+func (d Data) GetNodeByID(id string) *Node {
+	for nd := range d.NodeMap {
+		if nd.ID == id {
+			return nd
 		}
 	}
 	return nil
 }
 
-// Connect adds an edge from src(source) to dst(destination) Vertex, to a graph Data.
+// Connect adds an edge from src(source) to dst(destination) Node, to a graph Data.
 // This doese not connect from dst to src.
-func (d *Data) Connect(src, dst *Vertex, weight float64) {
+func (d *Data) Connect(src, dst *Node, weight float64) {
 
 	// do not allow a circle
 	// if src.ID == dst.ID {
@@ -105,19 +105,19 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 	// }
 
 	// add to Data
-	if !d.AddVertex(src) {
+	if !d.AddNode(src) {
 		// log.Printf("`%s` was previously added to Data\n", src.ID)
-		src = d.FindVertexByID(src.ID)
+		src = d.GetNodeByID(src.ID)
 	}
-	if !d.AddVertex(dst) {
+	if !d.AddNode(dst) {
 		// log.Printf("`%s` was previously added to Data\n", dst.ID)
-		dst = d.FindVertexByID(dst.ID)
+		dst = d.GetNodeByID(dst.ID)
 	}
 
 	d.Lock()
 	defer d.Unlock()
 
-	// update src Vertex
+	// update src Node
 	if v, ok := src.WeightTo[dst]; !ok {
 		src.WeightTo[dst] = weight
 	} else {
@@ -125,7 +125,7 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 		src.WeightTo[dst] = v + weight
 	}
 
-	// update dst Vertex
+	// update dst Node
 	if v, ok := dst.WeightFrom[src]; !ok {
 		dst.WeightFrom[src] = weight
 	} else {
@@ -135,46 +135,46 @@ func (d *Data) Connect(src, dst *Vertex, weight float64) {
 
 }
 
-// GetEdgeWeight returns the weight value of an edge from src to dst Vertex.
-func (d Data) GetEdgeWeight(src, dst *Vertex) float64 {
+// GetEdgeWeight returns the weight value of an edge from src to dst Node.
+func (d Data) GetEdgeWeight(src, dst *Node) float64 {
 	if _, ok := src.WeightTo[dst]; !ok {
 		return 0.0
 	}
 	return src.WeightTo[dst]
 }
 
-// UpdateEdgeWeight overwrites the edge weight from src to dst Vertex.
-func (d Data) UpdateEdgeWeight(src, dst *Vertex, weight float64) {
+// UpdateEdgeWeight overwrites the edge weight from src to dst Node.
+func (d Data) UpdateEdgeWeight(src, dst *Node, weight float64) {
 	src.WeightTo[dst] = weight
 }
 
-// DeleteVertex deletes a Vertex from the graph Data.
+// DeleteNode deletes a Node from the graph Data.
 // This deletes all the related edges too.
-func (d *Data) DeleteVertex(vtx *Vertex) {
+func (d *Data) DeleteNode(nd *Node) {
 
-	// delete edges from each Vertex
-	for elem := range d.VertexMap {
-		if elem == vtx {
+	// delete edges from each Node
+	for elem := range d.NodeMap {
+		if elem == nd {
 			continue
 		}
 		elem.Lock()
-		delete(elem.WeightFrom, vtx)
-		delete(elem.WeightTo, vtx)
+		delete(elem.WeightFrom, nd)
+		delete(elem.WeightTo, nd)
 		elem.Unlock()
 	}
 
 	// delete from Data(graph)
 	d.Lock()
-	delete(d.VertexMap, vtx)
-	delete(d.vertexID, vtx.ID)
+	delete(d.NodeMap, nd)
+	delete(d.nodeID, nd.ID)
 	d.Unlock()
 
-	vtx = nil
+	nd = nil
 }
 
 // DeleteEdge deletes an Edge from src to dst from the graph Data.
-// This does not delete Vertices.
-func (d *Data) DeleteEdge(src, dst *Vertex) {
+// This does not delete Nodes.
+func (d *Data) DeleteEdge(src, dst *Node) {
 	src.Lock()
 	delete(src.WeightTo, dst)
 	src.Unlock()
@@ -187,20 +187,20 @@ func (d *Data) DeleteEdge(src, dst *Vertex) {
 // String describes the graph Data.
 func (d Data) String() string {
 	buf := new(bytes.Buffer)
-	if d.GetVertexSize() == 0 {
+	if d.GetNodeSize() == 0 {
 		return "Graph is empty."
 	}
-	buf.WriteString(fmt.Sprintf("Graph has %d vertices\n", d.GetVertexSize()))
-	for vtx := range d.VertexMap {
-		vtxLabel := fmt.Sprintf("Vertex: %s | ", vtx.ID)
-		if len(vtx.WeightTo) != 0 {
-			for dst, weight := range vtx.WeightTo {
-				buf.WriteString(fmt.Sprintf(vtxLabel+"Outgoing Edge: [%s] -- %.3f --> [%s]\n", vtx.ID, weight, dst.ID))
+	buf.WriteString(fmt.Sprintf("Graph has %d Nodes\n", d.GetNodeSize()))
+	for nd := range d.NodeMap {
+		ndLabel := fmt.Sprintf("Node: %s | ", nd.ID)
+		if len(nd.WeightTo) != 0 {
+			for dst, weight := range nd.WeightTo {
+				buf.WriteString(fmt.Sprintf(ndLabel+"Outgoing Edge: [%s] -- %.3f --> [%s]\n", nd.ID, weight, dst.ID))
 			}
 		}
-		if len(vtx.WeightFrom) != 0 {
-			for src, weight := range vtx.WeightFrom {
-				buf.WriteString(fmt.Sprintf(vtxLabel+"Incoming Edge: [%s] -- %.3f --> [%s]\n", src.ID, weight, vtx.ID))
+		if len(nd.WeightFrom) != 0 {
+			for src, weight := range nd.WeightFrom {
+				buf.WriteString(fmt.Sprintf(ndLabel+"Incoming Edge: [%s] -- %.3f --> [%s]\n", src.ID, weight, nd.ID))
 			}
 		}
 	}

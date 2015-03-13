@@ -18,12 +18,12 @@ package graph
 // 10                label w as discovered
 //
 // O(|V| + |E|)
-func (d Data) Bfs(src *Vertex) []*Vertex {
+func (d Data) Bfs(src *Node) []*Node {
 
-	result := []*Vertex{}
+	result := []*Node{}
 
 	src.Color = "black"
-	queue := []*Vertex{src}
+	queue := []*Node{src}
 
 	for len(queue) != 0 {
 
@@ -62,10 +62,10 @@ func (d Data) Bfs(src *Vertex) []*Vertex {
 // 8                for all edges from v to w in G.adjacentEdges(v) do
 // 9                    S.push(w)
 //
-func (d Data) DfsStack(src *Vertex) []*Vertex {
+func (d Data) DfsStack(src *Node) []*Node {
 
-	result := []*Vertex{}
-	stack := []*Vertex{src}
+	result := []*Node{}
+	stack := []*Node{src}
 
 	for len(stack) != 0 {
 
@@ -95,7 +95,7 @@ func (d Data) DfsStack(src *Vertex) []*Vertex {
 // 4          if vertex w is not labeled as discovered then
 // 5              recursively call DFS(G,w)
 //
-func (d Data) DfsRecursive(src *Vertex, result *[]*Vertex) {
+func (d Data) DfsRecursive(src *Node, result *[]*Node) {
 
 	if src.Color == "black" {
 		return
@@ -127,6 +127,6 @@ func (d Data) DfsRecursive(src *Vertex, result *[]*Vertex) {
 //         unmark n temporarily
 //         add n to head of L
 //
-func (d Data) TopologicalDfs(src *Vertex, result *[]*Vertex) {
+func (d Data) TopologicalDfs(src *Node, result *[]*Node) {
 
 }

@@ -34,7 +34,7 @@ func FromJSON(reader io.Reader, graphName string) (*Data, error) {
 	data := NewData()
 	for vtxID1, weightToMap := range gmap2 {
 		for vtxID2, weight := range weightToMap {
-			data.Connect(NewVertex(vtxID1), NewVertex(vtxID2), weight)
+			data.Connect(NewNode(vtxID1), NewNode(vtxID2), weight)
 		}
 	}
 	return data, nil

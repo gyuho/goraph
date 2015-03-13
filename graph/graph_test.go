@@ -14,109 +14,109 @@ func TestNewData(t *testing.T) {
 	}
 }
 
-func TestNewVertex(t *testing.T) {
-	vtx := NewVertex("A")
-	if reflect.TypeOf(vtx) != reflect.TypeOf(&Vertex{}) {
-		t.Errorf("Should be same but \n%+v\n%+v", vtx, &Vertex{})
+func TestNewNode(t *testing.T) {
+	nd := NewNode("A")
+	if reflect.TypeOf(nd) != reflect.TypeOf(&Node{}) {
+		t.Errorf("Should be same but \n%+v\n%+v", nd, &Node{})
 	}
 }
 
-func TestAddVertex(t *testing.T) {
-	vertexToAdd1 := []*Vertex{
-		NewVertex("A"), NewVertex("B"), NewVertex("C"),
-		NewVertex("D"), NewVertex("E"), NewVertex("F"),
-		NewVertex("G"),
+func TestAddNode(t *testing.T) {
+	nodeToAdd1 := []*Node{
+		NewNode("A"), NewNode("B"), NewNode("C"),
+		NewNode("D"), NewNode("E"), NewNode("F"),
+		NewNode("G"),
 	}
 	data := NewData()
-	for _, vtx := range vertexToAdd1 {
-		exist := data.AddVertex(vtx)
+	for _, nd := range nodeToAdd1 {
+		exist := data.AddNode(nd)
 		if !exist {
 			t.Errorf("Shouldn't be false: %+v\n", data)
 		}
 	}
-	vertexToAdd2 := []*Vertex{
-		NewVertex("A"), NewVertex("B"), NewVertex("C"),
+	nodeToAdd2 := []*Node{
+		NewNode("A"), NewNode("B"), NewNode("C"),
 	}
-	for _, vtx := range vertexToAdd2 {
-		exist := data.AddVertex(vtx)
+	for _, nd := range nodeToAdd2 {
+		exist := data.AddNode(nd)
 		if exist {
 			t.Errorf("Shouldn't be false: %+v\n", data)
 		}
 	}
-	if data.GetVertexSize() != 7 {
-		t.Errorf("Expected 7 but %d", data.GetVertexSize())
+	if data.GetNodeSize() != 7 {
+		t.Errorf("Expected 7 but %d", data.GetNodeSize())
 	}
-	data.AddVertex(NewVertex("X"))
-	data.AddVertex(NewVertex("XX"))
-	data.AddVertex(NewVertex("XXX"))
-	if data.GetVertexSize() != 10 {
-		t.Errorf("Expected 7 but %d", data.GetVertexSize())
+	data.AddNode(NewNode("X"))
+	data.AddNode(NewNode("XX"))
+	data.AddNode(NewNode("XXX"))
+	if data.GetNodeSize() != 10 {
+		t.Errorf("Expected 7 but %d", data.GetNodeSize())
 	}
 }
 
 func TestConnect(t *testing.T) {
 	data := NewData()
-	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
-	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
+	data.Connect(NewNode("A"), NewNode("B"), 1.0)
+	data.Connect(NewNode("B"), NewNode("C"), 10.0)
+	data.Connect(NewNode("C"), NewNode("A"), 5.0)
+	data.Connect(NewNode("C"), NewNode("A"), 15.0)
 	t.Logf("%+v\n", data)
-	if data.GetVertexSize() != 3 {
+	if data.GetNodeSize() != 3 {
 		t.Errorf("Expected 3 but %+v\n", data)
 	}
 }
 
 func TestInit(t *testing.T) {
 	data := NewData()
-	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
-	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
-	if data.GetVertexSize() != 3 {
+	data.Connect(NewNode("A"), NewNode("B"), 1.0)
+	data.Connect(NewNode("B"), NewNode("C"), 10.0)
+	data.Connect(NewNode("C"), NewNode("A"), 5.0)
+	data.Connect(NewNode("C"), NewNode("A"), 15.0)
+	if data.GetNodeSize() != 3 {
 		t.Errorf("Expected 3 but %+v\n", data)
 	}
 	data.Init()
-	if data.GetVertexSize() != 0 {
+	if data.GetNodeSize() != 0 {
 		t.Errorf("Expected 0 but %+v\n", data)
 	}
 }
 
 func TestString(t *testing.T) {
 	data := NewData()
-	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
-	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
+	data.Connect(NewNode("A"), NewNode("B"), 1.0)
+	data.Connect(NewNode("B"), NewNode("C"), 10.0)
+	data.Connect(NewNode("C"), NewNode("A"), 5.0)
+	data.Connect(NewNode("C"), NewNode("A"), 15.0)
 	str1 := fmt.Sprintf("%s", data)
 	str2 := data.String()
-	if !strings.Contains(str1, "Vertex: A | Outgoing Edge: [A] -- 1.000 --> [B]") ||
-		!strings.Contains(str2, "Vertex: A | Outgoing Edge: [A] -- 1.000 --> [B]") {
+	if !strings.Contains(str1, "Node: A | Outgoing Edge: [A] -- 1.000 --> [B]") ||
+		!strings.Contains(str2, "Node: A | Outgoing Edge: [A] -- 1.000 --> [B]") {
 		t.Error(str1, str2)
 	}
 }
 
-func TestFindVertexByID(t *testing.T) {
+func TestGetNodeByID(t *testing.T) {
 	data := NewData()
-	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
-	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
-	vtx := data.FindVertexByID("B")
-	if vtx.ID != "B" {
-		t.Errorf("Expected B but %+v", vtx)
+	data.Connect(NewNode("A"), NewNode("B"), 1.0)
+	data.Connect(NewNode("B"), NewNode("C"), 10.0)
+	data.Connect(NewNode("C"), NewNode("A"), 5.0)
+	data.Connect(NewNode("C"), NewNode("A"), 15.0)
+	nd := data.GetNodeByID("B")
+	if nd.ID != "B" {
+		t.Errorf("Expected B but %+v", nd)
 	}
 }
 
-func TestDeleteVertex(t *testing.T) {
+func TestDeleteNode(t *testing.T) {
 	data := NewData()
-	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
-	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
+	data.Connect(NewNode("A"), NewNode("B"), 1.0)
+	data.Connect(NewNode("B"), NewNode("C"), 10.0)
+	data.Connect(NewNode("C"), NewNode("A"), 5.0)
+	data.Connect(NewNode("C"), NewNode("A"), 15.0)
 	t.Logf("\n%+v", data)
-	vtx := data.FindVertexByID("B")
-	data.DeleteVertex(vtx)
-	if data.GetVertexSize() != 2 {
+	nd := data.GetNodeByID("B")
+	data.DeleteNode(nd)
+	if data.GetNodeSize() != 2 {
 		t.Errorf("Expected 2 but %+v", data)
 	}
 	t.Logf("\n%+v", data)
@@ -124,30 +124,30 @@ func TestDeleteVertex(t *testing.T) {
 
 func TestDeleteEdge(t *testing.T) {
 	data := NewData()
-	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
-	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
-	vtx1 := data.FindVertexByID("B")
-	vtx2 := data.FindVertexByID("C")
-	data.DeleteEdge(vtx1, vtx2)
-	if data.GetVertexSize() != 3 {
+	data.Connect(NewNode("A"), NewNode("B"), 1.0)
+	data.Connect(NewNode("B"), NewNode("C"), 10.0)
+	data.Connect(NewNode("C"), NewNode("A"), 5.0)
+	data.Connect(NewNode("C"), NewNode("A"), 15.0)
+	nd1 := data.GetNodeByID("B")
+	nd2 := data.GetNodeByID("C")
+	data.DeleteEdge(nd1, nd2)
+	if data.GetNodeSize() != 3 {
 		t.Errorf("Expected 2 but %+v", data)
 	}
 }
 
 func TestGetUpdateEdgeWeight(t *testing.T) {
 	data := NewData()
-	data.Connect(NewVertex("A"), NewVertex("B"), 1.0)
-	data.Connect(NewVertex("B"), NewVertex("C"), 10.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 5.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 15.0)
-	data.Connect(NewVertex("C"), NewVertex("A"), 1.0)
-	if data.GetEdgeWeight(data.FindVertexByID("C"), data.FindVertexByID("A")) != 21.000 {
+	data.Connect(NewNode("A"), NewNode("B"), 1.0)
+	data.Connect(NewNode("B"), NewNode("C"), 10.0)
+	data.Connect(NewNode("C"), NewNode("A"), 5.0)
+	data.Connect(NewNode("C"), NewNode("A"), 15.0)
+	data.Connect(NewNode("C"), NewNode("A"), 1.0)
+	if data.GetEdgeWeight(data.GetNodeByID("C"), data.GetNodeByID("A")) != 21.000 {
 		t.Errorf("Expected 21 but\n%+v", data)
 	}
-	data.UpdateEdgeWeight(data.FindVertexByID("C"), data.FindVertexByID("A"), 1.0)
-	if data.GetEdgeWeight(data.FindVertexByID("C"), data.FindVertexByID("A")) != 1.000 {
+	data.UpdateEdgeWeight(data.GetNodeByID("C"), data.GetNodeByID("A"), 1.0)
+	if data.GetEdgeWeight(data.GetNodeByID("C"), data.GetNodeByID("A")) != 1.000 {
 		t.Errorf("Expected 1 but\n%+v", data)
 	}
 }
