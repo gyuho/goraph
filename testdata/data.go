@@ -4,6 +4,7 @@ package testdata
 type Graph struct {
 	Name           string
 	TotalNodeCount int
+	IsDag          bool
 	EdgeToWeight   []EdgeToWeight
 }
 
@@ -38,6 +39,7 @@ var GraphSlice = []Graph{
 var Graph01 = Graph{
 	"test_graph_01",
 	8,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 100.0},
 		EdgeToWeight{[]string{"S", "B"}, 14.0},
@@ -83,6 +85,7 @@ var Graph01 = Graph{
 var Graph02 = Graph{
 	"test_graph_02",
 	8,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 100.0},
 		EdgeToWeight{[]string{"S", "B"}, 14.0},
@@ -121,6 +124,7 @@ var Graph02 = Graph{
 var Graph03 = Graph{
 	"test_graph_03",
 	8,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 100.0},
 		EdgeToWeight{[]string{"S", "B"}, 20.0},
@@ -159,6 +163,7 @@ var Graph03 = Graph{
 var Graph04 = Graph{
 	"test_graph_04",
 	8,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"S", "B"}, 14.0},
 
@@ -196,6 +201,7 @@ var Graph04 = Graph{
 var Graph05 = Graph{
 	"test_graph_05",
 	6,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 7.0},
 		EdgeToWeight{[]string{"A", "C"}, 9.0},
@@ -229,6 +235,7 @@ var Graph05 = Graph{
 var Graph06 = Graph{
 	"test_graph_06",
 	6,
+	true,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"A", "F"}, 1.0},
 
@@ -246,6 +253,7 @@ var Graph06 = Graph{
 var Graph07 = Graph{
 	"test_graph_07",
 	8,
+	true,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"A", "E"}, 1.0},
 		EdgeToWeight{[]string{"A", "H"}, 1.0},
@@ -267,6 +275,7 @@ var Graph07 = Graph{
 var Graph08 = Graph{
 	"test_graph_08",
 	6,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"A", "E"}, 1.0},
 		EdgeToWeight{[]string{"A", "F"}, 1.0},
@@ -286,6 +295,7 @@ var Graph08 = Graph{
 var Graph09 = Graph{
 	"test_graph_09",
 	8,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 1.0},
 		EdgeToWeight{[]string{"A", "E"}, 1.0},
@@ -316,6 +326,7 @@ var Graph09 = Graph{
 var Graph10 = Graph{
 	"test_graph_10",
 	6,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"A", "C"}, 9.0},
 		EdgeToWeight{[]string{"A", "F"}, 20.0},
@@ -341,6 +352,7 @@ var Graph10 = Graph{
 var Graph11 = Graph{
 	"test_graph_11",
 	8,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 11.0},
 		EdgeToWeight{[]string{"S", "B"}, 17.0},
@@ -381,6 +393,7 @@ var Graph11 = Graph{
 var Graph12 = Graph{
 	"test_graph_12",
 	5,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 7.0},
 		EdgeToWeight{[]string{"S", "B"}, 6.0},
@@ -403,6 +416,7 @@ var Graph12 = Graph{
 var Graph13 = Graph{
 	"test_graph_13",
 	5,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 7.0},
 		EdgeToWeight{[]string{"S", "B"}, 6.0},
@@ -425,6 +439,7 @@ var Graph13 = Graph{
 var Graph14 = Graph{
 	"test_graph_14",
 	9,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 4.0},
 		EdgeToWeight{[]string{"A", "H"}, 8.0},
@@ -469,6 +484,7 @@ var Graph14 = Graph{
 var Graph15 = Graph{
 	"test_graph_15",
 	8,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 1.0},
 
@@ -498,6 +514,7 @@ var Graph15 = Graph{
 var Graph16 = Graph{
 	"test_graph_16",
 	10,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 1.0},
 		EdgeToWeight{[]string{"A", "F"}, 1.0},
@@ -532,6 +549,7 @@ var Graph16 = Graph{
 var Graph17 = Graph{
 	"test_graph_17",
 	8,
+	false,
 	[]EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 10.0},
 		EdgeToWeight{[]string{"S", "B"}, 5.0},
