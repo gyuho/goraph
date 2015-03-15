@@ -11,9 +11,11 @@ import (
 // (https://golang.org/doc/faq#methods_on_values_or_pointers)
 type Data struct {
 	sync.Mutex
+
+	// NodeMap is a hash-map for all Nodes in the graph.
 	NodeMap map[*Node]bool
 
-	// maintain nodeID to prevent having duplicate Node ID
+	// maintain nodeID in order not to have duplicate Node IDs in the graph.
 	nodeID map[string]bool
 }
 
@@ -38,6 +40,7 @@ func (d *Data) Init() {
 
 // Node is a Node(node) in Graph.
 type Node struct {
+
 	// ID of Node is assumed to be unique among Nodes.
 	ID string
 
@@ -45,7 +48,11 @@ type Node struct {
 	Color string
 
 	sync.Mutex
-	WeightTo   map[*Node]float32
+
+	// WeightTo maps its Node to outgoing Nodes with its edge weight (outgoing edges from its Node).
+	WeightTo map[*Node]float32
+
+	// WeightFrom maps its Node to incoming Nodes with its edge weight (incoming edges to its Node).
 	WeightFrom map[*Node]float32
 
 	// Stamp stores stamp records for graph algorithms.
