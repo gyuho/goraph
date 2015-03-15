@@ -6,7 +6,7 @@ import (
 )
 
 func TestBfs02(t *testing.T) {
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
@@ -41,7 +41,7 @@ func TestBfs02(t *testing.T) {
 }
 
 func TestBfs06(t *testing.T) {
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
@@ -74,7 +74,7 @@ func TestBfs06(t *testing.T) {
 }
 
 func TestBfs07(t *testing.T) {
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
@@ -107,7 +107,7 @@ func TestBfs07(t *testing.T) {
 }
 
 func TestDfsStack(t *testing.T) {
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
@@ -142,7 +142,7 @@ func TestDfsStack(t *testing.T) {
 }
 
 func TestDfs(t *testing.T) {
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
@@ -178,7 +178,7 @@ func TestDfs(t *testing.T) {
 }
 
 func TestTopologicalDag01(t *testing.T) {
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
@@ -196,7 +196,7 @@ func TestTopologicalDag01(t *testing.T) {
 }
 
 func TestTopologicalDag02(t *testing.T) {
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
@@ -214,7 +214,7 @@ func TestTopologicalDag02(t *testing.T) {
 }
 
 func TestTopologicalDag06(t *testing.T) {
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
@@ -249,7 +249,7 @@ func TestTopologicalDag06(t *testing.T) {
 }
 
 func TestTopologicalDag07(t *testing.T) {
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
@@ -284,7 +284,7 @@ func TestTopologicalDag07(t *testing.T) {
 }
 
 func TestTopologicalDag08(t *testing.T) {
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
@@ -302,7 +302,7 @@ func TestTopologicalDag08(t *testing.T) {
 }
 
 func TestTopologicalDag09(t *testing.T) {
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}

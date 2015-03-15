@@ -1,4 +1,4 @@
-package testgraph
+package testdata
 
 // Graph01 represents test_graph_01.
 var Graph01 = []struct {

@@ -105,7 +105,7 @@ func TestDeleteNode(t *testing.T) {
 		t.Errorf("Expected 2 but %+v", data)
 	}
 
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
@@ -160,7 +160,7 @@ func TestDeleteEdge(t *testing.T) {
 		t.Errorf("Expected 2 but %+v", data)
 	}
 
-	file, err := os.Open("../testgraph/data.json")
+	file, err := os.Open("../testdata/data.json")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
