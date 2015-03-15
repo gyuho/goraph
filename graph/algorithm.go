@@ -18,7 +18,7 @@ package graph
 // 10                label w as discovered
 //
 // O(|V| + |E|)
-func (d Data) Bfs(src *Node) []*Node {
+func (d *Data) Bfs(src *Node) []*Node {
 
 	result := []*Node{}
 
@@ -62,7 +62,7 @@ func (d Data) Bfs(src *Node) []*Node {
 // 8                for all edges from v to w in G.adjacentEdges(v) do
 // 9                    S.push(w)
 //
-func (d Data) DfsStack(src *Node) []*Node {
+func (d *Data) DfsStack(src *Node) []*Node {
 
 	result := []*Node{}
 	stack := []*Node{src}
@@ -87,7 +87,7 @@ func (d Data) DfsStack(src *Node) []*Node {
 	return result
 }
 
-// DfsRecursive recursively traverse a graph.
+// Dfs recursively traverses a graph.
 //
 // 1  procedure DFS(G,v):
 // 2      label v as discovered
@@ -95,8 +95,7 @@ func (d Data) DfsStack(src *Node) []*Node {
 // 4          if vertex w is not labeled as discovered then
 // 5              recursively call DFS(G,w)
 //
-func (d Data) DfsRecursive(src *Node, result *[]*Node) {
-
+func (d *Data) Dfs(src *Node, result *[]*Node) {
 	if src.Color == "black" {
 		return
 	}
@@ -106,17 +105,20 @@ func (d Data) DfsRecursive(src *Node, result *[]*Node) {
 
 	for ov := range src.WeightTo {
 		if ov.Color == "white" {
-			d.DfsRecursive(ov, result)
+			d.Dfs(ov, result)
 		}
 	}
 }
 
-// TopologicalDfs does topological sorting with DFS.
+// TopologicalDag does topological sort(ordering) with DFS.
+// It returns true if the Graph is a DAG. (no cycle, have a topological sort)
+// It returns false if the Graph is not a DAG. (cycle, have no topological sort)
 //
 // L ← Empty list that will contain the sorted nodes
 // while there are unmarked nodes do
 //     select an unmarked node n
 //     visit(n)
+//
 // function visit(node n)
 //     if n has a temporary mark then stop (not a DAG)
 //     if n is not marked (i.e. has not been visited yet) then
@@ -127,6 +129,38 @@ func (d Data) DfsRecursive(src *Node, result *[]*Node) {
 //         unmark n temporarily
 //         add n to head of L
 //
-func (d Data) TopologicalDfs(src *Node, result *[]*Node) {
+func (d Data) TopologicalDag() ([]*Node, bool) {
+	result := []*Node{}
+	isDag := true
+	for nd := range d.NodeMap {
+		if nd.Color != "white" {
+			continue
+		}
+		d.topologicalDag(nd, &result, &isDag)
+	}
 
+	if !isDag {
+		return nil, false
+	}
+
+	return result, true
+}
+
+func (d *Data) topologicalDag(src *Node, result *[]*Node, isDag *bool) {
+	if src.Color == "gray" {
+		*isDag = false
+		return
+	}
+	if src.Color == "white" {
+		src.Color = "gray"
+		for ov := range src.WeightTo {
+			d.topologicalDag(ov, result, isDag)
+		}
+		src.Color = "black"
+		// PushFront
+		copied := make([]*Node, len(*result)+1)
+		copied[0] = src
+		copy(copied[1:], *result)
+		*result = copied
+	}
 }

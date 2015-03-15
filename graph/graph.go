@@ -3,7 +3,6 @@ package graph
 import (
 	"bytes"
 	"fmt"
-	"log"
 	"sync"
 )
 
@@ -46,27 +45,33 @@ type Node struct {
 	// Color is used for graph traversal.
 	Color string
 
-	// Stamp stores stamp records for graph algorithms.
-	// Stamp map[string]float64
-
 	sync.Mutex
 	WeightTo   map[*Node]float64
 	WeightFrom map[*Node]float64
+
+	// Stamp stores stamp records for graph algorithms.
+	// Stamp map[string]float64
 }
 
 // NewNode returns a new Node.
 func NewNode(id string) *Node {
 	return &Node{
-		ID:    id,
-		Color: "white",
-		// Stamp:      make(map[string]float64),
+		ID:         id,
+		Color:      "white",
 		WeightTo:   make(map[*Node]float64),
 		WeightFrom: make(map[*Node]float64),
+		// Stamp: make(map[string]float64),
 	}
 }
 
 // AddNode adds a Node to a graph Data.
+// It returns true if the Node is added the graph Data.
 func (d *Data) AddNode(nd *Node) bool {
+
+	if nd == nil {
+		return false
+	}
+
 	d.Lock()
 	defer d.Unlock()
 	if _, ok := d.nodeID[nd.ID]; ok {
@@ -99,6 +104,10 @@ func (d Data) GetNodeByID(id string) *Node {
 // This doese not connect from dst to src.
 func (d *Data) Connect(src, dst *Node, weight float64) {
 
+	if src == nil || dst == nil {
+		return
+	}
+
 	// do not allow a circle
 	// if src.ID == dst.ID {
 	// 	return
@@ -121,7 +130,7 @@ func (d *Data) Connect(src, dst *Node, weight float64) {
 	if v, ok := src.WeightTo[dst]; !ok {
 		src.WeightTo[dst] = weight
 	} else {
-		log.Printf("Duplicate(Parallel) Edge. Overwriting the Weight value: %s --> %.3f --> %s (new weight: %.3f)\n", src.ID, v, dst.ID, v+weight)
+		// log.Printf("Duplicate(Parallel) Edge. Overwriting the Weight value: %s --> %.3f --> %s (new weight: %.3f)\n", src.ID, v, dst.ID, v+weight)
 		src.WeightTo[dst] = v + weight
 	}
 
@@ -129,7 +138,7 @@ func (d *Data) Connect(src, dst *Node, weight float64) {
 	if v, ok := dst.WeightFrom[src]; !ok {
 		dst.WeightFrom[src] = weight
 	} else {
-		log.Printf("Duplicate(Parallel) Edge. Overwriting the Weight value: %s --> %.3f --> %s (new weight: %.3f)\n", src.ID, v, dst.ID, v+weight)
+		// log.Printf("Duplicate(Parallel) Edge. Overwriting the Weight value: %s --> %.3f --> %s (new weight: %.3f)\n", src.ID, v, dst.ID, v+weight)
 		dst.WeightFrom[src] = v + weight
 	}
 
@@ -137,6 +146,9 @@ func (d *Data) Connect(src, dst *Node, weight float64) {
 
 // GetEdgeWeight returns the weight value of an edge from src to dst Node.
 func (d Data) GetEdgeWeight(src, dst *Node) float64 {
+	if src == nil || dst == nil {
+		return 0.0
+	}
 	if _, ok := src.WeightTo[dst]; !ok {
 		return 0.0
 	}
@@ -145,6 +157,9 @@ func (d Data) GetEdgeWeight(src, dst *Node) float64 {
 
 // UpdateEdgeWeight overwrites the edge weight from src to dst Node.
 func (d Data) UpdateEdgeWeight(src, dst *Node, weight float64) {
+	if src == nil || dst == nil {
+		return
+	}
 	src.WeightTo[dst] = weight
 }
 
@@ -152,21 +167,33 @@ func (d Data) UpdateEdgeWeight(src, dst *Node, weight float64) {
 // This deletes all the related edges too.
 func (d *Data) DeleteNode(nd *Node) {
 
+	if nd == nil {
+		return
+	}
+
 	// delete edges from each Node
 	for elem := range d.NodeMap {
 		if elem == nd {
 			continue
 		}
 		elem.Lock()
-		delete(elem.WeightFrom, nd)
-		delete(elem.WeightTo, nd)
+		if _, ok := elem.WeightFrom[nd]; ok {
+			delete(elem.WeightFrom, nd)
+		}
+		if _, ok := elem.WeightTo[nd]; ok {
+			delete(elem.WeightTo, nd)
+		}
 		elem.Unlock()
 	}
 
 	// delete from Data(graph)
 	d.Lock()
-	delete(d.NodeMap, nd)
-	delete(d.nodeID, nd.ID)
+	if _, ok := d.NodeMap[nd]; ok {
+		delete(d.NodeMap, nd)
+	}
+	if _, ok := d.nodeID[nd.ID]; ok {
+		delete(d.nodeID, nd.ID)
+	}
 	d.Unlock()
 
 	nd = nil
@@ -175,13 +202,23 @@ func (d *Data) DeleteNode(nd *Node) {
 // DeleteEdge deletes an Edge from src to dst from the graph Data.
 // This does not delete Nodes.
 func (d *Data) DeleteEdge(src, dst *Node) {
+
+	if src == nil || dst == nil {
+		return
+	}
+
 	src.Lock()
-	delete(src.WeightTo, dst)
+	if _, ok := src.WeightTo[dst]; ok {
+		delete(src.WeightTo, dst)
+	}
 	src.Unlock()
 
 	dst.Lock()
-	delete(dst.WeightFrom, src)
+	if _, ok := dst.WeightFrom[src]; ok {
+		delete(dst.WeightFrom, src)
+	}
 	dst.Unlock()
+
 }
 
 // String describes the graph Data.
