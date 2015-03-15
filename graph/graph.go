@@ -53,9 +53,6 @@ type Node struct {
 
 	// WeightFrom maps its Node to incoming Nodes with its edge weight (incoming edges to its Node).
 	WeightFrom map[*Node]float32
-
-	// Stamp stores stamp records for graph algorithms.
-	// Stamp map[string]float32
 }
 
 // NewNode returns a new Node.
@@ -65,7 +62,6 @@ func NewNode(id string) *Node {
 		Color:      "white",
 		WeightTo:   make(map[*Node]float32),
 		WeightFrom: make(map[*Node]float32),
-		// Stamp: make(map[string]float32),
 	}
 }
 
