@@ -3,382 +3,127 @@ package graph
 import (
 	"os"
 	"testing"
+
+	"github.com/gyuho/goraph/testdata"
 )
 
-func TestBfs01(t *testing.T) {
-	file, err := os.Open("../testdata/data.json")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	defer file.Close()
-
-	data, err := FromJSON(file, "test_graph_01")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-
-	rs := data.Bfs(data.GetNodeByID("S"))
-	if len(rs) != data.GetNodeSize() {
-		t.Errorf("Not traversed all: %s", data)
-	}
-	traversedNodeID := make(map[string]bool)
-	for _, nd := range rs {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
+func TestBfs(t *testing.T) {
+	for _, graph := range testdata.GraphSlice {
+		file, err := os.Open("../testdata/data.json")
+		if err != nil {
+			t.Errorf("Error: %+v", err)
 		}
-		if _, ok := traversedNodeID[nd.ID]; !ok {
-			traversedNodeID[nd.ID] = true
+		defer file.Close()
+		data, err := FromJSON(file, graph.Name)
+		if err != nil {
+			t.Errorf("Error: %+v", err)
 		}
-	}
-	if len(traversedNodeID) != data.GetNodeSize() {
-		t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
-	}
-	for nd := range data.NodeMap {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
+		oneNode := &Node{}
+		for elem := range data.NodeMap {
+			oneNode = elem
+			break
 		}
-	}
-}
-
-func TestBfs02(t *testing.T) {
-	file, err := os.Open("../testdata/data.json")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	defer file.Close()
-
-	data, err := FromJSON(file, "test_graph_02")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-
-	rs := data.Bfs(data.GetNodeByID("S"))
-	if len(rs) != data.GetNodeSize() {
-		t.Errorf("Not traversed all: %s", data)
-	}
-	traversedNodeID := make(map[string]bool)
-	for _, nd := range rs {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
+		rs := data.Bfs(oneNode)
+		if len(rs) != data.GetNodeSize() {
+			t.Errorf("Not traversed all: %s", data)
 		}
-		if _, ok := traversedNodeID[nd.ID]; !ok {
-			traversedNodeID[nd.ID] = true
+		traversedNodeID := make(map[string]bool)
+		for _, nd := range rs {
+			if nd.Color == "white" {
+				t.Errorf("%v", nd)
+			}
+			if _, ok := traversedNodeID[nd.ID]; !ok {
+				traversedNodeID[nd.ID] = true
+			}
 		}
-	}
-	if len(traversedNodeID) != data.GetNodeSize() {
-		t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
-	}
-	for nd := range data.NodeMap {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
+		if len(traversedNodeID) != data.GetNodeSize() {
+			t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
 		}
-	}
-}
-
-func TestBfs03(t *testing.T) {
-	file, err := os.Open("../testdata/data.json")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	defer file.Close()
-
-	data, err := FromJSON(file, "test_graph_03")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-
-	rs := data.Bfs(data.GetNodeByID("S"))
-	if len(rs) != data.GetNodeSize() {
-		t.Errorf("Not traversed all: %s", data)
-	}
-	traversedNodeID := make(map[string]bool)
-	for _, nd := range rs {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-		if _, ok := traversedNodeID[nd.ID]; !ok {
-			traversedNodeID[nd.ID] = true
-		}
-	}
-	if len(traversedNodeID) != data.GetNodeSize() {
-		t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
-	}
-	for nd := range data.NodeMap {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-	}
-}
-
-func TestBfs04(t *testing.T) {
-	file, err := os.Open("../testdata/data.json")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	defer file.Close()
-
-	data, err := FromJSON(file, "test_graph_04")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-
-	rs := data.Bfs(data.GetNodeByID("S"))
-	if len(rs) != data.GetNodeSize() {
-		t.Errorf("Not traversed all: %s", data)
-	}
-	traversedNodeID := make(map[string]bool)
-	for _, nd := range rs {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-		if _, ok := traversedNodeID[nd.ID]; !ok {
-			traversedNodeID[nd.ID] = true
-		}
-	}
-	if len(traversedNodeID) != data.GetNodeSize() {
-		t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
-	}
-	for nd := range data.NodeMap {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-	}
-}
-
-func TestBfs05(t *testing.T) {
-	file, err := os.Open("../testdata/data.json")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	defer file.Close()
-
-	data, err := FromJSON(file, "test_graph_05")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-
-	rs := data.Bfs(data.GetNodeByID("C"))
-	if len(rs) != data.GetNodeSize() {
-		t.Errorf("Not traversed all: %s", data)
-	}
-	traversedNodeID := make(map[string]bool)
-	for _, nd := range rs {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-		if _, ok := traversedNodeID[nd.ID]; !ok {
-			traversedNodeID[nd.ID] = true
-		}
-	}
-	if len(traversedNodeID) != data.GetNodeSize() {
-		t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
-	}
-	for nd := range data.NodeMap {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-	}
-}
-
-func TestBfs06(t *testing.T) {
-	file, err := os.Open("../testdata/data.json")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	defer file.Close()
-	data, err := FromJSON(file, "test_graph_06")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	rs := data.Bfs(data.GetNodeByID("E"))
-	if len(rs) != data.GetNodeSize() {
-		t.Errorf("Not traversed all: %s", data)
-	}
-	traversedNodeID := make(map[string]bool)
-	for _, nd := range rs {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-		if _, ok := traversedNodeID[nd.ID]; !ok {
-			traversedNodeID[nd.ID] = true
-		}
-	}
-	if len(traversedNodeID) != data.GetNodeSize() {
-		t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
-	}
-	for nd := range data.NodeMap {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-	}
-}
-
-func TestBfs07(t *testing.T) {
-	file, err := os.Open("../testdata/data.json")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	defer file.Close()
-	data, err := FromJSON(file, "test_graph_07")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	rs := data.Bfs(data.GetNodeByID("E"))
-	if len(rs) != data.GetNodeSize() {
-		t.Errorf("Not traversed all: %s", data)
-	}
-	traversedNodeID := make(map[string]bool)
-	for _, nd := range rs {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-		if _, ok := traversedNodeID[nd.ID]; !ok {
-			traversedNodeID[nd.ID] = true
-		}
-	}
-	if len(traversedNodeID) != data.GetNodeSize() {
-		t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
-	}
-	for nd := range data.NodeMap {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-	}
-}
-
-func TestBfs08(t *testing.T) {
-	file, err := os.Open("../testdata/data.json")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	defer file.Close()
-	data, err := FromJSON(file, "test_graph_08")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	rs := data.Bfs(data.GetNodeByID("D"))
-	if len(rs) != data.GetNodeSize() {
-		t.Errorf("Not traversed all: %s", data)
-	}
-	traversedNodeID := make(map[string]bool)
-	for _, nd := range rs {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-		if _, ok := traversedNodeID[nd.ID]; !ok {
-			traversedNodeID[nd.ID] = true
-		}
-	}
-	if len(traversedNodeID) != data.GetNodeSize() {
-		t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
-	}
-	for nd := range data.NodeMap {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-	}
-}
-
-func TestBfs09(t *testing.T) {
-	file, err := os.Open("../testdata/data.json")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	defer file.Close()
-	data, err := FromJSON(file, "test_graph_09")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	rs := data.Bfs(data.GetNodeByID("D"))
-	if len(rs) != data.GetNodeSize() {
-		t.Errorf("Not traversed all: %s", data)
-	}
-	traversedNodeID := make(map[string]bool)
-	for _, nd := range rs {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
-		}
-		if _, ok := traversedNodeID[nd.ID]; !ok {
-			traversedNodeID[nd.ID] = true
-		}
-	}
-	if len(traversedNodeID) != data.GetNodeSize() {
-		t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
-	}
-	for nd := range data.NodeMap {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
+		for nd := range data.NodeMap {
+			if nd.Color == "white" {
+				t.Errorf("%v", nd)
+			}
 		}
 	}
 }
 
 func TestDfsStack(t *testing.T) {
-	file, err := os.Open("../testdata/data.json")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	defer file.Close()
-
-	data, err := FromJSON(file, "test_graph_02")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-
-	rs := data.DfsStack(data.GetNodeByID("S"))
-	if len(rs) != data.GetNodeSize() {
-		t.Errorf("Not traversed all: %s", data)
-	}
-	traversedNodeID := make(map[string]bool)
-	for _, nd := range rs {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
+	for _, graph := range testdata.GraphSlice {
+		file, err := os.Open("../testdata/data.json")
+		if err != nil {
+			t.Errorf("Error: %+v", err)
 		}
-		if _, ok := traversedNodeID[nd.ID]; !ok {
-			traversedNodeID[nd.ID] = true
+		defer file.Close()
+		data, err := FromJSON(file, graph.Name)
+		if err != nil {
+			t.Errorf("Error: %+v", err)
 		}
-	}
-	if len(traversedNodeID) != data.GetNodeSize() {
-		t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
-	}
-	for nd := range data.NodeMap {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
+		oneNode := &Node{}
+		for elem := range data.NodeMap {
+			oneNode = elem
+			break
+		}
+		rs := data.DfsStack(oneNode)
+		if len(rs) != data.GetNodeSize() {
+			t.Errorf("Not traversed all: %s", data)
+		}
+		traversedNodeID := make(map[string]bool)
+		for _, nd := range rs {
+			if nd.Color == "white" {
+				t.Errorf("%v", nd)
+			}
+			if _, ok := traversedNodeID[nd.ID]; !ok {
+				traversedNodeID[nd.ID] = true
+			}
+		}
+		if len(traversedNodeID) != data.GetNodeSize() {
+			t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
+		}
+		for nd := range data.NodeMap {
+			if nd.Color == "white" {
+				t.Errorf("%v", nd)
+			}
 		}
 	}
 }
 
 func TestDfs(t *testing.T) {
-	file, err := os.Open("../testdata/data.json")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-	defer file.Close()
-
-	data, err := FromJSON(file, "test_graph_02")
-	if err != nil {
-		t.Errorf("Error: %+v", err)
-	}
-
-	rs := []*Node{}
-	data.Dfs(data.GetNodeByID("S"), &rs)
-	if len(rs) != data.GetNodeSize() {
-		t.Errorf("Not traversed all: %s", data)
-	}
-	traversedNodeID := make(map[string]bool)
-	for _, nd := range rs {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
+	for _, graph := range testdata.GraphSlice {
+		file, err := os.Open("../testdata/data.json")
+		if err != nil {
+			t.Errorf("Error: %+v", err)
 		}
-		if _, ok := traversedNodeID[nd.ID]; !ok {
-			traversedNodeID[nd.ID] = true
+		defer file.Close()
+		data, err := FromJSON(file, graph.Name)
+		if err != nil {
+			t.Errorf("Error: %+v", err)
 		}
-	}
-	if len(traversedNodeID) != data.GetNodeSize() {
-		t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
-	}
-	for nd := range data.NodeMap {
-		if nd.Color == "white" {
-			t.Errorf("%v", nd)
+		oneNode := &Node{}
+		for elem := range data.NodeMap {
+			oneNode = elem
+			break
+		}
+		rs := []*Node{}
+		data.Dfs(oneNode, &rs)
+		if len(rs) != data.GetNodeSize() {
+			t.Errorf("Not traversed all: %s", data)
+		}
+		traversedNodeID := make(map[string]bool)
+		for _, nd := range rs {
+			if nd.Color == "white" {
+				t.Errorf("%v", nd)
+			}
+			if _, ok := traversedNodeID[nd.ID]; !ok {
+				traversedNodeID[nd.ID] = true
+			}
+		}
+		if len(traversedNodeID) != data.GetNodeSize() {
+			t.Errorf("Found duplicate Node ID: %+v", traversedNodeID)
+		}
+		for nd := range data.NodeMap {
+			if nd.Color == "white" {
+				t.Errorf("%v", nd)
+			}
 		}
 	}
 }
