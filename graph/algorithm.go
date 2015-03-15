@@ -18,6 +18,10 @@ package graph
 //
 func (d *Data) Bfs(src *Node) []*Node {
 
+	if src == nil {
+		return nil
+	}
+
 	result := []*Node{}
 
 	src.Color = "black"
@@ -29,16 +33,16 @@ func (d *Data) Bfs(src *Node) []*Node {
 		queue = queue[1:len(queue):len(queue)]
 
 		for ov := range front.WeightTo {
-
-			if ov == nil {
-				continue
-			}
-
 			if ov.Color == "white" {
 				ov.Color = "black"
 				queue = append(queue, ov)
 			}
-
+		}
+		for iv := range front.WeightFrom {
+			if iv.Color == "white" {
+				iv.Color = "black"
+				queue = append(queue, iv)
+			}
 		}
 
 		front.Color = "black"
@@ -63,6 +67,10 @@ func (d *Data) Bfs(src *Node) []*Node {
 //
 func (d *Data) DfsStack(src *Node) []*Node {
 
+	if src == nil {
+		return nil
+	}
+
 	result := []*Node{}
 	stack := []*Node{src}
 
@@ -78,6 +86,9 @@ func (d *Data) DfsStack(src *Node) []*Node {
 
 			for ov := range back.WeightTo {
 				stack = append(stack, ov)
+			}
+			for iv := range back.WeightFrom {
+				stack = append(stack, iv)
 			}
 		}
 
@@ -96,6 +107,11 @@ func (d *Data) DfsStack(src *Node) []*Node {
 //	5              recursively call DFS(G,w)
 //
 func (d *Data) Dfs(src *Node, result *[]*Node) {
+
+	if src == nil {
+		return
+	}
+
 	if src.Color == "black" {
 		return
 	}
@@ -106,6 +122,11 @@ func (d *Data) Dfs(src *Node, result *[]*Node) {
 	for ov := range src.WeightTo {
 		if ov.Color == "white" {
 			d.Dfs(ov, result)
+		}
+	}
+	for iv := range src.WeightFrom {
+		if iv.Color == "white" {
+			d.Dfs(iv, result)
 		}
 	}
 }
@@ -149,6 +170,9 @@ func (d Data) TopologicalDag() ([]*Node, bool) {
 
 // topologicalDag recursively traverses the Graph with DFS.
 func (d *Data) topologicalDag(src *Node, result *[]*Node, isDag *bool) {
+	if src == nil {
+		return
+	}
 	if src.Color == "gray" {
 		*isDag = false
 		return

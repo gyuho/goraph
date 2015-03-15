@@ -34,7 +34,6 @@ func (d *Data) Init() {
 	// (X) d = NewData()
 	// this only updates the pointer
 	//
-	// Do this.
 	*d = *NewData()
 }
 
@@ -114,50 +113,53 @@ func (d *Data) Connect(src, dst *Node, weight float32) {
 		return
 	}
 
-	// do not allow a circle
+	// if we do not want to allow a cycle
 	// if src.ID == dst.ID {
 	// 	return
 	// }
 
 	// add to Data
 	if !d.AddNode(src) {
-		// log.Printf("`%s` was previously added to Data\n", src.ID)
 		src = d.GetNodeByID(src.ID)
+		// this only updates the pointer
+		//
+		// this updates the value
+		// *src = *(d.GetNodeByID(src.ID))
 	}
 	if !d.AddNode(dst) {
-		// log.Printf("`%s` was previously added to Data\n", dst.ID)
 		dst = d.GetNodeByID(dst.ID)
 	}
 
 	d.Lock()
 	defer d.Unlock()
 
+	// if v, ok := src.WeightTo[dst]; !ok {
+	// (X) src.WeightTo[dst] = v + weight
+
 	// update src Node
-	if v, ok := src.WeightTo[dst]; !ok {
-		src.WeightTo[dst] = weight
-	} else {
-		// log.Printf("Duplicate(Parallel) Edge. Overwriting the Weight value: %s --> %.3f --> %s (new weight: %.3f)\n", src.ID, v, dst.ID, v+weight)
-		src.WeightTo[dst] = v + weight
-	}
+	src.Lock()
+	src.WeightTo[dst] = weight
+	src.Unlock()
 
 	// update dst Node
-	if v, ok := dst.WeightFrom[src]; !ok {
-		dst.WeightFrom[src] = weight
-	} else {
-		// log.Printf("Duplicate(Parallel) Edge. Overwriting the Weight value: %s --> %.3f --> %s (new weight: %.3f)\n", src.ID, v, dst.ID, v+weight)
-		dst.WeightFrom[src] = v + weight
-	}
-
+	dst.Lock()
+	dst.WeightFrom[src] = weight
+	dst.Unlock()
 }
 
 // GetEdgeWeight returns the weight value of an edge from src to dst Node.
-func (d Data) GetEdgeWeight(src, dst *Node) float32 {
+func (d *Data) GetEdgeWeight(src, dst *Node) float32 {
 	if src == nil || dst == nil {
 		return 0.0
 	}
+
+	src.Lock()
+	defer src.Unlock()
+
 	if _, ok := src.WeightTo[dst]; !ok {
 		return 0.0
 	}
+
 	return src.WeightTo[dst]
 }
 
@@ -243,9 +245,15 @@ func (d Data) String() string {
 }
 
 // UpdateEdgeWeight overwrites the edge weight from src to dst Node.
-func (d Data) UpdateEdgeWeight(src, dst *Node, weight float32) {
+func (d *Data) UpdateEdgeWeight(src, dst *Node, weight float32) {
 	if src == nil || dst == nil {
 		return
 	}
+	src.Lock()
 	src.WeightTo[dst] = weight
+	src.Unlock()
+
+	dst.Lock()
+	dst.WeightFrom[src] = weight
+	dst.Unlock()
 }
