@@ -7,9 +7,9 @@ import (
 )
 
 // fromJSON imports JSON file.
-func fromJSON(reader io.Reader) (map[string]map[string]map[string]float64, error) {
-	// If we want parallel edges in graph, use and define weights with []float64
-	graphMap := make(map[string]map[string]map[string]float64)
+func fromJSON(reader io.Reader) (map[string]map[string]map[string]float32, error) {
+	// If we want parallel edges in graph, use and define weights with []float32
+	graphMap := make(map[string]map[string]map[string]float32)
 	dec := json.NewDecoder(reader)
 	for {
 		if err := dec.Decode(&graphMap); err == io.EOF {
