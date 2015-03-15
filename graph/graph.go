@@ -45,11 +45,11 @@ type Node struct {
 	Color string
 
 	sync.Mutex
-	WeightTo   map[*Node]float64
-	WeightFrom map[*Node]float64
+	WeightTo   map[*Node]float32
+	WeightFrom map[*Node]float32
 
 	// Stamp stores stamp records for graph algorithms.
-	// Stamp map[string]float64
+	// Stamp map[string]float32
 }
 
 // NewNode returns a new Node.
@@ -57,9 +57,9 @@ func NewNode(id string) *Node {
 	return &Node{
 		ID:         id,
 		Color:      "white",
-		WeightTo:   make(map[*Node]float64),
-		WeightFrom: make(map[*Node]float64),
-		// Stamp: make(map[string]float64),
+		WeightTo:   make(map[*Node]float32),
+		WeightFrom: make(map[*Node]float32),
+		// Stamp: make(map[string]float32),
 	}
 }
 
@@ -85,8 +85,8 @@ func (d *Data) AddNode(nd *Node) bool {
 }
 
 // GetNodeSize returns the size of Node of the graph Data.
-func (d Data) GetNodeSize() int64 {
-	return int64(len(d.NodeMap))
+func (d Data) GetNodeSize() int {
+	return len(d.NodeMap)
 }
 
 //GetNodeByID finds a Node by ID.
@@ -101,7 +101,7 @@ func (d Data) GetNodeByID(id string) *Node {
 
 // Connect adds an edge from src(source) to dst(destination) Node, to a graph Data.
 // This doese not connect from dst to src.
-func (d *Data) Connect(src, dst *Node, weight float64) {
+func (d *Data) Connect(src, dst *Node, weight float32) {
 
 	if src == nil || dst == nil {
 		return
@@ -144,7 +144,7 @@ func (d *Data) Connect(src, dst *Node, weight float64) {
 }
 
 // GetEdgeWeight returns the weight value of an edge from src to dst Node.
-func (d Data) GetEdgeWeight(src, dst *Node) float64 {
+func (d Data) GetEdgeWeight(src, dst *Node) float32 {
 	if src == nil || dst == nil {
 		return 0.0
 	}
@@ -236,7 +236,7 @@ func (d Data) String() string {
 }
 
 // UpdateEdgeWeight overwrites the edge weight from src to dst Node.
-func (d Data) UpdateEdgeWeight(src, dst *Node, weight float64) {
+func (d Data) UpdateEdgeWeight(src, dst *Node, weight float32) {
 	if src == nil || dst == nil {
 		return
 	}

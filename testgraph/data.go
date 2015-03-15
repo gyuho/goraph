@@ -3,7 +3,7 @@ package testgraph
 // Graph01 represents test_graph_01.
 var Graph01 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"S", "A"}, 100.0},
 	{[]string{"S", "B"}, 14.0},
@@ -47,7 +47,7 @@ var Graph01 = []struct {
 // Graph02 represents test_graph_02.
 var Graph02 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"S", "A"}, 100.0},
 	{[]string{"S", "B"}, 14.0},
@@ -84,7 +84,7 @@ var Graph02 = []struct {
 // Graph03 represents test_graph_03.
 var Graph03 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"S", "A"}, 100.0},
 	{[]string{"S", "B"}, 20.0},
@@ -121,7 +121,7 @@ var Graph03 = []struct {
 // Graph04 represents test_graph_04.
 var Graph04 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"S", "B"}, 14.0},
 
@@ -157,7 +157,7 @@ var Graph04 = []struct {
 // Graph05 represents test_graph_05.
 var Graph05 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"A", "B"}, 7.0},
 	{[]string{"A", "C"}, 9.0},
@@ -189,7 +189,7 @@ var Graph05 = []struct {
 // Graph06 represents test_graph_06.
 var Graph06 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"A", "F"}, 1.0},
 
@@ -205,7 +205,7 @@ var Graph06 = []struct {
 // Graph07 represents test_graph_07.
 var Graph07 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"A", "E"}, 1.0},
 	{[]string{"A", "H"}, 1.0},
@@ -225,7 +225,7 @@ var Graph07 = []struct {
 // Graph08 represents test_graph_08.
 var Graph08 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"A", "E"}, 1.0},
 	{[]string{"A", "F"}, 1.0},
@@ -243,7 +243,7 @@ var Graph08 = []struct {
 // Graph09 represents test_graph_09.
 var Graph09 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"A", "B"}, 1.0},
 	{[]string{"A", "E"}, 1.0},
@@ -272,7 +272,7 @@ var Graph09 = []struct {
 // Graph10 represents test_graph_10.
 var Graph10 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"A", "C"}, 9.0},
 	{[]string{"A", "F"}, 20.0},
@@ -296,7 +296,7 @@ var Graph10 = []struct {
 // Graph11 represents test_graph_11.
 var Graph11 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"S", "A"}, 11.0},
 	{[]string{"S", "B"}, 17.0},
@@ -335,7 +335,7 @@ var Graph11 = []struct {
 // Graph12 represents test_graph_12.
 var Graph12 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"S", "A"}, 7.0},
 	{[]string{"S", "B"}, 6.0},
@@ -356,7 +356,7 @@ var Graph12 = []struct {
 // Graph13 represents test_graph_13.
 var Graph13 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"S", "A"}, 7.0},
 	{[]string{"S", "B"}, 6.0},
@@ -377,7 +377,7 @@ var Graph13 = []struct {
 // Graph14 represents test_graph_14.
 var Graph14 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"A", "B"}, 4.0},
 	{[]string{"A", "H"}, 8.0},
@@ -420,7 +420,7 @@ var Graph14 = []struct {
 // Graph15 represents test_graph_15.
 var Graph15 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"A", "B"}, 1.0},
 
@@ -448,7 +448,7 @@ var Graph15 = []struct {
 // Graph16 represents test_graph_16.
 var Graph16 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"A", "B"}, 1.0},
 	{[]string{"A", "F"}, 1.0},
@@ -481,7 +481,7 @@ var Graph16 = []struct {
 // Graph17 represents test_graph_17.
 var Graph17 = []struct {
 	Vertices []string
-	Weight   float64
+	Weight   float32
 }{
 	{[]string{"S", "A"}, 10.0},
 	{[]string{"S", "B"}, 5.0},
