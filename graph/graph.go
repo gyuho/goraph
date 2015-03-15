@@ -6,10 +6,9 @@ import (
 	"sync"
 )
 
-// Use Pointer when we need to update the struct with receiver
-// https://golang.org/doc/faq#methods_on_values_or_pointers
-
 // Data contains graph data, represented in adjacency list and slice.
+// Make sure to use Pointer when we need to update the struct with receiver.
+// (https://golang.org/doc/faq#methods_on_values_or_pointers)
 type Data struct {
 	sync.Mutex
 	NodeMap map[*Node]bool
@@ -155,14 +154,6 @@ func (d Data) GetEdgeWeight(src, dst *Node) float64 {
 	return src.WeightTo[dst]
 }
 
-// UpdateEdgeWeight overwrites the edge weight from src to dst Node.
-func (d Data) UpdateEdgeWeight(src, dst *Node, weight float64) {
-	if src == nil || dst == nil {
-		return
-	}
-	src.WeightTo[dst] = weight
-}
-
 // DeleteNode deletes a Node from the graph Data.
 // This deletes all the related edges too.
 func (d *Data) DeleteNode(nd *Node) {
@@ -242,4 +233,12 @@ func (d Data) String() string {
 		}
 	}
 	return buf.String()
+}
+
+// UpdateEdgeWeight overwrites the edge weight from src to dst Node.
+func (d Data) UpdateEdgeWeight(src, dst *Node, weight float64) {
+	if src == nil || dst == nil {
+		return
+	}
+	src.WeightTo[dst] = weight
 }

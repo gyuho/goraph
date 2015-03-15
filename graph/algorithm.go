@@ -1,23 +1,21 @@
 package graph
 
-// Breadth First Search: Queue
-// Depth First Search: Stack / Recursion
-
 // Bfs does Breadth First Search and return the result in visited order.
-// Bfs traverses graphs in an arbitrary order.
+// Bfs traverses graphs in an arbitrary order. The time complexity is O(|V| + |E|).
+// Bfs uses queue. Dfs uses recursion or stack.
+// (http://en.wikipedia.org/wiki/Breadth-first_search)
 //
-// 1  procedure Bfs(G,v) is
-// 2      let Q be a queue
-// 3      Q.push(v)
-// 4      label v as discovered
-// 5      while Q is not empty
-// 6         v ← Q.pop()
-// 7         for all edges from v to w in G.adjacentEdges(v) do
-// 8             if w is not labeled as discovered
-// 9                 Q.push(w)
-// 10                label w as discovered
+//	1  procedure Bfs(G,v) is
+//	2      let Q be a queue
+//	3      Q.push(v)
+//	4      label v as discovered
+//	5      while Q is not empty
+//	6         v ← Q.pop()
+//	7         for all edges from v to w in G.adjacentEdges(v) do
+//	8             if w is not labeled as discovered
+//	9                 Q.push(w)
+//	10                label w as discovered
 //
-// O(|V| + |E|)
 func (d *Data) Bfs(src *Node) []*Node {
 
 	result := []*Node{}
@@ -51,16 +49,17 @@ func (d *Data) Bfs(src *Node) []*Node {
 }
 
 // DfsStack searches a graph with depth-first.
+// (http://en.wikipedia.org/wiki/Depth-first_search)
 //
-// 1  procedure DFS-iterative(G,v):
-// 2      let S be a stack
-// 3      S.push(v)
-// 4      while S is not empty
-// 5            v = S.pop()
-// 6            if v is not labeled as discovered:
-// 7                label v as discovered
-// 8                for all edges from v to w in G.adjacentEdges(v) do
-// 9                    S.push(w)
+//	1  procedure DFS-iterative(G,v):
+//	2      let S be a stack
+//	3      S.push(v)
+//	4      while S is not empty
+//	5            v = S.pop()
+//	6            if v is not labeled as discovered:
+//	7                label v as discovered
+//	8                for all edges from v to w in G.adjacentEdges(v) do
+//	9                    S.push(w)
 //
 func (d *Data) DfsStack(src *Node) []*Node {
 
@@ -88,12 +87,13 @@ func (d *Data) DfsStack(src *Node) []*Node {
 }
 
 // Dfs recursively traverses a graph.
+// (http://en.wikipedia.org/wiki/Depth-first_search)
 //
-// 1  procedure DFS(G,v):
-// 2      label v as discovered
-// 3      for all edges from v to w in G.adjacentEdges(v) do
-// 4          if vertex w is not labeled as discovered then
-// 5              recursively call DFS(G,w)
+//	1  procedure DFS(G,v):
+//	2      label v as discovered
+//	3      for all edges from v to w in G.adjacentEdges(v) do
+//	4          if vertex w is not labeled as discovered then
+//	5              recursively call DFS(G,w)
 //
 func (d *Data) Dfs(src *Node, result *[]*Node) {
 	if src.Color == "black" {
@@ -113,21 +113,22 @@ func (d *Data) Dfs(src *Node, result *[]*Node) {
 // TopologicalDag does topological sort(ordering) with DFS.
 // It returns true if the Graph is a DAG. (no cycle, have a topological sort)
 // It returns false if the Graph is not a DAG. (cycle, have no topological sort)
+// (http://en.wikipedia.org/wiki/Topological_sorting)
 //
-// L ← Empty list that will contain the sorted nodes
-// while there are unmarked nodes do
-//     select an unmarked node n
-//     visit(n)
+//	L ← Empty list that will contain the sorted nodes
+//	while there are unmarked nodes do
+//	    select an unmarked node n
+//	    visit(n)
 //
-// function visit(node n)
-//     if n has a temporary mark then stop (not a DAG)
-//     if n is not marked (i.e. has not been visited yet) then
-//         mark n temporarily
-//         for each node m with an edge from n to m do
-//             visit(m)
-//         mark n permanently
-//         unmark n temporarily
-//         add n to head of L
+//	function visit(node n)
+//	    if n has a temporary mark then stop (not a DAG)
+//	    if n is not marked (i.e. has not been visited yet) then
+//	        mark n temporarily
+//	        for each node m with an edge from n to m do
+//	            visit(m)
+//	        mark n permanently
+//	        unmark n temporarily
+//	        add n to head of L
 //
 func (d Data) TopologicalDag() ([]*Node, bool) {
 	result := []*Node{}
@@ -146,6 +147,7 @@ func (d Data) TopologicalDag() ([]*Node, bool) {
 	return result, true
 }
 
+// topologicalDag recursively traverses the Graph with DFS.
 func (d *Data) topologicalDag(src *Node, result *[]*Node, isDag *bool) {
 	if src.Color == "gray" {
 		*isDag = false

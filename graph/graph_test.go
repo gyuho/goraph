@@ -82,20 +82,6 @@ func TestInit(t *testing.T) {
 	}
 }
 
-func TestString(t *testing.T) {
-	data := NewData()
-	data.Connect(NewNode("A"), NewNode("B"), 1.0)
-	data.Connect(NewNode("B"), NewNode("C"), 10.0)
-	data.Connect(NewNode("C"), NewNode("A"), 5.0)
-	data.Connect(NewNode("C"), NewNode("A"), 15.0)
-	str1 := fmt.Sprintf("%s", data)
-	str2 := data.String()
-	if !strings.Contains(str1, "Node: A | Outgoing Edge: [A] -- 1.000 --> [B]") ||
-		!strings.Contains(str2, "Node: A | Outgoing Edge: [A] -- 1.000 --> [B]") {
-		t.Error(str1, str2)
-	}
-}
-
 func TestGetNodeByID(t *testing.T) {
 	data := NewData()
 	data.Connect(NewNode("A"), NewNode("B"), 1.0)
@@ -157,6 +143,9 @@ func TestDeleteNode(t *testing.T) {
 	if len(data2.GetNodeByID("T").WeightTo) != 3 {
 		t.Errorf("Expected 3 edges outgoing from T but %s", data2)
 	}
+	if len(data2.GetNodeByID("T").WeightTo) != 3 {
+		t.Errorf("Expected 3 edges outgoing from T but %s", data2)
+	}
 }
 
 func TestDeleteEdge(t *testing.T) {
@@ -199,6 +188,19 @@ func TestDeleteEdge(t *testing.T) {
 	if len(data2.GetNodeByID("S").WeightTo) != 2 {
 		t.Errorf("Expected 2 edges outgoing from S but %s", data2)
 	}
+
+	data2.DeleteEdge(data2.GetNodeByID("C"), data2.GetNodeByID("E"))
+	data2.DeleteEdge(data2.GetNodeByID("E"), data2.GetNodeByID("D"))
+	if len(data2.GetNodeByID("E").WeightTo) != 3 {
+		t.Errorf("Expected 3 edges outgoing from E but %s", data2)
+	}
+	if len(data2.GetNodeByID("E").WeightFrom) != 3 {
+		t.Errorf("Expected 3 edges incoming to E but %s", data2)
+	}
+	data2.DeleteEdge(data2.GetNodeByID("F"), data2.GetNodeByID("E"))
+	if len(data2.GetNodeByID("E").WeightFrom) != 2 {
+		t.Errorf("Expected 2 edges incoming to E but %s", data2)
+	}
 }
 
 func TestGetUpdateEdgeWeight(t *testing.T) {
@@ -214,5 +216,19 @@ func TestGetUpdateEdgeWeight(t *testing.T) {
 	data.UpdateEdgeWeight(data.GetNodeByID("C"), data.GetNodeByID("A"), 1.0)
 	if data.GetEdgeWeight(data.GetNodeByID("C"), data.GetNodeByID("A")) != 1.000 {
 		t.Errorf("Expected 1 but\n%+v", data)
+	}
+}
+
+func TestString(t *testing.T) {
+	data := NewData()
+	data.Connect(NewNode("A"), NewNode("B"), 1.0)
+	data.Connect(NewNode("B"), NewNode("C"), 10.0)
+	data.Connect(NewNode("C"), NewNode("A"), 5.0)
+	data.Connect(NewNode("C"), NewNode("A"), 15.0)
+	str1 := fmt.Sprintf("%s", data)
+	str2 := data.String()
+	if !strings.Contains(str1, "Node: A | Outgoing Edge: [A] -- 1.000 --> [B]") ||
+		!strings.Contains(str2, "Node: A | Outgoing Edge: [A] -- 1.000 --> [B]") {
+		t.Error(str1, str2)
 	}
 }
