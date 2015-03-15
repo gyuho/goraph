@@ -61,7 +61,6 @@ func TestConnect(t *testing.T) {
 	data.Connect(NewNode("B"), NewNode("C"), 10.0)
 	data.Connect(NewNode("C"), NewNode("A"), 5.0)
 	data.Connect(NewNode("C"), NewNode("A"), 15.0)
-	t.Logf("%+v\n", data)
 	if data.GetNodeSize() != 3 {
 		t.Errorf("Expected 3 but %+v\n", data)
 	}
@@ -210,8 +209,8 @@ func TestGetUpdateEdgeWeight(t *testing.T) {
 	data.Connect(NewNode("C"), NewNode("A"), 5.0)
 	data.Connect(NewNode("C"), NewNode("A"), 15.0)
 	data.Connect(NewNode("C"), NewNode("A"), 1.0)
-	if data.GetEdgeWeight(data.GetNodeByID("C"), data.GetNodeByID("A")) != 21.000 {
-		t.Errorf("Expected 21 but\n%+v", data)
+	if data.GetEdgeWeight(data.GetNodeByID("C"), data.GetNodeByID("A")) != 1.000 {
+		t.Errorf("Expected 1 but\n%+v", data)
 	}
 	data.UpdateEdgeWeight(data.GetNodeByID("C"), data.GetNodeByID("A"), 1.0)
 	if data.GetEdgeWeight(data.GetNodeByID("C"), data.GetNodeByID("A")) != 1.000 {
