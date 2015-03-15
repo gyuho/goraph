@@ -5,19 +5,19 @@ package graph
 // It returns false if the Graph is not a DAG. (cycle, have no topological sort)
 // (http://en.wikipedia.org/wiki/Topological_sorting)
 //
-//	1.  L ← Empty list that will contain the sorted nodes
-//	2.  while there are unmarked nodes do
-//	3.      select an unmarked node n
-//	4.      visit(n)
-//	5.
-//	6.  function visit(node n)
-//	7.      if n has a temporary mark then stop (not a DAG)
-//	8.      if n is not marked (i.e. has not been visited yet) then
-//	9.          mark n temporarily
-//	10.          for each node m with an edge from n to m do
-//	11.              visit(m)
-//	12.          mark n permanently
-//	13.          add n to head of L
+//	1  L ← Empty list that will contain the sorted nodes
+//	2  while there are unmarked nodes do
+//	3      select an unmarked node n
+//	4      visit(n)
+//	5
+//	6  function visit(node n)
+//	7      if n has a temporary mark then stop (not a DAG)
+//	8      if n is not marked (i.e. has not been visited yet) then
+//	9          mark n temporarily
+//	10          for each node m with an edge from n to m do
+//	11              visit(m)
+//	12          mark n permanently
+//	13          add n to head of L
 //
 func (d *Data) TopologicalDag() ([]*Node, bool) {
 	result := []*Node{}
