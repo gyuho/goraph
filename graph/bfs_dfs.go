@@ -1,7 +1,7 @@
 package graph
 
 // Bfs does Breadth First Search and return the result in visited order.
-// Bfs traverses graphs in an arbitrary order. The time complexity is O(|V| + |E|).
+// Bfs traverses graphs in an arbitrary order. Time complexity is O(|V| + |E|).
 // Bfs uses queue. Dfs uses recursion or stack.
 // (http://en.wikipedia.org/wiki/Breadth-first_search)
 //
