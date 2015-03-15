@@ -13,12 +13,11 @@ For fast query and retrieval, please check out  <a href="http://google-opensourc
 ## YouTube Tutorial by <kbd>gyuho</kbd>
 
 
-<a href="http://www.youtube.com/watch?v=927YDZH_MLo" target="_blank"><img src="http://img.youtube.com/vi/927YDZH_MLo/0.jpg"></a>
+<a href="http://www.youtube.com/watch?v=ImMnYq2zP4Y" target="_blank"><img src="http://img.youtube.com/vi/ImMnYq2zP4Y/0.jpg"></a>
 
-- <a href="https://www.youtube.com/watch?v=NdfIfxTsVDo&list=PLT6aABhFfinvsSn1H195JLuHaXNS6UVhf" target="_blank"><kbd>Tree</kbd>, <kbd>Graph</kbd> Theory Algorithms (Playlist)</a>
+- <a href="https://www.youtube.com/watch?v=NdfIfxTsVDo&list=PLT6aABhFfinvsSn1H195JLuHaXNS6UVhf" target="_blank">Please visit my YouTube Channel / <kbd>Tree</kbd>, <kbd>Graph</kbd> Theory Algorithms (Playlist)</a>
 - <a href="https://www.youtube.com/watch?v=tmtxQpoMzRo&list=PLT6aABhFfinvsSn1H195JLuHaXNS6UVhf&index=3" target="_blank"><kbd>Graph</kbd> Theory</a>
-- <a href="https://www.youtube.com/watch?v=ImMnYq2zP4Y&list=PLT6aABhFfinvsSn1H195JLuHaXNS6UVhf&index=4" target="_blank"><kbd>Graph</kbd> : <kbd>BFS</kbd>, <kbd>DFS</kbd></a>
-- <b>Please visit my YouTube channel for more (http://www.youtube.com/watch?v=927YDZH_MLo)</b>
+- <a href="https://www.youtube.com/watch?v=ImMnYq2zP4Y&list=PLT6aABhFfinvsSn1H195JLuHaXNS6UVhf&index=4" target="_blank"><kbd>Graph</kbd> : BFS, DFS</a>
 
 
 
@@ -26,4 +25,4 @@ For fast query and retrieval, please check out  <a href="http://google-opensourc
 
 
 
-<i>README.md Updated at 2015-03-14 21:19:10</i>
+<i>README.md Updated at 2015-03-14 21:21:17</i>
