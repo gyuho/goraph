@@ -25,7 +25,6 @@ func TestFromJSON(t *testing.T) {
 	if rmap["test_graph_02"]["A"]["S"] != 15 || rmap["test_graph_02"]["S"]["A"] != 100 {
 		t.Errorf("%+v", rmap)
 	}
-
 	for _, graph := range testdata.GraphSlice {
 		file, err := os.Open("../testdata/data.json")
 		if err != nil {
