@@ -84,6 +84,7 @@ func (d *Data) Dijkstra(src, dst *Node) ([]*Node, map[*Node]float32) {
 	}
 
 	mapToPrevID := make(map[string]string)
+	heap.Init(minHeap)
 
 	for minHeap.Len() != 0 {
 		elem := heap.Pop(minHeap)
