@@ -1,5 +1,7 @@
 package graph
 
+import "container/heap"
+
 // Prim finds the minimum spanning tree with min-heap (priority queue).
 // Start a free from an arbitrary root Node r and grow the tree until
 // it spans all the Nodes in the graph. Maintain the heap with the minimum
@@ -22,5 +24,77 @@ package graph
 //
 func (d *Data) Prim() map[Edge]bool {
 
-	return nil
+	var src *Node
+	for nd := range d.NodeMap {
+		src = nd
+		break
+	}
+
+	mapToDistance := make(map[*Node]float32)
+	mapToDistance[src] = 0.0
+
+	minHeap := &nodeDistanceHeap{}
+
+	// initialize mapToDistance
+	for nd := range d.NodeMap {
+		if nd != src {
+			mapToDistance[nd] = 2147483646.0
+		}
+		ndd := nodeDistance{}
+		ndd.node = nd
+		ndd.distance = mapToDistance[nd]
+		heap.Push(minHeap, ndd)
+	}
+
+	mapToPrevID := make(map[string]string)
+	heap.Init(minHeap)
+
+	for minHeap.Len() != 0 {
+
+		elem := heap.Pop(minHeap)
+
+		for ov, weight := range elem.(nodeDistance).node.WeightTo {
+			isExist := false
+			for _, one := range *minHeap {
+				if ov == one.node {
+					isExist = true
+					break
+				}
+			}
+			if isExist && mapToDistance[ov] > weight {
+				mapToDistance[ov] = weight
+				minHeap.updateDistance(ov, weight)
+				heap.Init(minHeap)
+
+				mapToPrevID[ov.ID] = elem.(nodeDistance).node.ID
+			}
+		}
+		for iv, weight := range elem.(nodeDistance).node.WeightTo {
+			isExist := false
+			for _, one := range *minHeap {
+				if iv == one.node {
+					isExist = true
+					break
+				}
+			}
+			if isExist && mapToDistance[iv] > weight {
+				mapToDistance[iv] = weight
+				minHeap.updateDistance(iv, weight)
+				heap.Init(minHeap)
+
+				mapToPrevID[iv.ID] = elem.(nodeDistance).node.ID
+			}
+		}
+	}
+
+	rmap := make(map[Edge]bool)
+	for k, v := range mapToPrevID {
+		one := Edge{}
+		one.Src = d.GetNodeByID(v)
+		one.Dst = d.GetNodeByID(k)
+		one.Weight = d.GetEdgeWeight(one.Src, one.Dst)
+		rmap[one] = true
+	}
+
+	return rmap
 }
