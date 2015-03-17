@@ -91,19 +91,19 @@ func (d *Data) Dijkstra(src, dst *Node) ([]*Node, map[*Node]float32) {
 		for ov, weight := range elem.(nodeDistance).node.WeightTo {
 			if mapToDistance[ov] > mapToDistance[elem.(nodeDistance).node]+weight {
 				mapToDistance[ov] = mapToDistance[elem.(nodeDistance).node] + weight
-				mapToPrevID[ov.ID] = elem.(nodeDistance).node.ID
-
 				minHeap.updateDistance(ov, mapToDistance[elem.(nodeDistance).node]+weight)
 				heap.Init(minHeap)
+
+				mapToPrevID[ov.ID] = elem.(nodeDistance).node.ID
 			}
 		}
 		for iv, weight := range elem.(nodeDistance).node.WeightTo {
 			if mapToDistance[iv] > mapToDistance[elem.(nodeDistance).node]+weight {
 				mapToDistance[iv] = mapToDistance[elem.(nodeDistance).node] + weight
-				mapToPrevID[iv.ID] = elem.(nodeDistance).node.ID
-
 				minHeap.updateDistance(iv, mapToDistance[elem.(nodeDistance).node]+weight)
 				heap.Init(minHeap)
+
+				mapToPrevID[iv.ID] = elem.(nodeDistance).node.ID
 			}
 		}
 	}
