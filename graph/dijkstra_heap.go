@@ -28,9 +28,11 @@ func (h *nodeDistanceHeap) Pop() interface{} {
 }
 
 func (h *nodeDistanceHeap) updateDistance(node *Node, val float32) {
-	for _, elem := range *h {
-		if elem.node == node {
-			elem.distance = val
+	// for _, elem := range *h {
+	for i := 0; i < len(*h); i++ {
+		// elem := (*h)[i] (X)
+		if (*h)[i].node == node {
+			(*h)[i].distance = val
 			break
 		}
 	}
@@ -63,19 +65,17 @@ func (h *nodeDistanceHeap) updateDistance(node *Node, val float32) {
 //	21     end while
 //	22     return prev[]
 //
-func (d *Data) Dijkstra(src *Node) (map[*Node]float32, map[string]string) {
+func (d *Data) Dijkstra(src, dst *Node) ([]*Node, map[*Node]float32) {
 
 	mapToDistance := make(map[*Node]float32)
 	mapToDistance[src] = 0.0
 
-	mapToPrevID := make(map[string]string)
 	minHeap := &nodeDistanceHeap{}
 
 	// initialize mapToDistance
 	for nd := range d.NodeMap {
 		if nd != src {
 			mapToDistance[nd] = 2147483646.0
-			mapToPrevID[nd.ID] = ""
 		}
 		ndd := nodeDistance{}
 		ndd.node = nd
@@ -83,25 +83,44 @@ func (d *Data) Dijkstra(src *Node) (map[*Node]float32, map[string]string) {
 		heap.Push(minHeap, ndd)
 	}
 
-	heap.Init(minHeap)
+	mapToPrevID := make(map[string]string)
 
 	for minHeap.Len() != 0 {
-		minPqElem := heap.Pop(minHeap)
-		for ov, weight := range minPqElem.(nodeDistance).node.WeightTo {
-			if mapToDistance[ov] > mapToDistance[minPqElem.(nodeDistance).node]+weight {
-				mapToDistance[ov] = mapToDistance[minPqElem.(nodeDistance).node] + weight
-				mapToPrevID[ov.ID] = minPqElem.(nodeDistance).node.ID
-				minHeap.updateDistance(ov, mapToDistance[minPqElem.(nodeDistance).node]+weight)
+		elem := heap.Pop(minHeap)
+		for ov, weight := range elem.(nodeDistance).node.WeightTo {
+			if mapToDistance[ov] > mapToDistance[elem.(nodeDistance).node]+weight {
+				mapToDistance[ov] = mapToDistance[elem.(nodeDistance).node] + weight
+				mapToPrevID[ov.ID] = elem.(nodeDistance).node.ID
+
+				minHeap.updateDistance(ov, mapToDistance[elem.(nodeDistance).node]+weight)
+				heap.Init(minHeap)
 			}
 		}
-		for iv, weight := range minPqElem.(nodeDistance).node.WeightTo {
-			if mapToDistance[iv] > mapToDistance[minPqElem.(nodeDistance).node]+weight {
-				mapToDistance[iv] = mapToDistance[minPqElem.(nodeDistance).node] + weight
-				mapToPrevID[iv.ID] = minPqElem.(nodeDistance).node.ID
-				minHeap.updateDistance(iv, mapToDistance[minPqElem.(nodeDistance).node]+weight)
+		for iv, weight := range elem.(nodeDistance).node.WeightTo {
+			if mapToDistance[iv] > mapToDistance[elem.(nodeDistance).node]+weight {
+				mapToDistance[iv] = mapToDistance[elem.(nodeDistance).node] + weight
+				mapToPrevID[iv.ID] = elem.(nodeDistance).node.ID
+
+				minHeap.updateDistance(iv, mapToDistance[elem.(nodeDistance).node]+weight)
+				heap.Init(minHeap)
 			}
 		}
 	}
 
-	return mapToDistance, mapToPrevID
+	pathSlice := []*Node{dst}
+	id := dst.ID
+	for mapToPrevID[id] != src.ID {
+		prevID := mapToPrevID[id]
+		id = prevID
+		copied := make([]*Node, len(pathSlice)+1) // push front
+		copied[0] = d.GetNodeByID(prevID)
+		copy(copied[1:], pathSlice)
+		pathSlice = copied
+	}
+	copied := make([]*Node, len(pathSlice)+1) // push front
+	copied[0] = d.GetNodeByID(src.ID)
+	copy(copied[1:], pathSlice)
+	pathSlice = copied
+
+	return pathSlice, mapToDistance
 }

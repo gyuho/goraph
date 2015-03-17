@@ -28,15 +28,14 @@ package graph
 func (d *Data) BellmanFord(src, dst *Node) ([]*Node, map[*Node]float32, bool) {
 
 	mapToDistance := make(map[*Node]float32)
-	mapToPrevID := make(map[string]string)
 
 	// initialize mapToDistance
 	for nd := range d.NodeMap {
 		mapToDistance[nd] = 2147483646.0
-		mapToPrevID[nd.ID] = ""
 	}
 
 	mapToDistance[src] = 0.0
+	mapToPrevID := make(map[string]string)
 
 	for i := 1; i <= d.GetNodeSize()-1; i++ {
 		// to iterate all edges
@@ -80,21 +79,16 @@ Loop:
 	}
 
 	pathSlice := []*Node{dst}
-
 	id := dst.ID
 	for mapToPrevID[id] != src.ID {
 		prevID := mapToPrevID[id]
 		id = prevID
-
-		// push front
-		copied := make([]*Node, len(pathSlice)+1)
+		copied := make([]*Node, len(pathSlice)+1) // push front
 		copied[0] = d.GetNodeByID(prevID)
 		copy(copied[1:], pathSlice)
 		pathSlice = copied
 	}
-
-	// push front
-	copied := make([]*Node, len(pathSlice)+1)
+	copied := make([]*Node, len(pathSlice)+1) // push front
 	copied[0] = d.GetNodeByID(src.ID)
 	copy(copied[1:], pathSlice)
 	pathSlice = copied
