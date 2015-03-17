@@ -2,7 +2,7 @@ package graph
 
 // BellmanFord returns the shortest path using Bellman-Ford algorithm
 // This algorithm works with negative weight edges. Time complexity is O (V E).
-// (http://courses.csail.mit.edu/6.006/spring11/lectures/lec15.pdf).
+// (http://courses.csail.mit.edu/6.006/spring11/lectures/lec15.pdf)
 // It returns false when there is a negative-weight cycle.
 // A negatively-weighted cycle adds up to infinite negative-weight.
 //
