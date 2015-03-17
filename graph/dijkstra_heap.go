@@ -40,7 +40,7 @@ func (h *nodeDistanceHeap) updateDistance(node *Node, val float32) {
 
 // Dijkstra returns the shortest path using Dijkstra algorithm with a min-priority queue.
 // This algorithm does not work with negative weight edges.
-// (http://en.wikipedia.org/wiki/Dijkstra%27s_algorithm).
+// (http://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
 //
 //	1  function Dijkstra(Graph, source):
 //	2      dist[source] ← 0                      // Initialization
