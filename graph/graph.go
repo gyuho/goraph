@@ -240,6 +240,15 @@ func (d Data) String() string {
 	return buf.String()
 }
 
+// String describes Node.
+func (nd Node) String() string {
+	return fmt.Sprintf("[%s / %d Outgoing / %d Incoming Edges]",
+		nd.ID,
+		len(nd.WeightTo),
+		len(nd.WeightFrom),
+	)
+}
+
 // UpdateEdgeWeight overwrites the edge weight from src to dst Node.
 func (d *Data) UpdateEdgeWeight(src, dst *Node, weight float32) {
 	if src == nil || dst == nil {

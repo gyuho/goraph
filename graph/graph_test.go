@@ -230,4 +230,7 @@ func TestString(t *testing.T) {
 		!strings.Contains(str2, "Node: A | Outgoing Edge: [A] -- 1.000 --> [B]") {
 		t.Error(str1, str2)
 	}
+	if "[A / 1 Outgoing / 1 Incoming Edges]" != fmt.Sprintf("%v", data.GetNodeByID("A")) {
+		t.Errorf("Unexpected %v", data.GetNodeByID("A"))
+	}
 }
