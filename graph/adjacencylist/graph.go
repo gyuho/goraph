@@ -8,8 +8,8 @@ type Data struct {
 	Edges *list.List
 }
 
-// NewData returns a pointer to a new graph.
-func NewData() *Data {
+// New returns a pointer to a new graph.
+func New() *Data {
 	return &Data{
 		list.New(),
 		list.New(),

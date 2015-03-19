@@ -8,8 +8,8 @@ import (
 	"testing"
 )
 
-func TestNewData(t *testing.T) {
-	data := NewData()
+func TestNew(t *testing.T) {
+	data := New()
 	if reflect.TypeOf(data) != reflect.TypeOf(&Data{}) {
 		t.Errorf("Should be same but \n%+v\n%+v", data, &Data{})
 	}
@@ -28,7 +28,7 @@ func TestAddNode(t *testing.T) {
 		NewNode("D"), NewNode("E"), NewNode("F"),
 		NewNode("G"),
 	}
-	data := NewData()
+	data := New()
 	for _, nd := range nodeToAdd1 {
 		exist := data.AddNode(nd)
 		if !exist {
@@ -56,7 +56,7 @@ func TestAddNode(t *testing.T) {
 }
 
 func TestConnect(t *testing.T) {
-	data := NewData()
+	data := New()
 	data.Connect(NewNode("A"), NewNode("B"), 1.0)
 	data.Connect(NewNode("B"), NewNode("C"), 10.0)
 	data.Connect(NewNode("C"), NewNode("A"), 5.0)
@@ -67,7 +67,7 @@ func TestConnect(t *testing.T) {
 }
 
 func TestInit(t *testing.T) {
-	data := NewData()
+	data := New()
 	data.Connect(NewNode("A"), NewNode("B"), 1.0)
 	data.Connect(NewNode("B"), NewNode("C"), 10.0)
 	data.Connect(NewNode("C"), NewNode("A"), 5.0)
@@ -82,7 +82,7 @@ func TestInit(t *testing.T) {
 }
 
 func TestGetNodeByID(t *testing.T) {
-	data := NewData()
+	data := New()
 	data.Connect(NewNode("A"), NewNode("B"), 1.0)
 	data.Connect(NewNode("B"), NewNode("C"), 10.0)
 	data.Connect(NewNode("C"), NewNode("A"), 5.0)
@@ -94,7 +94,7 @@ func TestGetNodeByID(t *testing.T) {
 }
 
 func TestDeleteNode(t *testing.T) {
-	data := NewData()
+	data := New()
 	data.Connect(NewNode("A"), NewNode("B"), 1.0)
 	data.Connect(NewNode("B"), NewNode("C"), 10.0)
 	data.Connect(NewNode("C"), NewNode("A"), 5.0)
@@ -148,7 +148,7 @@ func TestDeleteNode(t *testing.T) {
 }
 
 func TestDeleteEdge(t *testing.T) {
-	data := NewData()
+	data := New()
 	data.Connect(NewNode("A"), NewNode("B"), 1.0)
 	data.Connect(NewNode("B"), NewNode("C"), 10.0)
 	data.Connect(NewNode("C"), NewNode("A"), 5.0)
@@ -203,7 +203,7 @@ func TestDeleteEdge(t *testing.T) {
 }
 
 func TestGetUpdateEdgeWeight(t *testing.T) {
-	data := NewData()
+	data := New()
 	data.Connect(NewNode("A"), NewNode("B"), 1.0)
 	data.Connect(NewNode("B"), NewNode("C"), 10.0)
 	data.Connect(NewNode("C"), NewNode("A"), 5.0)
@@ -219,7 +219,7 @@ func TestGetUpdateEdgeWeight(t *testing.T) {
 }
 
 func TestString(t *testing.T) {
-	data := NewData()
+	data := New()
 	data.Connect(NewNode("A"), NewNode("B"), 1.0)
 	data.Connect(NewNode("B"), NewNode("C"), 10.0)
 	data.Connect(NewNode("C"), NewNode("A"), 5.0)

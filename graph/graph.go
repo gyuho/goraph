@@ -19,8 +19,8 @@ type Data struct {
 	nodeID map[string]bool
 }
 
-// NewData returns a new Data.
-func NewData() *Data {
+// New returns a new Data.
+func New() *Data {
 	return &Data{
 		NodeMap: make(map[*Node]bool),
 		nodeID:  make(map[string]bool),
@@ -31,10 +31,10 @@ func NewData() *Data {
 
 // Init initializes the graph Data.
 func (d *Data) Init() {
-	// (X) d = NewData()
+	// (X) d = New()
 	// this only updates the pointer
 	//
-	*d = *NewData()
+	*d = *New()
 }
 
 // Node is a Node(node) in Graph.

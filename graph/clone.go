@@ -3,7 +3,7 @@ package graph
 // Clone clones(deep copy) the graph Data. (changing the cloned Data would not affect the original Data.)
 // It traverses every single node with depth-first-search.
 func (d *Data) Clone() *Data {
-	clonedData := NewData()
+	clonedData := New()
 	src := &Node{}
 	for nd := range d.NodeMap {
 		src = nd

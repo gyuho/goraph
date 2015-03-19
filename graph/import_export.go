@@ -83,7 +83,7 @@ func FromJSON(reader io.Reader, graphName string) (*Data, error) {
 		return nil, fmt.Errorf("%s does not exist", graphName)
 	}
 	gmap2 := gmap1[graphName]
-	data := NewData()
+	data := New()
 	for vtxID1, weightToMap := range gmap2 {
 		for vtxID2, weight := range weightToMap {
 			data.Connect(NewNode(vtxID1), NewNode(vtxID2), weight)
