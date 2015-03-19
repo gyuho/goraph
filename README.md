@@ -1,7 +1,7 @@
 goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](https://travis-ci.org/gyuho/goraph) [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/gyuho/goraph)
 ==========
 
-Package goraph implements graph data structures and algorithms with visualization.
+Package goraph implements graph, tree data structures and algorithms with visualization.
 
 
 <kbd>goraph</kbd> is a set of packages for graph database analytics in Go, with handcrafted testing data and visualizations. It was my first coding project written from scratch. This is an ongoing project with no time-line.
