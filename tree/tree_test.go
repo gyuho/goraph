@@ -64,7 +64,7 @@ func TestTree01(t *testing.T) {
 
 	buf3 := new(bytes.Buffer)
 	for _, elem := range data2.LevelOrder() {
-		buf3.WriteString(fmt.Sprintf("%v", elem.Item))
+		buf3.WriteString(fmt.Sprintf("%v", elem.Key))
 		buf3.WriteString(" ")
 	}
 	if buf3.String() != "A(5) B(3) C(17) E(1) D(7) " {
