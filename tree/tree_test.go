@@ -20,7 +20,6 @@ func (n nodeStruct) String() string {
 }
 
 func TestTree01(t *testing.T) {
-
 	buf1 := new(bytes.Buffer)
 	root1 := NewNode(nodeStruct{"A", 5})
 	data1 := NewData(root1)
