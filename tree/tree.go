@@ -4,7 +4,7 @@ import "fmt"
 
 // Interface represents a single object in the tree.
 type Interface interface {
-	// Less returns true when the current item in the receiver
+	// Less returns true when the current item(key) in the receiver
 	// is less than the given argument.
 	Less(than Interface) bool
 }
@@ -26,16 +26,16 @@ type Node struct {
 	// Left is a left child Node.
 	Left *Node
 
-	Item Interface
+	Key Interface
 
 	// Right is a right child Node.
 	Right *Node
 }
 
 // NewNode returns a new Node.
-func NewNode(item Interface) *Node {
+func NewNode(key Interface) *Node {
 	nd := &Node{}
-	nd.Item = item
+	nd.Key = key
 	return nd
 }
 
@@ -51,7 +51,7 @@ func (nd *Node) insert(node *Node) *Node {
 	if nd == nil {
 		return node
 	}
-	if node.Item.Less(nd.Item) {
+	if node.Key.Less(nd.Key) {
 		// if nd.Value > node.Value {
 		nd.Left = nd.Left.insert(node)
 		return nd
@@ -72,7 +72,7 @@ func (nd *Node) String() string {
 	if nd.Left != nil {
 		s += nd.Left.String() + " "
 	}
-	s += fmt.Sprintf("%v", nd.Item)
+	s += fmt.Sprintf("%v", nd.Key)
 	if nd.Right != nil {
 		s += " " + nd.Right.String()
 	}
@@ -90,9 +90,9 @@ func preOrder(nd *Node, ch chan string) {
 	if nd == nil {
 		return
 	}
-	ch <- fmt.Sprintf("%v", nd.Item) // root
-	preOrder(nd.Left, ch)            // left
-	preOrder(nd.Right, ch)           // right
+	ch <- fmt.Sprintf("%v", nd.Key) // root
+	preOrder(nd.Left, ch)           // left
+	preOrder(nd.Right, ch)          // right
 }
 
 // ComparePreOrder returns true if two Trees are same with PreOrder.
@@ -124,9 +124,9 @@ func inOrder(nd *Node, ch chan string) {
 	if nd == nil {
 		return
 	}
-	inOrder(nd.Left, ch)             // left
-	ch <- fmt.Sprintf("%v", nd.Item) // root
-	inOrder(nd.Right, ch)            // right
+	inOrder(nd.Left, ch)            // left
+	ch <- fmt.Sprintf("%v", nd.Key) // root
+	inOrder(nd.Right, ch)           // right
 }
 
 // CompareInOrder returns true if two Trees are same with InOrder.
@@ -158,9 +158,9 @@ func postOrder(nd *Node, ch chan string) {
 	if nd == nil {
 		return
 	}
-	postOrder(nd.Left, ch)           // left
-	postOrder(nd.Right, ch)          // right
-	ch <- fmt.Sprintf("%v", nd.Item) // root
+	postOrder(nd.Left, ch)          // left
+	postOrder(nd.Right, ch)         // right
+	ch <- fmt.Sprintf("%v", nd.Key) // root
 }
 
 // ComparePostOrder returns true if two Trees are same with PostOrder.
