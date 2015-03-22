@@ -23,7 +23,7 @@ func (n nodeStruct) String() string {
 	return fmt.Sprintf("%s(%d)", n.ID, n.Value)
 }
 
-func TestTree01(t *testing.T) {
+func TestTreeNodeStruct(t *testing.T) {
 	buf1 := new(bytes.Buffer)
 	root1 := NewNode(nodeStruct{"A", 5})
 	data1 := New(root1)
@@ -88,7 +88,7 @@ func (a Int) Equal(b Interface) bool {
 	return a == b.(Int)
 }
 
-func TestTree02(t *testing.T) {
+func TestTreeInt(t *testing.T) {
 	buf := new(bytes.Buffer)
 	root := NewNode(Int(5))
 	data := New(root)
