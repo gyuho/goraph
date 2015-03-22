@@ -15,6 +15,10 @@ func (n nodeStruct) Less(b Interface) bool {
 	return n.Value < b.(nodeStruct).Value
 }
 
+func (n nodeStruct) Equal(b Interface) bool {
+	return (n.ID == b.(nodeStruct).ID) && (n.Value == b.(nodeStruct).Value)
+}
+
 func (n nodeStruct) String() string {
 	return fmt.Sprintf("%s(%d)", n.ID, n.Value)
 }
@@ -79,6 +83,11 @@ func (a Int) Less(b Interface) bool {
 	return a < b.(Int)
 }
 
+// Equal returns true if int(a) == int(b).
+func (a Int) Equal(b Interface) bool {
+	return a == b.(Int)
+}
+
 func TestTree02(t *testing.T) {
 	buf := new(bytes.Buffer)
 	root := NewNode(Int(5))
@@ -99,5 +108,20 @@ func TestTree02(t *testing.T) {
 	}
 	if buf.String() != "5 3 1 17 7 " {
 		t.Errorf("Unexpected %v", buf.String())
+	}
+}
+
+func TestSearch(t *testing.T) {
+	root := NewNode(Int(5))
+	data := New(root)
+	data.Insert(NewNode(Int(3)))
+	data.Insert(NewNode(Int(17)))
+	data.Insert(NewNode(Int(7)))
+	data.Insert(NewNode(Int(1)))
+	ch := make(chan *Node)
+	go data.Search(Int(17), ch)
+	nd := <-ch
+	if fmt.Sprintf("%+v", Int(17)) != fmt.Sprintf("%+v", nd.Key) {
+		t.Errorf("Expected %v but %v", Int(17), nd.Key)
 	}
 }

@@ -16,9 +16,10 @@ func New(root *Node) *Data {
 
 // Interface represents a single object in the tree.
 type Interface interface {
-	// Less returns true when the current item(key) in the receiver
-	// is less than the given argument.
+	// Less returns true when the receiver item(key)
+	// is less than the given(than) argument.
 	Less(than Interface) bool
+	Equal(key Interface) bool
 }
 
 // Node is a Node and a Tree itself.
@@ -59,23 +60,22 @@ func (nd *Node) insert(node *Node) *Node {
 	return nd
 }
 
-func (d *Data) String() string {
-	return d.Root.String()
+// Search does binary-search on a given-key and return the first Node with the key.
+func (d Data) Search(key Interface, ch chan *Node) {
+	search(d.Root, key, ch)
+	close(ch)
 }
 
-func (nd *Node) String() string {
+func search(nd *Node, key Interface, ch chan *Node) {
+	// leaf node
 	if nd == nil {
-		return "[]"
+		return
 	}
-	s := ""
-	if nd.Left != nil {
-		s += nd.Left.String() + " "
+	if nd.Key.Equal(key) {
+		ch <- nd
 	}
-	s += fmt.Sprintf("%v", nd.Key)
-	if nd.Right != nil {
-		s += " " + nd.Right.String()
-	}
-	return "[" + s + "]"
+	search(nd.Left, key, ch)  // left
+	search(nd.Right, key, ch) // right
 }
 
 // PreOrder traverses from Root, Left-SubTree, and Right-SubTree. (DFS)
@@ -209,4 +209,23 @@ func (d *Data) LevelOrder() []*Node {
 		}
 	}
 	return visited
+}
+
+func (d *Data) String() string {
+	return d.Root.String()
+}
+
+func (nd *Node) String() string {
+	if nd == nil {
+		return "[]"
+	}
+	s := ""
+	if nd.Left != nil {
+		s += nd.Left.String() + " "
+	}
+	s += fmt.Sprintf("%v", nd.Key)
+	if nd.Right != nil {
+		s += " " + nd.Right.String()
+	}
+	return "[" + s + "]"
 }
