@@ -22,7 +22,7 @@ func (n nodeStruct) String() string {
 func TestTree01(t *testing.T) {
 	buf1 := new(bytes.Buffer)
 	root1 := NewNode(nodeStruct{"A", 5})
-	data1 := NewData(root1)
+	data1 := New(root1)
 	data1.Insert(NewNode(nodeStruct{"B", 3}))
 	data1.Insert(NewNode(nodeStruct{"C", 17}))
 	data1.Insert(NewNode(nodeStruct{"D", 7}))
@@ -40,7 +40,7 @@ func TestTree01(t *testing.T) {
 
 	buf2 := new(bytes.Buffer)
 	root2 := NewNode(nodeStruct{"A", 5})
-	data2 := NewData(root2)
+	data2 := New(root2)
 	data2.Insert(NewNode(nodeStruct{"B", 3}))
 	data2.Insert(NewNode(nodeStruct{"C", 17}))
 	data2.Insert(NewNode(nodeStruct{"D", 7}))
@@ -82,7 +82,7 @@ func (a Int) Less(b Interface) bool {
 func TestTree02(t *testing.T) {
 	buf := new(bytes.Buffer)
 	root := NewNode(Int(5))
-	data := NewData(root)
+	data := New(root)
 	data.Insert(NewNode(Int(3)))
 	data.Insert(NewNode(Int(17)))
 	data.Insert(NewNode(Int(7)))

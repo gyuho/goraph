@@ -7,8 +7,8 @@ type Data struct {
 	Root *Node
 }
 
-// NewData returns a new Data with its root Node.
-func NewData(root *Node) *Data {
+// New returns a new Data with its root Node.
+func New(root *Node) *Data {
 	d := &Data{}
 	d.Root = root
 	return d
