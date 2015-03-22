@@ -51,12 +51,11 @@ func (nd *Node) insert(node *Node) *Node {
 	if nd == nil {
 		return node
 	}
-	if node.Key.Less(nd.Key) {
-		// if nd.Value > node.Value {
-		nd.Left = nd.Left.insert(node)
+	if nd.Key.Less(node.Key) {
+		nd.Right = nd.Right.insert(node)
 		return nd
 	}
-	nd.Right = nd.Right.insert(node)
+	nd.Left = nd.Left.insert(node)
 	return nd
 }
 
