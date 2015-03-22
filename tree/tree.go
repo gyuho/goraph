@@ -2,13 +2,6 @@ package tree
 
 import "fmt"
 
-// Interface represents a single object in the tree.
-type Interface interface {
-	// Less returns true when the current item(key) in the receiver
-	// is less than the given argument.
-	Less(than Interface) bool
-}
-
 // Data contains a Root node of a binary search tree.
 type Data struct {
 	Root *Node
@@ -19,6 +12,13 @@ func NewData(root *Node) *Data {
 	d := &Data{}
 	d.Root = root
 	return d
+}
+
+// Interface represents a single object in the tree.
+type Interface interface {
+	// Less returns true when the current item(key) in the receiver
+	// is less than the given argument.
+	Less(than Interface) bool
 }
 
 // Node is a Node and a Tree itself.
