@@ -118,10 +118,16 @@ func TestSearch(t *testing.T) {
 	data.Insert(NewNode(Int(17)))
 	data.Insert(NewNode(Int(7)))
 	data.Insert(NewNode(Int(1)))
-	ch := make(chan *Node)
-	go data.Search(Int(17), ch)
-	nd := <-ch
-	if fmt.Sprintf("%+v", Int(17)) != fmt.Sprintf("%+v", nd.Key) {
-		t.Errorf("Expected %v but %v", Int(17), nd.Key)
+	ch1 := make(chan *Node)
+	go data.Search(Int(17), ch1)
+	nd1 := <-ch1
+	if fmt.Sprintf("%+v", Int(17)) != fmt.Sprintf("%+v", nd1.Key) {
+		t.Errorf("Expected %v but %v", Int(17), nd1.Key)
+	}
+	ch2 := make(chan *Node)
+	go data.Search(Int(111), ch2)
+	nd2 := <-ch2
+	if nd2 != nil {
+		t.Errorf("Expected nil but %v", nd2)
 	}
 }
