@@ -11,6 +11,7 @@
 // Reference
 //	* http://www.cs.princeton.edu/~rs/talks/LLRB/08Penn.pdf
 //	* http://www.cs.princeton.edu/~rs/talks/LLRB/LLRB.pdf
+//	* https://www.youtube.com/watch?v=lKmLBOJXZHI
 //	* https://github.com/petar/GoLLRB
 //
 package redblack // import "github.com/gyuho/goraph/redblack"

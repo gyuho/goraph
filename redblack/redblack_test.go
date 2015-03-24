@@ -12,6 +12,12 @@ func (a Int) Less(b Interface) bool {
 	return a < b.(Int)
 }
 
+func TestIsRed(t *testing.T) {
+	if !isRed(NewNode(Int(5))) {
+		t.Error("Expected Red")
+	}
+}
+
 func TestFlipColor(t *testing.T) {
 	root := NewNode(Int(3))
 	data := New(root)
@@ -36,7 +42,7 @@ func TestFlipColor(t *testing.T) {
 	if fmt.Sprintf("%v", nd.Right.Key) != "6" {
 		t.Errorf("Unexpected %v", nd.Right.Key)
 	}
-	FlipColor(nd)
+	flipColor(nd)
 	if !nd.Left.Black {
 		t.Errorf("Left should be black but %v", nd.Left.Black)
 	}
