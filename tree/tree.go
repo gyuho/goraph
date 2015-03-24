@@ -19,7 +19,6 @@ type Interface interface {
 	// Less returns true when the receiver item(key)
 	// is less than the given(than) argument.
 	Less(than Interface) bool
-	Equal(key Interface) bool
 }
 
 // Node is a Node and a Tree itself.
@@ -60,22 +59,64 @@ func (nd *Node) insert(node *Node) *Node {
 	return nd
 }
 
-// Search does binary-search on a given-key and return the first Node with the key.
-func (d Data) Search(key Interface, ch chan *Node) {
-	search(d.Root, key, ch)
+// Min returns the minimum key Node in the tree.
+func (d Data) Min() *Node {
+	nd := d.Root
+	if nd == nil {
+		return nil
+	}
+	for nd.Left != nil {
+		nd = nd.Left
+	}
+	return nd
+}
+
+// Max returns the maximum key Node in the tree.
+func (d Data) Max() *Node {
+	nd := d.Root
+	if nd == nil {
+		return nil
+	}
+	for nd.Right != nil {
+		nd = nd.Right
+	}
+	return nd
+}
+
+// Search does binary-search on a given key and returns the first Node with the key.
+func (d Data) Search(key Interface) *Node {
+	nd := d.Root
+	for nd != nil {
+		switch {
+		case nd.Key.Less(key):
+			nd = nd.Right
+		case key.Less(nd.Key):
+			nd = nd.Left
+		default:
+			return nd
+		}
+	}
+	return nil
+}
+
+// SearchChannel does binary-search on a given key and return the first Node with the key.
+func (d Data) SearchChannel(key Interface, ch chan *Node) {
+	searchChannel(d.Root, key, ch)
 	close(ch)
 }
 
-func search(nd *Node, key Interface, ch chan *Node) {
+func searchChannel(nd *Node, key Interface, ch chan *Node) {
 	// leaf node
 	if nd == nil {
 		return
 	}
-	if nd.Key.Equal(key) {
+	// when equal
+	if !nd.Key.Less(key) && !key.Less(nd.Key) {
 		ch <- nd
+		return
 	}
-	search(nd.Left, key, ch)  // left
-	search(nd.Right, key, ch) // right
+	searchChannel(nd.Left, key, ch)  // left
+	searchChannel(nd.Right, key, ch) // right
 }
 
 // PreOrder traverses from Root, Left-SubTree, and Right-SubTree. (DFS)
