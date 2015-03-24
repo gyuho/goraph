@@ -27,7 +27,7 @@ type Node struct {
 	Left *Node
 
 	Key   Interface
-	Black bool // True when the color of parent link is black
+	Black bool // True when the color of parent link is black.
 	// In Left-Leaning Red-Black tree, new nodes are always red
 	// because the zero boolean value is false.
 	// Null links are black.
@@ -44,12 +44,78 @@ func NewNode(key Interface) *Node {
 	return nd
 }
 
-// Insert inserts a Node to a Data.
+func isRed(nd *Node) bool {
+	if nd == nil {
+		return false
+	}
+	return !nd.Black
+}
+
+// rotateLeft when there is a right-leaning link.
+func rotateLeft(nd *Node) *Node {
+	if nd.Right.Black {
+		panic("Can't rotate a black link")
+	}
+
+	x := nd.Right
+	nd.Right = x.Left
+	x.Left = nd
+
+	x.Black = nd.Black
+	nd.Black = false
+
+	return x
+}
+
+// rotateRight when there are two left red links in a row.
+// Then flip color.
+func rotateRight(nd *Node) *Node {
+	if nd.Left.Black {
+		panic("Can't rotate a black link")
+	}
+
+	x := nd.Left
+	nd.Left = x.Right
+	x.Right = nd
+
+	x.Black = nd.Black
+	nd.Black = false
+
+	return x
+}
+
+// flipColor flips the color.
+// Left and Right children must be present
+func flipColor(nd *Node) {
+	nd.Black = !nd.Black
+	nd.Left.Black = !nd.Left.Black
+	nd.Right.Black = !nd.Right.Black
+}
+
+func balance(nd *Node) *Node {
+	if isRed(nd.Right) && !isRed(nd.Left) {
+		nd = rotateLeft(nd)
+	}
+	if isRed(nd.Left) && isRed(nd.Left.Left) {
+		nd = rotateRight(nd)
+	}
+	if isRed(nd.Left) && isRed(nd.Right) {
+		flipColor(nd)
+	}
+	return nd
+}
+
+// Insert inserts a Node to a Data without replacement.
+// It does standard BST insert and colors the new link red.
+// If the new red link is a right link, rotate left.
+// If two left red links in a row, rotate to right and flip color.
+// (https://youtu.be/lKmLBOJXZHI?t=20m43s)
 func (d *Data) Insert(nd *Node) {
 	if d.Root == nd {
 		return
 	}
 	d.Root = d.Root.insert(nd)
+	d.Root.Black = true
 }
 
 func (nd *Node) insert(node *Node) *Node {
@@ -58,16 +124,8 @@ func (nd *Node) insert(node *Node) *Node {
 	}
 	if nd.Key.Less(node.Key) {
 		nd.Right = nd.Right.insert(node)
-		return nd
+	} else {
+		nd.Left = nd.Left.insert(node)
 	}
-	nd.Left = nd.Left.insert(node)
-	return nd
-}
-
-// FlipColor flips the color.
-// Left and Right children must be present
-func FlipColor(nd *Node) {
-	nd.Black = !nd.Black
-	nd.Left.Black = !nd.Left.Black
-	nd.Right.Black = !nd.Right.Black
+	return balance(nd)
 }

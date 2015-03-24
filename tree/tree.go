@@ -39,7 +39,7 @@ func NewNode(key Interface) *Node {
 	return nd
 }
 
-// Insert inserts a Node to a Data.
+// Insert inserts a Node to a Data without replacement.
 func (d *Data) Insert(nd *Node) {
 	if d.Root == nd {
 		return
@@ -53,9 +53,9 @@ func (nd *Node) insert(node *Node) *Node {
 	}
 	if nd.Key.Less(node.Key) {
 		nd.Right = nd.Right.insert(node)
-		return nd
+	} else {
+		nd.Left = nd.Left.insert(node)
 	}
-	nd.Left = nd.Left.insert(node)
 	return nd
 }
 

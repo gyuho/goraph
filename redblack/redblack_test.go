@@ -12,31 +12,35 @@ func (a Int) Less(b Interface) bool {
 	return a < b.(Int)
 }
 
-func TestFlipColor(t *testing.T) {
-	root := NewNode(Int(3))
+func TestIsRed(t *testing.T) {
+	if !isRed(NewNode(Int(5))) {
+		t.Error("Expected Red")
+	}
+}
+
+type Str string
+
+// Less returns true if string(a) < string(b).
+func (a Str) Less(b Interface) bool {
+	return a < b.(Str)
+}
+
+func TestInsert1(t *testing.T) {
+	root := NewNode(Str("S"))
 	data := New(root)
-	data.Insert(NewNode(Int(1)))
-	data.Insert(NewNode(Int(2)))
-	data.Insert(NewNode(Int(5)))
-	data.Insert(NewNode(Int(6)))
-	data.Insert(NewNode(Int(4)))
-	nd := data.Search(Int(5))
-	if fmt.Sprintf("%v", nd.Key) != "5" {
+	data.Insert(NewNode(Str("E")))
+	data.Insert(NewNode(Str("A")))
+	data.Insert(NewNode(Str("S")))
+	nd := data.Search(Str("E"))
+	if fmt.Sprintf("%v", nd.Key) != "E" {
 		t.Errorf("Unexpected %v", nd.Key)
 	}
-	if fmt.Sprintf("%v", nd.Left.Key) != "4" {
+	if fmt.Sprintf("%v", nd.Left.Key) != "A" {
 		t.Errorf("Unexpected %v", nd.Left.Key)
 	}
-	if nd.Left.Black {
-		t.Errorf("Left should be red but %v", nd.Left.Black)
-	}
-	if nd.Right.Black {
-		t.Errorf("Right should be red but %v", nd.Right.Black)
-	}
-	if fmt.Sprintf("%v", nd.Right.Key) != "6" {
+	if fmt.Sprintf("%v", nd.Right.Key) != "S" {
 		t.Errorf("Unexpected %v", nd.Right.Key)
 	}
-	FlipColor(nd)
 	if !nd.Left.Black {
 		t.Errorf("Left should be black but %v", nd.Left.Black)
 	}
