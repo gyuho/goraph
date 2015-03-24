@@ -51,8 +51,8 @@ func isRed(nd *Node) bool {
 	return !nd.Black
 }
 
-// rotateLeft when there is a right-leaning link.
-func rotateLeft(nd *Node) *Node {
+// rotateToLeft when there is a right-leaning link.
+func rotateToLeft(nd *Node) *Node {
 	if nd.Right.Black {
 		panic("Can't rotate a black link")
 	}
@@ -67,9 +67,9 @@ func rotateLeft(nd *Node) *Node {
 	return x
 }
 
-// rotateRight when there are two left red links in a row.
+// rotateToRight when there are two left red links in a row.
 // Then flip color.
-func rotateRight(nd *Node) *Node {
+func rotateToRight(nd *Node) *Node {
 	if nd.Left.Black {
 		panic("Can't rotate a black link")
 	}
@@ -94,10 +94,23 @@ func flipColor(nd *Node) {
 
 func balance(nd *Node) *Node {
 	if isRed(nd.Right) && !isRed(nd.Left) {
-		nd = rotateLeft(nd)
+		nd = rotateToLeft(nd)
 	}
 	if isRed(nd.Left) && isRed(nd.Left.Left) {
-		nd = rotateRight(nd)
+		nd = rotateToRight(nd)
+	}
+	if isRed(nd.Left) && isRed(nd.Right) {
+		flipColor(nd)
+	}
+	return nd
+}
+
+func fixUp(nd *Node) *Node {
+	if isRed(nd.Right) {
+		nd = rotateToLeft(nd)
+	}
+	if isRed(nd.Left) && isRed(nd.Left.Left) {
+		nd = rotateToRight(nd)
 	}
 	if isRed(nd.Left) && isRed(nd.Right) {
 		flipColor(nd)
@@ -128,4 +141,55 @@ func (nd *Node) insert(node *Node) *Node {
 		nd.Left = nd.Left.insert(node)
 	}
 	return balance(nd)
+}
+
+// Left and Right children must be present
+func moveRedToLeft(nd *Node) *Node {
+	flipColor(nd)
+	if isRed(nd.Right.Left) {
+		nd.Right = rotateToRight(nd.Right)
+		nd = rotateToLeft(nd)
+		flipColor(nd)
+	}
+	return nd
+}
+
+// Left and Right children must be present
+func moveRedToRight(nd *Node) *Node {
+	flipColor(nd)
+	if isRed(nd.Left.Left) {
+		nd = rotateToRight(nd)
+		flipColor(nd)
+	}
+	return nd
+}
+
+// DeleteMin deletes the minimum element in the tree and returns the
+// deleted item or nil otherwise.
+func (d *Data) DeleteMin() Interface {
+	var deleted Interface
+	d.Root, deleted = deleteMin(d.Root)
+	if d.Root != nil {
+		d.Root.Black = true
+	}
+	return deleted
+}
+
+// deleteMin code for LLRB 2-3 trees
+func deleteMin(nd *Node) (*Node, Interface) {
+	if nd == nil {
+		return nil, nil
+	}
+	if nd.Left == nil {
+		return nil, nd.Key
+	}
+
+	if !isRed(nd.Left) && !isRed(nd.Left.Left) {
+		nd = moveRedToLeft(nd)
+	}
+
+	var deleted Interface
+	nd.Left, deleted = deleteMin(nd.Left)
+
+	return fixUp(nd), deleted
 }

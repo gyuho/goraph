@@ -30,7 +30,6 @@ func TestInsert1(t *testing.T) {
 	data := New(root)
 	data.Insert(NewNode(Str("E")))
 	data.Insert(NewNode(Str("A")))
-	data.Insert(NewNode(Str("S")))
 	nd := data.Search(Str("E"))
 	if fmt.Sprintf("%v", nd.Key) != "E" {
 		t.Errorf("Unexpected %v", nd.Key)
@@ -46,5 +45,19 @@ func TestInsert1(t *testing.T) {
 	}
 	if !nd.Right.Black {
 		t.Errorf("Right should be black but %v", nd.Right.Black)
+	}
+}
+
+func TestDeleteMin1(t *testing.T) {
+	root := NewNode(Str("S"))
+	data := New(root)
+	data.Insert(NewNode(Str("E")))
+	data.Insert(NewNode(Str("A")))
+	key := data.DeleteMin()
+	if fmt.Sprintf("%v", key) != "A" {
+		t.Errorf("Expected A but %v", key)
+	}
+	if fmt.Sprintf("%v", data) != "[[E(false)] S(true)]" {
+		t.Errorf("Unexpected %v", data)
 	}
 }
