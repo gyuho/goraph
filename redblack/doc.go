@@ -1,4 +1,4 @@
-// Package redblack implements a Left-Leaning Red-Black tree, which is a 2-3 balanced binary search tree.
+// Package redblack implements a Left-Leaning Red-Black tree, which is a 2-3 balanced binary search tree:
 //	* No node has two red links connected to it.
 //	* Every path from root to null link has the same number of black links.
 //	* Red links lean left.
