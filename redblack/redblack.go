@@ -218,8 +218,8 @@ func (d *Data) DeleteMax() Interface {
 	return deleted
 }
 
-// Delete deletes an key from the tree whose key equals key.
-// The deleted key is return, otherwise nil is returned.
+// Delete deletes the node with a given key and returns the key.
+// It returns nil if it does not exist in the tree.
 func (d *Data) Delete(key Interface) Interface {
 	var deleted Interface
 	d.Root, deleted = d.delete(d.Root, key)
@@ -235,7 +235,8 @@ func (d *Data) delete(nd *Node, key Interface) (*Node, Interface) {
 		return nil, nil
 	}
 	if key.Less(nd.Key) {
-		if nd.Left == nil { // key not present. Nothing to delete
+		if nd.Left == nil {
+			// nothing to delete
 			return nd, nil
 		}
 		if !isRed(nd.Left) && !isRed(nd.Left.Left) {
@@ -246,22 +247,20 @@ func (d *Data) delete(nd *Node, key Interface) (*Node, Interface) {
 		if isRed(nd.Left) {
 			nd = rotateToRight(nd)
 		}
-		// If @key equals @nd.Key and no right children at @nd
 		if !nd.Key.Less(key) && nd.Right == nil {
 			return nil, nd.Key
 		}
 		if nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) {
 			nd = moveRedToRight(nd)
 		}
-		// If @key equals @nd.Key, and (from above) 'nd.Right != nil'
 		if !nd.Key.Less(key) {
 			var subDeleted Interface
 			nd.Right, subDeleted = deleteMin(nd.Right)
 			if subDeleted == nil {
-				panic("logic")
+				panic("Unexpected nil value")
 			}
 			deleted, nd.Key = nd.Key, subDeleted
-		} else { // Else, @key is bigger than @nd.Key
+		} else {
 			nd.Right, deleted = d.delete(nd.Right, key)
 		}
 	}
