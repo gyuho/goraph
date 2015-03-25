@@ -10,7 +10,6 @@ func New(root *Node) *Data {
 	d := &Data{}
 	root.Black = true
 	d.Root = root
-	// d.Root.Black = true
 	return d
 }
 
