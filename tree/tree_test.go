@@ -238,7 +238,7 @@ func TestSearch(t *testing.T) {
 	}
 }
 
-func TestSearchChannel(t *testing.T) {
+func TestSearchChan(t *testing.T) {
 	root := NewNode(Int(5))
 	data := New(root)
 	data.Insert(NewNode(Int(3)))
@@ -246,13 +246,13 @@ func TestSearchChannel(t *testing.T) {
 	data.Insert(NewNode(Int(7)))
 	data.Insert(NewNode(Int(1)))
 	ch1 := make(chan *Node)
-	go data.SearchChannel(Int(17), ch1)
+	go data.SearchChan(Int(17), ch1)
 	nd1 := <-ch1
 	if fmt.Sprintf("%+v", Int(17)) != fmt.Sprintf("%+v", nd1.Key) {
 		t.Errorf("Expected %v but %v", Int(17), nd1.Key)
 	}
 	ch2 := make(chan *Node)
-	go data.SearchChannel(Int(111), ch2)
+	go data.SearchChan(Int(111), ch2)
 	nd2 := <-ch2
 	if nd2 != nil {
 		t.Errorf("Expected nil but %v", nd2)
