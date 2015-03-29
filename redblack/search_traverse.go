@@ -43,13 +43,13 @@ func (d Data) Search(key Interface) *Node {
 	return nil
 }
 
-// SearchChannel does binary-search on a given key and return the first Node with the key.
-func (d Data) SearchChannel(key Interface, ch chan *Node) {
-	searchChannel(d.Root, key, ch)
+// SearchChan does binary-search on a given key and return the first Node with the key.
+func (d Data) SearchChan(key Interface, ch chan *Node) {
+	searchChan(d.Root, key, ch)
 	close(ch)
 }
 
-func searchChannel(nd *Node, key Interface, ch chan *Node) {
+func searchChan(nd *Node, key Interface, ch chan *Node) {
 	// leaf node
 	if nd == nil {
 		return
@@ -59,8 +59,8 @@ func searchChannel(nd *Node, key Interface, ch chan *Node) {
 		ch <- nd
 		return
 	}
-	searchChannel(nd.Left, key, ch)  // left
-	searchChannel(nd.Right, key, ch) // right
+	searchChan(nd.Left, key, ch)  // left
+	searchChan(nd.Right, key, ch) // right
 }
 
 // PreOrder traverses from Root, Left-SubTree, and Right-SubTree. (DFS)
