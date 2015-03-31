@@ -45,7 +45,7 @@ func (d *Data) Bfs(src *Node) []*Node {
 			}
 		}
 
-		front.Color = "black"
+		// front.Color = "black"
 		result = append(result, front)
 	}
 
