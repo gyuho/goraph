@@ -39,6 +39,25 @@ func NewNode(key Interface) *Node {
 	return nd
 }
 
+func (d *Data) String() string {
+	return d.Root.String()
+}
+
+func (nd *Node) String() string {
+	if nd == nil {
+		return "[]"
+	}
+	s := ""
+	if nd.Left != nil {
+		s += nd.Left.String() + " "
+	}
+	s += fmt.Sprintf("%v", nd.Key)
+	if nd.Right != nil {
+		s += " " + nd.Right.String()
+	}
+	return "[" + s + "]"
+}
+
 // Insert inserts a Node to a Data without replacement.
 func (d *Data) Insert(nd *Node) {
 	if d.Root == nd {
@@ -251,23 +270,4 @@ func (d *Data) LevelOrder() []*Node {
 		}
 	}
 	return visited
-}
-
-func (d *Data) String() string {
-	return d.Root.String()
-}
-
-func (nd *Node) String() string {
-	if nd == nil {
-		return "[]"
-	}
-	s := ""
-	if nd.Left != nil {
-		s += nd.Left.String() + " "
-	}
-	s += fmt.Sprintf("%v", nd.Key)
-	if nd.Right != nil {
-		s += " " + nd.Right.String()
-	}
-	return "[" + s + "]"
 }

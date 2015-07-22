@@ -1,5 +1,7 @@
 package redblack
 
+import "fmt"
+
 // Data contains a Root node of a binary search tree.
 type Data struct {
 	Root *Node
@@ -41,6 +43,25 @@ func NewNode(key Interface) *Node {
 	nd.Key = key
 	nd.Black = false
 	return nd
+}
+
+func (d *Data) String() string {
+	return d.Root.String()
+}
+
+func (nd *Node) String() string {
+	if nd == nil {
+		return "[]"
+	}
+	s := ""
+	if nd.Left != nil {
+		s += nd.Left.String() + " "
+	}
+	s += fmt.Sprintf("%v(%v)", nd.Key, nd.Black)
+	if nd.Right != nil {
+		s += " " + nd.Right.String()
+	}
+	return "[" + s + "]"
 }
 
 func isRed(nd *Node) bool {

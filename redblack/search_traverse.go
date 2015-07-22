@@ -195,22 +195,3 @@ func (d *Data) LevelOrder() []*Node {
 	}
 	return visited
 }
-
-func (d *Data) String() string {
-	return d.Root.String()
-}
-
-func (nd *Node) String() string {
-	if nd == nil {
-		return "[]"
-	}
-	s := ""
-	if nd.Left != nil {
-		s += nd.Left.String() + " "
-	}
-	s += fmt.Sprintf("%v(%v)", nd.Key, nd.Black)
-	if nd.Right != nil {
-		s += " " + nd.Right.String()
-	}
-	return "[" + s + "]"
-}
