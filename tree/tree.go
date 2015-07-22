@@ -271,3 +271,122 @@ func (d *Data) LevelOrder() []*Node {
 	}
 	return visited
 }
+
+
+// SearchParent does binary-search on a given key and returns the parent Node.
+func (d Data) SearchParent(key Interface) *Node {
+	nd := d.Root
+	parent := new(Node)
+	parent = nil
+	// just updating the pointer value (address)
+	for nd != nil {
+		switch {
+		case nd.Key.Less(key):
+			parent = nd // copy the pointer(address)
+			nd = nd.Right
+		case key.Less(nd.Key):
+			parent = nd // copy the pointer(address)
+			nd = nd.Left
+		default:
+			return parent
+		}
+	}
+	return nil
+}
+
+// Delete deletes a Node from a tree.
+func (d *Data) Delete(nd *Node) {
+
+	// you need to dereference the pointer
+	// and update with a value
+	// in order to change the original struct
+
+	if nd == nil {
+		return
+	}
+
+	parent := d.SearchParent(nd.Key)
+	if nd.Left != nil && nd.Right != nil {
+		// if two children
+
+		// #1. Find the node to substitute
+		// the to-be-deleted node
+		//
+		// either get the biggest of left sub-tree
+		tempData := new(Data)
+		tempData.Root = nd.Left
+		tempNode := tempData.Max()
+
+		//
+		// OR
+		//
+		// get the smallest of right sub-tree
+		// tempData := new(Data)
+		// tempData.Root = nd.Right
+		// tempNode := nd.Right.Min()
+
+		replaceNode := d.Search(tempNode.Key)
+
+		// #2. Update the parent, child node
+		if parent != nil {
+			if parent.Key.Less(nd.Key) {
+				// right child of parent
+				replaceNode.Right = nd.Right
+				parent.Right = replaceNode
+			} else {
+				// left child of parent
+				replaceNode.Left = nd.Left
+				parent.Left = replaceNode
+			}
+		}
+
+		// #3. Update the parent of substituition node
+		sparent := d.SearchParent(replaceNode.Key)
+		if sparent != nil {
+			if sparent.Key.Less(nd.Key) {
+				// right child of sparent
+				//
+				// direct access and update
+				//sparent.Right = nil
+			} else {
+				// left child of sparent
+				//
+				// direct access and update
+				//sparent.Left = nil
+			}
+		}
+
+	} else if nd.Left != nil && nd.Right == nil {
+		// only left child
+
+		// #1. Update the parent node
+		if parent != nil {
+			if parent.Key.Less(nd.Key) {
+				// right child of parent
+				parent.Right = nd.Left
+			} else {
+				// left child of parent
+				parent.Left = nd.Left
+			}
+		}
+
+	} else if nd.Left == nil && nd.Right != nil {
+		// only right childr
+		if parent != nil {
+			if parent.Key.Less(nd.Key) {
+				// right child of parent
+				parent.Right = nd.Right
+			} else {
+				// left child of parent
+				parent.Left = nd.Right
+			}
+		}
+	}
+
+	// Delete the node
+	*nd = Node{}
+	//
+	// (X) nd = new(Node)
+	// (X) nd = nil
+	// because this is inside function
+}
