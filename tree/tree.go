@@ -105,7 +105,7 @@ func (d Data) Max() *Node {
 // Search does binary-search on a given key and returns the first Node with the key.
 func (d Data) Search(key Interface) *Node {
 	nd := d.Root
-	// just updating the pointer value
+	// just updating the pointer value (address)
 	for nd != nil {
 		switch {
 		case nd.Key.Less(key):
