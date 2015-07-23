@@ -272,7 +272,6 @@ func (d *Data) LevelOrder() []*Node {
 	return visited
 }
 
-
 // SearchParent does binary-search on a given key and returns the parent Node.
 func (d Data) SearchParent(key Interface) *Node {
 	nd := d.Root
@@ -306,6 +305,7 @@ func (d *Data) Delete(nd *Node) {
 	}
 
 	parent := d.SearchParent(nd.Key)
+
 	if nd.Left != nil && nd.Right != nil {
 		// if two children
 
@@ -328,39 +328,61 @@ func (d *Data) Delete(nd *Node) {
 		replaceNode := d.Search(tempNode.Key)
 
 		// #2. Update the parent, child node
-		if parent != nil {
+		if parent == nil {
+			// in case of deleting the root Node
+
+			// order matters!
+			replaceNode.Right = nd.Right
+			replaceNode.Left = nd.Left
+			d.Root = replaceNode
+
+		} else {
+			// decide nd(child)'s side(right or left)
 			if parent.Key.Less(nd.Key) {
 				// right child of parent
-				replaceNode.Right = nd.Right
-				parent.Right = replaceNode
+
+				// order matters!
+				replaceNode.Right = nd.Right // 1.
+				parent.Right = replaceNode   // 2.
+
 			} else {
 				// left child of parent
-				replaceNode.Left = nd.Left
-				parent.Left = replaceNode
+
+				// order matters!
+				replaceNode.Left = nd.Left // 1.
+				parent.Left = replaceNode  // 2.
+
 			}
+
 		}
 
-		// #3. Update the parent of substituition node
-		sparent := d.SearchParent(replaceNode.Key)
-		if sparent != nil {
-			if sparent.Key.Less(nd.Key) {
-				// right child of sparent
-				//
-				// direct access and update
-				//sparent.Right = nil
-			} else {
-				// left child of sparent
-				//
-				// direct access and update
-				//sparent.Left = nil
-			}
-		}
+		// NO NEED TO DO THIS
+		//
+		// // #3. Update the parents
+		// sparent := d.SearchParent(replaceNode.Key)
+		// if sparent != nil {
+		// 	if sparent.Key.Less(nd.Key) {
+		// 		// right child of sparent
+		// 		//
+		// 		// direct access and update
+		// 		//sparent.Right = nil
+		// 	} else {
+		// 		// left child of sparent
+		// 		//
+		// 		// direct access and update
+		// 		//sparent.Left = nil
+		// 	}
+		// }
 
 	} else if nd.Left != nil && nd.Right == nil {
 		// only left child
 
 		// #1. Update the parent node
-		if parent != nil {
+		if parent == nil {
+			// in case of deleting the root Node
+			d.Root = nd.Left
+
+		} else {
 			if parent.Key.Less(nd.Key) {
 				// right child of parent
 				parent.Right = nd.Left
@@ -371,8 +393,14 @@ func (d *Data) Delete(nd *Node) {
 		}
 
 	} else if nd.Left == nil && nd.Right != nil {
-		// only right childr
-		if parent != nil {
+		// only right child
+
+		// #1. Update the parent node
+		if parent == nil {
+			// in case of deleting the root Node
+			d.Root = nd.Right
+
+		} else {
 			if parent.Key.Less(nd.Key) {
 				// right child of parent
 				parent.Right = nd.Right
@@ -383,7 +411,7 @@ func (d *Data) Delete(nd *Node) {
 		}
 	}
 
-	// Delete the node
+	// At the end, delete the node
 	*nd = Node{}
 	//
 	// (X) nd = new(Node)
