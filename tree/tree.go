@@ -295,16 +295,14 @@ func (d Data) SearchParent(key Interface) *Node {
 
 // Delete deletes a Node from a tree.
 func (d *Data) Delete(nd *Node) {
+	if nd == nil {
+		return
+	}
+	parent := d.SearchParent(nd.Key)
 
 	// you need to dereference the pointer
 	// and update with a value
 	// in order to change the original struct
-
-	if nd == nil {
-		return
-	}
-
-	parent := d.SearchParent(nd.Key)
 
 	if nd.Left != nil && nd.Right != nil {
 		// if two children
@@ -316,7 +314,6 @@ func (d *Data) Delete(nd *Node) {
 		tempData := new(Data)
 		tempData.Root = nd.Left
 		tempNode := tempData.Max()
-
 		//
 		// OR
 		//
@@ -324,64 +321,70 @@ func (d *Data) Delete(nd *Node) {
 		// tempData := new(Data)
 		// tempData.Root = nd.Right
 		// tempNode := nd.Right.Min()
+		//
+		replacingNode := d.Search(tempNode.Key)
+		parentOfReplacingNode := d.SearchParent(replacingNode.Key)
 
-		replaceNode := d.Search(tempNode.Key)
+		// order matters!
+		if replacingNode.Key.Less(nd.Key) {
+			// replacing with the left child
+			replacingNode.Right = nd.Right
+
+			// inherit the sub-tree
+			if nd.Left.Key.Less(replacingNode.Key) ||
+				replacingNode.Key.Less(nd.Left.Key) {
+				// if different
+				replacingNode.Left = nd.Left
+
+				// destroy the old pointer in sub-tree
+				if parentOfReplacingNode.Key.Less(replacingNode.Key) {
+					// deleting right child of parentOfReplacingNode
+					parentOfReplacingNode.Right = nil
+				} else {
+					// deleting left child of parentOfReplacingNode
+					parentOfReplacingNode.Left = nil
+				}
+			}
+
+		} else {
+			// replacing with the right child
+			replacingNode.Left = nd.Left
+
+			// inherit the sub-tree
+			if nd.Right.Key.Less(replacingNode.Key) ||
+				replacingNode.Key.Less(nd.Right.Key) {
+
+				// destroy the old pointer in sub-tree
+				if parentOfReplacingNode.Key.Less(replacingNode.Key) {
+					// deleting right child of parentOfReplacingNode
+					parentOfReplacingNode.Right = nil
+				} else {
+					// deleting left child of parentOfReplacingNode
+					parentOfReplacingNode.Left = nil
+				}
+			}
+		}
 
 		// #2. Update the parent, child node
 		if parent == nil {
 			// in case of deleting the root Node
-
-			// order matters!
-			replaceNode.Right = nd.Right
-			replaceNode.Left = nd.Left
-			d.Root = replaceNode
-
+			d.Root = replacingNode
 		} else {
-			// decide nd(child)'s side(right or left)
 			if parent.Key.Less(nd.Key) {
-				// right child of parent
-
-				// order matters!
-				replaceNode.Right = nd.Right // 1.
-				parent.Right = replaceNode   // 2.
-
+				// deleting right child of parent
+				parent.Right = replacingNode
 			} else {
-				// left child of parent
-
-				// order matters!
-				replaceNode.Left = nd.Left // 1.
-				parent.Left = replaceNode  // 2.
-
+				// deleting left child of parent
+				parent.Left = replacingNode
 			}
-
 		}
-
-		// NO NEED TO DO THIS
-		//
-		// // #3. Update the parents
-		// sparent := d.SearchParent(replaceNode.Key)
-		// if sparent != nil {
-		// 	if sparent.Key.Less(nd.Key) {
-		// 		// right child of sparent
-		// 		//
-		// 		// direct access and update
-		// 		//sparent.Right = nil
-		// 	} else {
-		// 		// left child of sparent
-		// 		//
-		// 		// direct access and update
-		// 		//sparent.Left = nil
-		// 	}
-		// }
 
 	} else if nd.Left != nil && nd.Right == nil {
 		// only left child
-
 		// #1. Update the parent node
 		if parent == nil {
 			// in case of deleting the root Node
 			d.Root = nd.Left
-
 		} else {
 			if parent.Key.Less(nd.Key) {
 				// right child of parent
@@ -394,12 +397,10 @@ func (d *Data) Delete(nd *Node) {
 
 	} else if nd.Left == nil && nd.Right != nil {
 		// only right child
-
 		// #1. Update the parent node
 		if parent == nil {
 			// in case of deleting the root Node
 			d.Root = nd.Right
-
 		} else {
 			if parent.Key.Less(nd.Key) {
 				// right child of parent
