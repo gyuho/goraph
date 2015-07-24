@@ -6,7 +6,7 @@ import (
 	"github.com/gyuho/goraph/tree"
 )
 
-func ExampleDelete() {
+func Example() {
 	root := tree.NewNode(tree.Float64(1))
 	data := tree.New(root)
 
