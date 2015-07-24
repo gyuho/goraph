@@ -6,7 +6,9 @@ import (
 	"github.com/gyuho/goraph/tree"
 )
 
-func Example() {
+// This example inserts float values to a binary search tree
+// and deletes them.
+func Example_delete() {
 	root := tree.NewNode(tree.Float64(1))
 	data := tree.New(root)
 
