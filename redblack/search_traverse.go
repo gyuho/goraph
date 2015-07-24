@@ -31,6 +31,9 @@ func (d Data) Search(key Interface) *Node {
 	nd := d.Root
 	// just updating the pointer value (address)
 	for nd != nil {
+		if nd.Key == nil {
+			break
+		}
 		switch {
 		case nd.Key.Less(key):
 			nd = nd.Right
