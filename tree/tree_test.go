@@ -408,19 +408,19 @@ func TestDelete(t *testing.T) {
 			if data.Search(Float64(16)).Left != nil {
 				t.Fatal("16's Left must be nil")
 			}
-			if data.Search(Float64(2.5)).Left != nil {
-				t.Fatalf("2.5's Left must be nil but %s\n", data.Search(Float64(2.5)).Left)
+			if data.Search(Float64(2.5)).Left.Key != Float64(2) {
+				t.Fatalf("2.5's Left must be 2 but %s\n", data.Search(Float64(2.5)).Left)
 			}
-			if data.SearchParent(Float64(2)) != nil {
-				t.Fatal("2's Parent must be nil")
+			if data.SearchParent(Float64(2)).Key != Float64(2.5) {
+				t.Fatal("2's Parent must be 2.5")
 			}
-			if data.Search(Float64(2)).Right.Key != Float64(2.5) {
-				t.Fatal("2's Right must be 2.5")
+			if data.Search(Float64(2)).Right != nil {
+				t.Fatal("2's Right must be nil")
 			}
-			if data.SearchParent(Float64(2.5)).Key != Float64(2) {
-				t.Fatal("2.5's Parent must be 2")
+			if data.SearchParent(Float64(2.5)) != nil {
+				t.Fatal("2.5's Parent must be nil")
 			}
-			if data.Root.Key != Float64(2) {
+			if data.Root.Key != Float64(2.5) {
 				t.Fatal("Root must be 2")
 			}
 
