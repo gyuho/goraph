@@ -440,9 +440,9 @@ func (a Int) Less(b Interface) bool {
 	return a < b.(Int)
 }
 
-type Float float64
+type Float64 float64
 
-// Less returns true if float(a) < float(b).
-func (a Float) Less(b Interface) bool {
-	return a < b.(Float)
+// Less returns true if float64(a) < float64(b).
+func (a Float64) Less(b Interface) bool {
+	return a < b.(Float64)
 }

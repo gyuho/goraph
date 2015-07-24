@@ -239,80 +239,53 @@ func TestSearchChan(t *testing.T) {
 	}
 }
 
-func TestDelete1(t *testing.T) {
-	root := NewNode(Float(1))
+func TestDelete(t *testing.T) {
+	root := NewNode(Float64(1))
 	data := New(root)
 
 	slice := []float64{3, 9, 13, 17, 20, 25, 39, 16, 15, 2, 2.5}
 	for _, num := range slice {
-		data.Insert(NewNode(Float(num)))
+		data.Insert(NewNode(Float64(num)))
 	}
+
 	if fmt.Sprintf("%s", data) != "[1 [[2 [2.5]] 3 [9 [13 [[[15] 16] 17 [20 [25 [39]]]]]]]]" {
 		t.Fatalf("Not expected output: %s\n", data)
 	}
 
-	if fmt.Sprintf("%s", data.Search(Float(20))) != "[20 [25 [39]]]" {
+	if fmt.Sprintf("%s", data.Search(Float64(20))) != "[20 [25 [39]]]" {
 		t.Fatalf("Not expected output: %s\n", data)
 	}
 
-	if data.Max().Key != Float(39.0) {
+	if data.Max().Key != Float64(39.0) {
 		t.Fatalf("Expected 39.0 but %f", data.Max().Key)
 	}
 
-	if data.Min().Key != Float(1.0) {
+	if data.Min().Key != Float64(1.0) {
 		t.Fatalf("Expected 1.0 but %f", data.Min().Key)
 	}
 
-	if data.SearchParent(Float(16)).Key != Float(17.0) {
-		t.Fatalf("Expected 17.0 but %f", data.SearchParent(Float(16)).Key)
-	}
-
-	deletes := []float64{13, 17, 3, 15, 1}
-	for _, num := range deletes {
-		fmt.Println("Deleting", num)
-		data.Delete(data.Search(Float(num)))
-		fmt.Println("After deleting", num, ":", data)
-		fmt.Println()
-	}
-	/*
-	   Deleting 13
-	   After deleting 13 : [1 [[2 [2.5]] 3 [9 [[[15] 16] 17 [20 [25 [39]]]]]]]
-
-	   Deleting 17
-	   After deleting 17 : [1 [[2 [2.5]] 3 [9 [[15] 16 [20 [25 [39]]]]]]]
-
-	   Deleting 3
-	   After deleting 3 : [1 [[2] 2.5 [9 [[15] 16 [20 [25 [39]]]]]]]
-
-	   Deleting 15
-	   After deleting 15 : [1 [[2] 2.5 [9 [[<nil>] 16 [20 [25 [39]]]]]]]
-
-	   Deleting 1
-	   After deleting 1 : [[2] 2.5 [9 [[<nil>] 16 [20 [25 [39]]]]]]
-	*/
-}
-
-func TestDelete2(t *testing.T) {
-	root := NewNode(Float(1))
-	data := New(root)
-
-	slice := []float64{3, 9, 13, 17, 20, 25, 39, 16, 15, 2, 2.5}
-	for _, num := range slice {
-		data.Insert(NewNode(Float(num)))
+	if data.SearchParent(Float64(16)).Key != Float64(17.0) {
+		t.Fatalf("Expected 17.0 but %f", data.SearchParent(Float64(16)).Key)
 	}
 
 	deletes := []float64{13, 17, 3, 15, 1}
 	for index, num := range deletes {
-		data.Delete(data.Search(Float(num)))
+		data.Delete(data.Search(Float64(num)))
 		t.Logf("After deleting: %f\n", num)
 
 		switch index {
 		case 0:
-			if data.Search(Float(9)).Right.Key != Float(17) {
-				t.Fatal("17's right child must be 9")
+			if data.Search(Float64(9)).Right.Key != Float64(17) {
+				t.Fatal("9's right child must be 9")
 			}
-			if data.SearchParent(Float(17)).Key != Float(9) {
+			if data.SearchParent(Float64(17)).Key != Float64(9) {
 				t.Fatal("17's parent must be 9")
+			}
+			if data.Search(Float64(17)).Left.Key != Float64(16) {
+				t.Fatal("17's left child must be 16")
+			}
+			if data.Search(Float64(13)) != nil {
+				t.Fatal("13 must be nil")
 			}
 
 		case 1:
