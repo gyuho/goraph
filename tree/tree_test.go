@@ -268,34 +268,59 @@ func TestDelete(t *testing.T) {
 		t.Fatalf("Expected 17.0 but %f", data.SearchParent(Float64(16)).Key)
 	}
 
-	deletes := []float64{13, 17, 3, 15, 1}
-	for index, num := range deletes {
-		data.Delete(data.Search(Float64(num)))
-		t.Logf("After deleting: %f\n", num)
+	if data.Search(Float64(39)).Right != nil {
+		t.Fatal("39's Right child must be nil")
+	}
+	if data.Search(Float64(25)).Left != nil {
+		t.Fatal("25's Left child must be nil")
+	}
 
-		switch index {
-		case 0:
+	deletes := []float64{13, 17, 3, 15, 1}
+	for _, num := range deletes {
+		data.Delete(data.Search(Float64(num)))
+
+		t.Logf("Deleted: %f\n", num)
+		if data.Search(Float64(num)) != nil {
+			t.Fatal(num, "must be nil")
+		}
+
+		switch num {
+		case 13:
 			if data.Search(Float64(9)).Right.Key != Float64(17) {
-				t.Fatal("9's right child must be 9")
+				t.Fatal("9's Right child must be 17")
 			}
 			if data.SearchParent(Float64(17)).Key != Float64(9) {
-				t.Fatal("17's parent must be 9")
+				t.Fatal("17's Parent must be 9")
 			}
 			if data.Search(Float64(17)).Left.Key != Float64(16) {
-				t.Fatal("17's left child must be 16")
-			}
-			if data.Search(Float64(13)) != nil {
-				t.Fatal("13 must be nil")
+				t.Fatal("17's Left child must be 16")
 			}
 
-		case 1:
-
-		case 2:
+		case 17:
+			if data.Search(Float64(9)).Right.Key != Float64(16) {
+				t.Fatal("9's Right child must be 16")
+			}
+			if data.SearchParent(Float64(16)).Key != Float64(9) {
+				t.Fatal("16's Parent must be 9")
+			}
+			if data.Search(Float64(16)).Right.Key != Float64(20) {
+				t.Fatal("16's Right child must be 20")
+			}
+			if data.Search(Float64(16)).Left.Key != Float64(15) {
+				t.Fatal("16's Left must be 9")
+			}
+			if data.SearchParent(Float64(20)).Key != Float64(16) {
+				t.Fatal("20's Parent must be 16")
+			}
 
 		case 3:
 
-		case 4:
+		case 15:
 
+		case 1:
+
+		default:
+			t.Fatal(num, "shouldn't be there...")
 		}
 	}
 }

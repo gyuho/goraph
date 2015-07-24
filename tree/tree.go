@@ -107,6 +107,9 @@ func (d Data) Search(key Interface) *Node {
 	nd := d.Root
 	// just updating the pointer value (address)
 	for nd != nil {
+		if nd.Key == nil {
+			return nd
+		}
 		switch {
 		case nd.Key.Less(key):
 			nd = nd.Right
@@ -410,14 +413,32 @@ func (d *Data) Delete(nd *Node) {
 				parent.Left = nd.Right
 			}
 		}
+	} else {
+		// no child
+		if parent == nil {
+			// in case of deleting the root Node
+			d.Root = nil
+		} else {
+			if parent.Key.Less(nd.Key) {
+				// right child of parent
+				parent.Right = nil
+			} else {
+				// left child of parent
+				parent.Left = nil
+			}
+		}
 	}
 
 	// At the end, delete the node
+	// this is not necessary because it will be
+	// garbage collected
 	*nd = Node{}
-	//
-	// (X) nd = new(Node)
-	// (X) nd = nil
+
 	// because this is inside function
+	// this won't change the actual node
+	//
+	// nd = new(Node)
+	// nd = nil
 }
 
 type nodeStruct struct {

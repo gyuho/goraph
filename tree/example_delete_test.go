@@ -21,23 +21,23 @@ func Example_delete() {
 	for _, num := range deletes {
 		fmt.Println("Deleting", num)
 		data.Delete(data.Search(tree.Float64(num)))
-		fmt.Println("After deleting", num, ":", data)
+		fmt.Println("Deleted", num, ":", data)
 		fmt.Println()
 	}
 
 	// Output:
 	// Deleting 13
-	// After deleting 13 : [1 [[2 [2.5]] 3 [9 [[[15] 16] 17 [20 [25 [39]]]]]]]
+	// Deleted 13 : [1 [[2 [2.5]] 3 [9 [[[15] 16] 17 [20 [25 [39]]]]]]]
 	//
 	// Deleting 17
-	// After deleting 17 : [1 [[2 [2.5]] 3 [9 [[15] 16 [20 [25 [39]]]]]]]
+	// Deleted 17 : [1 [[2 [2.5]] 3 [9 [[15] 16 [20 [25 [39]]]]]]]
 	//
 	// Deleting 3
-	// After deleting 3 : [1 [[2] 2.5 [9 [[15] 16 [20 [25 [39]]]]]]]
+	// Deleted 3 : [1 [[2] 2.5 [9 [[15] 16 [20 [25 [39]]]]]]]
 	//
 	// Deleting 15
-	// After deleting 15 : [1 [[2] 2.5 [9 [[<nil>] 16 [20 [25 [39]]]]]]]
+	// Deleted 15 : [1 [[2] 2.5 [9 [16 [20 [25 [39]]]]]]]
 	//
 	// Deleting 1
-	// After deleting 1 : [[2] 2.5 [9 [[<nil>] 16 [20 [25 [39]]]]]]
+	// Deleted 1 : [[2] 2.5 [9 [16 [20 [25 [39]]]]]]
 }
