@@ -41,7 +41,7 @@ func TestDelete(t *testing.T) {
 		t.Fatal("25's Left child must be nil")
 	}
 
-	deletes := []float64{13, 17, 3, 15, 1}
+	deletes := []float64{13, 17, 3, 15, 1, 2.5}
 	for _, num := range deletes {
 		data.Delete(data.Search(Float64(num)))
 
@@ -191,6 +191,41 @@ func TestDelete(t *testing.T) {
 				t.Fatal("2.5's Parent must be nil")
 			}
 			if data.Root.Key != Float64(2.5) {
+				t.Fatal("Root must be 2.5")
+			}
+
+		case 2.5:
+			if data.Search(Float64(2)).Right.Key != Float64(9) {
+				t.Fatal("2's Right child must be 9")
+			}
+			if data.Search(Float64(9)).Right.Key != Float64(16) {
+				t.Fatal("9's Right child must be 16")
+			}
+			if data.SearchParent(Float64(2)) != nil {
+				t.Fatal("2's Parent must be nil")
+			}
+			if data.SearchParent(Float64(16)).Key != Float64(9) {
+				t.Fatal("16's Parent must be 9")
+			}
+			if data.Search(Float64(16)).Right.Key != Float64(20) {
+				t.Fatal("16's Right child must be 20")
+			}
+			if data.Search(Float64(16)).Left != nil {
+				t.Fatal("16's Left must be nil")
+			}
+			if data.SearchParent(Float64(20)).Key != Float64(16) {
+				t.Fatal("20's Parent must be 16")
+			}
+			if data.Search(Float64(2.5)) != nil {
+				t.Fatal("2.5's Right must be nil")
+			}
+			if data.Search(Float64(16)).Left != nil {
+				t.Fatal("16's Left must be nil")
+			}
+			if data.Search(Float64(2)).Right.Key != Float64(9) {
+				t.Fatal("2's Right must be 9")
+			}
+			if data.Root.Key != Float64(2) {
 				t.Fatal("Root must be 2")
 			}
 
