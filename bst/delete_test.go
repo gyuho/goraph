@@ -1,4 +1,4 @@
-package tree
+package bst
 
 import (
 	"fmt"

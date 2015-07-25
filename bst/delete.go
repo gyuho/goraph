@@ -1,4 +1,4 @@
-package tree
+package bst
 
 // Delete deletes a Node from a tree.
 func (d *Data) Delete(nd *Node) {
