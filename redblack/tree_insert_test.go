@@ -5,32 +5,18 @@ import (
 	"testing"
 )
 
-type Int int
-
-// Less returns true if int(a) < int(b).
-func (a Int) Less(b Interface) bool {
-	return a < b.(Int)
-}
-
 func TestIsRed(t *testing.T) {
 	if !isRed(NewNode(Int(5))) {
 		t.Error("Expected Red")
 	}
 }
 
-type Str string
-
-// Less returns true if string(a) < string(b).
-func (a Str) Less(b Interface) bool {
-	return a < b.(Str)
-}
-
 func TestInsert1(t *testing.T) {
-	root := NewNode(Str("S"))
+	root := NewNode(String("S"))
 	data := New(root)
-	data.Insert(NewNode(Str("E")))
-	data.Insert(NewNode(Str("A")))
-	nd := data.Search(Str("E"))
+	data.Insert(NewNode(String("E")))
+	data.Insert(NewNode(String("A")))
+	nd := data.Search(String("E"))
 	if fmt.Sprintf("%v", nd.Key) != "E" {
 		t.Errorf("Unexpected %v", nd.Key)
 	}
@@ -49,18 +35,18 @@ func TestInsert1(t *testing.T) {
 }
 
 func TestInsert2(t *testing.T) {
-	root := NewNode(Str("S"))
+	root := NewNode(String("S"))
 	data := New(root)
-	data.Insert(NewNode(Str("E")))
-	data.Insert(NewNode(Str("A")))
-	data.Insert(NewNode(Str("R")))
-	data.Insert(NewNode(Str("C")))
-	data.Insert(NewNode(Str("H")))
-	data.Insert(NewNode(Str("X")))
-	data.Insert(NewNode(Str("M")))
-	data.Insert(NewNode(Str("P")))
-	data.Insert(NewNode(Str("L")))
-	nd := data.Search(Str("E"))
+	data.Insert(NewNode(String("E")))
+	data.Insert(NewNode(String("A")))
+	data.Insert(NewNode(String("R")))
+	data.Insert(NewNode(String("C")))
+	data.Insert(NewNode(String("H")))
+	data.Insert(NewNode(String("X")))
+	data.Insert(NewNode(String("M")))
+	data.Insert(NewNode(String("P")))
+	data.Insert(NewNode(String("L")))
+	nd := data.Search(String("E"))
 	if fmt.Sprintf("%v", nd.Key) != "E" {
 		t.Errorf("Unexpected %v", nd.Key)
 	}
@@ -99,47 +85,5 @@ func TestInsert2(t *testing.T) {
 	}
 	if fmt.Sprintf("%v", data.Root.Right.Left.Key) != "P" {
 		t.Errorf("Unexpected %v", data.Root.Right.Left.Key)
-	}
-}
-
-func TestDeleteMin1(t *testing.T) {
-	root := NewNode(Str("S"))
-	data := New(root)
-	data.Insert(NewNode(Str("E")))
-	data.Insert(NewNode(Str("A")))
-	key := data.DeleteMin()
-	if fmt.Sprintf("%v", key) != "A" {
-		t.Errorf("Expected A but %v", key)
-	}
-	if fmt.Sprintf("%v", data) != "[[E(false)] S(true)]" {
-		t.Errorf("Unexpected %v", data)
-	}
-}
-
-func TestDeleteMax1(t *testing.T) {
-	root := NewNode(Str("S"))
-	data := New(root)
-	data.Insert(NewNode(Str("E")))
-	data.Insert(NewNode(Str("A")))
-	key := data.DeleteMax()
-	if fmt.Sprintf("%v", key) != "S" {
-		t.Errorf("Expected A but %v", key)
-	}
-	if fmt.Sprintf("%v", data) != "[[A(false)] E(true)]" {
-		t.Errorf("Unexpected %v", data)
-	}
-}
-
-func TestDelete1(t *testing.T) {
-	root := NewNode(Str("S"))
-	data := New(root)
-	data.Insert(NewNode(Str("E")))
-	data.Insert(NewNode(Str("A")))
-	key := data.Delete(Str("E"))
-	if fmt.Sprintf("%v", key) != "E" {
-		t.Errorf("Expected A but %v", key)
-	}
-	if fmt.Sprintf("%v", data) != "[[A(false)] S(true)]" {
-		t.Errorf("Unexpected %v", data)
 	}
 }
