@@ -1,4 +1,4 @@
-// Package redblack implements a Left-Leaning Red-Black tree
+// Package llrb implements a Left-Leaning Red-Black tree
 // , which is a 2-3 balanced binary search tree:
 //	* Each edge(link between nodes) is either black or red.
 //	* Or every node is either black or red — easier to code.
@@ -13,4 +13,4 @@
 //	* https://www.youtube.com/watch?v=lKmLBOJXZHI
 //	* https://github.com/petar/GoLLRB
 //
-package redblack // import "github.com/gyuho/goraph/redblack"
+package llrb // import "github.com/gyuho/goraph/llrb"

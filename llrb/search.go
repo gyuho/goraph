@@ -1,4 +1,4 @@
-package redblack
+package llrb
 
 // Min returns the minimum key Node in the tree.
 func (d Data) Min() *Node {

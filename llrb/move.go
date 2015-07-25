@@ -1,4 +1,4 @@
-package redblack
+package llrb
 
 // Left and Right children must be present
 func moveRedToLeft(nd *Node) *Node {

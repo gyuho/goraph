@@ -1,4 +1,4 @@
-package redblack
+package llrb
 
 // deleteMin code for LLRB 2-3 trees
 func deleteMin(nd *Node) (*Node, Interface) {
