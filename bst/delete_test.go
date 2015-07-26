@@ -46,7 +46,6 @@ func TestDelete(t *testing.T) {
 		data.Delete(data.Search(Float64(num)))
 
 		t.Logf("Deleted: %f\n", num)
-
 		if data.Search(Float64(num)) != nil {
 			t.Fatal(num, "must be nil")
 		}
@@ -230,7 +229,7 @@ func TestDelete(t *testing.T) {
 			}
 
 		default:
-			t.Fatal(num, "shouldn't be there...")
+			t.Fatal(num, "shouldn't be here...")
 		}
 	}
 }
