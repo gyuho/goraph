@@ -103,5 +103,58 @@ func TestBalanceInsert2(t *testing.T) {
 	nums := []float64{3, 9, 13, 17, 20, 25, 39, 16, 15, 2, 2.5}
 	for _, num := range nums {
 		data.Insert(NewNode(Float64(num)))
+
+		t.Logf("Inserted: %f\n", num)
+		if data.Search(Float64(num)) == nil {
+			t.Fatal(num, "must not be nil")
+		}
+		if data.Search(Float64(1000.12)) != nil {
+			t.Fatal(1000.12, "must be nil")
+		}
+
+		switch num {
+		case 3:
+			if data.Search(Float64(3)).Left.Key != Float64(1) {
+				t.Fatal("3's Left child must be 1")
+			}
+			if data.Search(Float64(3)).Right != nil {
+				t.Fatal("3's Right child must be nil")
+			}
+			if data.SearchParent(Float64(3)) != nil {
+				t.Fatal("3's Parent must be nil")
+			}
+			if data.SearchParent(Float64(1)).Key != Float64(3) {
+				t.Fatal("1's Parent must be 3")
+			}
+			if data.Search(Float64(1)).Right != nil {
+				t.Fatal("1's Right child must be nil")
+			}
+			if data.Search(Float64(1)).Left != nil {
+				t.Fatal("1's Left child must be nil")
+			}
+
+		case 9:
+
+		case 13:
+
+		case 17:
+
+		case 20:
+
+		case 25:
+
+		case 39:
+
+		case 16:
+
+		case 15:
+
+		case 2:
+
+		case 2.5:
+
+		default:
+			t.Fatal(num, "shouldn't be there...")
+		}
 	}
 }
