@@ -68,3 +68,15 @@ func TestSearchChan(t *testing.T) {
 		t.Errorf("Expected nil but %v", nd2)
 	}
 }
+
+func TestSearchParent(t *testing.T) {
+	root := NewNode(Int(5))
+	data := New(root)
+	data.Insert(NewNode(Int(3)))
+	data.Insert(NewNode(Int(17)))
+	data.Insert(NewNode(Int(7)))
+	data.Insert(NewNode(Int(1)))
+	if data.SearchParent(Int(3)).Key != Int(5) {
+		t.Errorf("3's parent must be 5 but but %v", data.Search(Int(3)).Key)
+	}
+}

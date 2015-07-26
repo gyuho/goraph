@@ -87,3 +87,21 @@ func TestInsert2(t *testing.T) {
 		t.Errorf("Unexpected %v", data.Root.Right.Left.Key)
 	}
 }
+
+func TestBalanceInsert1(t *testing.T) {
+	root := NewNode(Float64(1))
+	data := New(root)
+	nums := []float64{3, 9, 13, 17, 20, 25, 39, 16, 15, 2, 2.5}
+	for _, num := range nums {
+		data.Insert(NewNode(Float64(num)))
+	}
+}
+
+func TestBalanceInsert2(t *testing.T) {
+	root := NewNode(Float64(1))
+	data := New(root)
+	nums := []float64{3, 9, 13, 17, 20, 25, 39, 16, 15, 2, 2.5}
+	for _, num := range nums {
+		data.Insert(NewNode(Float64(num)))
+	}
+}

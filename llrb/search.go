@@ -63,3 +63,27 @@ func searchChan(nd *Node, key Interface, ch chan *Node) {
 	searchChan(nd.Left, key, ch)  // left
 	searchChan(nd.Right, key, ch) // right
 }
+
+// SearchParent does binary-search on a given key and returns the parent Node.
+func (d Data) SearchParent(key Interface) *Node {
+	nd := d.Root
+	parent := new(Node)
+	parent = nil
+	// just updating the pointer value (address)
+	for nd != nil {
+		if nd.Key == nil {
+			break
+		}
+		switch {
+		case nd.Key.Less(key):
+			parent = nd // copy the pointer(address)
+			nd = nd.Right
+		case key.Less(nd.Key):
+			parent = nd // copy the pointer(address)
+			nd = nd.Left
+		default:
+			return parent
+		}
+	}
+	return nil
+}

@@ -94,7 +94,6 @@ func rotateToRight(nd *Node) *Node {
 	if nd.Left.Black {
 		panic("Can't rotate a black link")
 	}
-
 	// exchange x and nd
 	// nd is parent node, x is Left child
 	x := nd.Left
@@ -130,17 +129,22 @@ func balance(nd *Node) *Node {
 	return nd
 }
 
-func fixUp(nd *Node) *Node {
-	if isRed(nd.Right) {
-		nd = rotateToLeft(nd)
+// insert inserts nd2 with nd1 as a root.
+func (nd1 *Node) insert(nd2 *Node) *Node {
+	if nd1 == nil {
+		return nd2
 	}
-	if isRed(nd.Left) && isRed(nd.Left.Left) {
-		nd = rotateToRight(nd)
+	if nd1.Key.Less(nd2.Key) {
+		// nd1 is smaller than nd2
+		// nd1 < nd2
+		nd1.Right = nd1.Right.insert(nd2)
+	} else {
+		// nd1 is greater than nd2
+		// nd1 >= nd2
+		nd1.Left = nd1.Left.insert(nd2)
 	}
-	if isRed(nd.Left) && isRed(nd.Right) {
-		flipColor(nd)
-	}
-	return nd
+	// balance from nd1
+	return balance(nd1)
 }
 
 // Insert inserts a Node to a Data without replacement.
@@ -148,22 +152,13 @@ func fixUp(nd *Node) *Node {
 // If the new red link is a right link, rotate left.
 // If two left red links in a row, rotate to right and flip color.
 // (https://youtu.be/lKmLBOJXZHI?t=20m43s)
+//
+// Note that it recursively balances from its parent nodes
+// to the root node at the top.
 func (d *Data) Insert(nd *Node) {
 	if d.Root == nd {
 		return
 	}
 	d.Root = d.Root.insert(nd)
 	d.Root.Black = true
-}
-
-func (nd *Node) insert(node *Node) *Node {
-	if nd == nil {
-		return node
-	}
-	if nd.Key.Less(node.Key) {
-		nd.Right = nd.Right.insert(node)
-	} else {
-		nd.Left = nd.Left.insert(node)
-	}
-	return balance(nd)
 }

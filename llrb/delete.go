@@ -1,5 +1,18 @@
 package llrb
 
+func fixUp(nd *Node) *Node {
+	if isRed(nd.Right) {
+		nd = rotateToLeft(nd)
+	}
+	if isRed(nd.Left) && isRed(nd.Left.Left) {
+		nd = rotateToRight(nd)
+	}
+	if isRed(nd.Left) && isRed(nd.Right) {
+		flipColor(nd)
+	}
+	return nd
+}
+
 // deleteMin code for LLRB 2-3 trees
 func deleteMin(nd *Node) (*Node, Interface) {
 	if nd == nil {
