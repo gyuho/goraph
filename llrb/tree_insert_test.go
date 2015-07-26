@@ -329,6 +329,30 @@ func TestBalanceInsert2(t *testing.T) {
 			if data.Search(Float64(17)).Left != nil {
 				t.Fatal("17's Left child must be nil")
 			}
+			if data.SearchParent(Float64(3)).Key != Float64(13) {
+				t.Fatal("3's Parent must be 13")
+			}
+			if data.SearchParent(Float64(9)).Key != Float64(3) {
+				t.Fatal("9's Parent must be 3")
+			}
+			if data.SearchParent(Float64(17)).Key != Float64(20) {
+				t.Fatal("17's Parent must be 20")
+			}
+			if data.Search(Float64(13)).Left.Key != Float64(3) {
+				t.Fatal("13's Left must be 3")
+			}
+			if data.Search(Float64(13)).Right.Key != Float64(20) {
+				t.Fatal("13's Right must be 20")
+			}
+			if data.Search(Float64(20)).Left.Key != Float64(17) {
+				t.Fatal("20's Left must be 17")
+			}
+			if data.Search(Float64(3)).Left.Key != Float64(1) {
+				t.Fatal("3's Left must be 1")
+			}
+			if data.Search(Float64(3)).Right.Key != Float64(9) {
+				t.Fatal("3's Right must be 9")
+			}
 			if isRed(data.Search(Float64(13))) {
 				t.Fatal("13 must be red (Root must be black always")
 			}
@@ -378,6 +402,33 @@ func TestBalanceInsert2(t *testing.T) {
 			}
 			if data.Search(Float64(25)).Left != nil {
 				t.Fatal("25's Left child must be nil")
+			}
+			if data.SearchParent(Float64(3)).Key != Float64(13) {
+				t.Fatal("3's Parent must be 13")
+			}
+			if data.SearchParent(Float64(9)).Key != Float64(3) {
+				t.Fatal("9's Parent must be 3")
+			}
+			if data.SearchParent(Float64(17)).Key != Float64(20) {
+				t.Fatal("17's Parent must be 20")
+			}
+			if data.Search(Float64(13)).Left.Key != Float64(3) {
+				t.Fatal("13's Left must be 3")
+			}
+			if data.Search(Float64(13)).Right.Key != Float64(20) {
+				t.Fatal("13's Right must be 3")
+			}
+			if data.Search(Float64(3)).Left.Key != Float64(1) {
+				t.Fatal("3's Left must be 1")
+			}
+			if data.Search(Float64(3)).Right.Key != Float64(9) {
+				t.Fatal("3's Right must be 9")
+			}
+			if data.Search(Float64(20)).Left.Key != Float64(17) {
+				t.Fatal("20's Left must be 17")
+			}
+			if data.Search(Float64(20)).Right.Key != Float64(25) {
+				t.Fatal("20's Right must be 25")
 			}
 			if isRed(data.Search(Float64(13))) {
 				t.Fatal("13 must be red (Root must be black always")
@@ -431,6 +482,39 @@ func TestBalanceInsert2(t *testing.T) {
 			}
 			if data.Search(Float64(25)).Left != nil {
 				t.Fatal("25's Left child must be nil")
+			}
+			if data.SearchParent(Float64(3)).Key != Float64(13) {
+				t.Fatal("3's Parent must be 13")
+			}
+			if data.SearchParent(Float64(9)).Key != Float64(3) {
+				t.Fatal("9's Parent must be 3")
+			}
+			if data.SearchParent(Float64(17)).Key != Float64(20) {
+				t.Fatal("17's Parent must be 20")
+			}
+			if data.SearchParent(Float64(25)).Key != Float64(39) {
+				t.Fatal("25's Parent must be 39")
+			}
+			if data.Search(Float64(13)).Left.Key != Float64(3) {
+				t.Fatal("13's Left must be 3")
+			}
+			if data.Search(Float64(13)).Right.Key != Float64(20) {
+				t.Fatal("13's Right must be 3")
+			}
+			if data.Search(Float64(3)).Left.Key != Float64(1) {
+				t.Fatal("3's Left must be 1")
+			}
+			if data.Search(Float64(3)).Right.Key != Float64(9) {
+				t.Fatal("3's Right must be 9")
+			}
+			if data.Search(Float64(20)).Left.Key != Float64(17) {
+				t.Fatal("20's Left must be 17")
+			}
+			if data.Search(Float64(20)).Right.Key != Float64(39) {
+				t.Fatal("20's Right must be 39")
+			}
+			if data.Search(Float64(39)).Left.Key != Float64(25) {
+				t.Fatal("39's Left must be 25")
 			}
 			if isRed(data.Search(Float64(13))) {
 				t.Fatal("13 must be red (Root must be black always")
@@ -487,6 +571,42 @@ func TestBalanceInsert2(t *testing.T) {
 			}
 			if data.Search(Float64(25)).Left != nil {
 				t.Fatal("25's Left child must be nil")
+			}
+			if data.SearchParent(Float64(3)).Key != Float64(13) {
+				t.Fatal("3's Parent must be 13")
+			}
+			if data.SearchParent(Float64(9)).Key != Float64(3) {
+				t.Fatal("9's Parent must be 3")
+			}
+			if data.SearchParent(Float64(17)).Key != Float64(20) {
+				t.Fatal("17's Parent must be 20")
+			}
+			if data.SearchParent(Float64(25)).Key != Float64(39) {
+				t.Fatal("25's Parent must be 39")
+			}
+			if data.Search(Float64(13)).Left.Key != Float64(3) {
+				t.Fatal("13's Left must be 3")
+			}
+			if data.Search(Float64(13)).Right.Key != Float64(20) {
+				t.Fatal("13's Right must be 3")
+			}
+			if data.Search(Float64(3)).Left.Key != Float64(1) {
+				t.Fatal("3's Left must be 1")
+			}
+			if data.Search(Float64(3)).Right.Key != Float64(9) {
+				t.Fatal("3's Right must be 9")
+			}
+			if data.Search(Float64(20)).Left.Key != Float64(17) {
+				t.Fatal("20's Left must be 17")
+			}
+			if data.Search(Float64(20)).Right.Key != Float64(39) {
+				t.Fatal("20's Right must be 39")
+			}
+			if data.Search(Float64(39)).Left.Key != Float64(25) {
+				t.Fatal("39's Left must be 25")
+			}
+			if data.Search(Float64(17)).Left.Key != Float64(16) {
+				t.Fatal("17's Left must be 16")
 			}
 			if isRed(data.Search(Float64(13))) {
 				t.Fatal("13 must be red (Root must be black always")
@@ -552,6 +672,48 @@ func TestBalanceInsert2(t *testing.T) {
 			}
 			if data.Search(Float64(25)).Left != nil {
 				t.Fatal("25's Left child must be nil")
+			}
+			if data.SearchParent(Float64(3)).Key != Float64(13) {
+				t.Fatal("3's Parent must be 13")
+			}
+			if data.SearchParent(Float64(9)).Key != Float64(3) {
+				t.Fatal("9's Parent must be 3")
+			}
+			if data.SearchParent(Float64(15)).Key != Float64(16) {
+				t.Fatal("15's Parent must be 16")
+			}
+			if data.SearchParent(Float64(17)).Key != Float64(16) {
+				t.Fatal("17's Parent must be 16")
+			}
+			if data.SearchParent(Float64(25)).Key != Float64(39) {
+				t.Fatal("25's Parent must be 39")
+			}
+			if data.Search(Float64(13)).Left.Key != Float64(3) {
+				t.Fatal("13's Left must be 3")
+			}
+			if data.Search(Float64(13)).Right.Key != Float64(20) {
+				t.Fatal("13's Right must be 3")
+			}
+			if data.Search(Float64(3)).Left.Key != Float64(1) {
+				t.Fatal("3's Left must be 1")
+			}
+			if data.Search(Float64(3)).Right.Key != Float64(9) {
+				t.Fatal("3's Right must be 9")
+			}
+			if data.Search(Float64(20)).Left.Key != Float64(16) {
+				t.Fatal("20's Left must be 16")
+			}
+			if data.Search(Float64(20)).Right.Key != Float64(39) {
+				t.Fatal("20's Right must be 39")
+			}
+			if data.Search(Float64(39)).Left.Key != Float64(25) {
+				t.Fatal("39's Left must be 25")
+			}
+			if data.Search(Float64(16)).Left.Key != Float64(15) {
+				t.Fatal("16's Left must be 15")
+			}
+			if data.Search(Float64(16)).Right.Key != Float64(17) {
+				t.Fatal("16's Right must be 17")
 			}
 			if isRed(data.Search(Float64(13))) {
 				t.Fatal("13 must be red (Root must be black always")
@@ -620,6 +782,54 @@ func TestBalanceInsert2(t *testing.T) {
 			}
 			if data.Search(Float64(25)).Left != nil {
 				t.Fatal("25's Left child must be nil")
+			}
+			if data.SearchParent(Float64(3)).Key != Float64(13) {
+				t.Fatal("3's Parent must be 13")
+			}
+			if data.SearchParent(Float64(9)).Key != Float64(3) {
+				t.Fatal("9's Parent must be 3")
+			}
+			if data.SearchParent(Float64(15)).Key != Float64(16) {
+				t.Fatal("15's Parent must be 16")
+			}
+			if data.SearchParent(Float64(17)).Key != Float64(16) {
+				t.Fatal("17's Parent must be 16")
+			}
+			if data.SearchParent(Float64(1)).Key != Float64(2) {
+				t.Fatal("1's Parent must be 2")
+			}
+			if data.SearchParent(Float64(25)).Key != Float64(39) {
+				t.Fatal("25's Parent must be 39")
+			}
+			if data.Search(Float64(13)).Left.Key != Float64(3) {
+				t.Fatal("13's Left must be 3")
+			}
+			if data.Search(Float64(13)).Right.Key != Float64(20) {
+				t.Fatal("13's Right must be 3")
+			}
+			if data.Search(Float64(3)).Left.Key != Float64(2) {
+				t.Fatal("3's Left must be 2")
+			}
+			if data.Search(Float64(3)).Right.Key != Float64(9) {
+				t.Fatal("3's Right must be 9")
+			}
+			if data.Search(Float64(20)).Left.Key != Float64(16) {
+				t.Fatal("20's Left must be 16")
+			}
+			if data.Search(Float64(20)).Right.Key != Float64(39) {
+				t.Fatal("20's Right must be 39")
+			}
+			if data.Search(Float64(39)).Left.Key != Float64(25) {
+				t.Fatal("39's Left must be 25")
+			}
+			if data.Search(Float64(16)).Left.Key != Float64(15) {
+				t.Fatal("16's Left must be 15")
+			}
+			if data.Search(Float64(16)).Right.Key != Float64(17) {
+				t.Fatal("16's Right must be 17")
+			}
+			if data.Search(Float64(2)).Left.Key != Float64(1) {
+				t.Fatal("2's Left must be 1")
 			}
 			if isRed(data.Search(Float64(13))) {
 				t.Fatal("13 must be red (Root must be black always")
@@ -697,6 +907,66 @@ func TestBalanceInsert2(t *testing.T) {
 			}
 			if data.Search(Float64(25)).Left != nil {
 				t.Fatal("25's Left child must be nil")
+			}
+			if data.Search(Float64(39)).Right != nil {
+				t.Fatal("39's Right child must be nil")
+			}
+			if data.SearchParent(Float64(3)).Key != Float64(13) {
+				t.Fatal("3's Parent must be 13")
+			}
+			if data.SearchParent(Float64(9)).Key != Float64(3) {
+				t.Fatal("9's Parent must be 3")
+			}
+			if data.SearchParent(Float64(15)).Key != Float64(16) {
+				t.Fatal("15's Parent must be 16")
+			}
+			if data.SearchParent(Float64(17)).Key != Float64(16) {
+				t.Fatal("17's Parent must be 16")
+			}
+			if data.SearchParent(Float64(1)).Key != Float64(2) {
+				t.Fatal("1's Parent must be 2")
+			}
+			if data.SearchParent(Float64(25)).Key != Float64(39) {
+				t.Fatal("25's Parent must be 39")
+			}
+			if data.SearchParent(Float64(2.5)).Key != Float64(2) {
+				t.Fatal("2.5's Parent must be 2")
+			}
+			if data.SearchParent(Float64(2.1)) != nil {
+				t.Fatal("2.1's Parent must be nil")
+			}
+			if data.Search(Float64(13)).Left.Key != Float64(3) {
+				t.Fatal("13's Left must be 3")
+			}
+			if data.Search(Float64(13)).Right.Key != Float64(20) {
+				t.Fatal("13's Right must be 3")
+			}
+			if data.Search(Float64(3)).Left.Key != Float64(2) {
+				t.Fatal("3's Left must be 2")
+			}
+			if data.Search(Float64(3)).Right.Key != Float64(9) {
+				t.Fatal("3's Right must be 9")
+			}
+			if data.Search(Float64(20)).Left.Key != Float64(16) {
+				t.Fatal("20's Left must be 16")
+			}
+			if data.Search(Float64(20)).Right.Key != Float64(39) {
+				t.Fatal("20's Right must be 39")
+			}
+			if data.Search(Float64(39)).Left.Key != Float64(25) {
+				t.Fatal("39's Left must be 25")
+			}
+			if data.Search(Float64(16)).Left.Key != Float64(15) {
+				t.Fatal("16's Left must be 15")
+			}
+			if data.Search(Float64(16)).Right.Key != Float64(17) {
+				t.Fatal("16's Right must be 17")
+			}
+			if data.Search(Float64(2)).Left.Key != Float64(1) {
+				t.Fatal("2's Left must be 1")
+			}
+			if data.Search(Float64(2)).Right.Key != Float64(2.5) {
+				t.Fatal("2's Right must be 2.5")
 			}
 			if isRed(data.Search(Float64(13))) {
 				t.Fatal("13 must be red (Root must be black always")
