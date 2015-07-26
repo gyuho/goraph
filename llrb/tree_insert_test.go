@@ -305,6 +305,12 @@ func TestBalanceInsert2(t *testing.T) {
 			}
 
 		case 20:
+			if data.Root.Key != Float64(13) {
+				t.Fatal("Root must be 3 but %v", data.Root)
+			}
+			if data.SearchParent(Float64(13)) != nil {
+				t.Fatal("13's Parent must be nil")
+			}
 			if data.Search(Float64(1)).Right != nil {
 				t.Fatal("1's Right child must be nil")
 			}
@@ -322,9 +328,33 @@ func TestBalanceInsert2(t *testing.T) {
 			}
 			if data.Search(Float64(17)).Left != nil {
 				t.Fatal("17's Left child must be nil")
+			}
+			if isRed(data.Search(Float64(13))) {
+				t.Fatal("13 must be red (Root must be black always")
+			}
+			if isRed(data.Search(Float64(1))) {
+				t.Fatal("1 must be not red")
+			}
+			if isRed(data.Search(Float64(9))) {
+				t.Fatal("9 must be not red")
+			}
+			if isRed(data.Search(Float64(20))) {
+				t.Fatal("20 must be not red")
+			}
+			if !isRed(data.Search(Float64(3))) {
+				t.Fatal("3 must be red")
+			}
+			if !isRed(data.Search(Float64(17))) {
+				t.Fatal("17 must be red")
 			}
 
 		case 25:
+			if data.Root.Key != Float64(13) {
+				t.Fatal("Root must be 3 but %v", data.Root)
+			}
+			if data.SearchParent(Float64(13)) != nil {
+				t.Fatal("13's Parent must be nil")
+			}
 			if data.Search(Float64(1)).Right != nil {
 				t.Fatal("1's Right child must be nil")
 			}
@@ -348,9 +378,36 @@ func TestBalanceInsert2(t *testing.T) {
 			}
 			if data.Search(Float64(25)).Left != nil {
 				t.Fatal("25's Left child must be nil")
+			}
+			if isRed(data.Search(Float64(13))) {
+				t.Fatal("13 must be red (Root must be black always")
+			}
+			if isRed(data.Search(Float64(1))) {
+				t.Fatal("1 must be not red")
+			}
+			if isRed(data.Search(Float64(9))) {
+				t.Fatal("9 must be not red")
+			}
+			if isRed(data.Search(Float64(20))) {
+				t.Fatal("20 must be not red")
+			}
+			if isRed(data.Search(Float64(3))) {
+				t.Fatal("3 must be not red")
+			}
+			if isRed(data.Search(Float64(17))) {
+				t.Fatal("17 must be not red")
+			}
+			if isRed(data.Search(Float64(25))) {
+				t.Fatal("25 must be red")
 			}
 
 		case 39:
+			if data.Root.Key != Float64(13) {
+				t.Fatal("Root must be 3 but %v", data.Root)
+			}
+			if data.SearchParent(Float64(13)) != nil {
+				t.Fatal("13's Parent must be nil")
+			}
 			if data.Search(Float64(1)).Right != nil {
 				t.Fatal("1's Right child must be nil")
 			}
@@ -375,8 +432,38 @@ func TestBalanceInsert2(t *testing.T) {
 			if data.Search(Float64(25)).Left != nil {
 				t.Fatal("25's Left child must be nil")
 			}
+			if isRed(data.Search(Float64(13))) {
+				t.Fatal("13 must be red (Root must be black always")
+			}
+			if isRed(data.Search(Float64(1))) {
+				t.Fatal("1 must be not red")
+			}
+			if isRed(data.Search(Float64(9))) {
+				t.Fatal("9 must be not red")
+			}
+			if isRed(data.Search(Float64(20))) {
+				t.Fatal("20 must be not red")
+			}
+			if isRed(data.Search(Float64(3))) {
+				t.Fatal("3 must be not red")
+			}
+			if isRed(data.Search(Float64(17))) {
+				t.Fatal("17 must be not red")
+			}
+			if isRed(data.Search(Float64(39))) {
+				t.Fatal("39 must be not red")
+			}
+			if !isRed(data.Search(Float64(25))) {
+				t.Fatal("25 must be red")
+			}
 
 		case 16:
+			if data.Root.Key != Float64(13) {
+				t.Fatal("Root must be 3 but %v", data.Root)
+			}
+			if data.SearchParent(Float64(13)) != nil {
+				t.Fatal("13's Parent must be nil")
+			}
 			if data.Search(Float64(1)).Right != nil {
 				t.Fatal("1's Right child must be nil")
 			}
@@ -401,8 +488,41 @@ func TestBalanceInsert2(t *testing.T) {
 			if data.Search(Float64(25)).Left != nil {
 				t.Fatal("25's Left child must be nil")
 			}
+			if isRed(data.Search(Float64(13))) {
+				t.Fatal("13 must be red (Root must be black always")
+			}
+			if isRed(data.Search(Float64(1))) {
+				t.Fatal("1 must be not red")
+			}
+			if isRed(data.Search(Float64(9))) {
+				t.Fatal("9 must be not red")
+			}
+			if isRed(data.Search(Float64(20))) {
+				t.Fatal("20 must be not red")
+			}
+			if isRed(data.Search(Float64(3))) {
+				t.Fatal("3 must be not red")
+			}
+			if isRed(data.Search(Float64(17))) {
+				t.Fatal("17 must be not red")
+			}
+			if isRed(data.Search(Float64(39))) {
+				t.Fatal("39 must be not red")
+			}
+			if !isRed(data.Search(Float64(25))) {
+				t.Fatal("25 must be red")
+			}
+			if !isRed(data.Search(Float64(16))) {
+				t.Fatal("16 must be red")
+			}
 
 		case 15:
+			if data.Root.Key != Float64(13) {
+				t.Fatal("Root must be 3 but %v", data.Root)
+			}
+			if data.SearchParent(Float64(13)) != nil {
+				t.Fatal("13's Parent must be nil")
+			}
 			if data.Search(Float64(1)).Right != nil {
 				t.Fatal("1's Right child must be nil")
 			}
@@ -432,9 +552,45 @@ func TestBalanceInsert2(t *testing.T) {
 			}
 			if data.Search(Float64(25)).Left != nil {
 				t.Fatal("25's Left child must be nil")
+			}
+			if isRed(data.Search(Float64(13))) {
+				t.Fatal("13 must be red (Root must be black always")
+			}
+			if isRed(data.Search(Float64(1))) {
+				t.Fatal("1 must be not red")
+			}
+			if isRed(data.Search(Float64(9))) {
+				t.Fatal("9 must be not red")
+			}
+			if isRed(data.Search(Float64(20))) {
+				t.Fatal("20 must be not red")
+			}
+			if isRed(data.Search(Float64(3))) {
+				t.Fatal("3 must be not red")
+			}
+			if isRed(data.Search(Float64(17))) {
+				t.Fatal("17 must be not red")
+			}
+			if isRed(data.Search(Float64(39))) {
+				t.Fatal("39 must be not red")
+			}
+			if isRed(data.Search(Float64(15))) {
+				t.Fatal("15 must be not red")
+			}
+			if !isRed(data.Search(Float64(25))) {
+				t.Fatal("25 must be red")
+			}
+			if !isRed(data.Search(Float64(16))) {
+				t.Fatal("16 must be red")
 			}
 
 		case 2:
+			if data.Root.Key != Float64(13) {
+				t.Fatal("Root must be 3 but %v", data.Root)
+			}
+			if data.SearchParent(Float64(13)) != nil {
+				t.Fatal("13's Parent must be nil")
+			}
 			if data.Search(Float64(1)).Right != nil {
 				t.Fatal("1's Right child must be nil")
 			}
@@ -465,8 +621,47 @@ func TestBalanceInsert2(t *testing.T) {
 			if data.Search(Float64(25)).Left != nil {
 				t.Fatal("25's Left child must be nil")
 			}
+			if isRed(data.Search(Float64(13))) {
+				t.Fatal("13 must be red (Root must be black always")
+			}
+			if !isRed(data.Search(Float64(1))) {
+				t.Fatal("1 must be red")
+			}
+			if isRed(data.Search(Float64(9))) {
+				t.Fatal("9 must be not red")
+			}
+			if isRed(data.Search(Float64(20))) {
+				t.Fatal("20 must be not red")
+			}
+			if isRed(data.Search(Float64(3))) {
+				t.Fatal("3 must be not red")
+			}
+			if isRed(data.Search(Float64(17))) {
+				t.Fatal("17 must be not red")
+			}
+			if isRed(data.Search(Float64(39))) {
+				t.Fatal("39 must be not red")
+			}
+			if isRed(data.Search(Float64(15))) {
+				t.Fatal("15 must be not red")
+			}
+			if isRed(data.Search(Float64(2))) {
+				t.Fatal("2 must be not red")
+			}
+			if !isRed(data.Search(Float64(25))) {
+				t.Fatal("25 must be red")
+			}
+			if !isRed(data.Search(Float64(16))) {
+				t.Fatal("16 must be red")
+			}
 
 		case 2.5:
+			if data.Root.Key != Float64(13) {
+				t.Fatal("Root must be 3 but %v", data.Root)
+			}
+			if data.SearchParent(Float64(13)) != nil {
+				t.Fatal("13's Parent must be nil")
+			}
 			if data.Search(Float64(1)).Right != nil {
 				t.Fatal("1's Right child must be nil")
 			}
@@ -502,6 +697,42 @@ func TestBalanceInsert2(t *testing.T) {
 			}
 			if data.Search(Float64(25)).Left != nil {
 				t.Fatal("25's Left child must be nil")
+			}
+			if isRed(data.Search(Float64(13))) {
+				t.Fatal("13 must be red (Root must be black always")
+			}
+			if isRed(data.Search(Float64(1))) {
+				t.Fatal("1 must be not red")
+			}
+			if isRed(data.Search(Float64(9))) {
+				t.Fatal("9 must be not red")
+			}
+			if isRed(data.Search(Float64(2.5))) {
+				t.Fatal("2.5 must be not red")
+			}
+			if isRed(data.Search(Float64(20))) {
+				t.Fatal("20 must be not red")
+			}
+			if isRed(data.Search(Float64(3))) {
+				t.Fatal("3 must be not red")
+			}
+			if isRed(data.Search(Float64(17))) {
+				t.Fatal("17 must be not red")
+			}
+			if isRed(data.Search(Float64(39))) {
+				t.Fatal("39 must be not red")
+			}
+			if isRed(data.Search(Float64(15))) {
+				t.Fatal("15 must be not red")
+			}
+			if !isRed(data.Search(Float64(2))) {
+				t.Fatal("2 must be red")
+			}
+			if !isRed(data.Search(Float64(25))) {
+				t.Fatal("25 must be red")
+			}
+			if !isRed(data.Search(Float64(16))) {
+				t.Fatal("16 must be red")
 			}
 
 		default:
