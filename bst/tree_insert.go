@@ -2,16 +2,16 @@ package bst
 
 import "fmt"
 
-// Data contains a Root node of a binary search tree.
-type Data struct {
+// Tree contains a Root node of a binary search tree.
+type Tree struct {
 	Root *Node
 }
 
-// New returns a new Data with its root Node.
-func New(root *Node) *Data {
-	d := &Data{}
-	d.Root = root
-	return d
+// New returns a new Tree with its root Node.
+func New(root *Node) *Tree {
+	tr := &Tree{}
+	tr.Root = root
+	return tr
 }
 
 // Interface represents a single object in the tree.
@@ -39,8 +39,8 @@ func NewNode(key Interface) *Node {
 	return nd
 }
 
-func (d *Data) String() string {
-	return d.Root.String()
+func (tr *Tree) String() string {
+	return tr.Root.String()
 }
 
 func (nd *Node) String() string {
@@ -58,12 +58,12 @@ func (nd *Node) String() string {
 	return "[" + s + "]"
 }
 
-// Insert inserts a Node to a Data without replacement.
-func (d *Data) Insert(nd *Node) {
-	if d.Root == nd {
+// Insert inserts a Node to a Tree without replacement.
+func (tr *Tree) Insert(nd *Node) {
+	if tr.Root == nd {
 		return
 	}
-	d.Root = d.Root.insert(nd)
+	tr.Root = tr.Root.insert(nd)
 }
 
 func (nd *Node) insert(node *Node) *Node {

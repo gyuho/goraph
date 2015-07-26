@@ -9,13 +9,13 @@ import (
 func TestTreeNodeStruct(t *testing.T) {
 	buf1 := new(bytes.Buffer)
 	root1 := NewNode(nodeStruct{"A", 5})
-	data1 := New(root1)
-	data1.Insert(NewNode(nodeStruct{"B", 3}))
-	data1.Insert(NewNode(nodeStruct{"C", 17}))
-	data1.Insert(NewNode(nodeStruct{"D", 7}))
-	data1.Insert(NewNode(nodeStruct{"E", 1}))
+	tr1 := New(root1)
+	tr1.Insert(NewNode(nodeStruct{"B", 3}))
+	tr1.Insert(NewNode(nodeStruct{"C", 17}))
+	tr1.Insert(NewNode(nodeStruct{"D", 7}))
+	tr1.Insert(NewNode(nodeStruct{"E", 1}))
 	ch1 := make(chan string)
-	go data1.PreOrder(ch1)
+	go tr1.PreOrder(ch1)
 	for {
 		v, ok := <-ch1
 		if !ok {
@@ -27,13 +27,13 @@ func TestTreeNodeStruct(t *testing.T) {
 
 	buf2 := new(bytes.Buffer)
 	root2 := NewNode(nodeStruct{"A", 5})
-	data2 := New(root2)
-	data2.Insert(NewNode(nodeStruct{"B", 3}))
-	data2.Insert(NewNode(nodeStruct{"C", 17}))
-	data2.Insert(NewNode(nodeStruct{"D", 7}))
-	data2.Insert(NewNode(nodeStruct{"E", 1}))
+	tr2 := New(root2)
+	tr2.Insert(NewNode(nodeStruct{"B", 3}))
+	tr2.Insert(NewNode(nodeStruct{"C", 17}))
+	tr2.Insert(NewNode(nodeStruct{"D", 7}))
+	tr2.Insert(NewNode(nodeStruct{"E", 1}))
 	ch2 := make(chan string)
-	go data2.PreOrder(ch2)
+	go tr2.PreOrder(ch2)
 	for {
 		v, ok := <-ch2
 		if !ok {
@@ -45,12 +45,12 @@ func TestTreeNodeStruct(t *testing.T) {
 	if buf1.String() != buf2.String() {
 		t.Errorf("Expected the same but %s | %s", buf1.String(), buf2.String())
 	}
-	if !ComparePreOrder(data1, data2) {
-		t.Error("Expected the same but %v | %v", data1, data2)
+	if !ComparePreOrder(tr1, tr2) {
+		t.Error("Expected the same but %v | %v", tr1, tr2)
 	}
 
 	buf3 := new(bytes.Buffer)
-	for _, elem := range data2.LevelOrder() {
+	for _, elem := range tr2.LevelOrder() {
 		buf3.WriteString(fmt.Sprintf("%v", elem.Key))
 		buf3.WriteString(" ")
 	}

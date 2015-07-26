@@ -3,8 +3,8 @@ package llrb
 import "fmt"
 
 // PreOrder traverses from Root, Left-SubTree, and Right-SubTree. (DFS)
-func (d *Data) PreOrder(ch chan string) {
-	preOrder(d.Root, ch)
+func (tr *Tree) PreOrder(ch chan string) {
+	preOrder(tr.Root, ch)
 	close(ch)
 }
 
@@ -19,10 +19,10 @@ func preOrder(nd *Node, ch chan string) {
 }
 
 // ComparePreOrder returns true if two Trees are same with PreOrder.
-func ComparePreOrder(d1, d2 *Data) bool {
+func ComparePreOrder(t1, t2 *Tree) bool {
 	ch1, ch2 := make(chan string), make(chan string)
-	go d1.PreOrder(ch1)
-	go d2.PreOrder(ch2)
+	go t1.PreOrder(ch1)
+	go t2.PreOrder(ch2)
 	for {
 		v1, ok1 := <-ch1
 		v2, ok2 := <-ch2
@@ -37,8 +37,8 @@ func ComparePreOrder(d1, d2 *Data) bool {
 }
 
 // InOrder traverses from Left-SubTree, Root, and Right-SubTree. (DFS)
-func (d *Data) InOrder(ch chan string) {
-	inOrder(d.Root, ch)
+func (tr *Tree) InOrder(ch chan string) {
+	inOrder(tr.Root, ch)
 	close(ch)
 }
 
@@ -53,10 +53,10 @@ func inOrder(nd *Node, ch chan string) {
 }
 
 // CompareInOrder returns true if two Trees are same with InOrder.
-func CompareInOrder(d1, d2 *Data) bool {
+func CompareInOrder(t1, t2 *Tree) bool {
 	ch1, ch2 := make(chan string), make(chan string)
-	go d1.InOrder(ch1)
-	go d2.InOrder(ch2)
+	go t1.InOrder(ch1)
+	go t2.InOrder(ch2)
 	for {
 		v1, ok1 := <-ch1
 		v2, ok2 := <-ch2
@@ -71,8 +71,8 @@ func CompareInOrder(d1, d2 *Data) bool {
 }
 
 // PostOrder traverses from Left-SubTree, Right-SubTree, and Root.
-func (d *Data) PostOrder(ch chan string) {
-	postOrder(d.Root, ch)
+func (tr *Tree) PostOrder(ch chan string) {
+	postOrder(tr.Root, ch)
 	close(ch)
 }
 
@@ -87,10 +87,10 @@ func postOrder(nd *Node, ch chan string) {
 }
 
 // ComparePostOrder returns true if two Trees are same with PostOrder.
-func ComparePostOrder(d1, d2 *Data) bool {
+func ComparePostOrder(t1, t2 *Tree) bool {
 	ch1, ch2 := make(chan string), make(chan string)
-	go d1.PostOrder(ch1)
-	go d2.PostOrder(ch2)
+	go t1.PostOrder(ch1)
+	go t2.PostOrder(ch2)
 	for {
 		v1, ok1 := <-ch1
 		v2, ok2 := <-ch2
@@ -118,9 +118,9 @@ func ComparePostOrder(d1, d2 *Data) bool {
 //	    if node.right ≠ null then
 //	      q.enqueue(node.right)
 //
-func (d *Data) LevelOrder() []*Node {
+func (tr *Tree) LevelOrder() []*Node {
 	visited := []*Node{}
-	queue := []*Node{d.Root}
+	queue := []*Node{tr.Root}
 	for len(queue) != 0 {
 		nd := queue[0]
 		queue = queue[1:len(queue):len(queue)]

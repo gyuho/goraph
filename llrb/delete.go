@@ -31,11 +31,11 @@ func deleteMin(nd *Node) (*Node, Interface) {
 
 // DeleteMin deletes the minimum element in the tree and returns the
 // deleted item or nil otherwise.
-func (d *Data) DeleteMin() Interface {
+func (tr *Tree) DeleteMin() Interface {
 	var deleted Interface
-	d.Root, deleted = deleteMin(d.Root)
-	if d.Root != nil {
-		d.Root.Black = true
+	tr.Root, deleted = deleteMin(tr.Root)
+	if tr.Root != nil {
+		tr.Root.Black = true
 	}
 	return deleted
 }
@@ -58,27 +58,27 @@ func deleteMax(nd *Node) (*Node, Interface) {
 
 // DeleteMax deletes the maximum element in the tree and returns the
 // deleted item or nil otherwise.
-func (d *Data) DeleteMax() Interface {
+func (tr *Tree) DeleteMax() Interface {
 	var deleted Interface
-	d.Root, deleted = deleteMax(d.Root)
-	if d.Root != nil {
-		d.Root.Black = true
+	tr.Root, deleted = deleteMax(tr.Root)
+	if tr.Root != nil {
+		tr.Root.Black = true
 	}
 	return deleted
 }
 
 // Delete deletes the node with a given key and returns the key.
 // It returns nil if it does not exist in the tree.
-func (d *Data) Delete(key Interface) Interface {
+func (tr *Tree) Delete(key Interface) Interface {
 	var deleted Interface
-	d.Root, deleted = d.delete(d.Root, key)
-	if d.Root != nil {
-		d.Root.Black = true
+	tr.Root, deleted = tr.delete(tr.Root, key)
+	if tr.Root != nil {
+		tr.Root.Black = true
 	}
 	return deleted
 }
 
-func (d *Data) delete(nd *Node, key Interface) (*Node, Interface) {
+func (tr *Tree) delete(nd *Node, key Interface) (*Node, Interface) {
 	var deleted Interface
 	if nd == nil {
 		return nil, nil
@@ -91,7 +91,7 @@ func (d *Data) delete(nd *Node, key Interface) (*Node, Interface) {
 		if !isRed(nd.Left) && !isRed(nd.Left.Left) {
 			nd = moveRedToLeft(nd)
 		}
-		nd.Left, deleted = d.delete(nd.Left, key)
+		nd.Left, deleted = tr.delete(nd.Left, key)
 	} else {
 		if isRed(nd.Left) {
 			nd = rotateToRight(nd)
@@ -110,7 +110,7 @@ func (d *Data) delete(nd *Node, key Interface) (*Node, Interface) {
 			}
 			deleted, nd.Key = nd.Key, subDeleted
 		} else {
-			nd.Right, deleted = d.delete(nd.Right, key)
+			nd.Right, deleted = tr.delete(nd.Right, key)
 		}
 	}
 

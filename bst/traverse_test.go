@@ -9,13 +9,13 @@ import (
 func TestTreeIntPreOrder(t *testing.T) {
 	buf := new(bytes.Buffer)
 	root := NewNode(Int(5))
-	data := New(root)
-	data.Insert(NewNode(Int(3)))
-	data.Insert(NewNode(Int(17)))
-	data.Insert(NewNode(Int(7)))
-	data.Insert(NewNode(Int(1)))
+	tr := New(root)
+	tr.Insert(NewNode(Int(3)))
+	tr.Insert(NewNode(Int(17)))
+	tr.Insert(NewNode(Int(7)))
+	tr.Insert(NewNode(Int(1)))
 	ch := make(chan string)
-	go data.PreOrder(ch)
+	go tr.PreOrder(ch)
 	for {
 		v, ok := <-ch
 		if !ok {
@@ -29,26 +29,26 @@ func TestTreeIntPreOrder(t *testing.T) {
 	}
 
 	root2 := NewNode(Int(5))
-	data2 := New(root2)
-	data2.Insert(NewNode(Int(3)))
-	data2.Insert(NewNode(Int(17)))
-	data2.Insert(NewNode(Int(7)))
-	data2.Insert(NewNode(Int(1)))
-	if !ComparePreOrder(data, data2) {
-		t.Errorf("Expected true but %v", data2)
+	tr2 := New(root2)
+	tr2.Insert(NewNode(Int(3)))
+	tr2.Insert(NewNode(Int(17)))
+	tr2.Insert(NewNode(Int(7)))
+	tr2.Insert(NewNode(Int(1)))
+	if !ComparePreOrder(tr, tr2) {
+		t.Errorf("Expected true but %v", tr2)
 	}
 }
 
 func TestTreeIntInOrder(t *testing.T) {
 	buf := new(bytes.Buffer)
 	root := NewNode(Int(5))
-	data := New(root)
-	data.Insert(NewNode(Int(3)))
-	data.Insert(NewNode(Int(17)))
-	data.Insert(NewNode(Int(7)))
-	data.Insert(NewNode(Int(1)))
+	tr := New(root)
+	tr.Insert(NewNode(Int(3)))
+	tr.Insert(NewNode(Int(17)))
+	tr.Insert(NewNode(Int(7)))
+	tr.Insert(NewNode(Int(1)))
 	ch := make(chan string)
-	go data.InOrder(ch)
+	go tr.InOrder(ch)
 	for {
 		v, ok := <-ch
 		if !ok {
@@ -62,26 +62,26 @@ func TestTreeIntInOrder(t *testing.T) {
 	}
 
 	root2 := NewNode(Int(5))
-	data2 := New(root2)
-	data2.Insert(NewNode(Int(3)))
-	data2.Insert(NewNode(Int(17)))
-	data2.Insert(NewNode(Int(7)))
-	data2.Insert(NewNode(Int(1)))
-	if !CompareInOrder(data, data2) {
-		t.Errorf("Expected true but %v", data2)
+	tr2 := New(root2)
+	tr2.Insert(NewNode(Int(3)))
+	tr2.Insert(NewNode(Int(17)))
+	tr2.Insert(NewNode(Int(7)))
+	tr2.Insert(NewNode(Int(1)))
+	if !CompareInOrder(tr, tr2) {
+		t.Errorf("Expected true but %v", tr2)
 	}
 }
 
 func TestTreeIntPostOrder(t *testing.T) {
 	buf := new(bytes.Buffer)
 	root := NewNode(Int(5))
-	data := New(root)
-	data.Insert(NewNode(Int(3)))
-	data.Insert(NewNode(Int(17)))
-	data.Insert(NewNode(Int(7)))
-	data.Insert(NewNode(Int(1)))
+	tr := New(root)
+	tr.Insert(NewNode(Int(3)))
+	tr.Insert(NewNode(Int(17)))
+	tr.Insert(NewNode(Int(7)))
+	tr.Insert(NewNode(Int(1)))
 	ch := make(chan string)
-	go data.PostOrder(ch)
+	go tr.PostOrder(ch)
 	for {
 		v, ok := <-ch
 		if !ok {
@@ -95,25 +95,25 @@ func TestTreeIntPostOrder(t *testing.T) {
 	}
 
 	root2 := NewNode(Int(5))
-	data2 := New(root2)
-	data2.Insert(NewNode(Int(3)))
-	data2.Insert(NewNode(Int(17)))
-	data2.Insert(NewNode(Int(7)))
-	data2.Insert(NewNode(Int(1)))
-	if !ComparePostOrder(data, data2) {
-		t.Errorf("Expected true but %v", data2)
+	tr2 := New(root2)
+	tr2.Insert(NewNode(Int(3)))
+	tr2.Insert(NewNode(Int(17)))
+	tr2.Insert(NewNode(Int(7)))
+	tr2.Insert(NewNode(Int(1)))
+	if !ComparePostOrder(tr, tr2) {
+		t.Errorf("Expected true but %v", tr2)
 	}
 }
 
 func TestTreeIntLevelOrder(t *testing.T) {
 	buf := new(bytes.Buffer)
 	root := NewNode(Int(5))
-	data := New(root)
-	data.Insert(NewNode(Int(3)))
-	data.Insert(NewNode(Int(17)))
-	data.Insert(NewNode(Int(7)))
-	data.Insert(NewNode(Int(1)))
-	nodes := data.LevelOrder()
+	tr := New(root)
+	tr.Insert(NewNode(Int(3)))
+	tr.Insert(NewNode(Int(17)))
+	tr.Insert(NewNode(Int(7)))
+	tr.Insert(NewNode(Int(1)))
+	nodes := tr.LevelOrder()
 	for _, v := range nodes {
 		buf.WriteString(fmt.Sprintf("%v ", v.Key))
 	}

@@ -2,17 +2,17 @@ package llrb
 
 import "fmt"
 
-// Data contains a Root node of a binary search tree.
-type Data struct {
+// Tree contains a Root node of a binary search tree.
+type Tree struct {
 	Root *Node
 }
 
-// New returns a new Data with its root Node.
-func New(root *Node) *Data {
-	d := &Data{}
+// New returns a new Tree with its root Node.
+func New(root *Node) *Tree {
+	tr := &Tree{}
 	root.Black = true
-	d.Root = root
-	return d
+	tr.Root = root
+	return tr
 }
 
 // Interface represents a single object in the tree.
@@ -45,8 +45,8 @@ func NewNode(key Interface) *Node {
 	return nd
 }
 
-func (d *Data) String() string {
-	return d.Root.String()
+func (tr *Tree) String() string {
+	return tr.Root.String()
 }
 
 func (nd *Node) String() string {
@@ -147,7 +147,7 @@ func (nd1 *Node) insert(nd2 *Node) *Node {
 	return balance(nd1)
 }
 
-// Insert inserts a Node to a Data without replacement.
+// Insert inserts a Node to a Tree without replacement.
 // It does standard BST insert and colors the new link red.
 // If the new red link is a right link, rotate left.
 // If two left red links in a row, rotate to right and flip color.
@@ -157,10 +157,10 @@ func (nd1 *Node) insert(nd2 *Node) *Node {
 // to the root node at the top.
 //
 // And make sure paint the Root black(not-red).
-func (d *Data) Insert(nd *Node) {
-	if d.Root == nd {
+func (tr *Tree) Insert(nd *Node) {
+	if tr.Root == nd {
 		return
 	}
-	d.Root = d.Root.insert(nd)
-	d.Root.Black = true
+	tr.Root = tr.Root.insert(nd)
+	tr.Root.Black = true
 }

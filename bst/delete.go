@@ -1,11 +1,11 @@
 package bst
 
 // Delete deletes a Node from a tree.
-func (d *Data) Delete(nd *Node) {
+func (tr *Tree) Delete(nd *Node) {
 	if nd == nil {
 		return
 	}
-	parent := d.SearchParent(nd.Key)
+	parent := tr.SearchParent(nd.Key)
 
 	// you need to dereference the pointer
 	// and update with a value
@@ -18,19 +18,19 @@ func (d *Data) Delete(nd *Node) {
 		// the to-be-deleted node
 		//
 		// either get the biggest of left sub-tree
-		tempData := new(Data)
-		tempData.Root = nd.Left
-		tempNode := tempData.Max()
+		tmp := new(Tree)
+		tmp.Root = nd.Left
+		tmpNode := tmp.Max()
 		//
 		// OR
 		//
 		// get the smallest of right sub-tree
-		// tempData := new(Data)
-		// tempData.Root = nd.Right
-		// tempNode := nd.Right.Min()
+		// tmp := new(Data)
+		// tmp.Root = nd.Right
+		// tmpNode := nd.Right.Min()
 		//
-		replacingNode := d.Search(tempNode.Key)
-		parentOfReplacingNode := d.SearchParent(replacingNode.Key)
+		replacingNode := tr.Search(tmpNode.Key)
+		parentOfReplacingNode := tr.SearchParent(replacingNode.Key)
 
 		// order matters!
 		if replacingNode.Key.Less(nd.Key) {
@@ -75,7 +75,7 @@ func (d *Data) Delete(nd *Node) {
 		// #2. Update the parent, child node
 		if parent == nil {
 			// in case of deleting the root Node
-			d.Root = replacingNode
+			tr.Root = replacingNode
 		} else {
 			if parent.Key.Less(nd.Key) {
 				// deleting right child of parent
@@ -91,7 +91,7 @@ func (d *Data) Delete(nd *Node) {
 		// #1. Update the parent node
 		if parent == nil {
 			// in case of deleting the root Node
-			d.Root = nd.Left
+			tr.Root = nd.Left
 		} else {
 			if parent.Key.Less(nd.Key) {
 				// right child of parent
@@ -107,7 +107,7 @@ func (d *Data) Delete(nd *Node) {
 		// #1. Update the parent node
 		if parent == nil {
 			// in case of deleting the root Node
-			d.Root = nd.Right
+			tr.Root = nd.Right
 		} else {
 			if parent.Key.Less(nd.Key) {
 				// right child of parent
@@ -121,7 +121,7 @@ func (d *Data) Delete(nd *Node) {
 		// no child
 		if parent == nil {
 			// in case of deleting the root Node
-			d.Root = nil
+			tr.Root = nil
 		} else {
 			if parent.Key.Less(nd.Key) {
 				// right child of parent

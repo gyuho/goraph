@@ -10,18 +10,18 @@ import (
 // and deletes some of nodes in a tree.
 func Example_delete() {
 	root := bst.NewNode(bst.Float64(1))
-	data := bst.New(root)
+	tr := bst.New(root)
 
 	slice := []float64{3, 9, 13, 17, 20, 25, 39, 16, 15, 2, 2.5}
 	for _, num := range slice {
-		data.Insert(bst.NewNode(bst.Float64(num)))
+		tr.Insert(bst.NewNode(bst.Float64(num)))
 	}
 
 	deletes := []float64{13, 17, 3, 15, 1, 2.5}
 	for _, num := range deletes {
 		fmt.Println("Deleting", num)
-		data.Delete(data.Search(bst.Float64(num)))
-		fmt.Println("Deleted", num, ":", data)
+		tr.Delete(tr.Search(bst.Float64(num)))
+		fmt.Println("Deleted", num, ":", tr)
 		fmt.Println()
 	}
 	// Output:
