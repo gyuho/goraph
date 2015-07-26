@@ -114,6 +114,12 @@ func TestBalanceInsert2(t *testing.T) {
 
 		switch num {
 		case 3:
+			if data.Root.Key != Float64(3) {
+				t.Fatal("Root must be 3 but %v", data.Root)
+			}
+			if data.SearchParent(Float64(3)) != nil {
+				t.Fatal("3's Parent must be nil")
+			}
 			if data.Search(Float64(3)).Left.Key != Float64(1) {
 				t.Fatal("3's Left child must be 1")
 			}
@@ -132,26 +138,371 @@ func TestBalanceInsert2(t *testing.T) {
 			if data.Search(Float64(1)).Left != nil {
 				t.Fatal("1's Left child must be nil")
 			}
+			if isRed(data.Search(Float64(3))) {
+				t.Fatal("3 must be not red")
+			}
+			if !isRed(data.Search(Float64(1))) {
+				t.Fatal("1 must be red")
+			}
 
 		case 9:
+			if data.Root.Key != Float64(3) {
+				t.Fatal("Root must be 3 but %v", data.Root)
+			}
+			if data.SearchParent(Float64(3)) != nil {
+				t.Fatal("3's Parent must be nil")
+			}
+			if data.Search(Float64(3)).Left.Key != Float64(1) {
+				t.Fatal("3's Left child must be 1")
+			}
+			if data.Search(Float64(3)).Right.Key != Float64(9) {
+				t.Fatal("3's Right child must be 9")
+			}
+			if data.SearchParent(Float64(1)).Key != Float64(3) {
+				t.Fatal("1's Parent must be 3")
+			}
+			if data.SearchParent(Float64(9)).Key != Float64(3) {
+				t.Fatal("9's Parent must be 3")
+			}
+			if data.Search(Float64(1)).Right != nil {
+				t.Fatal("1's Right child must be nil")
+			}
+			if data.Search(Float64(1)).Left != nil {
+				t.Fatal("1's Left child must be nil")
+			}
+			if data.Search(Float64(9)).Right != nil {
+				t.Fatal("9's Right child must be nil")
+			}
+			if data.Search(Float64(9)).Left != nil {
+				t.Fatal("9's Left child must be nil")
+			}
+			if isRed(data.Search(Float64(3))) {
+				t.Fatal("3 must be red (Root must be black always")
+			}
+			if isRed(data.Search(Float64(1))) {
+				t.Fatal("1 must be not red")
+			}
+			if isRed(data.Search(Float64(9))) {
+				t.Fatal("9 must be not red")
+			}
 
 		case 13:
+			if data.Root.Key != Float64(3) {
+				t.Fatal("Root must be 3 but %v", data.Root)
+			}
+			if data.SearchParent(Float64(3)) != nil {
+				t.Fatal("3's Parent must be nil")
+			}
+			if data.Search(Float64(3)).Left.Key != Float64(1) {
+				t.Fatal("3's Left child must be 1")
+			}
+			if data.Search(Float64(3)).Right.Key != Float64(13) {
+				t.Fatal("3's Right child must be 13")
+			}
+			if data.SearchParent(Float64(1)).Key != Float64(3) {
+				t.Fatal("1's Parent must be 3")
+			}
+			if data.SearchParent(Float64(13)).Key != Float64(3) {
+				t.Fatal("13's Parent must be 3")
+			}
+			if data.SearchParent(Float64(9)).Key != Float64(13) {
+				t.Fatal("9's Parent must be 13")
+			}
+			if data.Search(Float64(13)).Left.Key != Float64(9) {
+				t.Fatal("13's Left child must be 9")
+			}
+			if data.Search(Float64(13)).Right != nil {
+				t.Fatal("13's Right child must be nil")
+			}
+			if data.Search(Float64(1)).Right != nil {
+				t.Fatal("1's Right child must be nil")
+			}
+			if data.Search(Float64(1)).Left != nil {
+				t.Fatal("1's Left child must be nil")
+			}
+			if data.Search(Float64(9)).Right != nil {
+				t.Fatal("9's Right child must be nil")
+			}
+			if data.Search(Float64(9)).Left != nil {
+				t.Fatal("9's Left child must be nil")
+			}
+			if isRed(data.Search(Float64(3))) {
+				t.Fatal("3 must be red (Root must be black always")
+			}
+			if isRed(data.Search(Float64(1))) {
+				t.Fatal("1 must be not red")
+			}
+			if isRed(data.Search(Float64(13))) {
+				t.Fatal("13 must be not red")
+			}
+			if !isRed(data.Search(Float64(9))) {
+				t.Fatal("9 must be red")
+			}
 
 		case 17:
+			if data.Root.Key != Float64(13) {
+				t.Fatal("Root must be 3 but %v", data.Root)
+			}
+			if data.SearchParent(Float64(13)) != nil {
+				t.Fatal("13's Parent must be nil")
+			}
+			if data.Search(Float64(13)).Left.Key != Float64(3) {
+				t.Fatal("13's Left child must be 3")
+			}
+			if data.Search(Float64(13)).Right.Key != Float64(17) {
+				t.Fatal("13's Right child must be 17")
+			}
+			if data.SearchParent(Float64(1)).Key != Float64(3) {
+				t.Fatal("1's Parent must be 3")
+			}
+			if data.SearchParent(Float64(13)) != nil {
+				t.Fatal("13's Parent must be nil")
+			}
+			if data.SearchParent(Float64(9)).Key != Float64(3) {
+				t.Fatal("9's Parent must be 3")
+			}
+			if data.Search(Float64(3)).Left.Key != Float64(1) {
+				t.Fatal("3's Left child must be 1")
+			}
+			if data.Search(Float64(3)).Right.Key != Float64(9) {
+				t.Fatal("3's Right child must be 9")
+			}
+			if data.SearchParent(Float64(17)).Key != Float64(13) {
+				t.Fatal("17's Parent must be 13")
+			}
+			if data.SearchParent(Float64(9)).Key != Float64(3) {
+				t.Fatal("9's Parent must be 3")
+			}
+			if data.Search(Float64(1)).Right != nil {
+				t.Fatal("1's Right child must be nil")
+			}
+			if data.Search(Float64(1)).Left != nil {
+				t.Fatal("1's Left child must be nil")
+			}
+			if data.Search(Float64(9)).Right != nil {
+				t.Fatal("9's Right child must be nil")
+			}
+			if data.Search(Float64(9)).Left != nil {
+				t.Fatal("9's Left child must be nil")
+			}
+			if data.Search(Float64(17)).Right != nil {
+				t.Fatal("17's Right child must be nil")
+			}
+			if data.Search(Float64(17)).Left != nil {
+				t.Fatal("17's Left child must be nil")
+			}
+			if isRed(data.Search(Float64(13))) {
+				t.Fatal("13 must be red (Root must be black always")
+			}
+			if isRed(data.Search(Float64(9))) {
+				t.Fatal("9 must be not red")
+			}
+			if isRed(data.Search(Float64(17))) {
+				t.Fatal("17 must be not red")
+			}
+			if !isRed(data.Search(Float64(3))) {
+				t.Fatal("3 must be red")
+			}
 
 		case 20:
+			if data.Search(Float64(1)).Right != nil {
+				t.Fatal("1's Right child must be nil")
+			}
+			if data.Search(Float64(1)).Left != nil {
+				t.Fatal("1's Left child must be nil")
+			}
+			if data.Search(Float64(9)).Right != nil {
+				t.Fatal("9's Right child must be nil")
+			}
+			if data.Search(Float64(9)).Left != nil {
+				t.Fatal("9's Left child must be nil")
+			}
+			if data.Search(Float64(17)).Right != nil {
+				t.Fatal("17's Right child must be nil")
+			}
+			if data.Search(Float64(17)).Left != nil {
+				t.Fatal("17's Left child must be nil")
+			}
 
 		case 25:
+			if data.Search(Float64(1)).Right != nil {
+				t.Fatal("1's Right child must be nil")
+			}
+			if data.Search(Float64(1)).Left != nil {
+				t.Fatal("1's Left child must be nil")
+			}
+			if data.Search(Float64(9)).Right != nil {
+				t.Fatal("9's Right child must be nil")
+			}
+			if data.Search(Float64(9)).Left != nil {
+				t.Fatal("9's Left child must be nil")
+			}
+			if data.Search(Float64(17)).Right != nil {
+				t.Fatal("17's Right child must be nil")
+			}
+			if data.Search(Float64(17)).Left != nil {
+				t.Fatal("17's Left child must be nil")
+			}
+			if data.Search(Float64(25)).Right != nil {
+				t.Fatal("25's Right child must be nil")
+			}
+			if data.Search(Float64(25)).Left != nil {
+				t.Fatal("25's Left child must be nil")
+			}
 
 		case 39:
+			if data.Search(Float64(1)).Right != nil {
+				t.Fatal("1's Right child must be nil")
+			}
+			if data.Search(Float64(1)).Left != nil {
+				t.Fatal("1's Left child must be nil")
+			}
+			if data.Search(Float64(9)).Right != nil {
+				t.Fatal("9's Right child must be nil")
+			}
+			if data.Search(Float64(9)).Left != nil {
+				t.Fatal("9's Left child must be nil")
+			}
+			if data.Search(Float64(17)).Right != nil {
+				t.Fatal("17's Right child must be nil")
+			}
+			if data.Search(Float64(17)).Left != nil {
+				t.Fatal("17's Left child must be nil")
+			}
+			if data.Search(Float64(25)).Right != nil {
+				t.Fatal("25's Right child must be nil")
+			}
+			if data.Search(Float64(25)).Left != nil {
+				t.Fatal("25's Left child must be nil")
+			}
 
 		case 16:
+			if data.Search(Float64(1)).Right != nil {
+				t.Fatal("1's Right child must be nil")
+			}
+			if data.Search(Float64(1)).Left != nil {
+				t.Fatal("1's Left child must be nil")
+			}
+			if data.Search(Float64(9)).Right != nil {
+				t.Fatal("9's Right child must be nil")
+			}
+			if data.Search(Float64(9)).Left != nil {
+				t.Fatal("9's Left child must be nil")
+			}
+			if data.Search(Float64(16)).Right != nil {
+				t.Fatal("16's Right child must be nil")
+			}
+			if data.Search(Float64(16)).Left != nil {
+				t.Fatal("16's Left child must be nil")
+			}
+			if data.Search(Float64(25)).Right != nil {
+				t.Fatal("25's Right child must be nil")
+			}
+			if data.Search(Float64(25)).Left != nil {
+				t.Fatal("25's Left child must be nil")
+			}
 
 		case 15:
+			if data.Search(Float64(1)).Right != nil {
+				t.Fatal("1's Right child must be nil")
+			}
+			if data.Search(Float64(1)).Left != nil {
+				t.Fatal("1's Left child must be nil")
+			}
+			if data.Search(Float64(9)).Right != nil {
+				t.Fatal("9's Right child must be nil")
+			}
+			if data.Search(Float64(9)).Left != nil {
+				t.Fatal("9's Left child must be nil")
+			}
+			if data.Search(Float64(15)).Right != nil {
+				t.Fatal("15's Right child must be nil")
+			}
+			if data.Search(Float64(15)).Left != nil {
+				t.Fatal("15's Left child must be nil")
+			}
+			if data.Search(Float64(17)).Right != nil {
+				t.Fatal("17's Right child must be nil")
+			}
+			if data.Search(Float64(17)).Left != nil {
+				t.Fatal("17's Left child must be nil")
+			}
+			if data.Search(Float64(25)).Right != nil {
+				t.Fatal("25's Right child must be nil")
+			}
+			if data.Search(Float64(25)).Left != nil {
+				t.Fatal("25's Left child must be nil")
+			}
 
 		case 2:
+			if data.Search(Float64(1)).Right != nil {
+				t.Fatal("1's Right child must be nil")
+			}
+			if data.Search(Float64(1)).Left != nil {
+				t.Fatal("1's Left child must be nil")
+			}
+			if data.Search(Float64(9)).Right != nil {
+				t.Fatal("9's Right child must be nil")
+			}
+			if data.Search(Float64(9)).Left != nil {
+				t.Fatal("9's Left child must be nil")
+			}
+			if data.Search(Float64(15)).Right != nil {
+				t.Fatal("15's Right child must be nil")
+			}
+			if data.Search(Float64(15)).Left != nil {
+				t.Fatal("15's Left child must be nil")
+			}
+			if data.Search(Float64(17)).Right != nil {
+				t.Fatal("17's Right child must be nil")
+			}
+			if data.Search(Float64(17)).Left != nil {
+				t.Fatal("17's Left child must be nil")
+			}
+			if data.Search(Float64(25)).Right != nil {
+				t.Fatal("25's Right child must be nil")
+			}
+			if data.Search(Float64(25)).Left != nil {
+				t.Fatal("25's Left child must be nil")
+			}
 
 		case 2.5:
+			if data.Search(Float64(1)).Right != nil {
+				t.Fatal("1's Right child must be nil")
+			}
+			if data.Search(Float64(1)).Left != nil {
+				t.Fatal("1's Left child must be nil")
+			}
+			if data.Search(Float64(2.5)).Right != nil {
+				t.Fatal("2.5's Right child must be nil")
+			}
+			if data.Search(Float64(2.5)).Left != nil {
+				t.Fatal("2.5's Left child must be nil")
+			}
+			if data.Search(Float64(9)).Right != nil {
+				t.Fatal("9's Right child must be nil")
+			}
+			if data.Search(Float64(9)).Left != nil {
+				t.Fatal("9's Left child must be nil")
+			}
+			if data.Search(Float64(15)).Right != nil {
+				t.Fatal("15's Right child must be nil")
+			}
+			if data.Search(Float64(15)).Left != nil {
+				t.Fatal("15's Left child must be nil")
+			}
+			if data.Search(Float64(17)).Right != nil {
+				t.Fatal("17's Right child must be nil")
+			}
+			if data.Search(Float64(17)).Left != nil {
+				t.Fatal("17's Left child must be nil")
+			}
+			if data.Search(Float64(25)).Right != nil {
+				t.Fatal("25's Right child must be nil")
+			}
+			if data.Search(Float64(25)).Left != nil {
+				t.Fatal("25's Left child must be nil")
+			}
 
 		default:
 			t.Fatal(num, "shouldn't be there...")

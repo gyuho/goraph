@@ -155,6 +155,8 @@ func (nd1 *Node) insert(nd2 *Node) *Node {
 //
 // Note that it recursively balances from its parent nodes
 // to the root node at the top.
+//
+// And make sure paint the Root black(not-red).
 func (d *Data) Insert(nd *Node) {
 	if d.Root == nd {
 		return
