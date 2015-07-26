@@ -77,6 +77,8 @@ func rotateToLeft(nd *Node) *Node {
 		panic("Can't rotate a black link")
 	}
 
+	// exchange x and nd
+	// nd is parent node, x is Right child
 	x := nd.Right
 	nd.Right = x.Left
 	x.Left = nd
@@ -88,12 +90,13 @@ func rotateToLeft(nd *Node) *Node {
 }
 
 // rotateToRight when there are two left red links in a row.
-// Then flip color.
 func rotateToRight(nd *Node) *Node {
 	if nd.Left.Black {
 		panic("Can't rotate a black link")
 	}
 
+	// exchange x and nd
+	// nd is parent node, x is Left child
 	x := nd.Left
 	nd.Left = x.Right
 	x.Right = nd
@@ -107,12 +110,14 @@ func rotateToRight(nd *Node) *Node {
 // flipColor flips the color.
 // Left and Right children must be present
 func flipColor(nd *Node) {
+	// nd is parent node
 	nd.Black = !nd.Black
 	nd.Left.Black = !nd.Left.Black
 	nd.Right.Black = !nd.Right.Black
 }
 
 func balance(nd *Node) *Node {
+	// nd is parent node
 	if isRed(nd.Right) && !isRed(nd.Left) {
 		nd = rotateToLeft(nd)
 	}
