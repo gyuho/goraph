@@ -1,6 +1,6 @@
 // Package llrb implements a Left-Leaning Red-Black tree
 // , which is a 2-3 balanced binary search tree:
-//	* Every node(or edge) is either black or red — easier to code.
+//	* Every node(or edge) is either black or red.
 //	* Every path from root to null Node has the same number of black nodes.
 //	* Red nodes lean left.
 //	* Two red nodes in a row are not allowed.
