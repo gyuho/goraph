@@ -162,5 +162,7 @@ func (tr *Tree) Insert(nd *Node) {
 		return
 	}
 	tr.Root = tr.Root.insert(nd)
+
+	// Root node must be always black.
 	tr.Root.Black = true
 }
