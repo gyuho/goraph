@@ -106,13 +106,13 @@ func TestTreeIntPostOrder(t *testing.T) {
 }
 
 func TestTreeIntLevelOrder(t *testing.T) {
-	buf := new(bytes.Buffer)
 	root := NewNode(Int(5))
 	tr := New(root)
 	tr.Insert(NewNode(Int(3)))
 	tr.Insert(NewNode(Int(17)))
 	tr.Insert(NewNode(Int(7)))
 	tr.Insert(NewNode(Int(1)))
+	buf := new(bytes.Buffer)
 	nodes := tr.LevelOrder()
 	for _, v := range nodes {
 		buf.WriteString(fmt.Sprintf("%v ", v.Key))
