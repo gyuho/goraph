@@ -4,7 +4,6 @@
 //	* Every path from root to null Node has the same number of black nodes.
 //	* Red nodes lean left.
 //	* Two red nodes in a row are not allowed.
-//	* We only rotate red ones.
 //
 // Reference
 //	* http://www.cs.princeton.edu/~rs/talks/LLRB/08Penn.pdf
