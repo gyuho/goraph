@@ -13,11 +13,43 @@ func TestDelete(t *testing.T) {
 		tr.Insert(NewNode(Float64(num)))
 	}
 
-	fmt.Println("Deleting", tr.Delete(Float64(39)))
+	fmt.Println("Deleted", tr.Delete(Float64(39)))
 	fmt.Println(tr)
 	fmt.Println()
 
-	fmt.Println("Deleting", tr.Delete(Float64(20)))
-	fmt.Println(tr)
+	fmt.Println("Deleted", tr.Delete(Float64(20)))
+	fmt.Println(tr.Root.Left.Key)
+	fmt.Println(tr.Root.Key)
+	fmt.Println(tr.Root.Right.Key)
+	fmt.Println()
+
+	fmt.Println("Deleted", tr.Delete(Float64(16)))
+	fmt.Println(tr.Root.Left.Key)
+	fmt.Println(tr.Root.Key)
+	fmt.Println(tr.Root.Right.Left)
+	fmt.Println()
+
+	fmt.Println("Deleted", tr.Delete(Float64(9)))
+	fmt.Println(tr.Root.Left.Key)
+	fmt.Println(tr.Root.Key)
+	fmt.Println(tr.Root.Right)
+	fmt.Println()
+
+	fmt.Println("Deleted", tr.Delete(Float64(25)))
+	fmt.Println(tr.Root.Left.Key)
+	fmt.Println(tr.Root.Key)
+	fmt.Println(tr.Root.Right)
+	fmt.Println()
+
+	fmt.Println("Deleted", tr.Delete(Float64(2)))
+	fmt.Println(tr.Root.Left)
+	fmt.Println(tr.Root.Key)
+	fmt.Println(tr.Root.Right)
+	fmt.Println()
+
+	fmt.Println("Deleted", tr.Delete(Float64(3)))
+	fmt.Println(tr.Root.Left.Key)
+	fmt.Println(tr.Root.Key)
+	fmt.Println(tr.Root.Right.Key)
 	fmt.Println()
 }

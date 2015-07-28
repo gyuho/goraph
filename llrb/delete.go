@@ -1,7 +1,10 @@
 package llrb
 
+import "fmt"
+
 // Left and Right children must be present
 func moveRedToLeft(nd *Node) *Node {
+	fmt.Println("moveRedToLeft:", nd.Key)
 	flipColor(nd)
 	if isRed(nd.Right.Left) {
 		nd.Right = rotateToRight(nd.Right)
@@ -13,8 +16,10 @@ func moveRedToLeft(nd *Node) *Node {
 
 // Left and Right children must be present
 func moveRedToRight(nd *Node) *Node {
+	fmt.Println("moveRedToRight:", nd.Key)
 	flipColor(nd)
 	if isRed(nd.Left.Left) {
+		fmt.Println("moveRedToRight isRed(nd.Left.Left):", nd.Key)
 		nd = rotateToRight(nd)
 		flipColor(nd)
 	}
@@ -73,10 +78,10 @@ func (tr *Tree) Delete(key Interface) Interface {
 }
 
 func (tr *Tree) delete(nd *Node, key Interface) (*Node, Interface) {
-	var deleted Interface
 	if nd == nil {
 		return nil, nil
 	}
+	var deleted Interface
 	if key.Less(nd.Key) {
 		if nd.Left == nil {
 			// nothing to delete
@@ -94,6 +99,7 @@ func (tr *Tree) delete(nd *Node, key Interface) (*Node, Interface) {
 			return nil, nd.Key
 		}
 		if nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) {
+			// fmt.Println("before moveRedToRight:", nd.Key, nd.Left.Key, tr)
 			nd = moveRedToRight(nd)
 		}
 		if !nd.Key.Less(key) {
