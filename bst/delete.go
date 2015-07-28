@@ -1,11 +1,16 @@
 package bst
 
 // Delete deletes a Node from a tree.
-func (tr *Tree) Delete(nd *Node) {
-	if nd == nil {
-		return
+// It returns nil if it does not exist in the tree.
+func (tr *Tree) Delete(key Interface) Interface {
+	if key == nil {
+		return nil
 	}
-	parent := tr.SearchParent(nd.Key)
+	nd := tr.Search(key)
+	if nd == nil {
+		return nil
+	}
+	parent := tr.SearchParent(key)
 
 	// you need to dereference the pointer
 	// and update with a value
@@ -133,6 +138,8 @@ func (tr *Tree) Delete(nd *Node) {
 		}
 	}
 
+	k := nd.Key
+
 	// At the end, delete the node
 	// this is not necessary because it will be
 	// garbage collected
@@ -143,4 +150,6 @@ func (tr *Tree) Delete(nd *Node) {
 	//
 	// nd = new(Node)
 	// nd = nil
+
+	return k
 }

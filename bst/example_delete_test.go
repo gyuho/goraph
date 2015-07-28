@@ -20,7 +20,7 @@ func Example_delete() {
 	deletes := []float64{13, 17, 3, 15, 1, 2.5}
 	for _, num := range deletes {
 		fmt.Println("Deleting", num)
-		tr.Delete(tr.Search(bst.Float64(num)))
+		tr.Delete(bst.Float64(num))
 		fmt.Println("Deleted", num, ":", tr)
 		fmt.Println()
 	}
