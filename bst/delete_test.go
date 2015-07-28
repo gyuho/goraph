@@ -43,9 +43,14 @@ func TestDelete(t *testing.T) {
 
 	deletes := []float64{13, 17, 3, 15, 1, 2.5}
 	for _, num := range deletes {
-		tr.Delete(tr.Search(Float64(num)))
-
-		t.Logf("Deleted: %f\n", num)
+		it := tr.Delete(Float64(num))
+		t.Logf("Deleted: %v with %f\n", it, num)
+		if it == nil {
+			t.Fatalf("%v must exist", num)
+		}
+		if it.Less(Float64(num)) || Float64(num).Less(it) {
+			t.Fatalf("Must be equal but %v %v", it, num)
+		}
 		if tr.Search(Float64(num)) != nil {
 			t.Fatal(num, "must be nil")
 		}

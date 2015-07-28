@@ -13,13 +13,11 @@ func TestDelete(t *testing.T) {
 		tr.Insert(NewNode(Float64(num)))
 	}
 
-	fmt.Println("Deleting 39")
-	tr.Delete(Float64(39))
+	fmt.Println("Deleting", tr.Delete(Float64(39)))
 	fmt.Println(tr)
 	fmt.Println()
 
-	fmt.Println("Deleting 20")
-	tr.Delete(Float64(20))
+	fmt.Println("Deleting", tr.Delete(Float64(20)))
 	fmt.Println(tr)
 	fmt.Println()
 }
