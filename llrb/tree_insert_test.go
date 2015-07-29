@@ -102,9 +102,9 @@ func TestBalanceInsert2(t *testing.T) {
 	tr := New(root)
 	nums := []float64{3, 9, 13, 17, 20, 25, 39, 16, 15, 2, 2.5}
 	for _, num := range nums {
+		fmt.Printf("Inserting: %f\n", num)
 		tr.Insert(NewNode(Float64(num)))
 
-		t.Logf("Inserted: %f\n", num)
 		if tr.Search(Float64(num)) == nil {
 			t.Fatal(num, "must not be nil")
 		}

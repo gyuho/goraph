@@ -2,46 +2,7 @@ package llrb
 
 import "fmt"
 
-// Left and Right children must be present
-func MoveRedFromRightToLeft(nd *Node) *Node {
-	fmt.Println("MoveRedFromRightToLeft:", nd.Key)
-	FlipColor(nd)
-	if isRed(nd.Right.Left) {
-		nd.Right = RotateToRight(nd.Right)
-		nd = RotateToLeft(nd)
-		FlipColor(nd)
-	}
-	return nd
-}
-
-// Left and Right children must be present
-func MoveRedFromLeftToRight(nd *Node) *Node {
-	fmt.Println("MoveRedFromLeftToRight:", nd.Key)
-	FlipColor(nd)
-	if isRed(nd.Left.Left) {
-		fmt.Println("MoveRedFromLeftToRight isRed(nd.Left.Left):", nd.Key)
-		nd = RotateToRight(nd)
-		FlipColor(nd)
-	}
-	return nd
-}
-
-// FixUp fixes the balances of the Node.
-func FixUp(nd *Node) *Node {
-	fmt.Println("FixUp", nd.Key)
-	if isRed(nd.Right) {
-		nd = RotateToLeft(nd)
-	}
-	if isRed(nd.Left) && isRed(nd.Left.Left) {
-		nd = RotateToRight(nd)
-	}
-	if isRed(nd.Left) && isRed(nd.Right) {
-		FlipColor(nd)
-	}
-	return nd
-}
-
-// DeleteMin deletes the Minimum Key Node of the sub-tree.
+// DeleteMin deletes the minimum-Key Node of the sub-Tree.
 func DeleteMin(nd *Node) (*Node, Interface) {
 	fmt.Println("DeleteMin", nd.Key)
 	if nd == nil {
@@ -58,8 +19,47 @@ func DeleteMin(nd *Node) (*Node, Interface) {
 	return FixUp(nd), deleted
 }
 
-// Delete deletes the node with a given key and returns the key.
-// It returns nil if it does not exist in the tree.
+// DeleteMin deletes the minimum-Key Node of the Tree.
+// It returns the minimum Key or nil.
+func (tr *Tree) DeleteMin() Interface {
+	var deleted Interface
+	tr.Root, deleted = DeleteMin(tr.Root)
+	if tr.Root != nil {
+		tr.Root.Black = true
+	}
+	return deleted
+}
+
+// DeleteMax deletes the maximum-Key Node of the sub-Tree.
+func DeleteMax(nd *Node) (*Node, Interface) {
+	if nd == nil {
+		return nil, nil
+	}
+	if nd.Left == nil {
+		return nil, nd.Key
+	}
+	if !isRed(nd.Right) && !isRed(nd.Right.Left) {
+		nd = MoveRedFromRightToLeft(nd)
+	}
+	var deleted Interface
+	nd.Right, deleted = DeleteMax(nd.Right)
+	return FixUp(nd), deleted
+}
+
+// DeleteMax deletes the maximum-Key Node of the Tree.
+// It returns the maximum Key or nil.
+func (tr *Tree) DeleteMax() Interface {
+	var deleted Interface
+	tr.Root, deleted = DeleteMax(tr.Root)
+	if tr.Root != nil {
+		tr.Root.Black = true
+	}
+	return deleted
+}
+
+// Delete deletes the node with the Key and returns the Key Interface.
+// It returns nil if the Key does not exist in the tree.
+//
 //
 //	Delete Algorithm:
 //	1. Start 'delete' from tree Root.
