@@ -62,9 +62,19 @@ func deleteMin(nd *Node) (*Node, Interface) {
 //
 //	Delete Algorithm:
 //	1. Start 'delete' from tree Root.
+//	//
 //	2. Call 'delete' method recursively on each Node from binary search path.
-//		- e.g. if the key to delete is greater than Root's key
-//			, call on Right Node.
+//		- e.g. If the key to delete is greater than Root's key
+//			, call 'delete' on Right Node.
+//	//
+//	// start
+//	3. 'tree.delete(Node, Key)'
+//
+//	// end
+//	//
+//	4. If the tree's Root is not nil, set Root Black.
+//	//
+//	5. Return the Interface(nil if the key does not exist.)
 //
 func (tr *Tree) Delete(key Interface) Interface {
 	var deleted Interface
