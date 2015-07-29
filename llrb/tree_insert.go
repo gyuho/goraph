@@ -73,6 +73,7 @@ func isRed(nd *Node) bool {
 
 // rotateToLeft when there is a right-leaning link.
 func rotateToLeft(nd *Node) *Node {
+	fmt.Println("rotateToLeft:", nd.Key)
 	if nd.Right.Black {
 		panic("Can't rotate a black link")
 	}
@@ -91,6 +92,7 @@ func rotateToLeft(nd *Node) *Node {
 
 // rotateToRight when there are two left red links in a row.
 func rotateToRight(nd *Node) *Node {
+	fmt.Println("rotateToRight:", nd.Key)
 	if nd.Left.Black {
 		panic("Can't rotate a black link")
 	}
@@ -109,6 +111,7 @@ func rotateToRight(nd *Node) *Node {
 // flipColor flips the color.
 // Left and Right children must be present
 func flipColor(nd *Node) {
+	fmt.Println("flipColor:", nd.Key)
 	// nd is parent node
 	nd.Black = !nd.Black
 	nd.Left.Black = !nd.Left.Black

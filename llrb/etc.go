@@ -1,5 +1,16 @@
 package llrb
 
+// DeleteMin deletes the minimum element in the tree and returns the
+// deleted item or nil otherwise.
+func (tr *Tree) DeleteMin() Interface {
+	var deleted Interface
+	tr.Root, deleted = deleteMin(tr.Root)
+	if tr.Root != nil {
+		tr.Root.Black = true
+	}
+	return deleted
+}
+
 // deleteMax code for LLRB 2-3 trees
 func deleteMax(nd *Node) (*Node, Interface) {
 	if nd == nil {
