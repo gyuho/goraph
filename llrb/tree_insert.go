@@ -71,67 +71,6 @@ func isRed(nd *Node) bool {
 	return !nd.Black
 }
 
-// rotateToLeft when there is a right-leaning link.
-func rotateToLeft(nd *Node) *Node {
-	fmt.Println("rotateToLeft:", nd.Key)
-	if nd.Right.Black {
-		panic("Can't rotate a black link")
-	}
-
-	// exchange x and nd
-	// nd is parent node, x is Right child
-	x := nd.Right
-	nd.Right = x.Left
-	x.Left = nd
-
-	x.Black = nd.Black
-	nd.Black = false
-
-	return x
-}
-
-// rotateToRight when there are two left red links in a row.
-func rotateToRight(nd *Node) *Node {
-	fmt.Println("rotateToRight:", nd.Key)
-	if nd.Left.Black {
-		panic("Can't rotate a black link")
-	}
-	// exchange x and nd
-	// nd is parent node, x is Left child
-	x := nd.Left
-	nd.Left = x.Right
-	x.Right = nd
-
-	x.Black = nd.Black
-	nd.Black = false
-
-	return x
-}
-
-// flipColor flips the color.
-// Left and Right children must be present
-func flipColor(nd *Node) {
-	fmt.Println("flipColor:", nd.Key)
-	// nd is parent node
-	nd.Black = !nd.Black
-	nd.Left.Black = !nd.Left.Black
-	nd.Right.Black = !nd.Right.Black
-}
-
-func balance(nd *Node) *Node {
-	// nd is parent node
-	if isRed(nd.Right) && !isRed(nd.Left) {
-		nd = rotateToLeft(nd)
-	}
-	if isRed(nd.Left) && isRed(nd.Left.Left) {
-		nd = rotateToRight(nd)
-	}
-	if isRed(nd.Left) && isRed(nd.Right) {
-		flipColor(nd)
-	}
-	return nd
-}
-
 // insert inserts nd2 with nd1 as a root.
 func (nd1 *Node) insert(nd2 *Node) *Node {
 	if nd1 == nil {
@@ -146,8 +85,8 @@ func (nd1 *Node) insert(nd2 *Node) *Node {
 		// nd1 >= nd2
 		nd1.Left = nd1.Left.insert(nd2)
 	}
-	// balance from nd1
-	return balance(nd1)
+	// Balance from nd1
+	return Balance(nd1)
 }
 
 // Insert inserts a Node to a Tree without replacement.
