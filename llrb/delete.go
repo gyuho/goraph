@@ -96,8 +96,8 @@ func deleteMin(nd *Node) (*Node, Interface) {
 //				return nil, nd.Key
 //
 //			if (nd.Right is not empty)
-//				and (nd.Right is Black)
-//				and (nd.Right.Left is Black):
+//			and (nd.Right is Black)
+//			and (nd.Right.Left is Black):
 //				print "then move Red from Left to Right to update nd"
 //				nd = moveRedFromLeftToRight(nd)
 //
