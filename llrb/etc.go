@@ -20,7 +20,7 @@ func deleteMax(nd *Node) (*Node, Interface) {
 		return nil, nd.Key
 	}
 	if !isRed(nd.Right) && !isRed(nd.Right.Left) {
-		nd = moveRedToLeft(nd)
+		nd = moveRedFromRightToLeft(nd)
 	}
 	var deleted Interface
 	nd.Right, deleted = deleteMax(nd.Right)

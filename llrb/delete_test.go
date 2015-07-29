@@ -89,7 +89,7 @@ rotateToRight: 20
 nd.Right, deleted = tr.delete(nd.Right, key) at 16
 calling delete on 20 for the key 20
 nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when 20
-moveRedToRight: 20
+moveRedFromLeftToRight: 20
 flipColor: 20
 deleteMin 25
 fixUp 25
@@ -102,9 +102,9 @@ Deleted 20
 
 calling delete on 13 for the key 16
 nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when 13
-moveRedToRight: 13
+moveRedFromLeftToRight: 13
 flipColor: 13
-moveRedToRight isRed(nd.Left.Left): 13
+moveRedFromLeftToRight isRed(nd.Left.Left): 13
 rotateToRight: 13
 flipColor: 3
 nd.Right, deleted = tr.delete(nd.Right, key) at 3
@@ -127,7 +127,7 @@ calling delete on 3 for the key 9
 nd.Right, deleted = tr.delete(nd.Right, key) at 3
 calling delete on 17 for the key 9
 calling delete on 13 for the key 9
-moveRedToLeft: 13
+moveRedFromRightToLeft: 13
 flipColor: 13
 calling delete on 9 for the key 9
 !nd.Key.Less(key) && nd.Right == nil when 9
@@ -142,14 +142,14 @@ Deleted 9
 
 calling delete on 3 for the key 25
 nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when 3
-moveRedToRight: 3
+moveRedFromLeftToRight: 3
 flipColor: 3
 nd.Right, deleted = tr.delete(nd.Right, key) at 3
 calling delete on 17 for the key 25
 nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when 17
-moveRedToRight: 17
+moveRedFromLeftToRight: 17
 flipColor: 17
-moveRedToRight isRed(nd.Left.Left): 17
+moveRedFromLeftToRight isRed(nd.Left.Left): 17
 rotateToRight: 17
 flipColor: 15
 nd.Right, deleted = tr.delete(nd.Right, key) at 15
@@ -169,11 +169,11 @@ Deleted 25
 [[13(true)] 15(true) [17(true)]]
 
 calling delete on 3 for the key 2
-moveRedToLeft: 3
+moveRedFromRightToLeft: 3
 flipColor: 3
 calling delete on 2 for the key 2
 nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when 2
-moveRedToRight: 2
+moveRedFromLeftToRight: 2
 flipColor: 2
 deleteMin 2.5
 fixUp 2.5
@@ -187,9 +187,9 @@ Deleted 2
 calling delete on 15 for the key 3
 calling delete on 3 for the key 3
 nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when 3
-moveRedToRight: 3
+moveRedFromLeftToRight: 3
 flipColor: 3
-moveRedToRight isRed(nd.Left.Left): 3
+moveRedFromLeftToRight isRed(nd.Left.Left): 3
 rotateToRight: 3
 flipColor: 2.5
 nd.Right, deleted = tr.delete(nd.Right, key) at 2.5
@@ -202,5 +202,4 @@ Deleted 3
 2.5
 15
 17
-
 */
