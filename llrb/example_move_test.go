@@ -57,7 +57,6 @@ func Example_RotateToLeft() {
 	// [1(true)]
 	// [[1(true)] 3(true) [[9(true)] 13(false) [17(true)]]]
 	// [[9(true)] 13(false) [17(true)]]
-	// RotateToLeft 3
 	// After tr.Root = llrb.RotateToLeft(tr.Root)
 	// [[1(true)] 3(false) [9(true)]]
 	// [[[1(true)] 3(false) [9(true)]] 13(true) [17(true)]]
@@ -121,7 +120,6 @@ func Example_RotateToRight() {
 	// [[15(true)] 16(false) [17(true)]]
 	// [[[15(true)] 16(false) [17(true)]] 20(true) [[25(false)] 39(true)]]
 	// [[25(false)] 39(true)]
-	// RotateToRight 20
 	// After tr.Root = llrb.RotateToRight(tr.Root)
 	// [15(true)]
 	// [[15(true)] 16(true) [[17(true)] 20(false) [[25(false)] 39(true)]]]
@@ -179,7 +177,6 @@ func Example_FlipColor() {
 	// [1(true)]
 	// [[1(true)] 3(true) [[9(true)] 13(true) [17(true)]]]
 	// [[9(true)] 13(true) [17(true)]]
-	// FlipColor 13
 	// After llrb.FlipColor(tr.Root.Right)
 	// [1(true)]
 	// [[1(true)] 3(true) [[9(false)] 13(false) [17(false)]]]
@@ -242,6 +239,15 @@ func Example_MoveRedFromRightToLeft() {
 	fmt.Println(tr.Root.Left)
 	fmt.Println(tr.Root)
 	fmt.Println(tr.Root.Right)
+	// Output:
+	// Before tr.Root = llrb.MoveRedFromRightToLeft(tr.Root)
+	// [[1(true)] 2(true) [2.5(true)]]
+	// [[[1(true)] 2(true) [2.5(true)]] 3(true) [[13(false)] 15(true) [17(true)]]]
+	// [[13(false)] 15(true) [17(true)]]
+	// After tr.Root = llrb.MoveRedFromRightToLeft(tr.Root)
+	// [[[1(true)] 2(false) [2.5(true)]] 3(true)]
+	// [[[[1(true)] 2(false) [2.5(true)]] 3(true)] 13(true) [15(true) [17(true)]]]
+	// [15(true) [17(true)]]
 }
 
 func Example_MoveRedFromLeftToRight() {
@@ -316,6 +322,15 @@ func Example_MoveRedFromLeftToRight() {
 	fmt.Println(tr.Root.Left)
 	fmt.Println(tr.Root)
 	fmt.Println(tr.Root.Right)
+	// Output:
+	// Before tr.Root = llrb.MoveRedFromLeftToRight(tr.Root)
+	// [[[1(true)] 2(false) [2.5(true)]] 3(true) [9(true)]]
+	// [[[[1(true)] 2(false) [2.5(true)]] 3(true) [9(true)]] 13(true) [[15(true)] 16(true) [[17(false)] 25(true)]]]
+	// [[15(true)] 16(true) [[17(false)] 25(true)]]
+	// After tr.Root = llrb.MoveRedFromRightToLeft(tr.Root)
+	// [[1(true)] 2(true) [2.5(true)]]
+	// [[[1(true)] 2(true) [2.5(true)]] 3(true) [[9(true)] 13(true) [[15(true)] 16(false) [[17(false)] 25(true)]]]]
+	// [[9(true)] 13(true) [[15(true)] 16(false) [[17(false)] 25(true)]]]
 }
 
 func Example_Balance() {
@@ -345,7 +360,7 @@ func Example_Balance() {
 	   2(R)   13(R)
 	*/
 	fmt.Println("After tr1.Root = llrb.Balance(tr1.Root):", tr1)
-	//
+	// Output:
 
 	//
 	// Don't do this:

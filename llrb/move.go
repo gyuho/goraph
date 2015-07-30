@@ -1,12 +1,9 @@
 package llrb
 
-import "fmt"
-
 // RotateToLeft runs when there is a right-leaning link.
 // tr.Root = RotateToLeft(tr.Root) overwrite the Root
 // with the new top Node.
 func RotateToLeft(nd *Node) *Node {
-	fmt.Println("RotateToLeft", nd.Key)
 	if nd.Right.Black {
 		panic("Can't rotate a black link")
 	}
@@ -27,7 +24,6 @@ func RotateToLeft(nd *Node) *Node {
 // tr.Root = RotateToRight(tr.Root) overwrite the Root
 // with the new top Node.
 func RotateToRight(nd *Node) *Node {
-	fmt.Println("RotateToRight", nd.Key)
 	if nd.Left.Black {
 		panic("Can't rotate a black link")
 	}
@@ -47,7 +43,6 @@ func RotateToRight(nd *Node) *Node {
 // FlipColor flips the color.
 // Left and Right children must be present
 func FlipColor(nd *Node) {
-	fmt.Println("FlipColor", nd.Key)
 	// nd is parent node
 	nd.Black = !nd.Black
 	nd.Left.Black = !nd.Left.Black
@@ -58,14 +53,12 @@ func FlipColor(nd *Node) {
 // from Right sub-Tree to Left sub-Tree.
 // Left and Right children must be present
 func MoveRedFromRightToLeft(nd *Node) *Node {
-	fmt.Println("MoveRedFromRightToLeft", nd.Key)
 	FlipColor(nd)
 	if isRed(nd.Right.Left) {
 		nd.Right = RotateToRight(nd.Right)
 		nd = RotateToLeft(nd)
 		FlipColor(nd)
 	}
-	fmt.Println("returning", nd.Key)
 	return nd
 }
 
@@ -73,7 +66,6 @@ func MoveRedFromRightToLeft(nd *Node) *Node {
 // from Left sub-Tree to Right sub-Tree.
 // Left and Right children must be present
 func MoveRedFromLeftToRight(nd *Node) *Node {
-	fmt.Println("MoveRedFromLeftToRight", nd.Key)
 	FlipColor(nd)
 	if isRed(nd.Left.Left) {
 		nd = RotateToRight(nd)
@@ -84,7 +76,6 @@ func MoveRedFromLeftToRight(nd *Node) *Node {
 
 // Balance balances the Node.
 func Balance(nd *Node) *Node {
-	fmt.Println("Balance", nd.Key)
 	// nd is parent node
 	if isRed(nd.Right) && !isRed(nd.Left) {
 		nd = RotateToLeft(nd)
@@ -100,7 +91,6 @@ func Balance(nd *Node) *Node {
 
 // FixUp fixes the balances of the Node.
 func FixUp(nd *Node) *Node {
-	fmt.Println("FixUp", nd.Key)
 	if isRed(nd.Right) {
 		nd = RotateToLeft(nd)
 	}

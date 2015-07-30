@@ -1,10 +1,7 @@
 package llrb
 
-import "fmt"
-
 // DeleteMin deletes the minimum-Key Node of the sub-Tree.
 func DeleteMin(nd *Node) (*Node, Interface) {
-	fmt.Println("DeleteMin", nd.Key)
 	if nd == nil {
 		return nil, nil
 	}
@@ -75,45 +72,46 @@ func (tr *Tree) DeleteMax() Interface {
 //
 //		if key < nd.Key:
 //
-//			if nd.Left == empty:
-//				print "then nothing to delete, so return nil"
+//			if nd.Left is empty:
+//				# then nothing to delete, so return nil
 //				return nd, nil
 //
-//			if (nd.Left == Black) and (nd.Left.Left == Black):
-//				print "then move Red from Right to Left to update nd"
+//			if (nd.Left is Black) and (nd.Left.Left is Black):
+//				# then move Red from Right to Left to update nd
 //				nd = MoveRedFromRightToLeft(nd)
 //
-//			print "recursively call 'delete' to update nd.Left"
+//			# recursively call 'delete' to update nd.Left
 //			nd.Left, deleted = tr.delete(nd.Left, key)
 //
 //		else if key >= nd.Key:
 //
-//			if nd.Left == Red:
-//				print "then RotateToRight(nd) to update nd"
+//			if nd.Left is Red:
+//				# RotateToRight(nd) to update nd
 //				nd = RotateToRight(nd)
 //
-//			if (key == nd.Key) and nd.Right == empty:
-//				print "then return nil, nd.Key to recursively update nd"
+//			if (key == nd.Key) and nd.Right is empty:
+//				# then return nil, nd.Key to recursively update nd
 //				return nil, nd.Key
 //
-//			if (nd.Right != empty)
-//			and (nd.Right == Black)
-//			and (nd.Right.Left == Black):
-//				print "then move Red from Left to Right to update nd"
+//			if (nd.Right is not empty)
+//			and (nd.Right is Black)
+//			and (nd.Right.Left is Black):
+//				# then move Red from Left to Right to update nd
 //				nd = MoveRedFromLeftToRight(nd)
 //
-//			# nd gets updated by this step
-//
 //			if (key == nd.Key):
-//				print "then DeleteMin of nd.Right to update nd.Right"
+//				# then DeleteMin of nd.Right to update nd.Right
 //				nd.Right, subDeleted = DeleteMin(nd.Right)
 //
-//				print "and then update nd.Key with DeleteMin(nd.Right)"
+//				# and then update nd.Key with DeleteMin(nd.Right)
 //				deleted, nd.Key = nd.Key, subDeleted
 //
 //			else if key != nd.Key:
-//				print "recursively call 'delete' to update nd.Right"
+//				# recursively call 'delete' to update nd.Right
 //				nd.Right, deleted = tr.delete(nd.Right, key)
+//
+//		# recursively FixUp upwards to Root
+//		return FixUp(nd), deleted
 //
 //	# end
 //
@@ -132,7 +130,6 @@ func (tr *Tree) Delete(key Interface) Interface {
 }
 
 func (tr *Tree) delete(nd *Node, key Interface) (*Node, Interface) {
-	fmt.Println("calling delete on", nd.Key, "for the key", key)
 	if nd == nil {
 		return nil, nil
 	}
@@ -173,7 +170,6 @@ func (tr *Tree) delete(nd *Node, key Interface) (*Node, Interface) {
 
 			// then RotateToRight(nd)
 			nd = RotateToRight(nd)
-			fmt.Println("after nd = RotateToRight(nd)", nd.Key)
 		}
 
 		// and nd.Key is not Less than key
@@ -181,7 +177,6 @@ func (tr *Tree) delete(nd *Node, key Interface) (*Node, Interface) {
 		// (or key == nd.Key)
 		// and nd.Right is empty
 		if !nd.Key.Less(key) && nd.Right == nil {
-			fmt.Println("!nd.Key.Less(key) && nd.Right == nil when", nd.Key)
 			// then return nil to delete the key
 			return nil, nd.Key
 		}
@@ -190,8 +185,6 @@ func (tr *Tree) delete(nd *Node, key Interface) (*Node, Interface) {
 		// and nd.Right is Black
 		// and nd.Right.Left is Black
 		if nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) {
-			fmt.Println("nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when", nd.Key)
-
 			// then MoveRedFromLeftToRight(nd)
 			nd = MoveRedFromLeftToRight(nd)
 		}
@@ -212,10 +205,10 @@ func (tr *Tree) delete(nd *Node, key Interface) (*Node, Interface) {
 
 		} else {
 			// if updated nd.Key is Less than key (nd.Key < key) to update nd.Right
-			fmt.Println("nd.Right, deleted = tr.delete(nd.Right, key) at", nd.Key)
 			nd.Right, deleted = tr.delete(nd.Right, key)
 		}
 	}
 
+	// recursively FixUp upwards to Root
 	return FixUp(nd), deleted
 }

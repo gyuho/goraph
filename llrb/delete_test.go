@@ -1,11 +1,8 @@
 package llrb
 
-import (
-	"fmt"
-	"testing"
-)
+import "testing"
 
-func TestDeleteExample(t *testing.T) {
+func TestDelete(t *testing.T) {
 	root := NewNode(Float64(1))
 	tr := New(root)
 	nums := []float64{3, 9, 13, 17, 20, 25, 39, 16, 15, 2, 2.5}
@@ -13,48 +10,149 @@ func TestDeleteExample(t *testing.T) {
 		tr.Insert(NewNode(Float64(num)))
 	}
 
-	fmt.Println("Deleting start!")
-	fmt.Println("Deleted", tr.Delete(Float64(39)))
-	fmt.Println(tr.Root.Left.Key)
-	fmt.Println(tr.Root.Key)
-	fmt.Println(tr.Root.Right.Key)
-	fmt.Println()
+	tr.Delete(Float64(39))
+	if tr.Search(Float64(13)).Left.Key != Float64(3) {
+		t.Fatal("13's Left child must be 3")
+	}
+	if tr.Search(Float64(3)).Left.Key != Float64(2) {
+		t.Fatal("3's Left child must be 2")
+	}
+	if tr.Search(Float64(3)).Left.Black != false {
+		t.Fatal("3's Left child must be red")
+	}
+	if tr.Search(Float64(20)).Right.Key != Float64(25) {
+		t.Fatal("20's Right child must be 25")
+	}
+	if tr.SearchParent(Float64(25)).Key != Float64(20) {
+		t.Fatal("25's Parent must be 20")
+	}
+	if tr.SearchParent(Float64(16)).Key != Float64(20) {
+		t.Fatal("16's Parent must be 20")
+	}
+	if tr.Search(Float64(25)).Right != nil {
+		t.Fatal("25's Right child must be nil")
+	}
+	if tr.Search(Float64(25)).Left != nil {
+		t.Fatal("25's Left child must be nil")
+	}
+	if tr.Search(Float64(39)) != nil {
+		t.Fatal("39 must be nil")
+	}
 
-	fmt.Println("Deleted", tr.Delete(Float64(20)))
-	fmt.Println(tr.Root.Left.Key)
-	fmt.Println(tr.Root.Key)
-	fmt.Println(tr.Root.Right.Key)
-	fmt.Println()
+	nt20 := tr.Delete(Float64(20))
+	if nt20 != Float64(20) {
+		t.Fatal("tr.Delete(Float64(20)) must return 20 but", nt20)
+	}
+	if tr.Search(Float64(16)).Left.Key != Float64(15) {
+		t.Fatal("16's Left child must be 15")
+	}
+	if tr.Search(Float64(16)).Right.Key != Float64(25) {
+		t.Fatal("16's Right child must be 25")
+	}
+	if tr.Search(Float64(25)).Left.Key != Float64(17) {
+		t.Fatal("25's Left child must be 17")
+	}
+	if tr.Search(Float64(25)).Left.Black != false {
+		t.Fatal("25's Left child must be red")
+	}
+	if tr.Search(Float64(17)).Black != false {
+		t.Fatal("17 must be red")
+	}
+	if tr.SearchParent(Float64(25)).Key != Float64(16) {
+		t.Fatal("25's Parent must be 16")
+	}
+	if tr.SearchParent(Float64(25)).Key != Float64(16) {
+		t.Fatal("25's Parent must be 16")
+	}
+	if tr.SearchParent(Float64(17)).Key != Float64(25) {
+		t.Fatal("17's Parent must be 25")
+	}
+	if tr.SearchParent(Float64(16)).Key != Float64(13) {
+		t.Fatal("16's Parent must be 13")
+	}
 
-	fmt.Println("Deleted", tr.Delete(Float64(16)))
-	fmt.Println(tr.Root.Left.Key)
-	fmt.Println(tr.Root.Key)
-	fmt.Println(tr.Root.Right.Left)
-	fmt.Println()
+	nt16 := tr.Delete(Float64(16))
+	if nt16 != Float64(16) {
+		t.Fatal("tr.Delete(Float64(16)) must return 16 but", nt16)
+	}
+	if tr.SearchParent(Float64(13)).Key != Float64(17) {
+		t.Fatal("13's Parent must be 17")
+	}
+	if tr.SearchParent(Float64(25)).Key != Float64(17) {
+		t.Fatal("25's Parent must be 17")
+	}
+	if tr.Search(Float64(13)).Black != false {
+		t.Fatal("13 must be red")
+	}
+	if tr.Search(Float64(17)).Left.Black != false {
+		t.Fatal("17's Left child must be red")
+	}
+	if tr.Search(Float64(17)).Left.Key != Float64(13) {
+		t.Fatal("17's Left child must be 13")
+	}
+	if tr.Search(Float64(17)).Right.Key != Float64(25) {
+		t.Fatal("17's Right child must be 25")
+	}
+	if tr.Search(Float64(2)).Left.Key != Float64(1) {
+		t.Fatal("2's Left child must be 1")
+	}
+	if tr.Search(Float64(2)).Right.Key != Float64(2.5) {
+		t.Fatal("2's Right child must be 2.5")
+	}
+	if tr.Search(Float64(13)).Left.Key != Float64(9) {
+		t.Fatal("13's Left child must be 9")
+	}
+	if tr.Search(Float64(13)).Right.Key != Float64(15) {
+		t.Fatal("13's Right child must be 15")
+	}
 
-	fmt.Println("Deleted", tr.Delete(Float64(9)))
-	fmt.Println(tr.Root.Left.Key)
-	fmt.Println(tr.Root.Key)
-	fmt.Println(tr.Root.Right)
-	fmt.Println()
+	//
+	//
+	//
+	//
+	//
+	// fmt.Println("Deleting start!")
+	// fmt.Println("Deleted", tr.Delete(Float64(39)))
+	// fmt.Println(tr.Root.Left.Key)
+	// fmt.Println(tr.Root.Key)
+	// fmt.Println(tr.Root.Right.Key)
+	// fmt.Println()
 
-	fmt.Println("Deleted", tr.Delete(Float64(25)))
-	fmt.Println(tr.Root.Left.Key)
-	fmt.Println(tr.Root.Key)
-	fmt.Println(tr.Root.Right)
-	fmt.Println()
+	// fmt.Println("Deleted", tr.Delete(Float64(20)))
+	// fmt.Println(tr.Root.Left.Key)
+	// fmt.Println(tr.Root.Key)
+	// fmt.Println(tr.Root.Right.Key)
+	// fmt.Println()
 
-	fmt.Println("Deleted", tr.Delete(Float64(2)))
-	fmt.Println(tr.Root.Left)
-	fmt.Println(tr.Root.Key)
-	fmt.Println(tr.Root.Right)
-	fmt.Println()
+	// fmt.Println("Deleted", tr.Delete(Float64(16)))
+	// fmt.Println(tr.Root.Left.Key)
+	// fmt.Println(tr.Root.Key)
+	// fmt.Println(tr.Root.Right.Left)
+	// fmt.Println()
 
-	fmt.Println("Deleted", tr.Delete(Float64(3)))
-	fmt.Println(tr.Root.Left.Key)
-	fmt.Println(tr.Root.Key)
-	fmt.Println(tr.Root.Right.Key)
-	fmt.Println()
+	// fmt.Println("Deleted", tr.Delete(Float64(9)))
+	// fmt.Println(tr.Root.Left.Key)
+	// fmt.Println(tr.Root.Key)
+	// fmt.Println(tr.Root.Right)
+	// fmt.Println()
+
+	// fmt.Println("Deleted", tr.Delete(Float64(25)))
+	// fmt.Println(tr.Root.Left.Key)
+	// fmt.Println(tr.Root.Key)
+	// fmt.Println(tr.Root.Right)
+	// fmt.Println()
+
+	// fmt.Println("Deleted", tr.Delete(Float64(2)))
+	// fmt.Println(tr.Root.Left)
+	// fmt.Println(tr.Root.Key)
+	// fmt.Println(tr.Root.Right)
+	// fmt.Println()
+
+	// fmt.Println("Deleted", tr.Delete(Float64(3)))
+	// fmt.Println(tr.Root.Left.Key)
+	// fmt.Println(tr.Root.Key)
+	// fmt.Println(tr.Root.Right.Key)
+	// fmt.Println()
 }
 
 /*
@@ -62,13 +160,13 @@ Deleting start!
 calling delete on 13 for the key 39
 nd.Right, deleted = tr.delete(nd.Right, key) at 13
 calling delete on 20 for the key 39
-RotateToRight: 20
+RotateToRight 20
 after nd = RotateToRight(nd) 16
 nd.Right, deleted = tr.delete(nd.Right, key) at 16
 calling delete on 20 for the key 39
 nd.Right, deleted = tr.delete(nd.Right, key) at 20
 calling delete on 39 for the key 39
-RotateToRight: 39
+RotateToRight 39
 after nd = RotateToRight(nd) 25
 nd.Right, deleted = tr.delete(nd.Right, key) at 25
 calling delete on 39 for the key 39
@@ -76,7 +174,8 @@ calling delete on 39 for the key 39
 FixUp 25
 FixUp 20
 FixUp 16
-RotateToLeft: 16
+RotateToLeft 16
+after FixUp nd = RotateToLeft(nd) 20
 FixUp 13
 Deleted 39
 3
@@ -86,14 +185,16 @@ Deleted 39
 calling delete on 13 for the key 20
 nd.Right, deleted = tr.delete(nd.Right, key) at 13
 calling delete on 20 for the key 20
-RotateToRight: 20
+RotateToRight 20
 after nd = RotateToRight(nd) 16
 nd.Right, deleted = tr.delete(nd.Right, key) at 16
 calling delete on 20 for the key 20
-nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when 20
-MoveRedFromLeftToRight: 20
-FlipColor: 20
+nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when [[17(true)] 20(false) [25(true)]]
+MoveRedFromLeftToRight 20
+FlipColor 20
 DeleteMin 25
+after deleted, nd.Key = nd.Key, subDeleted [[17(false)] 25(true)]
+after deleted, nd.Key = nd.Key, subDeleted 25
 FixUp 25
 FixUp 16
 FixUp 13
@@ -103,12 +204,13 @@ Deleted 20
 16
 
 calling delete on 13 for the key 16
-nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when 13
-MoveRedFromLeftToRight: 13
-FlipColor: 13
-MoveRedFromLeftToRight isRed(nd.Left.Left): 13
-RotateToRight: 13
-FlipColor: 3
+nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when [[[[1(true)] 2(false) [2.5(true)]] 3(true) [9(true)]] 13(true) [[15(true)] 16(true) [[17(false)] 25(true)]]]
+MoveRedFromLeftToRight 13
+FlipColor 13
+
+
+RotateToRight 13
+FlipColor 3
 nd.Right, deleted = tr.delete(nd.Right, key) at 3
 calling delete on 13 for the key 16
 nd.Right, deleted = tr.delete(nd.Right, key) at 13
@@ -116,9 +218,12 @@ calling delete on 16 for the key 16
 DeleteMin 25
 DeleteMin 17
 FixUp 25
+after deleted, nd.Key = nd.Key, subDeleted [[15(true)] 17(false) [25(true)]]
+after deleted, nd.Key = nd.Key, subDeleted 17
 FixUp 17
 FixUp 13
-RotateToLeft: 13
+RotateToLeft 13
+after FixUp nd = RotateToLeft(nd) 17
 FixUp 3
 Deleted 16
 2
@@ -129,12 +234,14 @@ calling delete on 3 for the key 9
 nd.Right, deleted = tr.delete(nd.Right, key) at 3
 calling delete on 17 for the key 9
 calling delete on 13 for the key 9
-MoveRedFromRightToLeft: 13
-FlipColor: 13
+MoveRedFromRightToLeft 13
+FlipColor 13
+returning 13
 calling delete on 9 for the key 9
 !nd.Key.Less(key) && nd.Right == nil when 9
 FixUp 13
-RotateToLeft: 13
+RotateToLeft 13
+after FixUp nd = RotateToLeft(nd) 15
 FixUp 17
 FixUp 3
 Deleted 9
@@ -143,17 +250,16 @@ Deleted 9
 [[[13(false)] 15(true)] 17(true) [25(true)]]
 
 calling delete on 3 for the key 25
-nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when 3
-MoveRedFromLeftToRight: 3
-FlipColor: 3
+nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when [[[1(true)] 2(true) [2.5(true)]] 3(true) [[[13(false)] 15(true)] 17(true) [25(true)]]]
+MoveRedFromLeftToRight 3
+FlipColor 3
 nd.Right, deleted = tr.delete(nd.Right, key) at 3
 calling delete on 17 for the key 25
-nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when 17
-MoveRedFromLeftToRight: 17
-FlipColor: 17
-MoveRedFromLeftToRight isRed(nd.Left.Left): 17
-RotateToRight: 17
-FlipColor: 15
+nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when [[[13(false)] 15(true)] 17(false) [25(true)]]
+MoveRedFromLeftToRight 17
+FlipColor 17
+RotateToRight 17
+FlipColor 15
 nd.Right, deleted = tr.delete(nd.Right, key) at 15
 calling delete on 17 for the key 25
 nd.Right, deleted = tr.delete(nd.Right, key) at 17
@@ -162,25 +268,30 @@ calling delete on 25 for the key 25
 FixUp 17
 FixUp 15
 FixUp 3
-RotateToLeft: 3
-RotateToRight: 15
-FlipColor: 3
+RotateToLeft 3
+after FixUp nd = RotateToLeft(nd) 15
+RotateToRight 15
+FlipColor 3
 Deleted 25
 2
 3
 [[13(true)] 15(true) [17(true)]]
 
 calling delete on 3 for the key 2
-MoveRedFromRightToLeft: 3
-FlipColor: 3
+MoveRedFromRightToLeft 3
+FlipColor 3
+returning 3
 calling delete on 2 for the key 2
-nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when 2
-MoveRedFromLeftToRight: 2
-FlipColor: 2
+nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when [[1(true)] 2(false) [2.5(true)]]
+MoveRedFromLeftToRight 2
+FlipColor 2
 DeleteMin 2.5
+after deleted, nd.Key = nd.Key, subDeleted [[1(false)] 2.5(true)]
+after deleted, nd.Key = nd.Key, subDeleted 2.5
 FixUp 2.5
 FixUp 3
-RotateToLeft: 3
+RotateToLeft 3
+after FixUp nd = RotateToLeft(nd) 15
 Deleted 2
 [[[1(false)] 2.5(true)] 3(false) [13(true)]]
 15
@@ -188,15 +299,16 @@ Deleted 2
 
 calling delete on 15 for the key 3
 calling delete on 3 for the key 3
-nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when 3
-MoveRedFromLeftToRight: 3
-FlipColor: 3
-MoveRedFromLeftToRight isRed(nd.Left.Left): 3
-RotateToRight: 3
-FlipColor: 2.5
+nd.Right != nil && !isRed(nd.Right) && !isRed(nd.Right.Left) when [[[1(false)] 2.5(true)] 3(false) [13(true)]]
+MoveRedFromLeftToRight 3
+FlipColor 3
+RotateToRight 3
+FlipColor 2.5
 nd.Right, deleted = tr.delete(nd.Right, key) at 2.5
 calling delete on 3 for the key 3
 DeleteMin 13
+after deleted, nd.Key = nd.Key, subDeleted [13(true)]
+after deleted, nd.Key = nd.Key, subDeleted 13
 FixUp 13
 FixUp 2.5
 FixUp 15
@@ -204,5 +316,7 @@ Deleted 3
 2.5
 15
 17
+
+
 
 */
