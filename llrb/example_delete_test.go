@@ -6,7 +6,7 @@ import (
 	"github.com/gyuho/goraph/llrb"
 )
 
-func Example_Delete() {
+func Example_delete() {
 	root := llrb.NewNode(llrb.Float64(1))
 	tr := llrb.New(root)
 	nums := []float64{3, 9, 13, 17, 20, 25, 39, 16, 15, 2, 2.5}
@@ -94,7 +94,7 @@ func Example_Delete() {
 	// 17
 }
 
-func Example_DeleteMin() {
+func Example_deleteMin() {
 	node20 := llrb.NewNode(llrb.Float64(20))
 	node20.Black = true
 

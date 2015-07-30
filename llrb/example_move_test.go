@@ -6,7 +6,7 @@ import (
 	"github.com/gyuho/goraph/llrb"
 )
 
-func Example_RotateToLeft() {
+func Example_rotateToLeft() {
 	node3 := llrb.NewNode(llrb.Float64(3))
 	node3.Black = true
 
@@ -63,7 +63,7 @@ func Example_RotateToLeft() {
 	// [17(true)]
 }
 
-func Example_RotateToRight() {
+func Example_rotateToRight() {
 	node20 := llrb.NewNode(llrb.Float64(20))
 	node20.Black = true
 
@@ -126,7 +126,7 @@ func Example_RotateToRight() {
 	// [[17(true)] 20(false) [[25(false)] 39(true)]]
 }
 
-func Example_FlipColor() {
+func Example_flipColor() {
 	node3 := llrb.NewNode(llrb.Float64(3))
 	node3.Black = true
 
@@ -183,7 +183,7 @@ func Example_FlipColor() {
 	// [[9(false)] 13(false) [17(false)]]
 }
 
-func Example_MoveRedFromRightToLeft() {
+func Example_moveRedFromRightToLeft() {
 	node3 := llrb.NewNode(llrb.Float64(3))
 	node3.Black = true
 
@@ -250,7 +250,7 @@ func Example_MoveRedFromRightToLeft() {
 	// [15(true) [17(true)]]
 }
 
-func Example_MoveRedFromLeftToRight() {
+func Example_moveRedFromLeftToRight() {
 	node13 := llrb.NewNode(llrb.Float64(13))
 	node13.Black = true
 
@@ -333,7 +333,7 @@ func Example_MoveRedFromLeftToRight() {
 	// [[9(true)] 13(true) [[15(true)] 16(false) [[17(false)] 25(true)]]]
 }
 
-func Example_Balance() {
+func Example_balance() {
 	node13 := llrb.NewNode(llrb.Float64(13))
 	node13.Black = true
 
