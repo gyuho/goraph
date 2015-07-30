@@ -2,6 +2,22 @@ package llrb
 
 import "testing"
 
+func TestTreeDeleteMin(t *testing.T) {
+
+}
+
+func TestDeleteMin(t *testing.T) {
+
+}
+
+func TestTreeDeleteMax(t *testing.T) {
+
+}
+
+func TestDeleteMax(t *testing.T) {
+
+}
+
 func TestDelete(t *testing.T) {
 	root := NewNode(Float64(1))
 	tr := New(root)
