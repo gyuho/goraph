@@ -27,33 +27,6 @@ func (tr *Tree) DeleteMin() Interface {
 	return deleted
 }
 
-// DeleteMax deletes the maximum-Key Node of the sub-Tree.
-func DeleteMax(nd *Node) (*Node, Interface) {
-	if nd == nil {
-		return nil, nil
-	}
-	if nd.Left == nil {
-		return nil, nd.Key
-	}
-	if !isRed(nd.Right) && !isRed(nd.Right.Left) {
-		nd = MoveRedFromRightToLeft(nd)
-	}
-	var deleted Interface
-	nd.Right, deleted = DeleteMax(nd.Right)
-	return FixUp(nd), deleted
-}
-
-// DeleteMax deletes the maximum-Key Node of the Tree.
-// It returns the maximum Key or nil.
-func (tr *Tree) DeleteMax() Interface {
-	var deleted Interface
-	tr.Root, deleted = DeleteMax(tr.Root)
-	if tr.Root != nil {
-		tr.Root.Black = true
-	}
-	return deleted
-}
-
 // Delete deletes the node with the Key and returns the Key Interface.
 // It returns nil if the Key does not exist in the tree.
 //

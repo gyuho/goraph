@@ -2,6 +2,72 @@ package llrb
 
 import "testing"
 
+func TestTreeDeleteMin(t *testing.T) {
+	node20 := NewNode(Float64(20))
+	node20.Black = true
+
+	node17 := NewNode(Float64(17))
+	node17.Black = false
+
+	node25 := NewNode(Float64(25))
+	node25.Black = false
+
+	tr := New(node20)
+	tr.Root.Left = node17
+	tr.Root.Right = node25
+	/*
+	        20(B)
+	      /      \
+	   17(R)     25(R)
+	*/
+
+	if tr.DeleteMin() != Float64(17) {
+		t.Fatalf("Expected 17 but got %+v", tr)
+	}
+}
+
+func TestDeleteMin(t *testing.T) {
+	node20 := NewNode(Float64(20))
+	node20.Black = true
+
+	node17 := NewNode(Float64(17))
+	node17.Black = false
+
+	node25 := NewNode(Float64(25))
+	node25.Black = false
+
+	tr := New(node20)
+	tr.Root.Left = node17
+	tr.Root.Right = node25
+	/*
+	        20(B)
+	      /      \
+	   17(R)     25(R)
+	*/
+	// Deleting the Minimum value of Right Sub-Tree
+	var subDeleted Interface
+	tr.Root.Right, subDeleted = DeleteMin(tr.Root.Right)
+	if subDeleted == nil {
+		panic("Unexpected nil value")
+	}
+	_, tr.Root.Key = tr.Root.Key, subDeleted
+	/*
+	        25(B)
+	      /
+	   17(R)
+	*/
+
+	if tr.Root.Left.Key != Float64(17) {
+		t.Fatalf("Expected 17 but got %+v", tr)
+	}
+	if tr.Root.Key != Float64(25) {
+		t.Fatalf("Expected 25 but got %+v", tr)
+	}
+	if tr.Root.Right != nil {
+		t.Fatalf("Expected nil but got %+v", tr)
+	}
+}
+
 func TestDelete(t *testing.T) {
 	root := NewNode(Float64(1))
 	tr := New(root)
@@ -106,6 +172,220 @@ func TestDelete(t *testing.T) {
 		t.Fatal("13's Right child must be 15")
 	}
 
+	nt9 := tr.Delete(Float64(9))
+	if nt9 != Float64(9) {
+		t.Fatal("tr.Delete(Float64(9)) must return 9 but", nt9)
+	}
+	if tr.Search(Float64(3)).Left.Key != Float64(2) {
+		t.Fatal("3's Left child must be 2")
+	}
+	if tr.Search(Float64(3)).Right.Key != Float64(17) {
+		t.Fatal("3's Right child must be 17")
+	}
+	if tr.Search(Float64(2)).Left.Key != Float64(1) {
+		t.Fatal("2's Left child must be 1")
+	}
+	if tr.Search(Float64(2)).Right.Key != Float64(2.5) {
+		t.Fatal("2's Right child must be 2.5")
+	}
+	if tr.Search(Float64(17)).Left.Key != Float64(15) {
+		t.Fatal("17's Left child must be 15")
+	}
+	if tr.Search(Float64(17)).Right.Key != Float64(25) {
+		t.Fatal("17's Right child must be 25")
+	}
+	if tr.Search(Float64(15)).Left.Key != Float64(13) {
+		t.Fatal("15's Left child must be 13")
+	}
+	if tr.SearchParent(Float64(13)).Key != Float64(15) {
+		t.Fatal("13's Parent must be 15")
+	}
+	if tr.SearchParent(Float64(15)).Key != Float64(17) {
+		t.Fatal("15's Parent must be 17")
+	}
+	if tr.SearchParent(Float64(25)).Key != Float64(17) {
+		t.Fatal("25's Parent must be 17")
+	}
+	if tr.SearchParent(Float64(2)).Key != Float64(3) {
+		t.Fatal("2's Parent must be 3")
+	}
+	if tr.SearchParent(Float64(17)).Key != Float64(3) {
+		t.Fatal("17's Parent must be 3")
+	}
+	if tr.Search(Float64(13)).Black != false {
+		t.Fatal("13 must be red")
+	}
+	if tr.Search(Float64(15)).Black == false {
+		t.Fatal("15 must be black")
+	}
+
+	nt25 := tr.Delete(Float64(25))
+	if nt25 != Float64(25) {
+		t.Fatal("tr.Delete(Float64(25)) must return 25 but", nt25)
+	}
+	if tr.Root.Key != Float64(3) {
+		t.Fatal("Root must be 3")
+	}
+	if tr.Search(Float64(3)).Left.Key != Float64(2) {
+		t.Fatal("3's Left child must be 2")
+	}
+	if tr.Search(Float64(3)).Right.Key != Float64(15) {
+		t.Fatal("3's Right child must be 15")
+	}
+	if tr.Search(Float64(2)).Left.Key != Float64(1) {
+		t.Fatal("2's Left child must be 1")
+	}
+	if tr.Search(Float64(2)).Right.Key != Float64(2.5) {
+		t.Fatal("2's Right child must be 2.5")
+	}
+	if tr.Search(Float64(15)).Left.Key != Float64(13) {
+		t.Fatal("15's Left child must be 13")
+	}
+	if tr.Search(Float64(15)).Right.Key != Float64(17) {
+		t.Fatal("15's Right child must be 17")
+	}
+	if tr.SearchParent(Float64(2)).Key != Float64(3) {
+		t.Fatal("2's Parent must be 3")
+	}
+	if tr.SearchParent(Float64(15)).Key != Float64(3) {
+		t.Fatal("15's Parent must be 3")
+	}
+	if tr.SearchParent(Float64(1)).Key != Float64(2) {
+		t.Fatal("1's Parent must be 2")
+	}
+	if tr.SearchParent(Float64(2.5)).Key != Float64(2) {
+		t.Fatal("2.5's Parent must be 2")
+	}
+	if tr.SearchParent(Float64(13)).Key != Float64(15) {
+		t.Fatal("13's Parent must be 15")
+	}
+	if tr.SearchParent(Float64(17)).Key != Float64(15) {
+		t.Fatal("17's Parent must be 15")
+	}
+	if tr.Search(Float64(17)).Left != nil {
+		t.Fatal("17's Left child must be nil")
+	}
+	if tr.Search(Float64(17)).Right != nil {
+		t.Fatal("17's Right child must be nil")
+	}
+	if tr.Search(Float64(3)).Black != true {
+		t.Fatal("3 must be black")
+	}
+	if tr.Search(Float64(2)).Black != true {
+		t.Fatal("2 must be black")
+	}
+	if tr.Search(Float64(15)).Black != true {
+		t.Fatal("15 must be black")
+	}
+	if tr.Search(Float64(1)).Black != true {
+		t.Fatal("1 must be black")
+	}
+	if tr.Search(Float64(2.5)).Black != true {
+		t.Fatal("2.5 must be black")
+	}
+	if tr.Search(Float64(13)).Black != true {
+		t.Fatal("13 must be black")
+	}
+	if tr.Search(Float64(17)).Black != true {
+		t.Fatal("17 must be black")
+	}
+
+	nt2 := tr.Delete(Float64(2))
+	if nt2 != Float64(2) {
+		t.Fatal("tr.Delete(Float64(2)) must return 2 but", nt2)
+	}
+	if tr.Root.Key != Float64(15) {
+		t.Fatal("Root must be 15")
+	}
+	if tr.Search(Float64(15)).Left.Key != Float64(3) {
+		t.Fatal("15's Left child must be 3")
+	}
+	if tr.Search(Float64(15)).Right.Key != Float64(17) {
+		t.Fatal("15's Right child must be 17")
+	}
+	if tr.Search(Float64(3)).Left.Key != Float64(2.5) {
+		t.Fatal("3's Left child must be 2.5")
+	}
+	if tr.Search(Float64(3)).Right.Key != Float64(13) {
+		t.Fatal("3's Right child must be 13")
+	}
+	if tr.Search(Float64(2.5)).Left.Key != Float64(1) {
+		t.Fatal("2.5's Left child must be 1")
+	}
+	if tr.SearchParent(Float64(2.5)).Key != Float64(3) {
+		t.Fatal("2.5's Parent must be 3")
+	}
+	if tr.SearchParent(Float64(13)).Key != Float64(3) {
+		t.Fatal("13's Parent must be 3")
+	}
+	if tr.SearchParent(Float64(1)).Key != Float64(2.5) {
+		t.Fatal("1's Parent must be 2.5")
+	}
+	if tr.Search(Float64(3)).Black != false {
+		t.Fatal("3 must be red")
+	}
+	if tr.Search(Float64(15)).Black != true {
+		t.Fatal("15 must be black")
+	}
+	if tr.Search(Float64(1)).Black != false {
+		t.Fatal("1 must be red")
+	}
+	if tr.Search(Float64(2.5)).Black != true {
+		t.Fatal("2.5 must be black")
+	}
+	if tr.Search(Float64(13)).Black != true {
+		t.Fatal("13 must be black")
+	}
+	if tr.Search(Float64(17)).Black != true {
+		t.Fatal("17 must be black")
+	}
+
+	nt3 := tr.Delete(Float64(3))
+	if nt3 != Float64(3) {
+		t.Fatal("tr.Delete(Float64(3)) must return 3 but", nt3)
+	}
+	if tr.Root.Key != Float64(15) {
+		t.Fatal("Root must be 15")
+	}
+	if tr.Search(Float64(15)).Left.Key != Float64(2.5) {
+		t.Fatal("15's Left child must be 2.5")
+	}
+	if tr.Search(Float64(15)).Right.Key != Float64(17) {
+		t.Fatal("15's Right child must be 17")
+	}
+	if tr.Search(Float64(2.5)).Left.Key != Float64(1) {
+		t.Fatal("2.5's Left child must be 1")
+	}
+	if tr.SearchParent(Float64(2.5)).Key != Float64(15) {
+		t.Fatal("2.5's Parent must be 15")
+	}
+	if tr.SearchParent(Float64(17)).Key != Float64(15) {
+		t.Fatal("17's Parent must be 15")
+	}
+	if tr.SearchParent(Float64(13)).Key != Float64(2.5) {
+		t.Fatal("13's Parent must be 2.5")
+	}
+	if tr.SearchParent(Float64(1)).Key != Float64(2.5) {
+		t.Fatal("1's Parent must be 2.5")
+	}
+	if tr.SearchParent(Float64(17)).Key != Float64(15) {
+		t.Fatal("17's Parent must be 15")
+	}
+	if tr.Search(Float64(15)).Black != true {
+		t.Fatal("15 must be black")
+	}
+	if tr.Search(Float64(1)).Black != true {
+		t.Fatal("1 must be black")
+	}
+	if tr.Search(Float64(2.5)).Black != false {
+		t.Fatal("2.5 must be red")
+	}
+	if tr.Search(Float64(13)).Black != true {
+		t.Fatal("13 must be black")
+	}
+	if tr.Search(Float64(17)).Black != true {
+		t.Fatal("17 must be black")
+	}
 	//
 	//
 	//
