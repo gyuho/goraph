@@ -41,11 +41,11 @@ func Example_rotateToLeft() {
 
 	tr.Root = llrb.RotateToLeft(tr.Root)
 	/*
-	   	   13(B)
-	   	  /     \
-	      3(R)     17(B)
-	      /   \
-	   1(B)   9(B)
+			   	   13(B)
+			   	  /     \
+			   3(R)     17(B)
+			  /   \
+		   1(B)   9(B)
 	*/
 
 	fmt.Println("After tr.Root = llrb.RotateToLeft(tr.Root)")
@@ -102,7 +102,7 @@ func Example_rotateToRight() {
 
 	tr.Root = llrb.RotateToRight(tr.Root)
 	/*
-	       16(R)
+	       16(B)
 	      /     \
 	   15(B)     20(R)
 	            /    \
@@ -355,14 +355,14 @@ func Example_balance() {
 	*/
 	tr1.Root = llrb.Balance(tr1.Root)
 	/*
-	      3(B)
+	      3(R)
 	     /   \
-	   2(R)   13(R)
+	   2(B)   13(B)
 	*/
 	fmt.Println("After tr1.Root = llrb.Balance(tr1.Root):", tr1)
 	// Output:
+	// After tr1.Root = llrb.Balance(tr1.Root): [[2(true)] 3(false) [13(true)]]
 
-	//
 	// Don't do this:
 	//
 	// tr2 := llrb.New(node13)

@@ -386,7 +386,7 @@ func TestDelete(t *testing.T) {
 	if tr.Search(Float64(17)).Black != true {
 		t.Fatal("17 must be black")
 	}
-	//
+
 	//
 	//
 	//
