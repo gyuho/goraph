@@ -4,6 +4,9 @@ package graph
 // It assumes that the identifier of a Vertex is string and unique.
 // And weight values is float64.
 type Graph interface {
+	// Init initializes a Graph.
+	Init()
+
 	// GetVertices returns a map of all vertices.
 	GetVertices() map[string]bool
 
@@ -39,4 +42,7 @@ type Graph interface {
 	// GetChildren returns the map of child vertices.
 	// (Vertices that goes out of the argument vertex.)
 	GetChildren(vtx string) (map[string]bool, error)
+
+	// String describes the Graph.
+	String() string
 }
