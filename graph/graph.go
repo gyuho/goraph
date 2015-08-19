@@ -4,9 +4,6 @@ package graph
 // It assumes that the identifier of a Vertex is string and unique.
 // And weight values is float64.
 type Graph interface {
-	// Init initializes a Graph.
-	Init()
-
 	// GetVertices returns a map of all vertices.
 	GetVertices() map[string]bool
 
