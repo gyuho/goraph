@@ -16,7 +16,7 @@ package graph
 //	9                 Q.push(w)
 //	10                label w as discovered
 //
-func (d *Data) Bfs(src *Node) []*Node {
+func (g *Graph) Bfs(src *Node) []*Node {
 
 	if src == nil {
 		return nil
@@ -65,7 +65,7 @@ func (d *Data) Bfs(src *Node) []*Node {
 //	8                for all edges from v to w in G.adjacentEdges(v) do
 //	9                    S.push(w)
 //
-func (d *Data) DfsStack(src *Node) []*Node {
+func (g *Graph) DfsStack(src *Node) []*Node {
 
 	if src == nil {
 		return nil
@@ -106,7 +106,7 @@ func (d *Data) DfsStack(src *Node) []*Node {
 //	4          if vertex w is not labeled as discovered then
 //	5              recursively call DFS(G,w)
 //
-func (d *Data) Dfs(src *Node, result *[]*Node) {
+func (g *Graph) Dfs(src *Node, result *[]*Node) {
 
 	if src == nil {
 		return
@@ -121,12 +121,12 @@ func (d *Data) Dfs(src *Node, result *[]*Node) {
 
 	for ov := range src.WeightTo {
 		if ov.Color == "white" {
-			d.Dfs(ov, result)
+			g.Dfs(ov, result)
 		}
 	}
 	for iv := range src.WeightFrom {
 		if iv.Color == "white" {
-			d.Dfs(iv, result)
+			g.Dfs(iv, result)
 		}
 	}
 }

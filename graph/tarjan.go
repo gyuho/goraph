@@ -58,7 +58,7 @@ package graph
 //		end if
 //	end function
 //
-func (d *Data) Tarjan() [][]*Node {
+func (g *Graph) Tarjan() [][]*Node {
 
 	var globalIdx int
 	mapNodeToIndex := make(map[*Node]int)
@@ -67,15 +67,15 @@ func (d *Data) Tarjan() [][]*Node {
 	stackMap := make(map[*Node]bool)
 	result := [][]*Node{}
 
-	for nd := range d.NodeMap {
+	for nd := range g.NodeMap {
 		if _, ok := mapNodeToIndex[nd]; !ok {
-			d.tarjan(nd, &globalIdx, mapNodeToIndex, mapNodeToLowLink, &stack, stackMap, &result)
+			g.tarjan(nd, &globalIdx, mapNodeToIndex, mapNodeToLowLink, &stack, stackMap, &result)
 		}
 	}
 	return result
 }
 
-func (d *Data) tarjan(
+func (g *Graph) tarjan(
 	nd *Node,
 	globalIdx *int,
 	mapNodeToIndex map[*Node]int,
@@ -94,7 +94,7 @@ func (d *Data) tarjan(
 	for ov := range nd.WeightTo {
 		if _, ok := mapNodeToIndex[ov]; !ok {
 			// successor ov has not yet been visited; recurse on it
-			d.tarjan(ov, globalIdx, mapNodeToIndex, mapNodeToLowLink, stack, stackMap, result)
+			g.tarjan(ov, globalIdx, mapNodeToIndex, mapNodeToLowLink, stack, stackMap, result)
 			mapNodeToLowLink[nd] = min(mapNodeToLowLink[nd], mapNodeToLowLink[ov])
 		} else if _, ok := stackMap[ov]; ok {
 			// successor ov is in stack and hence in the current SCC
@@ -104,7 +104,7 @@ func (d *Data) tarjan(
 	// for iv := range nd.WeightFrom {
 	// 	if _, ok := mapNodeToIndex[iv]; !ok {
 	// 		// successor iv has not yet been visited; recurse on it
-	// 		d.tarjan(iv, globalIdx, mapNodeToIndex, mapNodeToLowLink, stack, stackMap, result)
+	// 		g.tarjan(iv, globalIdx, mapNodeToIndex, mapNodeToLowLink, stack, stackMap, result)
 	// 		mapNodeToLowLink[nd] = min(mapNodeToLowLink[nd], mapNodeToLowLink[iv])
 	// 	} else if _, ok := stackMap[iv]; ok {
 	// 		// successor iv is in stack and hence in the current SCC

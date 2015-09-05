@@ -15,9 +15,9 @@ import "sort"
 //	7       UNION(u, v)
 //	8 return A
 //
-func (d *Data) Kruskal() map[Edge]bool {
+func (g *Graph) Kruskal() map[Edge]bool {
 	dsMap := make(map[*disjointSet]bool)
-	for nd := range d.NodeMap {
+	for nd := range g.NodeMap {
 
 		one := &disjointSet{}
 		one.rep = nd
@@ -27,7 +27,7 @@ func (d *Data) Kruskal() map[Edge]bool {
 		dsMap[one] = true
 	}
 
-	edges := d.GetEdges()
+	edges := g.GetEdges()
 	sort.Sort(edgeSlice(edges))
 	rmap := make(map[Edge]bool)
 

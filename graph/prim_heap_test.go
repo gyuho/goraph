@@ -11,11 +11,11 @@ func TestPrim14(t *testing.T) {
 		t.Errorf("Error: %+v", err)
 	}
 	defer file.Close()
-	data, err := FromJSON(file, "test_graph_14")
+	g, err := FromJSON(file, "test_graph_14")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	rmap := data.Prim()
+	rmap := g.Prim()
 	var total float32
 	for k := range rmap {
 		total += k.Weight

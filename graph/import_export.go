@@ -74,7 +74,7 @@ func fromJSON(reader io.Reader) (map[string]map[string]map[string]float32, error
 //	    },
 //	}
 //
-func FromJSON(reader io.Reader, graphName string) (*Data, error) {
+func FromJSON(reader io.Reader, graphName string) (*Graph, error) {
 	gmap1, err := fromJSON(reader)
 	if err != nil {
 		return nil, err
@@ -83,11 +83,11 @@ func FromJSON(reader io.Reader, graphName string) (*Data, error) {
 		return nil, fmt.Errorf("%s does not exist", graphName)
 	}
 	gmap2 := gmap1[graphName]
-	data := New()
+	g := New()
 	for vtxID1, weightToMap := range gmap2 {
 		for vtxID2, weight := range weightToMap {
-			data.Connect(NewNode(vtxID1), NewNode(vtxID2), weight)
+			g.Connect(NewNode(vtxID1), NewNode(vtxID2), weight)
 		}
 	}
-	return data, nil
+	return g, nil
 }

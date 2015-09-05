@@ -25,21 +25,21 @@ package graph
 //	18  	if v.d > u.d + w(u,v)
 //	19  		there is a negative-weight cycle
 //
-func (d *Data) BellmanFord(src, dst *Node) ([]*Node, map[*Node]float32, bool) {
+func (g *Graph) BellmanFord(src, dst *Node) ([]*Node, map[*Node]float32, bool) {
 
 	mapToDistance := make(map[*Node]float32)
 
 	// initialize mapToDistance
-	for nd := range d.NodeMap {
+	for nd := range g.NodeMap {
 		mapToDistance[nd] = 2147483646.0
 	}
 
 	mapToDistance[src] = 0.0
 	mapToPrevID := make(map[string]string)
 
-	for i := 1; i <= d.GetNodeSize()-1; i++ {
+	for i := 1; i <= g.GetNodeSize()-1; i++ {
 		// to iterate all edges
-		for nd := range d.NodeMap {
+		for nd := range g.NodeMap {
 			// relax the weight value to the destination
 			for ov, weight := range nd.WeightTo {
 				if mapToDistance[ov] > mapToDistance[nd]+weight {
@@ -59,7 +59,7 @@ func (d *Data) BellmanFord(src, dst *Node) ([]*Node, map[*Node]float32, bool) {
 	noNegCycle := true
 Loop:
 	// to iterate all edges
-	for nd := range d.NodeMap {
+	for nd := range g.NodeMap {
 		// relax the weight value to the destination
 		for ov, weight := range nd.WeightTo {
 			if mapToDistance[ov] > mapToDistance[nd]+weight {
@@ -84,12 +84,12 @@ Loop:
 		prevID := mapToPrevID[id]
 		id = prevID
 		copied := make([]*Node, len(pathSlice)+1) // push front
-		copied[0] = d.GetNodeByID(prevID)
+		copied[0] = g.GetNodeByID(prevID)
 		copy(copied[1:], pathSlice)
 		pathSlice = copied
 	}
 	copied := make([]*Node, len(pathSlice)+1) // push front
-	copied[0] = d.GetNodeByID(src.ID)
+	copied[0] = g.GetNodeByID(src.ID)
 	copy(copied[1:], pathSlice)
 	pathSlice = copied
 

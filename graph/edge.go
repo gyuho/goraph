@@ -8,9 +8,9 @@ type Edge struct {
 }
 
 // GetEdges returns all edges of a graph.
-func (d *Data) GetEdges() []Edge {
+func (g *Graph) GetEdges() []Edge {
 	rs := []Edge{}
-	for nd1 := range d.NodeMap {
+	for nd1 := range g.NodeMap {
 		for nd2, v := range nd1.WeightTo {
 			one := Edge{}
 			one.Src = nd1

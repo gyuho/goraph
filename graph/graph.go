@@ -6,10 +6,10 @@ import (
 	"sync"
 )
 
-// Data contains graph data, represented in adjacency list and slice.
+// Graph contains graph data, represented in adjacency list and slice.
 // Make sure to use Pointer when we need to update the struct with receiver.
 // (https://golang.org/doc/faq#methods_on_values_or_pointers)
-type Data struct {
+type Graph struct {
 	sync.Mutex
 
 	// NodeMap is a hash-map for all Nodes in the graph.
@@ -19,9 +19,9 @@ type Data struct {
 	nodeID map[string]bool
 }
 
-// New returns a new Data.
-func New() *Data {
-	return &Data{
+// New returns a new Graph.
+func New() *Graph {
+	return &Graph{
 		NodeMap: make(map[*Node]bool),
 		nodeID:  make(map[string]bool),
 		// without this
@@ -30,11 +30,11 @@ func New() *Data {
 }
 
 // Init initializes the graph Data.
-func (d *Data) Init() {
-	// (X) d = New()
+func (g *Graph) Init() {
+	// (X) g = New()
 	// this only updates the pointer
 	//
-	*d = *New()
+	*g = *New()
 }
 
 // Node is a Node(node) in Graph.
@@ -67,33 +67,33 @@ func NewNode(id string) *Node {
 
 // AddNode adds a Node to a graph Data.
 // It returns true if the Node is added the graph Data.
-func (d *Data) AddNode(nd *Node) bool {
+func (g *Graph) AddNode(nd *Node) bool {
 
 	if nd == nil {
 		return false
 	}
 
-	d.Lock()
-	defer d.Unlock()
-	if _, ok := d.nodeID[nd.ID]; ok {
+	g.Lock()
+	defer g.Unlock()
+	if _, ok := g.nodeID[nd.ID]; ok {
 		return false
 	}
-	if _, ok := d.NodeMap[nd]; ok {
+	if _, ok := g.NodeMap[nd]; ok {
 		return false
 	}
-	d.nodeID[nd.ID] = true
-	d.NodeMap[nd] = true
+	g.nodeID[nd.ID] = true
+	g.NodeMap[nd] = true
 	return true
 }
 
 // GetNodeSize returns the size of Node of the graph Data.
-func (d Data) GetNodeSize() int {
-	return len(d.NodeMap)
+func (g Graph) GetNodeSize() int {
+	return len(g.NodeMap)
 }
 
 //GetNodeByID finds a Node by ID.
-func (d Data) GetNodeByID(id string) *Node {
-	for nd := range d.NodeMap {
+func (g Graph) GetNodeByID(id string) *Node {
+	for nd := range g.NodeMap {
 		if nd.ID == id {
 			return nd
 		}
@@ -103,7 +103,7 @@ func (d Data) GetNodeByID(id string) *Node {
 
 // Connect adds an edge from src(source) to dst(destination) Node, to a graph Data.
 // This doese not connect from dst to src.
-func (d *Data) Connect(src, dst *Node, weight float32) {
+func (g *Graph) Connect(src, dst *Node, weight float32) {
 
 	if src == nil || dst == nil {
 		return
@@ -115,19 +115,19 @@ func (d *Data) Connect(src, dst *Node, weight float32) {
 	// }
 
 	// add to Data
-	if !d.AddNode(src) {
-		src = d.GetNodeByID(src.ID)
+	if !g.AddNode(src) {
+		src = g.GetNodeByID(src.ID)
 		// this only updates the pointer
 		//
 		// this updates the value
-		// *src = *(d.GetNodeByID(src.ID))
+		// *src = *(g.GetNodeByID(src.ID))
 	}
-	if !d.AddNode(dst) {
-		dst = d.GetNodeByID(dst.ID)
+	if !g.AddNode(dst) {
+		dst = g.GetNodeByID(dst.ID)
 	}
 
-	d.Lock()
-	defer d.Unlock()
+	g.Lock()
+	defer g.Unlock()
 
 	// if v, ok := src.WeightTo[dst]; !ok {
 	// (X) src.WeightTo[dst] = v + weight
@@ -144,7 +144,7 @@ func (d *Data) Connect(src, dst *Node, weight float32) {
 }
 
 // GetEdgeWeight returns the weight value of an edge from src to dst Node.
-func (d *Data) GetEdgeWeight(src, dst *Node) float32 {
+func (g *Graph) GetEdgeWeight(src, dst *Node) float32 {
 	if src == nil || dst == nil {
 		return 0.0
 	}
@@ -161,14 +161,14 @@ func (d *Data) GetEdgeWeight(src, dst *Node) float32 {
 
 // DeleteNode deletes a Node from the graph Data.
 // This deletes all the related edges too.
-func (d *Data) DeleteNode(nd *Node) {
+func (g *Graph) DeleteNode(nd *Node) {
 
 	if nd == nil {
 		return
 	}
 
 	// delete edges from each Node
-	for elem := range d.NodeMap {
+	for elem := range g.NodeMap {
 		if elem == nd {
 			continue
 		}
@@ -183,21 +183,21 @@ func (d *Data) DeleteNode(nd *Node) {
 	}
 
 	// delete from Data(graph)
-	d.Lock()
-	if _, ok := d.NodeMap[nd]; ok {
-		delete(d.NodeMap, nd)
+	g.Lock()
+	if _, ok := g.NodeMap[nd]; ok {
+		delete(g.NodeMap, nd)
 	}
-	if _, ok := d.nodeID[nd.ID]; ok {
-		delete(d.nodeID, nd.ID)
+	if _, ok := g.nodeID[nd.ID]; ok {
+		delete(g.nodeID, nd.ID)
 	}
-	d.Unlock()
+	g.Unlock()
 
 	nd = nil
 }
 
 // DeleteEdge deletes an Edge from src to dst from the graph Data.
 // This does not delete Nodes.
-func (d *Data) DeleteEdge(src, dst *Node) {
+func (g *Graph) DeleteEdge(src, dst *Node) {
 
 	if src == nil || dst == nil {
 		return
@@ -218,13 +218,13 @@ func (d *Data) DeleteEdge(src, dst *Node) {
 }
 
 // String describes the graph Data.
-func (d Data) String() string {
+func (g Graph) String() string {
 	buf := new(bytes.Buffer)
-	if d.GetNodeSize() == 0 {
+	if g.GetNodeSize() == 0 {
 		return "Graph is empty."
 	}
-	buf.WriteString(fmt.Sprintf("Graph has %d Nodes\n", d.GetNodeSize()))
-	for nd := range d.NodeMap {
+	buf.WriteString(fmt.Sprintf("Graph has %d Nodes\n", g.GetNodeSize()))
+	for nd := range g.NodeMap {
 		ndLabel := fmt.Sprintf("Node: %s | ", nd.ID)
 		if len(nd.WeightTo) != 0 {
 			for dst, weight := range nd.WeightTo {
@@ -250,7 +250,7 @@ func (nd Node) String() string {
 }
 
 // UpdateEdgeWeight overwrites the edge weight from src to dst Node.
-func (d *Data) UpdateEdgeWeight(src, dst *Node, weight float32) {
+func (g *Graph) UpdateEdgeWeight(src, dst *Node, weight float32) {
 	if src == nil || dst == nil {
 		return
 	}

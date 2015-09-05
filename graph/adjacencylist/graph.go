@@ -2,15 +2,15 @@ package adjacencylist
 
 import "container/list"
 
-// Data is a graph represented in adjacency list, but implemented in slice.
-type Data struct {
+// Graph is a graph represented in adjacency list, but implemented in slice.
+type Graph struct {
 	Nodes *list.List
 	Edges *list.List
 }
 
 // New returns a pointer to a new graph.
-func New() *Data {
-	return &Data{
+func New() *Graph {
+	return &Graph{
 		list.New(),
 		list.New(),
 	}
@@ -61,8 +61,8 @@ func NewEdge(src, dst *Node, weight float32) *Edge {
 }
 
 // GetNodeByID returns the Node with input ID, or return nil if it doesn't exist.
-func (d Data) GetNodeByID(id string) *Node {
-	for nd := d.Nodes.Front(); nd != nil; nd = nd.Next() {
+func (g Graph) GetNodeByID(id string) *Node {
+	for nd := g.Nodes.Front(); nd != nil; nd = nd.Next() {
 		if nd.Value.(*Node).ID == id {
 			return nd.Value.(*Node)
 		}
@@ -82,8 +82,8 @@ func (a *Node) ImmediateDominate(b *Node) bool {
 }
 
 // GetEdgeWeight returns the weight value of the edge from source to destination vertex.
-func (d Data) GetEdgeWeight(src, dst *Node) float32 {
-	for edge := d.Edges.Front(); edge != nil; edge = edge.Next() {
+func (g Graph) GetEdgeWeight(src, dst *Node) float32 {
+	for edge := g.Edges.Front(); edge != nil; edge = edge.Next() {
 		if edge.Value.(*Edge).Src == src && edge.Value.(*Edge).Dst == dst {
 			return edge.Value.(*Edge).Weight
 		}
@@ -92,8 +92,8 @@ func (d Data) GetEdgeWeight(src, dst *Node) float32 {
 }
 
 // UpdateWeight updates the weight value between Nodes.
-func (d *Data) UpdateWeight(src, dst *Node, value float32) {
-	for edge := d.Edges.Front(); edge != nil; edge = edge.Next() {
+func (g *Graph) UpdateWeight(src, dst *Node, value float32) {
+	for edge := g.Edges.Front(); edge != nil; edge = edge.Next() {
 		if edge.Value.(*Edge).Src == src && edge.Value.(*Edge).Dst == dst {
 			edge.Value.(*Edge).Weight = value
 		}
@@ -101,38 +101,38 @@ func (d *Data) UpdateWeight(src, dst *Node, value float32) {
 }
 
 // AddNode adds the Node v to a graph's Nodes.
-func (d *Data) AddNode(nd *Node) {
-	d.Nodes.PushBack(nd)
+func (g *Graph) AddNode(nd *Node) {
+	g.Nodes.PushBack(nd)
 }
 
 // AddEdge adds the Edge e to a graph's Edges.
-func (d *Data) AddEdge(e *Edge) {
-	d.Edges.PushBack(e)
+func (g *Graph) AddEdge(e *Edge) {
+	g.Edges.PushBack(e)
 }
 
 // Connect connects the vertex v to A, not A to v.
 // When there is more than one edge, it adds up the weight values.
-func (d *Data) Connect(a, b *Node, weight float32) {
-	if d.GetNodeByID(a.ID) == nil {
-		d.AddNode(a)
+func (g *Graph) Connect(a, b *Node, weight float32) {
+	if g.GetNodeByID(a.ID) == nil {
+		g.AddNode(a)
 	}
-	if d.GetNodeByID(b.ID) == nil {
-		d.AddNode(b)
+	if g.GetNodeByID(b.ID) == nil {
+		g.AddNode(b)
 	}
 	// if there is already an edge from A to B
 	if a.ImmediateDominate(b) {
-		d.UpdateWeight(a, b, weight)
+		g.UpdateWeight(a, b, weight)
 	} else {
 		edge := NewEdge(a, b, weight)
-		d.AddEdge(edge)
+		g.AddEdge(edge)
 		a.OutgoingNodes.PushBack(b)
 		b.IncomingNodes.PushBack(a)
 	}
 }
 
 // DeleteNode removes the input Node A from the graph g's Nodes.
-func (d *Data) DeleteNode(a *Node) {
-	if d.GetNodeByID(a.ID) == nil {
+func (g *Graph) DeleteNode(a *Node) {
+	if g.GetNodeByID(a.ID) == nil {
 		// To Debug
 		// panic(a.ID + " Node does not exist! Can't delete the Node!")
 		return
@@ -140,21 +140,21 @@ func (d *Data) DeleteNode(a *Node) {
 
 	// remove all edges connected to this Node
 	var next1 *list.Element
-	for edge := d.Edges.Front(); edge != nil; edge = next1 {
+	for edge := g.Edges.Front(); edge != nil; edge = next1 {
 		next1 = edge.Next()
 		if edge.Value.(*Edge).Src == a || edge.Value.(*Edge).Dst == a {
 			// remove from the graph
-			d.Edges.Remove(edge)
+			g.Edges.Remove(edge)
 		}
 	}
 
 	// remove from graph
 	var next2 *list.Element
-	for nd := d.Nodes.Front(); nd != nil; nd = next2 {
+	for nd := g.Nodes.Front(); nd != nil; nd = next2 {
 		next2 = nd.Next()
 		if nd.Value.(*Node) == a {
 			// remove from the graph
-			d.Nodes.Remove(nd)
+			g.Nodes.Remove(nd)
 		}
 	}
 
@@ -193,14 +193,14 @@ func (d *Data) DeleteNode(a *Node) {
 
 // DeleteEdge deletes the edge from the Node A to B.
 // Note that this only delete one direction from A to B.
-func (d *Data) DeleteEdge(a, b *Node) {
-	if d.GetNodeByID(a.ID) == nil {
+func (g *Graph) DeleteEdge(a, b *Node) {
+	if g.GetNodeByID(a.ID) == nil {
 		// To Debug
 		// panic(a.ID + " Node does not exist! Can't delete the Edge!")
 		return
 	}
 
-	if d.GetNodeByID(b.ID) == nil {
+	if g.GetNodeByID(b.ID) == nil {
 		// To Debug
 		// panic(b.ID + " Node does not exist! Can't delete the Edge!")
 		return
@@ -233,14 +233,14 @@ func (d *Data) DeleteEdge(a, b *Node) {
 	// Always delete from graph at the end
 	// remove the edge from the graph's edge list
 	var nextElem3 *list.Element
-	for edge := d.Edges.Front(); edge != nil; edge = nextElem3 {
+	for edge := g.Edges.Front(); edge != nil; edge = nextElem3 {
 		nextElem3 = edge.Next()
 		// if the edge is from a to b
 		if edge.Value.(*Edge).Src == a && edge.Value.(*Edge).Dst == b {
 			// don't do this
 			// edge.Value.(*Edge).Src = nil
 			// edge.Value.(*Edge).Dst = nil
-			d.Edges.Remove(edge)
+			g.Edges.Remove(edge)
 		}
 	}
 }

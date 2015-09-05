@@ -14,11 +14,11 @@ func TestTopologicalDag(t *testing.T) {
 			t.Errorf("Error: %+v", err)
 		}
 		defer file.Close()
-		data, err := FromJSON(file, graph.Name)
+		g, err := FromJSON(file, graph.Name)
 		if err != nil {
 			t.Errorf("Error: %+v", err)
 		}
-		rs, isDag := data.TopologicalDag()
+		rs, isDag := g.TopologicalDag()
 		if isDag != graph.IsDag {
 			t.Errorf("%s | IsDag are supposed to be %v but %+v %+v", graph.Name, graph.IsDag, rs, isDag)
 		}

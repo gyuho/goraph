@@ -11,11 +11,11 @@ func TestTarjan15(t *testing.T) {
 		t.Errorf("Error: %+v", err)
 	}
 	defer file.Close()
-	data, err := FromJSON(file, "test_graph_15")
+	g, err := FromJSON(file, "test_graph_15")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	scc := data.Tarjan()
+	scc := g.Tarjan()
 	if len(scc) != 4 {
 		t.Errorf("Expected 4 but %v", scc)
 	}
@@ -46,11 +46,11 @@ func TestTarjan16(t *testing.T) {
 		t.Errorf("Error: %+v", err)
 	}
 	defer file.Close()
-	data, err := FromJSON(file, "test_graph_16")
+	g, err := FromJSON(file, "test_graph_16")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	scc := data.Tarjan()
+	scc := g.Tarjan()
 	if len(scc) != 4 {
 		t.Errorf("Expected 4 but %v", scc)
 	}

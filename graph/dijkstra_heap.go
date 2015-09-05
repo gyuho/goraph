@@ -65,7 +65,7 @@ func (h *nodeDistanceHeap) updateDistance(node *Node, val float32) {
 //	21     end while
 //	22     return prev[]
 //
-func (d *Data) Dijkstra(src, dst *Node) ([]*Node, map[*Node]float32) {
+func (g *Graph) Dijkstra(src, dst *Node) ([]*Node, map[*Node]float32) {
 
 	mapToDistance := make(map[*Node]float32)
 	mapToDistance[src] = 0.0
@@ -73,7 +73,7 @@ func (d *Data) Dijkstra(src, dst *Node) ([]*Node, map[*Node]float32) {
 	minHeap := &nodeDistanceHeap{}
 
 	// initialize mapToDistance
-	for nd := range d.NodeMap {
+	for nd := range g.NodeMap {
 		if nd != src {
 			mapToDistance[nd] = 2147483646.0
 		}
@@ -114,12 +114,12 @@ func (d *Data) Dijkstra(src, dst *Node) ([]*Node, map[*Node]float32) {
 		prevID := mapToPrevID[id]
 		id = prevID
 		copied := make([]*Node, len(pathSlice)+1) // push front
-		copied[0] = d.GetNodeByID(prevID)
+		copied[0] = g.GetNodeByID(prevID)
 		copy(copied[1:], pathSlice)
 		pathSlice = copied
 	}
 	copied := make([]*Node, len(pathSlice)+1) // push front
-	copied[0] = d.GetNodeByID(src.ID)
+	copied[0] = g.GetNodeByID(src.ID)
 	copy(copied[1:], pathSlice)
 	pathSlice = copied
 

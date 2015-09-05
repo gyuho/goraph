@@ -22,10 +22,10 @@ import "container/heap"
 //				v.π = u
 //				v.key = w(u, v)
 //
-func (d *Data) Prim() map[Edge]bool {
+func (g *Graph) Prim() map[Edge]bool {
 
 	var src *Node
-	for nd := range d.NodeMap {
+	for nd := range g.NodeMap {
 		src = nd
 		break
 	}
@@ -36,7 +36,7 @@ func (d *Data) Prim() map[Edge]bool {
 	minHeap := &nodeDistanceHeap{}
 
 	// initialize mapToDistance
-	for nd := range d.NodeMap {
+	for nd := range g.NodeMap {
 		if nd != src {
 			mapToDistance[nd] = 2147483646.0
 		}
@@ -90,9 +90,9 @@ func (d *Data) Prim() map[Edge]bool {
 	rmap := make(map[Edge]bool)
 	for k, v := range mapToPrevID {
 		one := Edge{}
-		one.Src = d.GetNodeByID(v)
-		one.Dst = d.GetNodeByID(k)
-		one.Weight = d.GetEdgeWeight(one.Src, one.Dst)
+		one.Src = g.GetNodeByID(v)
+		one.Dst = g.GetNodeByID(k)
+		one.Weight = g.GetEdgeWeight(one.Src, one.Dst)
 		rmap[one] = true
 	}
 

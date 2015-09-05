@@ -11,11 +11,11 @@ func TestKruskal14(t *testing.T) {
 		t.Errorf("Error: %+v", err)
 	}
 	defer file.Close()
-	data, err := FromJSON(file, "test_graph_14")
+	g, err := FromJSON(file, "test_graph_14")
 	if err != nil {
 		t.Errorf("Error: %+v", err)
 	}
-	rmap := data.Kruskal()
+	rmap := g.Kruskal()
 	var total float32
 	for k := range rmap {
 		// fmt.Println(k.Dst.ID, k.Src.ID, k.Weight)

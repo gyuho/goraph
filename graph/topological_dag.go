@@ -19,14 +19,14 @@ package graph
 //	12          mark n permanently
 //	13          add n to head of L
 //
-func (d *Data) TopologicalDag() ([]*Node, bool) {
+func (g *Graph) TopologicalDag() ([]*Node, bool) {
 	result := []*Node{}
 	isDag := true
-	for nd := range d.NodeMap {
+	for nd := range g.NodeMap {
 		if nd.Color != "white" {
 			continue
 		}
-		d.topologicalDag(nd, &result, &isDag)
+		g.topologicalDag(nd, &result, &isDag)
 	}
 
 	if !isDag {
@@ -37,7 +37,7 @@ func (d *Data) TopologicalDag() ([]*Node, bool) {
 }
 
 // topologicalDag recursively traverses the Graph with DFS.
-func (d *Data) topologicalDag(src *Node, result *[]*Node, isDag *bool) {
+func (g *Graph) topologicalDag(src *Node, result *[]*Node, isDag *bool) {
 	if src == nil {
 		return
 	}
@@ -48,7 +48,7 @@ func (d *Data) topologicalDag(src *Node, result *[]*Node, isDag *bool) {
 	if src.Color == "white" {
 		src.Color = "gray"
 		for ov := range src.WeightTo {
-			d.topologicalDag(ov, result, isDag)
+			g.topologicalDag(ov, result, isDag)
 		}
 		src.Color = "black"
 		// PushFront

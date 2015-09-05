@@ -2,18 +2,18 @@ package graph
 
 // Clone clones(deep copy) the graph Data. (changing the cloned Data would not affect the original Data.)
 // It traverses every single node with depth-first-search.
-func (d *Data) Clone() *Data {
+func (g *Graph) Clone() *Graph {
 	clonedData := New()
 	src := &Node{}
-	for nd := range d.NodeMap {
+	for nd := range g.NodeMap {
 		src = nd
 		break
 	}
-	d.cloneDfs(src, clonedData)
+	g.cloneDfs(src, clonedData)
 	return clonedData
 }
 
-func (d *Data) cloneDfs(src *Node, clonedData *Data) {
+func (g *Graph) cloneDfs(src *Node, clonedData *Graph) {
 	if src.Color == "black" {
 		return
 	}
@@ -25,7 +25,7 @@ func (d *Data) cloneDfs(src *Node, clonedData *Data) {
 		ovClone := NewNode(ov.ID)
 		clonedData.Connect(srcClone, ovClone, weight)
 		if ov.Color == "white" {
-			d.cloneDfs(ov, clonedData)
+			g.cloneDfs(ov, clonedData)
 		}
 	}
 
@@ -33,7 +33,7 @@ func (d *Data) cloneDfs(src *Node, clonedData *Data) {
 		ivClone := NewNode(iv.ID)
 		clonedData.Connect(ivClone, srcClone, weight)
 		if iv.Color == "white" {
-			d.cloneDfs(iv, clonedData)
+			g.cloneDfs(iv, clonedData)
 		}
 	}
 }
