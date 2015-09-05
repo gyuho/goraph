@@ -9,5 +9,5 @@ For fast query and retrieval, please check out  <a href="http://google-opensourc
 <a href="http://www.youtube.com/watch?v=ImMnYq2zP4Y" target="_blank"><img src="http://img.youtube.com/vi/ImMnYq2zP4Y/0.jpg"></a>
 
 - <a href="https://www.youtube.com/channel/UCWzSgIp_DYRQnEsJuH32Fww" target="_blank">Please visit my YouTube Channel</a>
-- <a href="https://www.youtube.com/watch?v=NdfIfxTsVDo&list=PLT6aABhFfinvsSn1H195JLuHaXNS6UVhf" target="_blank"><kbd>Tree</kbd>, <kbd>Graph</kbd> Theory Algorithms (Playlist)</a>
-- <a href="https://www.youtube.com/watch?v=ImMnYq2zP4Y&list=PLT6aABhFfinvsSn1H195JLuHaXNS6UVhf&index=4" target="_blank"><kbd>Graph</kbd> : BFS, DFS</a>
+- <a href="https://www.youtube.com/watch?v=NdfIfxTsVDo&list=PLT6aABhFfinvsSn1H195JLuHaXNS6UVhf" target="_blank">`Tree`, `Graph` Theory Algorithms (Playlist)</a>
+- <a href="https://www.youtube.com/watch?v=ImMnYq2zP4Y&list=PLT6aABhFfinvsSn1H195JLuHaXNS6UVhf&index=4" target="_blank">`Graph` : BFS, DFS</a>
