@@ -5,21 +5,22 @@ package graph
 //
 //	 0. BFS(G, v):
 //	 1.
-//	 2.	let Q be a queue
-//	 3.	Q.push(v)
-//	 4.	label v as visited
+//	 2. 	let Q be a queue
+//	 3. 	Q.push(v)
+//	 4. 	label v as visited
 //	 5.
-//	 6.	while Q is not empty:
+//	 6. 	while Q is not empty:
 //	 7.
-//	 8.		u = Q.dequeue()
+//	 8. 		u = Q.dequeue()
 //	 9.
-//	10.		for each vertex w adjacent to u:
+//	10. 		for each vertex w adjacent to u:
 //	11.
-//	12.			if w is not visited yet:
-//	13.				Q.push(w)
-//	14.				label w as visited
+//	12. 			if w is not visited yet:
+//	13. 				Q.push(w)
+//	14. 				label w as visited
 //
 func BFS(g Graph, vtx string) []string {
+
 	if !g.FindVertex(vtx) {
 		return nil
 	}
@@ -29,6 +30,7 @@ func BFS(g Graph, vtx string) []string {
 	visited := make(map[string]bool)
 	visited[vtx] = true
 
+	// while Q is not empty:
 	for len(q) != 0 {
 
 		u := q[0]
