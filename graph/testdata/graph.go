@@ -12,12 +12,13 @@ type Graph struct {
 // EdgeToWeight maps Nodes to their weight between.
 type EdgeToWeight struct {
 	Nodes  []string
-	Weight float32
+	Weight float64
 }
 
 // GraphSlice contains all test Graph data.
 var GraphSlice = []Graph{
 	Graph00,
+	Graph01,
 	Graph02,
 	Graph03,
 	Graph04,
@@ -33,7 +34,6 @@ var GraphSlice = []Graph{
 	Graph14,
 	Graph15,
 	Graph16,
-	Graph17,
 }
 
 // Graph00 represents graph_00.

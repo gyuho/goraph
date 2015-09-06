@@ -1,9 +1,9 @@
 package graph
 
-// Interface describes the methods of graph operations.
+// Graph describes the methods of graph operations.
 // It assumes that the identifier of a Vertex is string and unique.
 // And weight values is float64.
-type Interface interface {
+type Graph interface {
 	// FindVertex returns true if the vertex already
 	// exists in the graph.
 	FindVertex(vtx string) bool

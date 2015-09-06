@@ -44,7 +44,7 @@ func (g *DefaultGraph) Init() {
 func (g DefaultGraph) FindVertex(vtx string) bool {
 	g.Lock()
 	defer g.Unlock()
-	if _, ok := g.Vertices[vtx]; ok {
+	if _, ok := g.Vertices[vtx]; !ok {
 		return false
 	}
 	return true
@@ -259,7 +259,7 @@ func (g *DefaultGraph) GetChildren(vtx string) (map[string]bool, error) {
 //	    },
 //	}
 //
-func NewDefaultGraphFromJSON(rd io.Reader, graphID string, isReplace bool) (*DefaultGraph, error) {
+func NewDefaultGraphFromJSON(rd io.Reader, graphID string) (*DefaultGraph, error) {
 	js := make(map[string]map[string]map[string]float64)
 	dec := json.NewDecoder(rd)
 	for {
@@ -273,7 +273,7 @@ func NewDefaultGraphFromJSON(rd io.Reader, graphID string, isReplace bool) (*Def
 		return nil, fmt.Errorf("%s does not exist", graphID)
 	}
 	gmap := js[graphID]
-	g := &DefaultGraph{}
+	g := NewDefaultGraph()
 	for vtx1, mm := range gmap {
 		if !g.FindVertex(vtx1) {
 			g.AddVertex(vtx1)
@@ -282,11 +282,7 @@ func NewDefaultGraphFromJSON(rd io.Reader, graphID string, isReplace bool) (*Def
 			if !g.FindVertex(vtx2) {
 				g.AddVertex(vtx2)
 			}
-			if isReplace {
-				g.ReplaceEdge(vtx1, vtx2, weight)
-			} else {
-				g.AddEdge(vtx1, vtx2, weight)
-			}
+			g.ReplaceEdge(vtx1, vtx2, weight)
 		}
 	}
 	return g, nil
