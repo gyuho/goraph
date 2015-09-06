@@ -25,10 +25,10 @@ func BFS(g Graph, vtx string) []string {
 		return nil
 	}
 
-	rs := []string{vtx}
 	q := []string{vtx}
 	visited := make(map[string]bool)
 	visited[vtx] = true
+	rs := []string{vtx}
 
 	// while Q is not empty:
 	for len(q) != 0 {

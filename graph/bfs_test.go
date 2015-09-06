@@ -17,7 +17,7 @@ func TestDefaultGraph_BFS(t *testing.T) {
 		t.Error(err)
 	}
 	rs := BFS(g, "S")
-	fmt.Println(rs) // [S A B C D T E F]
+	fmt.Println("BFS:", rs) // [S A B C D T E F]
 	if len(rs) != 8 {
 		t.Errorf("should be 8 vertices but %s", g)
 	}

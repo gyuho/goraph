@@ -27,9 +27,9 @@ func DFS(g Graph, vtx string) []string {
 		return nil
 	}
 
-	rs := []string{}
 	s := []string{vtx}
 	visited := make(map[string]bool)
+	rs := []string{}
 
 	// while S is not empty:
 	for len(s) != 0 {
@@ -63,4 +63,64 @@ func DFS(g Graph, vtx string) []string {
 	}
 
 	return rs
+}
+
+// DFSRecursion does depth-first search recursively.
+//
+//	 0. DFS(G, v):
+//	 1.
+//	 2. 	if v is visited:
+//	 3. 		return
+//	 4.
+//	 5. 	label v as visited
+//	 6.
+//	 7. 	for each vertex u adjacent to v:
+//	 8.
+//	 9. 		if u is not visited yet:
+//	10. 			recursive DFS(G, u)
+//
+func DFSRecursion(g Graph, vtx string) []string {
+
+	if !g.FindVertex(vtx) {
+		return nil
+	}
+
+	visited := make(map[string]bool)
+	rs := []string{}
+
+	dfsRecursion(g, vtx, visited, &rs)
+
+	return rs
+}
+
+func dfsRecursion(g Graph, vtx string, visited map[string]bool, rs *[]string) {
+
+	// base case of recursion
+	//
+	// if v is visited:
+	if _, ok := visited[vtx]; ok {
+		return
+	}
+
+	// label v as visited
+	visited[vtx] = true
+	*rs = append(*rs, vtx)
+
+	// for each vertex u adjacent to v:
+	cmap, _ := g.GetChildren(vtx)
+	for u := range cmap {
+		// if u is not visited yet:
+		if _, ok := visited[u]; !ok {
+			// recursive DFS(G, u)
+			dfsRecursion(g, u, visited, rs)
+		}
+	}
+	pmap, _ := g.GetParents(vtx)
+	for u := range pmap {
+		// if u is not visited yet:
+		if _, ok := visited[u]; !ok {
+			// recursive DFS(G, u)
+			dfsRecursion(g, u, visited, rs)
+		}
+	}
 }
