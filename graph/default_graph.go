@@ -71,8 +71,18 @@ func (g *DefaultGraph) DeleteVertex(vtx string) bool {
 	if _, ok := g.VertexToChildren[vtx]; ok {
 		delete(g.VertexToChildren, vtx)
 	}
+	for _, smap := range g.VertexToChildren {
+		if _, ok := smap[vtx]; ok {
+			delete(smap, vtx)
+		}
+	}
 	if _, ok := g.VertexToParents[vtx]; ok {
 		delete(g.VertexToParents, vtx)
+	}
+	for _, smap := range g.VertexToParents {
+		if _, ok := smap[vtx]; ok {
+			delete(smap, vtx)
+		}
 	}
 	return true
 }
