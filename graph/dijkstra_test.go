@@ -114,3 +114,57 @@ func TestDefaultGraph_Dijkstra_09_1(t *testing.T) {
 	}
 	fmt.Println("graph_09:", strings.Join(ts, " → "))
 }
+
+func TestDefaultGraph_Dijkstra_10_0(t *testing.T) {
+	f, err := os.Open("testdata/graph.json")
+	if err != nil {
+		t.Error(err)
+	}
+	defer f.Close()
+	g, err := NewDefaultGraphFromJSON(f, "graph_10")
+	if err != nil {
+		t.Error(err)
+	}
+	path, distance, err := Dijkstra(g, "S", "T")
+	if err != nil {
+		t.Error(err)
+	}
+	ts := []string{}
+	for _, v := range path {
+		ts = append(ts, fmt.Sprintf("%s(%.2f)", v, distance[v]))
+	}
+	if strings.Join(ts, " → ") != "S(0.00) → A(11.00) → B(16.00) → D(46.00) → E(49.00) → T(68.00)" {
+		t.Errorf("Expected the shortest path S(0.00) → A(11.00) → B(16.00) → D(46.00) → E(49.00) → T(68.00) but %s", strings.Join(ts, " → "))
+	}
+	if distance["T"] != 68.0 {
+		t.Errorf("Expected 68.0 but %f", distance["T"])
+	}
+	fmt.Println("graph_10:", strings.Join(ts, " → "))
+}
+
+func TestDefaultGraph_Dijkstra_10_1(t *testing.T) {
+	f, err := os.Open("testdata/graph.json")
+	if err != nil {
+		t.Error(err)
+	}
+	defer f.Close()
+	g, err := NewDefaultGraphFromJSON(f, "graph_10")
+	if err != nil {
+		t.Error(err)
+	}
+	path, distance, err := Dijkstra(g, "T", "S")
+	if err != nil {
+		t.Error(err)
+	}
+	ts := []string{}
+	for _, v := range path {
+		ts = append(ts, fmt.Sprintf("%s(%.2f)", v, distance[v]))
+	}
+	if strings.Join(ts, " → ") != "T(0.00) → D(10.00) → E(13.00) → B(31.00) → S(48.00)" {
+		t.Errorf("Expected the shortest path T(0.00) → D(10.00) → E(13.00) → B(31.00) → S(48.00) but %s", strings.Join(ts, " → "))
+	}
+	if distance["S"] != 48.0 {
+		t.Errorf("Expected 48.0 but %f", distance["S"])
+	}
+	fmt.Println("graph_10:", strings.Join(ts, " → "))
+}
