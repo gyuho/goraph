@@ -199,7 +199,5 @@ func BellmanFord(g Graph, source, target string) ([]string, map[string]float64, 
 	copy(temp[1:], path)
 	path = temp
 
-	fmt.Println("distance", distance)
-	fmt.Println("prev", prev)
 	return path, distance, nil
 }
