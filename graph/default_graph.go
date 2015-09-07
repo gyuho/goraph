@@ -41,6 +41,12 @@ func (g *DefaultGraph) Init() {
 	*g = *NewDefaultGraph()
 }
 
+func (g DefaultGraph) GetVertices() map[string]bool {
+	g.Lock()
+	defer g.Unlock()
+	return g.Vertices
+}
+
 func (g DefaultGraph) FindVertex(vtx string) bool {
 	g.Lock()
 	defer g.Unlock()

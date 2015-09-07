@@ -4,6 +4,9 @@ package graph
 // It assumes that the identifier of a Vertex is string and unique.
 // And weight values is float64.
 type Graph interface {
+	// GetVertices returns a map of all vertices.
+	GetVertices() map[string]bool
+
 	// FindVertex returns true if the vertex already
 	// exists in the graph.
 	FindVertex(vtx string) bool
