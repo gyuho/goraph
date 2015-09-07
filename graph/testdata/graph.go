@@ -5,7 +5,7 @@ type Graph struct {
 	Name             string
 	TotalVertexCount int
 	TotalEdgeCount   int
-	IsDag            bool
+	IsDAG            bool
 	EdgeToWeight     []EdgeToWeight
 }
 
@@ -41,7 +41,7 @@ var Graph00 = Graph{
 	Name:             "graph_00",
 	TotalVertexCount: 8,
 	TotalEdgeCount:   30,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 100.0},
 		EdgeToWeight{[]string{"S", "B"}, 14.0},
@@ -88,7 +88,7 @@ var Graph01 = Graph{
 	Name:             "graph_01",
 	TotalVertexCount: 8,
 	TotalEdgeCount:   24,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 100.0},
 		EdgeToWeight{[]string{"S", "B"}, 14.0},
@@ -128,7 +128,7 @@ var Graph02 = Graph{
 	Name:             "graph_02",
 	TotalVertexCount: 8,
 	TotalEdgeCount:   24,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 100.0},
 		EdgeToWeight{[]string{"S", "B"}, 20.0},
@@ -168,7 +168,7 @@ var Graph03 = Graph{
 	Name:             "graph_03",
 	TotalVertexCount: 8,
 	TotalEdgeCount:   28,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "B"}, 14.0},
 
@@ -213,7 +213,7 @@ var Graph04 = Graph{
 	Name:             "graph_04",
 	TotalVertexCount: 6,
 	TotalEdgeCount:   20,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 7.0},
 		EdgeToWeight{[]string{"A", "C"}, 9.0},
@@ -248,7 +248,7 @@ var Graph05 = Graph{
 	Name:             "graph_05",
 	TotalVertexCount: 6,
 	TotalEdgeCount:   6,
-	IsDag:            true,
+	IsDAG:            true,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "F"}, 1.0},
 
@@ -267,7 +267,7 @@ var Graph06 = Graph{
 	Name:             "graph_06",
 	TotalVertexCount: 8,
 	TotalEdgeCount:   9,
-	IsDag:            true,
+	IsDAG:            true,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "E"}, 1.0},
 		EdgeToWeight{[]string{"A", "H"}, 1.0},
@@ -290,7 +290,7 @@ var Graph07 = Graph{
 	Name:             "graph_07",
 	TotalVertexCount: 6,
 	TotalEdgeCount:   8,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "E"}, 1.0},
 		EdgeToWeight{[]string{"A", "F"}, 1.0},
@@ -311,7 +311,7 @@ var Graph08 = Graph{
 	Name:             "graph_08",
 	TotalVertexCount: 8,
 	TotalEdgeCount:   15,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 1.0},
 		EdgeToWeight{[]string{"A", "E"}, 1.0},
@@ -343,7 +343,7 @@ var Graph09 = Graph{
 	Name:             "graph_09",
 	TotalVertexCount: 6,
 	TotalEdgeCount:   12,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "C"}, 9.0},
 		EdgeToWeight{[]string{"A", "F"}, 20.0},
@@ -370,7 +370,7 @@ var Graph10 = Graph{
 	Name:             "graph_10",
 	TotalVertexCount: 8,
 	TotalEdgeCount:   25,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 11.0},
 		EdgeToWeight{[]string{"S", "B"}, 17.0},
@@ -412,7 +412,7 @@ var Graph11 = Graph{
 	Name:             "graph_11",
 	TotalVertexCount: 5,
 	TotalEdgeCount:   10,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 7.0},
 		EdgeToWeight{[]string{"S", "B"}, 6.0},
@@ -436,7 +436,7 @@ var Graph12 = Graph{
 	Name:             "graph_12",
 	TotalVertexCount: 5,
 	TotalEdgeCount:   10,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 7.0},
 		EdgeToWeight{[]string{"S", "B"}, 6.0},
@@ -460,7 +460,7 @@ var Graph13 = Graph{
 	Name:             "graph_13",
 	TotalVertexCount: 9,
 	TotalEdgeCount:   28,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 4.0},
 		EdgeToWeight{[]string{"A", "H"}, 8.0},
@@ -506,7 +506,7 @@ var Graph14 = Graph{
 	Name:             "graph_14",
 	TotalVertexCount: 8,
 	TotalEdgeCount:   14,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 1.0},
 
@@ -537,7 +537,7 @@ var Graph15 = Graph{
 	Name:             "graph_15",
 	TotalVertexCount: 10,
 	TotalEdgeCount:   17,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 1.0},
 		EdgeToWeight{[]string{"A", "F"}, 1.0},
@@ -573,7 +573,7 @@ var Graph16 = Graph{
 	Name:             "graph_16",
 	TotalVertexCount: 8,
 	TotalEdgeCount:   15,
-	IsDag:            false,
+	IsDAG:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 10.0},
 		EdgeToWeight{[]string{"S", "B"}, 5.0},
