@@ -2,11 +2,11 @@ package testdata
 
 // Graph contains test data.
 type Graph struct {
-	Name           string
-	TotalNodeCount int
-	TotalEdgeCount int
-	IsDag          bool
-	EdgeToWeight   []EdgeToWeight
+	Name             string
+	TotalVertexCount int
+	TotalEdgeCount   int
+	IsDag            bool
+	EdgeToWeight     []EdgeToWeight
 }
 
 // EdgeToWeight maps Nodes to their weight between.
@@ -38,10 +38,10 @@ var GraphSlice = []Graph{
 
 // Graph00 represents graph_00.
 var Graph00 = Graph{
-	Name:           "graph_00",
-	TotalNodeCount: 8,
-	TotalEdgeCount: 30,
-	IsDag:          false,
+	Name:             "graph_00",
+	TotalVertexCount: 8,
+	TotalEdgeCount:   30,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 100.0},
 		EdgeToWeight{[]string{"S", "B"}, 14.0},
@@ -85,10 +85,10 @@ var Graph00 = Graph{
 
 // Graph01 represents graph_01.
 var Graph01 = Graph{
-	Name:           "graph_01",
-	TotalNodeCount: 8,
-	TotalEdgeCount: 24,
-	IsDag:          false,
+	Name:             "graph_01",
+	TotalVertexCount: 8,
+	TotalEdgeCount:   24,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 100.0},
 		EdgeToWeight{[]string{"S", "B"}, 14.0},
@@ -125,10 +125,10 @@ var Graph01 = Graph{
 
 // Graph02 represents graph_02.
 var Graph02 = Graph{
-	Name:           "graph_02",
-	TotalNodeCount: 8,
-	TotalEdgeCount: 24,
-	IsDag:          false,
+	Name:             "graph_02",
+	TotalVertexCount: 8,
+	TotalEdgeCount:   24,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 100.0},
 		EdgeToWeight{[]string{"S", "B"}, 20.0},
@@ -165,10 +165,10 @@ var Graph02 = Graph{
 
 // Graph03 represents graph_03.
 var Graph03 = Graph{
-	Name:           "graph_03",
-	TotalNodeCount: 8,
-	TotalEdgeCount: 28,
-	IsDag:          false,
+	Name:             "graph_03",
+	TotalVertexCount: 8,
+	TotalEdgeCount:   28,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "B"}, 14.0},
 
@@ -210,10 +210,10 @@ var Graph03 = Graph{
 
 // Graph04 represents graph_04.
 var Graph04 = Graph{
-	Name:           "graph_04",
-	TotalNodeCount: 6,
-	TotalEdgeCount: 20,
-	IsDag:          false,
+	Name:             "graph_04",
+	TotalVertexCount: 6,
+	TotalEdgeCount:   20,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 7.0},
 		EdgeToWeight{[]string{"A", "C"}, 9.0},
@@ -245,10 +245,10 @@ var Graph04 = Graph{
 
 // Graph05 represents graph_05.
 var Graph05 = Graph{
-	Name:           "graph_05",
-	TotalNodeCount: 6,
-	TotalEdgeCount: 6,
-	IsDag:          true,
+	Name:             "graph_05",
+	TotalVertexCount: 6,
+	TotalEdgeCount:   6,
+	IsDag:            true,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "F"}, 1.0},
 
@@ -264,10 +264,10 @@ var Graph05 = Graph{
 
 // Graph06 represents graph_06.
 var Graph06 = Graph{
-	Name:           "graph_06",
-	TotalNodeCount: 8,
-	TotalEdgeCount: 9,
-	IsDag:          true,
+	Name:             "graph_06",
+	TotalVertexCount: 8,
+	TotalEdgeCount:   9,
+	IsDag:            true,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "E"}, 1.0},
 		EdgeToWeight{[]string{"A", "H"}, 1.0},
@@ -287,10 +287,10 @@ var Graph06 = Graph{
 
 // Graph07 represents graph_07.
 var Graph07 = Graph{
-	Name:           "graph_07",
-	TotalNodeCount: 6,
-	TotalEdgeCount: 8,
-	IsDag:          false,
+	Name:             "graph_07",
+	TotalVertexCount: 6,
+	TotalEdgeCount:   8,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "E"}, 1.0},
 		EdgeToWeight{[]string{"A", "F"}, 1.0},
@@ -308,10 +308,10 @@ var Graph07 = Graph{
 
 // Graph08 represents graph_08.
 var Graph08 = Graph{
-	Name:           "graph_08",
-	TotalNodeCount: 8,
-	TotalEdgeCount: 15,
-	IsDag:          false,
+	Name:             "graph_08",
+	TotalVertexCount: 8,
+	TotalEdgeCount:   15,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 1.0},
 		EdgeToWeight{[]string{"A", "E"}, 1.0},
@@ -340,10 +340,10 @@ var Graph08 = Graph{
 
 // Graph09 represents graph_09.
 var Graph09 = Graph{
-	Name:           "graph_09",
-	TotalNodeCount: 6,
-	TotalEdgeCount: 12,
-	IsDag:          false,
+	Name:             "graph_09",
+	TotalVertexCount: 6,
+	TotalEdgeCount:   12,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "C"}, 9.0},
 		EdgeToWeight{[]string{"A", "F"}, 20.0},
@@ -367,10 +367,10 @@ var Graph09 = Graph{
 
 // Graph10 represents graph_10.
 var Graph10 = Graph{
-	Name:           "graph_10",
-	TotalNodeCount: 8,
-	TotalEdgeCount: 25,
-	IsDag:          false,
+	Name:             "graph_10",
+	TotalVertexCount: 8,
+	TotalEdgeCount:   25,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 11.0},
 		EdgeToWeight{[]string{"S", "B"}, 17.0},
@@ -409,10 +409,10 @@ var Graph10 = Graph{
 
 // Graph11 represents graph_11.
 var Graph11 = Graph{
-	Name:           "graph_11",
-	TotalNodeCount: 5,
-	TotalEdgeCount: 10,
-	IsDag:          false,
+	Name:             "graph_11",
+	TotalVertexCount: 5,
+	TotalEdgeCount:   10,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 7.0},
 		EdgeToWeight{[]string{"S", "B"}, 6.0},
@@ -433,10 +433,10 @@ var Graph11 = Graph{
 
 // Graph12 represents graph_12.
 var Graph12 = Graph{
-	Name:           "graph_12",
-	TotalNodeCount: 5,
-	TotalEdgeCount: 10,
-	IsDag:          false,
+	Name:             "graph_12",
+	TotalVertexCount: 5,
+	TotalEdgeCount:   10,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 7.0},
 		EdgeToWeight{[]string{"S", "B"}, 6.0},
@@ -457,10 +457,10 @@ var Graph12 = Graph{
 
 // Graph13 represents graph_13.
 var Graph13 = Graph{
-	Name:           "graph_13",
-	TotalNodeCount: 9,
-	TotalEdgeCount: 28,
-	IsDag:          false,
+	Name:             "graph_13",
+	TotalVertexCount: 9,
+	TotalEdgeCount:   28,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 4.0},
 		EdgeToWeight{[]string{"A", "H"}, 8.0},
@@ -503,10 +503,10 @@ var Graph13 = Graph{
 
 // Graph14 represents graph_14.
 var Graph14 = Graph{
-	Name:           "graph_14",
-	TotalNodeCount: 8,
-	TotalEdgeCount: 14,
-	IsDag:          false,
+	Name:             "graph_14",
+	TotalVertexCount: 8,
+	TotalEdgeCount:   14,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 1.0},
 
@@ -534,10 +534,10 @@ var Graph14 = Graph{
 
 // Graph15 represents graph_15.
 var Graph15 = Graph{
-	Name:           "graph_15",
-	TotalNodeCount: 10,
-	TotalEdgeCount: 17,
-	IsDag:          false,
+	Name:             "graph_15",
+	TotalVertexCount: 10,
+	TotalEdgeCount:   17,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"A", "B"}, 1.0},
 		EdgeToWeight{[]string{"A", "F"}, 1.0},
@@ -570,10 +570,10 @@ var Graph15 = Graph{
 
 // Graph16 represents graph_16.
 var Graph16 = Graph{
-	Name:           "graph_16",
-	TotalNodeCount: 8,
-	TotalEdgeCount: 15,
-	IsDag:          false,
+	Name:             "graph_16",
+	TotalVertexCount: 8,
+	TotalEdgeCount:   15,
+	IsDag:            false,
 	EdgeToWeight: []EdgeToWeight{
 		EdgeToWeight{[]string{"S", "A"}, 10.0},
 		EdgeToWeight{[]string{"S", "B"}, 5.0},
