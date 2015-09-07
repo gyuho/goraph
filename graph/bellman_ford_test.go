@@ -33,3 +33,22 @@ func TestDefaultGraph_BellmanFord_11(t *testing.T) {
 	}
 	fmt.Println("graph_11:", strings.Join(ts, " → "))
 }
+
+func TestDefaultGraph_BellmanFord_12(t *testing.T) {
+	f, err := os.Open("testdata/graph.json")
+	if err != nil {
+		t.Error(err)
+	}
+	defer f.Close()
+	g, err := NewDefaultGraphFromJSON(f, "graph_12")
+	if err != nil {
+		t.Error(err)
+	}
+	path, distance, err := BellmanFord(g, "S", "T")
+	if err == nil {
+		t.Errorf("There should be negative-weight cycle but v", err)
+	}
+	if path != nil || distance != nil {
+		t.Errorf("Expected nil, nil but %v, %v", path, distance)
+	}
+}
