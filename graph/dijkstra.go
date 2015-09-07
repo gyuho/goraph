@@ -169,7 +169,6 @@ func Dijkstra(g Graph, source, target string) ([]string, map[string]float64, err
 
 		// u = prev[u]
 		u = prev[u]
-
 	}
 
 	// add the source
