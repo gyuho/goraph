@@ -3,7 +3,23 @@ goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](h
 
 Package goraph implements graph, tree data structures and algorithms.
 
+<br>
+I have tutorials and visualizations of graph, tree algorithms used in this package:
+
+- [**_Binary search tree_**](https://github.com/gyuho/learn/tree/master/doc/binary_search_tree)
+- [**_Go: heap, priority queue_**](https://github.com/gyuho/learn/tree/master/doc/go_heap_priority_queue)
+- [**_Go: red black tree_**](https://github.com/gyuho/learn/tree/master/doc/go_red_black_tree)
+- [**_Go: b-tree_**](https://github.com/gyuho/learn/tree/master/doc/go_b_tree)
+- [**_Go: graph, interface_**](https://github.com/gyuho/learn/tree/master/doc/go_graph_interface)
+- [**_Go: graph, traversal_**](https://github.com/gyuho/learn/tree/master/doc/go_graph_traversal)
+- [**_Go: graph, shortest path_**](https://github.com/gyuho/learn/tree/master/doc/go_graph_shortest_path)
+- [**_Go: graph, topological sort_**](https://github.com/gyuho/learn/tree/master/doc/go_graph_topological_sort)
+- [**_Go: graph, minimum spanning tree_**](https://github.com/gyuho/learn/tree/master/doc/go_graph_minimum_spanning_tree)
+- [**_Go: graph, strongly connected components_**](https://github.com/gyuho/learn/tree/master/doc/go_graph_strongly_connected_components)
+
+<br>
 For fast query and retrieval, please check out  <a href="http://google-opensource.blogspot.co.uk/2014/06/cayley-graphs-in-go.html" target="_blank">Cayley</a>.
+
 
 <br>
 <a href="http://www.youtube.com/watch?v=ImMnYq2zP4Y" target="_blank"><img src="http://img.youtube.com/vi/ImMnYq2zP4Y/0.jpg"></a>
