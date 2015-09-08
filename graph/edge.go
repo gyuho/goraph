@@ -1,23 +1,14 @@
 package graph
 
-// Edge connects from Src to Dst with weight.
+// Edge is an Edge from Source to Target.
 type Edge struct {
-	Src    *Node
-	Dst    *Node
-	Weight float32
+	Source string
+	Target string
+	Weight float64
 }
 
-// GetEdges returns all edges of a graph.
-func (d *Data) GetEdges() []Edge {
-	rs := []Edge{}
-	for nd1 := range d.NodeMap {
-		for nd2, v := range nd1.WeightTo {
-			one := Edge{}
-			one.Src = nd1
-			one.Dst = nd2
-			one.Weight = v
-			rs = append(rs, one)
-		}
-	}
-	return rs
-}
+type EdgeSlice []Edge
+
+func (e EdgeSlice) Len() int           { return len(e) }
+func (e EdgeSlice) Less(i, j int) bool { return e[i].Weight < e[j].Weight }
+func (e EdgeSlice) Swap(i, j int)      { e[i], e[j] = e[j], e[i] }
