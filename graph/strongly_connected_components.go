@@ -22,7 +22,7 @@ import "sync"
 //	 1.
 //	 2. 	globalIndex = 0 // smallest unused index
 //	 3. 	let S be a stack
-//	 4. 	result = []
+//	 4. 	result = [][]
 //	 5.
 //	 6. 	for each vertex v in G:
 //	 7. 		if v.index is undefined:
