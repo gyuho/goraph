@@ -41,7 +41,7 @@ import "sync"
 //	20. 	for each child vertex w of v:
 //	21.
 //	22. 		if w.index is undefined:
-//	23. 			tarjan(G, w, globalIndex, S, result)
+//	23. 			recursively tarjan(G, w, globalIndex, S, result)
 //	24. 			v.lowLink = min(v.lowLink, w.lowLink)
 //	25.
 //	26. 		else if w is in S:
@@ -148,7 +148,7 @@ func tarjan(
 		// if w.index is undefined:
 		if _, ok := data.index[w]; !ok {
 
-			// tarjan(G, w, globalIndex, S, result)
+			// recursively tarjan(G, w, globalIndex, S, result)
 			tarjan(g, w, data)
 
 			// v.lowLink = min(v.lowLink, w.lowLink)
