@@ -38,13 +38,16 @@ import (
 //	24. 				prev[v] = u
 //	25. 				Q.decrease_priority(v, alt)
 //	26.
-//	27. 	path = []
-//	28. 	u = target
-//	29. 	while prev[u] is defined:
-//	30. 		path.push_front(u)
-//	31. 		u = prev[u]
-//	32.
-//	33. 	return path, prev
+//	27. 		reheapify(Q)
+//	28.
+//	29.
+//	30. 	path = []
+//	31. 	u = target
+//	32. 	while prev[u] is defined:
+//	33. 		path.push_front(u)
+//	34. 		u = prev[u]
+//	35.
+//	36. 	return path, prev
 //
 func Dijkstra(g Graph, source, target string) ([]string, map[string]float64, error) {
 
