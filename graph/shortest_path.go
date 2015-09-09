@@ -114,9 +114,9 @@ func Dijkstra(g Graph, source, target string) ([]string, map[string]float64, err
 
 				// Q.decrease_priority(v, alt)
 				minHeap.updateDistance(v, alt)
-				heap.Init(minHeap)
 			}
 		}
+		heap.Init(minHeap)
 	}
 
 	// path = []
