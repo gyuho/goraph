@@ -46,7 +46,7 @@ func TestTreeNodeStruct(t *testing.T) {
 		t.Errorf("Expected the same but %s | %s", buf1.String(), buf2.String())
 	}
 	if !ComparePreOrder(tr1, tr2) {
-		t.Error("Expected the same but %v | %v", tr1, tr2)
+		t.Errorf("Expected the same but %v | %v", tr1, tr2)
 	}
 
 	buf3 := new(bytes.Buffer)

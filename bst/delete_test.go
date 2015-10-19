@@ -23,15 +23,15 @@ func TestDelete(t *testing.T) {
 	}
 
 	if tr.Max().Key != Float64(39.0) {
-		t.Fatalf("Expected 39.0 but %f", tr.Max().Key)
+		t.Fatalf("Expected 39.0 but %v", tr.Max().Key)
 	}
 
 	if tr.Min().Key != Float64(1.0) {
-		t.Fatalf("Expected 1.0 but %f", tr.Min().Key)
+		t.Fatalf("Expected 1.0 but %v", tr.Min().Key)
 	}
 
 	if tr.SearchParent(Float64(16)).Key != Float64(17.0) {
-		t.Fatalf("Expected 17.0 but %f", tr.SearchParent(Float64(16)).Key)
+		t.Fatalf("Expected 17.0 but %v", tr.SearchParent(Float64(16)).Key)
 	}
 
 	if tr.Search(Float64(39)).Right != nil {
