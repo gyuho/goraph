@@ -41,13 +41,13 @@ func (g *DefaultGraph) Init() {
 	*g = *NewDefaultGraph()
 }
 
-func (g DefaultGraph) GetVertices() map[string]bool {
+func (g *DefaultGraph) GetVertices() map[string]bool {
 	g.Lock()
 	defer g.Unlock()
 	return g.Vertices
 }
 
-func (g DefaultGraph) FindVertex(vtx string) bool {
+func (g *DefaultGraph) FindVertex(vtx string) bool {
 	g.Lock()
 	defer g.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
@@ -304,7 +304,7 @@ func NewDefaultGraphFromJSON(rd io.Reader, graphID string) (*DefaultGraph, error
 	return g, nil
 }
 
-func (g DefaultGraph) String() string {
+func (g *DefaultGraph) String() string {
 	buf := new(bytes.Buffer)
 	for vtx1 := range g.Vertices {
 		cmap, _ := g.GetChildren(vtx1)

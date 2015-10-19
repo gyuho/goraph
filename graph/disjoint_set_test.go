@@ -17,9 +17,9 @@ func TestDisjointSet(t *testing.T) {
 	}
 	Union(forests, FindSet(forests, "A"), FindSet(forests, "B"))
 	if FindSet(forests, "A").represent != "A" {
-		t.Errorf("%A's represent must be A but %s", FindSet(forests, "A").represent)
+		t.Errorf("A's represent must be A but %s", FindSet(forests, "A").represent)
 	}
 	if FindSet(forests, "B").represent != "A" {
-		t.Errorf("%B's represent must be A but %s", FindSet(forests, "B").represent)
+		t.Errorf("B's represent must be A but %s", FindSet(forests, "B").represent)
 	}
 }

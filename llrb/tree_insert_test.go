@@ -115,7 +115,7 @@ func TestBalanceInsert2(t *testing.T) {
 		switch num {
 		case 3:
 			if tr.Root.Key != Float64(3) {
-				t.Fatal("Root must be 3 but %v", tr.Root)
+				t.Fatalf("Root must be 3 but %v", tr.Root)
 			}
 			if tr.SearchParent(Float64(3)) != nil {
 				t.Fatal("3's Parent must be nil")
@@ -147,7 +147,7 @@ func TestBalanceInsert2(t *testing.T) {
 
 		case 9:
 			if tr.Root.Key != Float64(3) {
-				t.Fatal("Root must be 3 but %v", tr.Root)
+				t.Fatalf("Root must be 3 but %v", tr.Root)
 			}
 			if tr.SearchParent(Float64(3)) != nil {
 				t.Fatal("3's Parent must be nil")
@@ -188,7 +188,7 @@ func TestBalanceInsert2(t *testing.T) {
 
 		case 13:
 			if tr.Root.Key != Float64(3) {
-				t.Fatal("Root must be 3 but %v", tr.Root)
+				t.Fatalf("Root must be 3 but %v", tr.Root)
 			}
 			if tr.SearchParent(Float64(3)) != nil {
 				t.Fatal("3's Parent must be nil")
@@ -241,7 +241,7 @@ func TestBalanceInsert2(t *testing.T) {
 
 		case 17:
 			if tr.Root.Key != Float64(13) {
-				t.Fatal("Root must be 3 but %v", tr.Root)
+				t.Fatalf("Root must be 3 but %v", tr.Root)
 			}
 			if tr.SearchParent(Float64(13)) != nil {
 				t.Fatal("13's Parent must be nil")
@@ -306,7 +306,7 @@ func TestBalanceInsert2(t *testing.T) {
 
 		case 20:
 			if tr.Root.Key != Float64(13) {
-				t.Fatal("Root must be 3 but %v", tr.Root)
+				t.Fatalf("Root must be 3 but %v", tr.Root)
 			}
 			if tr.SearchParent(Float64(13)) != nil {
 				t.Fatal("13's Parent must be nil")
@@ -374,7 +374,7 @@ func TestBalanceInsert2(t *testing.T) {
 
 		case 25:
 			if tr.Root.Key != Float64(13) {
-				t.Fatal("Root must be 3 but %v", tr.Root)
+				t.Fatalf("Root must be 3 but %v", tr.Root)
 			}
 			if tr.SearchParent(Float64(13)) != nil {
 				t.Fatal("13's Parent must be nil")
@@ -454,7 +454,7 @@ func TestBalanceInsert2(t *testing.T) {
 
 		case 39:
 			if tr.Root.Key != Float64(13) {
-				t.Fatal("Root must be 3 but %v", tr.Root)
+				t.Fatalf("Root must be 3 but %v", tr.Root)
 			}
 			if tr.SearchParent(Float64(13)) != nil {
 				t.Fatal("13's Parent must be nil")
@@ -543,7 +543,7 @@ func TestBalanceInsert2(t *testing.T) {
 
 		case 16:
 			if tr.Root.Key != Float64(13) {
-				t.Fatal("Root must be 3 but %v", tr.Root)
+				t.Fatalf("Root must be 3 but %v", tr.Root)
 			}
 			if tr.SearchParent(Float64(13)) != nil {
 				t.Fatal("13's Parent must be nil")
@@ -638,7 +638,7 @@ func TestBalanceInsert2(t *testing.T) {
 
 		case 15:
 			if tr.Root.Key != Float64(13) {
-				t.Fatal("Root must be 3 but %v", tr.Root)
+				t.Fatalf("Root must be 3 but %v", tr.Root)
 			}
 			if tr.SearchParent(Float64(13)) != nil {
 				t.Fatal("13's Parent must be nil")
@@ -748,7 +748,7 @@ func TestBalanceInsert2(t *testing.T) {
 
 		case 2:
 			if tr.Root.Key != Float64(13) {
-				t.Fatal("Root must be 3 but %v", tr.Root)
+				t.Fatalf("Root must be 3 but %v", tr.Root)
 			}
 			if tr.SearchParent(Float64(13)) != nil {
 				t.Fatal("13's Parent must be nil")
@@ -867,7 +867,7 @@ func TestBalanceInsert2(t *testing.T) {
 
 		case 2.5:
 			if tr.Root.Key != Float64(13) {
-				t.Fatal("Root must be 3 but %v", tr.Root)
+				t.Fatalf("Root must be 3 but %v", tr.Root)
 			}
 			if tr.SearchParent(Float64(13)) != nil {
 				t.Fatal("13's Parent must be nil")
@@ -1006,7 +1006,7 @@ func TestBalanceInsert2(t *testing.T) {
 			}
 
 		default:
-			t.Fatal(num, "shouldn't be there...")
+			t.Fatalf("%f shouldn't be there...", num)
 		}
 	}
 }

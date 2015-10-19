@@ -208,7 +208,7 @@ func TestDefaultGraph_BellmanFord_12(t *testing.T) {
 	}
 	path, distance, err := BellmanFord(g, "S", "T")
 	if err == nil {
-		t.Errorf("There should be negative-weight cycle but v", err)
+		t.Errorf("There should be negative-weight cycle but %v", err)
 	}
 	if path != nil || distance != nil {
 		t.Errorf("Expected nil, nil but %v, %v", path, distance)
