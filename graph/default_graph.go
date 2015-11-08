@@ -10,7 +10,7 @@ import (
 
 // DefaultGraph type implements all methods in Graph interface.
 type DefaultGraph struct {
-	sync.Mutex
+	mu sync.Mutex // guards the following
 
 	// Vertices stores all vertices.
 	Vertices map[string]bool
@@ -42,14 +42,14 @@ func (g *DefaultGraph) Init() {
 }
 
 func (g *DefaultGraph) GetVertices() map[string]bool {
-	g.Lock()
-	defer g.Unlock()
+	g.mu.Lock()
+	defer g.mu.Unlock()
 	return g.Vertices
 }
 
 func (g *DefaultGraph) FindVertex(vtx string) bool {
-	g.Lock()
-	defer g.Unlock()
+	g.mu.Lock()
+	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
 		return false
 	}
@@ -57,8 +57,8 @@ func (g *DefaultGraph) FindVertex(vtx string) bool {
 }
 
 func (g *DefaultGraph) AddVertex(vtx string) bool {
-	g.Lock()
-	defer g.Unlock()
+	g.mu.Lock()
+	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
 		g.Vertices[vtx] = true
 		return true
@@ -67,8 +67,8 @@ func (g *DefaultGraph) AddVertex(vtx string) bool {
 }
 
 func (g *DefaultGraph) DeleteVertex(vtx string) bool {
-	g.Lock()
-	defer g.Unlock()
+	g.mu.Lock()
+	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
 		return false
 	} else {
@@ -94,8 +94,8 @@ func (g *DefaultGraph) DeleteVertex(vtx string) bool {
 }
 
 func (g *DefaultGraph) AddEdge(vtx1, vtx2 string, weight float64) error {
-	g.Lock()
-	defer g.Unlock()
+	g.mu.Lock()
+	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx1]; !ok {
 		return fmt.Errorf("%s does not exist in the graph.", vtx1)
 	}
@@ -128,8 +128,8 @@ func (g *DefaultGraph) AddEdge(vtx1, vtx2 string, weight float64) error {
 }
 
 func (g *DefaultGraph) ReplaceEdge(vtx1, vtx2 string, weight float64) error {
-	g.Lock()
-	defer g.Unlock()
+	g.mu.Lock()
+	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx1]; !ok {
 		return fmt.Errorf("%s does not exist in the graph.", vtx1)
 	}
@@ -154,8 +154,8 @@ func (g *DefaultGraph) ReplaceEdge(vtx1, vtx2 string, weight float64) error {
 }
 
 func (g *DefaultGraph) DeleteEdge(vtx1, vtx2 string) error {
-	g.Lock()
-	defer g.Unlock()
+	g.mu.Lock()
+	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx1]; !ok {
 		return fmt.Errorf("%s does not exist in the graph.", vtx1)
 	}
@@ -176,8 +176,8 @@ func (g *DefaultGraph) DeleteEdge(vtx1, vtx2 string) error {
 }
 
 func (g *DefaultGraph) GetWeight(vtx1, vtx2 string) (float64, error) {
-	g.Lock()
-	defer g.Unlock()
+	g.mu.Lock()
+	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx1]; !ok {
 		return 0.0, fmt.Errorf("%s does not exist in the graph.", vtx1)
 	}
@@ -193,8 +193,8 @@ func (g *DefaultGraph) GetWeight(vtx1, vtx2 string) (float64, error) {
 }
 
 func (g *DefaultGraph) GetParents(vtx string) (map[string]bool, error) {
-	g.Lock()
-	defer g.Unlock()
+	g.mu.Lock()
+	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
 		return nil, fmt.Errorf("%s does not exist in the graph.", vtx)
 	}
@@ -208,8 +208,8 @@ func (g *DefaultGraph) GetParents(vtx string) (map[string]bool, error) {
 }
 
 func (g *DefaultGraph) GetChildren(vtx string) (map[string]bool, error) {
-	g.Lock()
-	defer g.Unlock()
+	g.mu.Lock()
+	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
 		return nil, fmt.Errorf("%s does not exist in the graph.", vtx)
 	}
