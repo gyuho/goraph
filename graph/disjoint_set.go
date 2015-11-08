@@ -30,8 +30,8 @@ func MakeDisjointSet(forests *Forests, vtx string) {
 	member[vtx] = struct{}{}
 	newDS.member = member
 	forests.mu.Lock()
+	defer forests.mu.Unlock()
 	forests.data[newDS] = struct{}{}
-	forests.mu.Unlock()
 }
 
 // FindSet returns the DisjointSet with the represent u.
@@ -60,8 +60,8 @@ func Union(forests *Forests, ds1, ds2 *DisjointSet) {
 		newDS.member[k] = struct{}{}
 	}
 	forests.mu.Lock()
+	defer forests.mu.Unlock()
 	forests.data[newDS] = struct{}{}
 	delete(forests.data, ds1)
 	delete(forests.data, ds2)
-	forests.mu.Unlock()
 }
