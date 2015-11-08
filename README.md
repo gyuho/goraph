@@ -4,9 +4,7 @@ goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master)](h
 Package goraph implements graph, tree data structures and algorithms.
 
 ```
-go get -v gopkg.in/gyuho/goraph/bst.v1;
-go get -v gopkg.in/gyuho/goraph/graph.v1;
-go get -v gopkg.in/gyuho/goraph/llrb.v1;
+go get -v gopkg.in/gyuho/goraph.v1;
 ```
 
 <br>
