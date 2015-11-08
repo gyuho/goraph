@@ -7,8 +7,10 @@ type Graph interface {
 	// Init initializes a Graph.
 	Init()
 
-	// GetVertices returns a map of all vertices.
-	GetVertices() map[string]bool
+	// GetVertices returns a map from vertex ID to
+	// empty struct value. Graph does not allow duplicate
+	// vertex ID.
+	GetVertices() map[string]struct{}
 
 	// FindVertex returns true if the vertex already
 	// exists in the graph.
@@ -36,12 +38,12 @@ type Graph interface {
 	GetWeight(vtx1, vtx2 string) (float64, error)
 
 	// GetParents returns the map of parent vertices.
-	// (Vertices that comes to the argument vertex.)
-	GetParents(vtx string) (map[string]bool, error)
+	// (Vertices that come towards the argument vertex.)
+	GetParents(vtx string) (map[string]struct{}, error)
 
 	// GetChildren returns the map of child vertices.
-	// (Vertices that goes out of the argument vertex.)
-	GetChildren(vtx string) (map[string]bool, error)
+	// (Vertices that go out of the argument vertex.)
+	GetChildren(vtx string) (map[string]struct{}, error)
 
 	// String describes the Graph.
 	String() string
