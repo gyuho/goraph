@@ -7,6 +7,20 @@ import (
 	"github.com/gyuho/goraph/graph/testdata"
 )
 
+func TestNewDefaultGraphInterface(t *testing.T) {
+	g := NewDefaultGraph()
+	t.Log(g.String())
+	f, err := os.Open("testdata/graph.json")
+	if err != nil {
+		t.Error(err)
+	}
+	defer f.Close()
+	_, err = NewDefaultGraphFromJSON(f, "graph_00")
+	if err != nil {
+		t.Error(err)
+	}
+}
+
 func TestNewDefaultGraphFromJSON(t *testing.T) {
 	f, err := os.Open("testdata/graph.json")
 	if err != nil {

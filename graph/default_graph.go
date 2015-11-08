@@ -35,6 +35,99 @@ func newDefaultGraph() *defaultGraph {
 	}
 }
 
+// NewDefaultGraph returns a new defaultGraph.
+func NewDefaultGraph() Graph {
+	return newDefaultGraph()
+}
+
+// newDefaultGraphFromJSON creates a graph Data from JSON.
+// Here's the sample JSON data:
+//
+//	{
+//	    "graph_00": {
+//	        "S": {
+//	            "A": 100,
+//	            "B": 14,
+//	            "C": 200
+//	        },
+//	        "A": {
+//	            "S": 15,
+//	            "B": 5,
+//	            "D": 20,
+//	            "T": 44
+//	        },
+//	        "B": {
+//	            "S": 14,
+//	            "A": 5,
+//	            "D": 30,
+//	            "E": 18
+//	        },
+//	        "C": {
+//	            "S": 9,
+//	            "E": 24
+//	        },
+//	        "D": {
+//	            "A": 20,
+//	            "B": 30,
+//	            "E": 2,
+//	            "F": 11,
+//	            "T": 16
+//	        },
+//	        "E": {
+//	            "B": 18,
+//	            "C": 24,
+//	            "D": 2,
+//	            "F": 6,
+//	            "T": 19
+//	        },
+//	        "F": {
+//	            "D": 11,
+//	            "E": 6,
+//	            "T": 6
+//	        },
+//	        "T": {
+//	            "A": 44,
+//	            "D": 16,
+//	            "F": 6,
+//	            "E": 19
+//	        }
+//	    },
+//	}
+//
+func newDefaultGraphFromJSON(rd io.Reader, graphID string) (*defaultGraph, error) {
+	js := make(map[string]map[string]map[string]float64)
+	dec := json.NewDecoder(rd)
+	for {
+		if err := dec.Decode(&js); err == io.EOF {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+	}
+	if _, ok := js[graphID]; !ok {
+		return nil, fmt.Errorf("%s does not exist", graphID)
+	}
+	gmap := js[graphID]
+	g := newDefaultGraph()
+	for vtx1, mm := range gmap {
+		if !g.FindVertex(vtx1) {
+			g.AddVertex(vtx1)
+		}
+		for vtx2, weight := range mm {
+			if !g.FindVertex(vtx2) {
+				g.AddVertex(vtx2)
+			}
+			g.ReplaceEdge(vtx1, vtx2, weight)
+		}
+	}
+	return g, nil
+}
+
+// NewDefaultGraphFromJSON returns a new defaultGraph from a JSON file.
+func NewDefaultGraphFromJSON(rd io.Reader, graphID string) (Graph, error) {
+	return newDefaultGraphFromJSON(rd, graphID)
+}
+
 func (g *defaultGraph) Init() {
 	// (X) g = newDefaultGraph()
 	// this only updates the pointer
@@ -221,88 +314,6 @@ func (g *defaultGraph) GetChildren(vtx string) (map[string]bool, error) {
 		}
 	}
 	return rs, nil
-}
-
-// FromJSON creates a graph Data from JSON. Here's the sample JSON data:
-//
-//	{
-//	    "graph_00": {
-//	        "S": {
-//	            "A": 100,
-//	            "B": 14,
-//	            "C": 200
-//	        },
-//	        "A": {
-//	            "S": 15,
-//	            "B": 5,
-//	            "D": 20,
-//	            "T": 44
-//	        },
-//	        "B": {
-//	            "S": 14,
-//	            "A": 5,
-//	            "D": 30,
-//	            "E": 18
-//	        },
-//	        "C": {
-//	            "S": 9,
-//	            "E": 24
-//	        },
-//	        "D": {
-//	            "A": 20,
-//	            "B": 30,
-//	            "E": 2,
-//	            "F": 11,
-//	            "T": 16
-//	        },
-//	        "E": {
-//	            "B": 18,
-//	            "C": 24,
-//	            "D": 2,
-//	            "F": 6,
-//	            "T": 19
-//	        },
-//	        "F": {
-//	            "D": 11,
-//	            "E": 6,
-//	            "T": 6
-//	        },
-//	        "T": {
-//	            "A": 44,
-//	            "D": 16,
-//	            "F": 6,
-//	            "E": 19
-//	        }
-//	    },
-//	}
-//
-func newDefaultGraphFromJSON(rd io.Reader, graphID string) (*defaultGraph, error) {
-	js := make(map[string]map[string]map[string]float64)
-	dec := json.NewDecoder(rd)
-	for {
-		if err := dec.Decode(&js); err == io.EOF {
-			break
-		} else if err != nil {
-			return nil, err
-		}
-	}
-	if _, ok := js[graphID]; !ok {
-		return nil, fmt.Errorf("%s does not exist", graphID)
-	}
-	gmap := js[graphID]
-	g := newDefaultGraph()
-	for vtx1, mm := range gmap {
-		if !g.FindVertex(vtx1) {
-			g.AddVertex(vtx1)
-		}
-		for vtx2, weight := range mm {
-			if !g.FindVertex(vtx2) {
-				g.AddVertex(vtx2)
-			}
-			g.ReplaceEdge(vtx1, vtx2, weight)
-		}
-	}
-	return g, nil
 }
 
 func (g *defaultGraph) String() string {

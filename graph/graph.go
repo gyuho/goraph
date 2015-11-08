@@ -39,4 +39,7 @@ type Graph interface {
 	// GetChildren returns the map of child vertices.
 	// (Vertices that goes out of the argument vertex.)
 	GetChildren(vtx string) (map[string]bool, error)
+
+	// String describes the Graph.
+	String() string
 }
