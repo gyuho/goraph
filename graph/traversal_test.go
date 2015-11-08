@@ -12,7 +12,7 @@ func TestDefaultGraph_BFS(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_00")
+	g, err := newDefaultGraphFromJSON(f, "graph_00")
 	if err != nil {
 		t.Error(err)
 	}
@@ -29,7 +29,7 @@ func TestDefaultGraph_DFS(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_00")
+	g, err := newDefaultGraphFromJSON(f, "graph_00")
 	if err != nil {
 		t.Error(err)
 	}
@@ -46,7 +46,7 @@ func TestDefaultGraph_DFSRecursion(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_00")
+	g, err := newDefaultGraphFromJSON(f, "graph_00")
 	if err != nil {
 		t.Error(err)
 	}

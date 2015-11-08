@@ -12,7 +12,7 @@ func TestDefaultGraph_Tarjan_14(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_14")
+	g, err := newDefaultGraphFromJSON(f, "graph_14")
 	if err != nil {
 		t.Error(err)
 	}
@@ -29,7 +29,7 @@ func TestDefaultGraph_Tarjan_15(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_15")
+	g, err := newDefaultGraphFromJSON(f, "graph_15")
 	if err != nil {
 		t.Error(err)
 	}

@@ -14,7 +14,7 @@ func TestDefaultGraph_TopologicalSort_05(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_05")
+	g, err := newDefaultGraphFromJSON(f, "graph_05")
 	if err != nil {
 		t.Error(err)
 	}
@@ -31,7 +31,7 @@ func TestDefaultGraph_TopologicalSort_06(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_06")
+	g, err := newDefaultGraphFromJSON(f, "graph_06")
 	if err != nil {
 		t.Error(err)
 	}
@@ -48,7 +48,7 @@ func TestDefaultGraph_TopologicalSort_07(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_07")
+	g, err := newDefaultGraphFromJSON(f, "graph_07")
 	if err != nil {
 		t.Error(err)
 	}
@@ -66,7 +66,7 @@ func TestDefaultGraph_TopologicalSort(t *testing.T) {
 			t.Error(err)
 		}
 		defer f.Close()
-		g, err := NewDefaultGraphFromJSON(f, graph.Name)
+		g, err := newDefaultGraphFromJSON(f, graph.Name)
 		if err != nil {
 			t.Error(err)
 		}
