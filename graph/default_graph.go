@@ -14,7 +14,7 @@ type defaultGraph struct {
 	mu sync.Mutex // guards the following
 
 	// Vertices stores all vertices.
-	Vertices map[string]bool
+	Vertices map[string]struct{}
 
 	// VertexToChildren maps a Vertex identifer to children with edge weights.
 	VertexToChildren map[string]map[string]float64
@@ -26,7 +26,7 @@ type defaultGraph struct {
 // newDefaultGraph returns a new defaultGraph.
 func newDefaultGraph() *defaultGraph {
 	return &defaultGraph{
-		Vertices:         make(map[string]bool),
+		Vertices:         make(map[string]struct{}),
 		VertexToChildren: make(map[string]map[string]float64),
 		VertexToParents:  make(map[string]map[string]float64),
 		//
@@ -135,7 +135,7 @@ func (g *defaultGraph) Init() {
 	*g = *newDefaultGraph()
 }
 
-func (g *defaultGraph) GetVertices() map[string]bool {
+func (g *defaultGraph) GetVertices() map[string]struct{} {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	return g.Vertices
@@ -154,7 +154,7 @@ func (g *defaultGraph) AddVertex(vtx string) bool {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
-		g.Vertices[vtx] = true
+		g.Vertices[vtx] = struct{}{}
 		return true
 	}
 	return false
@@ -286,31 +286,31 @@ func (g *defaultGraph) GetWeight(vtx1, vtx2 string) (float64, error) {
 	return 0.0, fmt.Errorf("there is not edge from %s to %s", vtx1, vtx2)
 }
 
-func (g *defaultGraph) GetParents(vtx string) (map[string]bool, error) {
+func (g *defaultGraph) GetParents(vtx string) (map[string]struct{}, error) {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
 		return nil, fmt.Errorf("%s does not exist in the graph.", vtx)
 	}
-	rs := make(map[string]bool)
+	rs := make(map[string]struct{})
 	if _, ok := g.VertexToParents[vtx]; ok {
 		for k := range g.VertexToParents[vtx] {
-			rs[k] = true
+			rs[k] = struct{}{}
 		}
 	}
 	return rs, nil
 }
 
-func (g *defaultGraph) GetChildren(vtx string) (map[string]bool, error) {
+func (g *defaultGraph) GetChildren(vtx string) (map[string]struct{}, error) {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
 		return nil, fmt.Errorf("%s does not exist in the graph.", vtx)
 	}
-	rs := make(map[string]bool)
+	rs := make(map[string]struct{})
 	if _, ok := g.VertexToChildren[vtx]; ok {
 		for k := range g.VertexToChildren[vtx] {
-			rs[k] = true
+			rs[k] = struct{}{}
 		}
 	}
 	return rs, nil
