@@ -117,8 +117,6 @@ func tarjan(
 	vtx string,
 	data *tarjanData,
 ) {
-
-	// TODO: be more completely thread-safe.
 	// This is not inherently parallelizable problem,
 	// but just to make sure.
 	data.mu.Lock()
@@ -160,10 +158,10 @@ func tarjan(
 			// v.lowLink = min(v.lowLink, w.index)
 			data.lowLink[vtx] = min(data.lowLink[vtx], data.index[w])
 		}
-
 	}
 
 	data.mu.Lock()
+	defer data.mu.Unlock()
 
 	// if v is the root
 	// if v.lowLink == v.index:
@@ -189,8 +187,6 @@ func tarjan(
 			}
 		}
 	}
-
-	data.mu.Unlock()
 }
 
 func min(a, b int) int {
