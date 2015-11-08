@@ -11,7 +11,7 @@ type DisjointSet struct {
 
 // Forests is a set of DisjointSet.
 type Forests struct {
-	sync.Mutex
+	mu   sync.Mutex // guards the following
 	data map[*DisjointSet]struct{}
 }
 
@@ -29,15 +29,15 @@ func MakeDisjointSet(forests *Forests, vtx string) {
 	member := make(map[string]struct{})
 	member[vtx] = struct{}{}
 	newDS.member = member
-	forests.Lock()
+	forests.mu.Lock()
 	forests.data[newDS] = struct{}{}
-	forests.Unlock()
+	forests.mu.Unlock()
 }
 
 // FindSet returns the DisjointSet with the represent u.
 func FindSet(forests *Forests, u string) *DisjointSet {
-	forests.Lock()
-	defer forests.Unlock()
+	forests.mu.Lock()
+	defer forests.mu.Unlock()
 	for data := range forests.data {
 		if data.represent == u {
 			return data
@@ -59,9 +59,9 @@ func Union(forests *Forests, ds1, ds2 *DisjointSet) {
 	for k := range ds2.member {
 		newDS.member[k] = struct{}{}
 	}
-	forests.Lock()
+	forests.mu.Lock()
 	forests.data[newDS] = struct{}{}
 	delete(forests.data, ds1)
 	delete(forests.data, ds2)
-	forests.Unlock()
+	forests.mu.Unlock()
 }
