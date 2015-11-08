@@ -13,7 +13,7 @@ func TestDefaultGraph_Dijkstra_03(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_03")
+	g, err := newDefaultGraphFromJSON(f, "graph_03")
 	if err != nil {
 		t.Error(err)
 	}
@@ -40,7 +40,7 @@ func TestDefaultGraph_Dijkstra_04(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_04")
+	g, err := newDefaultGraphFromJSON(f, "graph_04")
 	if err != nil {
 		t.Error(err)
 	}
@@ -67,7 +67,7 @@ func TestDefaultGraph_Dijkstra_09_0(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_09")
+	g, err := newDefaultGraphFromJSON(f, "graph_09")
 	if err != nil {
 		t.Error(err)
 	}
@@ -94,7 +94,7 @@ func TestDefaultGraph_Dijkstra_09_1(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_09")
+	g, err := newDefaultGraphFromJSON(f, "graph_09")
 	if err != nil {
 		t.Error(err)
 	}
@@ -121,7 +121,7 @@ func TestDefaultGraph_Dijkstra_10_0(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_10")
+	g, err := newDefaultGraphFromJSON(f, "graph_10")
 	if err != nil {
 		t.Error(err)
 	}
@@ -148,7 +148,7 @@ func TestDefaultGraph_Dijkstra_10_1(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_10")
+	g, err := newDefaultGraphFromJSON(f, "graph_10")
 	if err != nil {
 		t.Error(err)
 	}
@@ -175,7 +175,7 @@ func TestDefaultGraph_BellmanFord_11(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_11")
+	g, err := newDefaultGraphFromJSON(f, "graph_11")
 	if err != nil {
 		t.Error(err)
 	}
@@ -202,7 +202,7 @@ func TestDefaultGraph_BellmanFord_12(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_12")
+	g, err := newDefaultGraphFromJSON(f, "graph_12")
 	if err != nil {
 		t.Error(err)
 	}

@@ -12,7 +12,7 @@ func TestDefaultGraph_Kruskal_13(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_13")
+	g, err := newDefaultGraphFromJSON(f, "graph_13")
 	if err != nil {
 		t.Error(err)
 	}
@@ -33,7 +33,7 @@ func TestDefaultGraph_Prim_13(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_13")
+	g, err := newDefaultGraphFromJSON(f, "graph_13")
 	if err != nil {
 		t.Error(err)
 	}

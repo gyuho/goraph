@@ -8,8 +8,9 @@ import (
 	"sync"
 )
 
-// DefaultGraph type implements all methods in Graph interface.
-type DefaultGraph struct {
+// defaultGraph is an internal default graph type that
+// implements all methods in Graph interface.
+type defaultGraph struct {
 	mu sync.Mutex // guards the following
 
 	// Vertices stores all vertices.
@@ -22,9 +23,9 @@ type DefaultGraph struct {
 	VertexToParents map[string]map[string]float64
 }
 
-// NewDefaultGraph returns a new DefaultGraph.
-func NewDefaultGraph() *DefaultGraph {
-	return &DefaultGraph{
+// newDefaultGraph returns a new defaultGraph.
+func newDefaultGraph() *defaultGraph {
+	return &defaultGraph{
 		Vertices:         make(map[string]bool),
 		VertexToChildren: make(map[string]map[string]float64),
 		VertexToParents:  make(map[string]map[string]float64),
@@ -34,20 +35,20 @@ func NewDefaultGraph() *DefaultGraph {
 	}
 }
 
-func (g *DefaultGraph) Init() {
-	// (X) g = NewDefaultGraph()
+func (g *defaultGraph) Init() {
+	// (X) g = newDefaultGraph()
 	// this only updates the pointer
 	//
-	*g = *NewDefaultGraph()
+	*g = *newDefaultGraph()
 }
 
-func (g *DefaultGraph) GetVertices() map[string]bool {
+func (g *defaultGraph) GetVertices() map[string]bool {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	return g.Vertices
 }
 
-func (g *DefaultGraph) FindVertex(vtx string) bool {
+func (g *defaultGraph) FindVertex(vtx string) bool {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
@@ -56,7 +57,7 @@ func (g *DefaultGraph) FindVertex(vtx string) bool {
 	return true
 }
 
-func (g *DefaultGraph) AddVertex(vtx string) bool {
+func (g *defaultGraph) AddVertex(vtx string) bool {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
@@ -66,7 +67,7 @@ func (g *DefaultGraph) AddVertex(vtx string) bool {
 	return false
 }
 
-func (g *DefaultGraph) DeleteVertex(vtx string) bool {
+func (g *defaultGraph) DeleteVertex(vtx string) bool {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
@@ -93,7 +94,7 @@ func (g *DefaultGraph) DeleteVertex(vtx string) bool {
 	return true
 }
 
-func (g *DefaultGraph) AddEdge(vtx1, vtx2 string, weight float64) error {
+func (g *defaultGraph) AddEdge(vtx1, vtx2 string, weight float64) error {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx1]; !ok {
@@ -127,7 +128,7 @@ func (g *DefaultGraph) AddEdge(vtx1, vtx2 string, weight float64) error {
 	return nil
 }
 
-func (g *DefaultGraph) ReplaceEdge(vtx1, vtx2 string, weight float64) error {
+func (g *defaultGraph) ReplaceEdge(vtx1, vtx2 string, weight float64) error {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx1]; !ok {
@@ -153,7 +154,7 @@ func (g *DefaultGraph) ReplaceEdge(vtx1, vtx2 string, weight float64) error {
 	return nil
 }
 
-func (g *DefaultGraph) DeleteEdge(vtx1, vtx2 string) error {
+func (g *defaultGraph) DeleteEdge(vtx1, vtx2 string) error {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx1]; !ok {
@@ -175,7 +176,7 @@ func (g *DefaultGraph) DeleteEdge(vtx1, vtx2 string) error {
 	return nil
 }
 
-func (g *DefaultGraph) GetWeight(vtx1, vtx2 string) (float64, error) {
+func (g *defaultGraph) GetWeight(vtx1, vtx2 string) (float64, error) {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx1]; !ok {
@@ -192,7 +193,7 @@ func (g *DefaultGraph) GetWeight(vtx1, vtx2 string) (float64, error) {
 	return 0.0, fmt.Errorf("there is not edge from %s to %s", vtx1, vtx2)
 }
 
-func (g *DefaultGraph) GetParents(vtx string) (map[string]bool, error) {
+func (g *defaultGraph) GetParents(vtx string) (map[string]bool, error) {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
@@ -207,7 +208,7 @@ func (g *DefaultGraph) GetParents(vtx string) (map[string]bool, error) {
 	return rs, nil
 }
 
-func (g *DefaultGraph) GetChildren(vtx string) (map[string]bool, error) {
+func (g *defaultGraph) GetChildren(vtx string) (map[string]bool, error) {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	if _, ok := g.Vertices[vtx]; !ok {
@@ -275,7 +276,7 @@ func (g *DefaultGraph) GetChildren(vtx string) (map[string]bool, error) {
 //	    },
 //	}
 //
-func NewDefaultGraphFromJSON(rd io.Reader, graphID string) (*DefaultGraph, error) {
+func newDefaultGraphFromJSON(rd io.Reader, graphID string) (*defaultGraph, error) {
 	js := make(map[string]map[string]map[string]float64)
 	dec := json.NewDecoder(rd)
 	for {
@@ -289,7 +290,7 @@ func NewDefaultGraphFromJSON(rd io.Reader, graphID string) (*DefaultGraph, error
 		return nil, fmt.Errorf("%s does not exist", graphID)
 	}
 	gmap := js[graphID]
-	g := NewDefaultGraph()
+	g := newDefaultGraph()
 	for vtx1, mm := range gmap {
 		if !g.FindVertex(vtx1) {
 			g.AddVertex(vtx1)
@@ -304,7 +305,7 @@ func NewDefaultGraphFromJSON(rd io.Reader, graphID string) (*DefaultGraph, error
 	return g, nil
 }
 
-func (g *DefaultGraph) String() string {
+func (g *defaultGraph) String() string {
 	buf := new(bytes.Buffer)
 	for vtx1 := range g.Vertices {
 		cmap, _ := g.GetChildren(vtx1)

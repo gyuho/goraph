@@ -13,7 +13,7 @@ func TestNewDefaultGraphFromJSON(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_00")
+	g, err := newDefaultGraphFromJSON(f, "graph_00")
 	if err != nil {
 		t.Error(err)
 	}
@@ -27,7 +27,7 @@ func TestNewDefaultGraphFromJSON(t *testing.T) {
 			t.Error(err)
 		}
 		defer f.Close()
-		g, err := NewDefaultGraphFromJSON(f, graph.Name)
+		g, err := newDefaultGraphFromJSON(f, graph.Name)
 		if err != nil {
 			t.Error(err)
 		}
@@ -54,7 +54,7 @@ func TestDefaultGraph_GetVertices(t *testing.T) {
 			t.Error(err)
 		}
 		defer f.Close()
-		g, err := NewDefaultGraphFromJSON(f, graph.Name)
+		g, err := newDefaultGraphFromJSON(f, graph.Name)
 		if err != nil {
 			t.Error(err)
 		}
@@ -71,7 +71,7 @@ func TestDefaultGraph_Init(t *testing.T) {
 			t.Error(err)
 		}
 		defer f.Close()
-		g, err := NewDefaultGraphFromJSON(f, graph.Name)
+		g, err := newDefaultGraphFromJSON(f, graph.Name)
 		if err != nil {
 			t.Error(err)
 		}
@@ -88,7 +88,7 @@ func TestDefaultGraph_DeleteVertex(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_01")
+	g, err := newDefaultGraphFromJSON(f, "graph_01")
 	if err != nil {
 		t.Error(err)
 	}
@@ -131,7 +131,7 @@ func TestDefaultGraph_DeleteEdge(t *testing.T) {
 	}
 	defer f.Close()
 
-	g, err := NewDefaultGraphFromJSON(f, "graph_01")
+	g, err := newDefaultGraphFromJSON(f, "graph_01")
 	if err != nil {
 		t.Error(err)
 	}
@@ -180,7 +180,7 @@ func TestDefaultGraph_ReplaceEdge(t *testing.T) {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := NewDefaultGraphFromJSON(f, "graph_00")
+	g, err := newDefaultGraphFromJSON(f, "graph_00")
 	if err != nil {
 		t.Error(err)
 	}
