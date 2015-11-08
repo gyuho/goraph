@@ -27,10 +27,10 @@ import (
 //	14.
 //	15. 	return A
 //
-func Kruskal(g Graph) map[Edge]bool {
+func Kruskal(g Graph) map[Edge]struct{} {
 
 	// A = ∅
-	A := make(map[Edge]bool)
+	A := make(map[Edge]struct{})
 
 	// disjointSet maps a member Vertex to a represent.
 	// (https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
@@ -44,7 +44,7 @@ func Kruskal(g Graph) map[Edge]bool {
 
 	// edges = get all edges
 	edges := []Edge{}
-	foundEdge := make(map[string]bool)
+	foundEdge := make(map[string]struct{})
 	for vtx := range g.GetVertices() {
 		cmap, err := g.GetChildren(vtx)
 		if err != nil {
@@ -62,7 +62,7 @@ func Kruskal(g Graph) map[Edge]bool {
 			edge.Weight = weight
 			if _, ok := foundEdge[fmt.Sprintf("%+v", edge)]; !ok {
 				edges = append(edges, edge)
-				foundEdge[fmt.Sprintf("%+v", edge)] = true
+				foundEdge[fmt.Sprintf("%+v", edge)] = struct{}{}
 			}
 		}
 
@@ -82,7 +82,7 @@ func Kruskal(g Graph) map[Edge]bool {
 			edge.Weight = weight
 			if _, ok := foundEdge[fmt.Sprintf("%+v", edge)]; !ok {
 				edges = append(edges, edge)
-				foundEdge[fmt.Sprintf("%+v", edge)] = true
+				foundEdge[fmt.Sprintf("%+v", edge)] = struct{}{}
 			}
 		}
 	}
@@ -96,7 +96,7 @@ func Kruskal(g Graph) map[Edge]bool {
 		if FindSet(forests, edge.Source).represent != FindSet(forests, edge.Target).represent {
 
 			// A = A ∪ {(u, v)}
-			A[edge] = true
+			A[edge] = struct{}{}
 
 			// Union(u, v)
 			// overwrite v's represent with u's represent
@@ -138,7 +138,7 @@ func Kruskal(g Graph) map[Edge]bool {
 //	26.
 //	27. 	return tree from prev
 //
-func Prim(g Graph, source string) map[Edge]bool {
+func Prim(g Graph, source string) map[Edge]struct{} {
 
 	// let Q be a priority queue
 	minHeap := &vertexDistanceHeap{}
@@ -248,7 +248,7 @@ func Prim(g Graph, source string) map[Edge]bool {
 		}
 	}
 
-	tree := make(map[Edge]bool)
+	tree := make(map[Edge]struct{})
 	for k, v := range prev {
 		one := Edge{}
 		one.Source = v
@@ -258,7 +258,7 @@ func Prim(g Graph, source string) map[Edge]bool {
 			panic(err)
 		}
 		one.Weight = weight
-		tree[one] = true
+		tree[one] = struct{}{}
 	}
 	return tree
 }

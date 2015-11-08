@@ -79,7 +79,7 @@ func Tarjan(g Graph) [][]string {
 }
 
 type tarjanData struct {
-	sync.Mutex
+	mu sync.Mutex // guards the following
 
 	// globalIndex is the smallest unused index
 	globalIndex int
@@ -96,7 +96,7 @@ type tarjanData struct {
 	S []string
 
 	// extra map to check if a vertex is in S.
-	smap map[string]bool
+	smap map[string]struct{}
 
 	result [][]string
 }
@@ -107,7 +107,7 @@ func newTarjanData() *tarjanData {
 	d.index = make(map[string]int)
 	d.lowLink = make(map[string]int)
 	d.S = []string{}
-	d.smap = make(map[string]bool)
+	d.smap = make(map[string]struct{})
 	d.result = [][]string{}
 	return &d
 }
@@ -117,11 +117,9 @@ func tarjan(
 	vtx string,
 	data *tarjanData,
 ) {
-
-	// TODO: be more completely thread-safe.
 	// This is not inherently parallelizable problem,
 	// but just to make sure.
-	data.Lock()
+	data.mu.Lock()
 
 	// v.index = globalIndex
 	data.index[vtx] = data.globalIndex
@@ -134,9 +132,9 @@ func tarjan(
 
 	// S.push(v)
 	data.S = append(data.S, vtx)
-	data.smap[vtx] = true
+	data.smap[vtx] = struct{}{}
 
-	data.Unlock()
+	data.mu.Unlock()
 
 	// for each child vertex w of v:
 	cmap, err := g.GetChildren(vtx)
@@ -160,10 +158,10 @@ func tarjan(
 			// v.lowLink = min(v.lowLink, w.index)
 			data.lowLink[vtx] = min(data.lowLink[vtx], data.index[w])
 		}
-
 	}
 
-	data.Lock()
+	data.mu.Lock()
+	defer data.mu.Unlock()
 
 	// if v is the root
 	// if v.lowLink == v.index:
@@ -189,8 +187,6 @@ func tarjan(
 			}
 		}
 	}
-
-	data.Unlock()
 }
 
 func min(a, b int) int {
