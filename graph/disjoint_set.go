@@ -6,19 +6,19 @@ import "sync"
 // (https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
 type DisjointSet struct {
 	represent string
-	member    map[string]bool
+	member    map[string]struct{}
 }
 
 // Forests is a set of DisjointSet.
 type Forests struct {
 	sync.Mutex
-	data map[*DisjointSet]bool
+	data map[*DisjointSet]struct{}
 }
 
 // NewForests creates a new Forests.
 func NewForests() *Forests {
 	set := &Forests{}
-	set.data = make(map[*DisjointSet]bool)
+	set.data = make(map[*DisjointSet]struct{})
 	return set
 }
 
@@ -26,11 +26,11 @@ func NewForests() *Forests {
 func MakeDisjointSet(forests *Forests, vtx string) {
 	newDS := &DisjointSet{}
 	newDS.represent = vtx
-	member := make(map[string]bool)
-	member[vtx] = true
+	member := make(map[string]struct{})
+	member[vtx] = struct{}{}
 	newDS.member = member
 	forests.Lock()
-	forests.data[newDS] = true
+	forests.data[newDS] = struct{}{}
 	forests.Unlock()
 }
 
@@ -57,10 +57,10 @@ func Union(forests *Forests, ds1, ds2 *DisjointSet) {
 	newDS.represent = ds1.represent
 	newDS.member = ds1.member
 	for k := range ds2.member {
-		newDS.member[k] = true
+		newDS.member[k] = struct{}{}
 	}
 	forests.Lock()
-	forests.data[newDS] = true
+	forests.data[newDS] = struct{}{}
 	delete(forests.data, ds1)
 	delete(forests.data, ds2)
 	forests.Unlock()
