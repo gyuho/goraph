@@ -1,4 +1,4 @@
-goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?branch=master&style=flat-square)](https://travis-ci.org/gyuho/goraph) [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/gyuho/goraph)
+goraph [![Build Status](https://travis-ci.org/gyuho/goraph.svg?style=flat-square)](https://travis-ci.org/gyuho/goraph) [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/gyuho/goraph)
 ==========
 
 Package goraph implements graph, tree data structures and algorithms.
