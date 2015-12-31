@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gyuho/goraph/graph/testdata"
+	"github.com/gyuho/goraph/graph/testgraph"
 )
 
 func TestNewDefaultGraphInterface(t *testing.T) {
@@ -35,7 +35,7 @@ func TestNewDefaultGraphFromJSON(t *testing.T) {
 	if g.VertexToChildren["C"]["S"] != 9.0 {
 		t.Errorf("weight from C to S must be 9.0 but %f", g.VertexToChildren["C"]["S"])
 	}
-	for _, graph := range testdata.GraphSlice {
+	for _, graph := range testgraph.GraphSlice {
 		f, err := os.Open("testdata/graph.json")
 		if err != nil {
 			t.Error(err)
@@ -62,7 +62,7 @@ func TestNewDefaultGraphFromJSON(t *testing.T) {
 }
 
 func TestDefaultGraph_GetVertices(t *testing.T) {
-	for _, graph := range testdata.GraphSlice {
+	for _, graph := range testgraph.GraphSlice {
 		f, err := os.Open("testdata/graph.json")
 		if err != nil {
 			t.Error(err)
@@ -79,7 +79,7 @@ func TestDefaultGraph_GetVertices(t *testing.T) {
 }
 
 func TestDefaultGraph_Init(t *testing.T) {
-	for _, graph := range testdata.GraphSlice {
+	for _, graph := range testgraph.GraphSlice {
 		f, err := os.Open("testdata/graph.json")
 		if err != nil {
 			t.Error(err)

@@ -1,4 +1,4 @@
-package testdata
+package testgraph
 
 // Graph contains test data.
 type Graph struct {
