@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gyuho/goraph/graph/testdata"
+	"github.com/gyuho/goraph/graph/testgraph"
 )
 
 func TestDefaultGraph_TopologicalSort_05(t *testing.T) {
@@ -60,7 +60,7 @@ func TestDefaultGraph_TopologicalSort_07(t *testing.T) {
 }
 
 func TestDefaultGraph_TopologicalSort(t *testing.T) {
-	for _, graph := range testdata.GraphSlice {
+	for _, graph := range testgraph.GraphSlice {
 		f, err := os.Open("testdata/graph.json")
 		if err != nil {
 			t.Error(err)
