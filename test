@@ -6,8 +6,8 @@ TEST=./...;
 FMT="*.go"
 
 echo "Running tests...";
-go test -v $TEST;
-go test -v -race $TEST;
+go test -v -cpu 1,2,4 $TEST;
+go test -v -cpu 1,2,4 -race $TEST;
 
 echo "Checking gofmt..."
 fmtRes=$(gofmt -l -s $FMT)
