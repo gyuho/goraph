@@ -2,11 +2,11 @@ language: go
 
 sudo: false
 
-go: 
+go:
 - 1.4
 - 1.5.3
 - tip
 
 script:
-- ./test.sh
+- ./test
 
