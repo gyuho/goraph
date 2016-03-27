@@ -7,7 +7,7 @@ go get -v gopkg.in/gyuho/goraph.v2;
 ```
 
 <br>
-I have tutorials and visualizations of graph, tree algorithms used in this package:
+I have tutorials and visualizations of graph, tree algorithms:
 
 - [**_Binary search tree_**](https://github.com/gyuho/learn/tree/master/doc/binary_search_tree)
 - [**_Go: heap, priority queue_**](https://github.com/gyuho/learn/tree/master/doc/go_heap_priority_queue)
