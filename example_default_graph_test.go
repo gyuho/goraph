@@ -1,11 +1,11 @@
-package graph_test
+package goraph_test
 
 import (
 	"fmt"
 	"log"
 	"os"
 
-	"github.com/gyuho/goraph/graph"
+	"github.com/gyuho/goraph"
 )
 
 func Example_newDefaultGraphFromJSON() {
@@ -14,7 +14,7 @@ func Example_newDefaultGraphFromJSON() {
 		log.Fatal(err)
 	}
 	defer f.Close()
-	g, err := graph.NewDefaultGraphFromJSON(f, "graph_00")
+	g, err := goraph.NewDefaultGraphFromJSON(f, "graph_00")
 	if err != nil {
 		log.Fatal(err)
 	}

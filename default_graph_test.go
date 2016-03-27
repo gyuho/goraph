@@ -1,10 +1,10 @@
-package graph
+package goraph
 
 import (
 	"os"
 	"testing"
 
-	"github.com/gyuho/goraph/graph/testgraph"
+	"github.com/gyuho/goraph/testgraph"
 )
 
 func TestNewDefaultGraphInterface(t *testing.T) {

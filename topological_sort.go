@@ -1,4 +1,4 @@
-package graph
+package goraph
 
 // TopologicalSort does topological sort(ordering) with DFS.
 // It returns true if the graph is a DAG (no cycle, with a topological sort).

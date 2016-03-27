@@ -1,9 +1,9 @@
 ## goraph [![Build Status](https://img.shields.io/travis/gyuho/goraph.svg?style=flat-square)](https://travis-ci.org/gyuho/goraph) [![Godoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](https://godoc.org/github.com/gyuho/goraph)
 
-Package goraph implements graph, tree data structures and algorithms.
+Package goraph implements graph data structure and algorithms.
 
 ```
-go get -v gopkg.in/gyuho/goraph.v1;
+go get -v gopkg.in/gyuho/goraph.v2;
 ```
 
 <br>

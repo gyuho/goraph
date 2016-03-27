@@ -1,4 +1,4 @@
-package graph
+package goraph
 
 // Edge is an Edge from Source to Target.
 type Edge struct {

@@ -1,4 +1,4 @@
-package graph
+package goraph
 
 type vertexDistance struct {
 	vertex   string

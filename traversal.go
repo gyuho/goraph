@@ -1,4 +1,4 @@
-package graph
+package goraph
 
 // BFS does breadth-first search, and returns the list of vertices.
 // (https://en.wikipedia.org/wiki/Breadth-first_search)

@@ -1,11 +1,11 @@
-package graph
+package goraph
 
 import (
 	"fmt"
 	"os"
 	"testing"
 
-	"github.com/gyuho/goraph/graph/testgraph"
+	"github.com/gyuho/goraph/testgraph"
 )
 
 func TestDefaultGraph_TopologicalSort_05(t *testing.T) {

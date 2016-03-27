@@ -1,4 +1,4 @@
-package graph
+package goraph
 
 // Graph describes the methods of graph operations.
 // It assumes that the identifier of a Vertex is string and unique.

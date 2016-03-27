@@ -1,4 +1,4 @@
-package graph
+package goraph
 
 import (
 	"bytes"
@@ -132,7 +132,13 @@ func (g *defaultGraph) Init() {
 	// (X) g = newDefaultGraph()
 	// this only updates the pointer
 	//
-	*g = *newDefaultGraph()
+	//
+	// (X) *g = *newDefaultGraph()
+	// assignment copies lock value
+
+	g.Vertices = make(map[string]struct{})
+	g.VertexToChildren = make(map[string]map[string]float64)
+	g.VertexToParents = make(map[string]map[string]float64)
 }
 
 func (g *defaultGraph) GetVertices() map[string]struct{} {
