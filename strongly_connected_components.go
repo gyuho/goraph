@@ -62,28 +62,18 @@ import "sync"
 //	41. 				result.push(component)
 //	42. 				break
 //
-func Tarjan(g Graph) [][]string {
-
-	data := newTarjanData()
+func Tarjan(g Graph) [][]ID {
+	d := newTarjanData()
 
 	// for each vertex v in G:
 	for v := range g.GetNodes() {
 		// if v.index is undefined:
-		if _, ok := data.index[v]; !ok {
+		if _, ok := d.index[v]; !ok {
 			// tarjan(G, v, globalIndex, S, result)
-			tarjan(g, v, data)
+			tarjan(g, v, d)
 		}
 	}
-
-	var rs [][]string
-	for _, row := range data.result {
-		r := []string{}
-		for _, id := range row {
-			r = append(r, g.GetNodeByID(id).String())
-		}
-		rs = append(rs, r)
-	}
-	return rs
+	return d.result
 }
 
 type tarjanData struct {

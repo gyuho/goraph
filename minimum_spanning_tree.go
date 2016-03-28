@@ -247,7 +247,7 @@ func Prim(g Graph, src ID) (map[Edge]struct{}, error) {
 		if err != nil {
 			return nil, err
 		}
-		tree[NewEdge(g.GetNodeByID(v), g.GetNodeByID(k), weight)] = struct{}{}
+		tree[NewEdge(g.GetNode(v), g.GetNode(k), weight)] = struct{}{}
 	}
 	return tree, nil
 }

@@ -19,15 +19,15 @@ package goraph
 //	13. 				Q.push(w)
 //	14. 				label w as visited
 //
-func BFS(g Graph, name string) []string {
-	if g.GetNode(name) == nil {
+func BFS(g Graph, id ID) []ID {
+	if g.GetNode(id) == nil {
 		return nil
 	}
 
-	q := []string{name}
-	visited := make(map[string]bool)
-	visited[name] = true
-	rs := []string{name}
+	q := []ID{id}
+	visited := make(map[ID]bool)
+	visited[id] = true
+	rs := []ID{id}
 
 	// while Q is not empty:
 	for len(q) != 0 {
@@ -36,24 +36,24 @@ func BFS(g Graph, name string) []string {
 		q = q[1:len(q):len(q)]
 
 		// for each vertex w adjacent to u:
-		cmap, _ := g.GetTargets(g.GetNode(u).ID())
+		cmap, _ := g.GetTargets(u)
 		for _, w := range cmap {
 			// if w is not visited yet:
-			if _, ok := visited[w.String()]; !ok {
-				q = append(q, w.String())  // Q.push(w)
-				visited[w.String()] = true // label w as visited
+			if _, ok := visited[w.ID()]; !ok {
+				q = append(q, w.ID())  // Q.push(w)
+				visited[w.ID()] = true // label w as visited
 
-				rs = append(rs, w.String())
+				rs = append(rs, w)
 			}
 		}
-		pmap, _ := g.GetSources(g.GetNode(u).ID())
+		pmap, _ := g.GetSources(u)
 		for _, w := range pmap {
 			// if w is not visited yet:
-			if _, ok := visited[w.String()]; !ok {
-				q = append(q, w.String())  // Q.push(w)
-				visited[w.String()] = true // label w as visited
+			if _, ok := visited[w.ID()]; !ok {
+				q = append(q, w.ID())  // Q.push(w)
+				visited[w.ID()] = true // label w as visited
 
-				rs = append(rs, w.String())
+				rs = append(rs, w.ID())
 			}
 		}
 	}
@@ -82,14 +82,14 @@ func BFS(g Graph, name string) []string {
 //	15. 				if w is not visited yet:
 //	16. 					S.push(w)
 //
-func DFS(g Graph, name string) []string {
-	if g.GetNode(name) == nil {
+func DFS(g Graph, id ID) []ID {
+	if g.GetNode(id) == nil {
 		return nil
 	}
 
-	s := []string{name}
-	visited := make(map[string]bool)
-	rs := []string{}
+	s := []ID{id}
+	visited := make(map[ID]bool)
+	rs := []ID{}
 
 	// while S is not empty:
 	for len(s) != 0 {
@@ -105,18 +105,18 @@ func DFS(g Graph, name string) []string {
 			rs = append(rs, u)
 
 			// for each vertex w adjacent to u:
-			cmap, _ := g.GetTargets(g.GetNode(u).ID())
+			cmap, _ := g.GetTargets(u)
 			for _, w := range cmap {
 				// if w is not visited yet:
-				if _, ok := visited[w.String()]; !ok {
-					s = append(s, w.String()) // S.push(w)
+				if _, ok := visited[w.ID()]; !ok {
+					s = append(s, w.ID()) // S.push(w)
 				}
 			}
-			pmap, _ := g.GetSources(g.GetNode(u).ID())
+			pmap, _ := g.GetSources(u)
 			for _, w := range pmap {
 				// if w is not visited yet:
-				if _, ok := visited[w.String()]; !ok {
-					s = append(s, w.String()) // S.push(w)
+				if _, ok := visited[w.ID()]; !ok {
+					s = append(s, w.ID()) // S.push(w)
 				}
 			}
 		}
@@ -139,46 +139,46 @@ func DFS(g Graph, name string) []string {
 //	 9. 		if u is not visited yet:
 //	10. 			recursive DFS(G, u)
 //
-func DFSRecursion(g Graph, name string) []string {
-	if g.GetNode(name) == nil {
+func DFSRecursion(g Graph, id ID) []ID {
+	if g.GetNode(id) == nil {
 		return nil
 	}
 
-	visited := make(map[string]bool)
-	rs := []string{}
+	visited := make(map[ID]bool)
+	rs := []ID{}
 
-	dfsRecursion(g, name, visited, &rs)
+	dfsRecursion(g, id, visited, &rs)
 
 	return rs
 }
 
-func dfsRecursion(g Graph, name string, visited map[string]bool, rs *[]string) {
+func dfsRecursion(g Graph, id ID, visited map[ID]bool, rs *[]ID) {
 	// base case of recursion
 	//
 	// if v is visited:
-	if _, ok := visited[name]; ok {
+	if _, ok := visited[id]; ok {
 		return
 	}
 
 	// label v as visited
-	visited[name] = true
-	*rs = append(*rs, name)
+	visited[id] = true
+	*rs = append(*rs, id)
 
 	// for each vertex u adjacent to v:
-	cmap, _ := g.GetTargets(g.GetNode(name).ID())
+	cmap, _ := g.GetTargets(id)
 	for _, u := range cmap {
 		// if u is not visited yet:
-		if _, ok := visited[u.String()]; !ok {
+		if _, ok := visited[u.ID()]; !ok {
 			// recursive DFS(G, u)
-			dfsRecursion(g, u.String(), visited, rs)
+			dfsRecursion(g, u.ID(), visited, rs)
 		}
 	}
-	pmap, _ := g.GetSources(g.GetNode(name).ID())
+	pmap, _ := g.GetSources(id)
 	for _, u := range pmap {
 		// if u is not visited yet:
-		if _, ok := visited[u.String()]; !ok {
+		if _, ok := visited[u.ID()]; !ok {
 			// recursive DFS(G, u)
-			dfsRecursion(g, u.String(), visited, rs)
+			dfsRecursion(g, u.ID(), visited, rs)
 		}
 	}
 }

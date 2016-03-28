@@ -49,10 +49,7 @@ import (
 //	35.
 //	36. 	return path, prev
 //
-func Dijkstra(g Graph, src, tgt string) ([]string, map[string]float64, error) {
-	source := g.GetNode(src).ID()
-	target := g.GetNode(tgt).ID()
-
+func Dijkstra(g Graph, source, target ID) ([]ID, map[ID]float64, error) {
 	// let Q be a priority queue
 	minHeap := &nodeDistanceHeap{}
 
@@ -124,7 +121,7 @@ func Dijkstra(g Graph, src, tgt string) ([]string, map[string]float64, error) {
 	}
 
 	// path = []
-	path := []string{}
+	path := []ID{}
 
 	// u = target
 	u := target
@@ -135,8 +132,8 @@ func Dijkstra(g Graph, src, tgt string) ([]string, map[string]float64, error) {
 			break
 		}
 		// path.push_front(u)
-		temp := make([]string, len(path)+1)
-		temp[0] = g.GetNodeByID(u).String()
+		temp := make([]ID, len(path)+1)
+		temp[0] = u
 		copy(temp[1:], path)
 		path = temp
 
@@ -145,16 +142,12 @@ func Dijkstra(g Graph, src, tgt string) ([]string, map[string]float64, error) {
 	}
 
 	// add the source
-	temp := make([]string, len(path)+1)
-	temp[0] = g.GetNodeByID(source).String()
+	temp := make([]ID, len(path)+1)
+	temp[0] = source
 	copy(temp[1:], path)
 	path = temp
 
-	rds := make(map[string]float64)
-	for k, v := range distance {
-		rds[g.GetNodeByID(k).String()] = v
-	}
-	return path, rds, nil
+	return path, distance, nil
 }
 
 // BellmanFord returns the shortest path using Bellman-Ford algorithm
@@ -200,10 +193,7 @@ func Dijkstra(g Graph, src, tgt string) ([]string, map[string]float64, error) {
 //	33.
 //	34. 	return path, prev
 //
-func BellmanFord(g Graph, src, tgt string) ([]string, map[string]float64, error) {
-	source := g.GetNode(src).ID()
-	target := g.GetNode(tgt).ID()
-
+func BellmanFord(g Graph, source, target ID) ([]ID, map[ID]float64, error) {
 	// distance[source] = 0
 	distance := make(map[ID]float64)
 	distance[source] = 0.0
@@ -328,7 +318,7 @@ func BellmanFord(g Graph, src, tgt string) ([]string, map[string]float64, error)
 	}
 
 	// path = []
-	path := []string{}
+	path := []ID{}
 
 	// u = target
 	u := target
@@ -339,8 +329,8 @@ func BellmanFord(g Graph, src, tgt string) ([]string, map[string]float64, error)
 			break
 		}
 		// path.push_front(u)
-		temp := make([]string, len(path)+1)
-		temp[0] = g.GetNodeByID(u).String()
+		temp := make([]ID, len(path)+1)
+		temp[0] = u
 		copy(temp[1:], path)
 		path = temp
 
@@ -349,14 +339,10 @@ func BellmanFord(g Graph, src, tgt string) ([]string, map[string]float64, error)
 	}
 
 	// add the source
-	temp := make([]string, len(path)+1)
-	temp[0] = src
+	temp := make([]ID, len(path)+1)
+	temp[0] = source
 	copy(temp[1:], path)
 	path = temp
 
-	rds := make(map[string]float64)
-	for k, v := range distance {
-		rds[g.GetNodeByID(k).String()] = v
-	}
-	return path, rds, nil
+	return path, distance, nil
 }

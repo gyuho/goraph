@@ -6,44 +6,45 @@ import (
 	"fmt"
 	"io"
 	"sync"
-	"sync/atomic"
 )
 
 // ID is unique identifier.
-type ID uint64
+type ID interface {
+	// String returns the string ID.
+	String() string
+}
 
-const NoID ID = 0
+type StringID string
+
+func (s StringID) String() string {
+	return string(s)
+}
 
 // Node is vertex. The ID must be unique within the graph.
 type Node interface {
 	// ID returns the ID.
 	ID() ID
-
-	// String returns the string ID.
 	String() string
 }
 
 type node struct {
-	name string
-	id   uint64
+	id string
 }
 
 var nodeCnt uint64
 
-func NewNode(name string) Node {
-	val := atomic.AddUint64(&nodeCnt, 1)
+func NewNode(id string) Node {
 	return &node{
-		name: name,
-		id:   val,
+		id: id,
 	}
 }
 
 func (n *node) ID() ID {
-	return ID(n.id)
+	return StringID(n.id)
 }
 
 func (n *node) String() string {
-	return n.name
+	return n.id
 }
 
 // Edge connects between two Nodes.
@@ -98,24 +99,17 @@ type Graph interface {
 	// Init initializes a Graph.
 	Init()
 
-	// GetNodes returns a map from node ID to
-	// empty struct value. Graph does not allow duplicate
-	// node ID or name.
-	GetNodes() map[ID]Node
-
 	// GetNodeCount returns the total number of nodes.
 	GetNodeCount() int
 
 	// GetNode finds the Node. It returns nil if the Node
 	// does not exist in the graph.
-	GetNode(name string) Node
+	GetNode(id ID) Node
 
-	// GetNodeByID finds the Node. It returns nil if the Node
-	// does not exist in the graph.
-	GetNodeByID(id ID) Node
-
-	// GetID finds the Node ID.
-	GetID(name string) ID
+	// GetNodes returns a map from node ID to
+	// empty struct value. Graph does not allow duplicate
+	// node ID or name.
+	GetNodes() map[ID]Node
 
 	// AddNode adds a node to a graph, and returns false
 	// if the node already existed in the graph.
@@ -156,9 +150,6 @@ type Graph interface {
 type graph struct {
 	mu sync.RWMutex // guards the following
 
-	// nameToID records used ids.
-	nameToID map[string]ID
-
 	// idToNodes stores all nodes.
 	idToNodes map[ID]Node
 
@@ -172,7 +163,6 @@ type graph struct {
 // newGraph returns a new graph.
 func newGraph() *graph {
 	return &graph{
-		nameToID:      make(map[string]ID),
 		idToNodes:     make(map[ID]Node),
 		nodeToSources: make(map[ID]map[ID]float64),
 		nodeToTargets: make(map[ID]map[ID]float64),
@@ -195,28 +185,9 @@ func (g *graph) Init() {
 	// (X) *g = *newGraph()
 	// assignment copies lock value
 
-	g.nameToID = make(map[string]ID)
 	g.idToNodes = make(map[ID]Node)
 	g.nodeToSources = make(map[ID]map[ID]float64)
 	g.nodeToTargets = make(map[ID]map[ID]float64)
-}
-
-func (g *graph) GetNodes() map[ID]Node {
-	g.mu.RLock()
-	defer g.mu.RUnlock()
-
-	return g.idToNodes
-}
-
-func (g *graph) GetID(name string) ID {
-	g.mu.RLock()
-	defer g.mu.RUnlock()
-
-	v, ok := g.nameToID[name]
-	if !ok {
-		return NoID
-	}
-	return v
 }
 
 func (g *graph) GetNodeCount() int {
@@ -226,29 +197,21 @@ func (g *graph) GetNodeCount() int {
 	return len(g.idToNodes)
 }
 
-func (g *graph) GetNode(name string) Node {
-	g.mu.RLock()
-	defer g.mu.RUnlock()
-
-	return g.idToNodes[g.nameToID[name]]
-}
-
-func (g *graph) GetNodeByID(id ID) Node {
+func (g *graph) GetNode(id ID) Node {
 	g.mu.RLock()
 	defer g.mu.RUnlock()
 
 	return g.idToNodes[id]
 }
 
-func (g *graph) unsafeExist(nd Node) bool {
-	_, ok := g.nameToID[nd.String()]
-	return ok
+func (g *graph) GetNodes() map[ID]Node {
+	g.mu.RLock()
+	defer g.mu.RUnlock()
+
+	return g.idToNodes
 }
 
 func (g *graph) unsafeExistID(id ID) bool {
-	if id == NoID {
-		return false
-	}
 	_, ok := g.idToNodes[id]
 	return ok
 }
@@ -257,12 +220,11 @@ func (g *graph) AddNode(nd Node) bool {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 
-	if g.unsafeExist(nd) {
+	if g.unsafeExistID(nd.ID()) {
 		return false
 	}
 
 	id := nd.ID()
-	g.nameToID[nd.String()] = id
 	g.idToNodes[id] = nd
 	return true
 }
@@ -274,8 +236,6 @@ func (g *graph) DeleteNode(id ID) bool {
 	if !g.unsafeExistID(id) {
 		return false
 	}
-
-	delete(g.nameToID, g.idToNodes[id].String())
 
 	delete(g.idToNodes, id)
 
@@ -297,10 +257,10 @@ func (g *graph) AddEdge(id1, id2 ID, weight float64) error {
 	defer g.mu.Unlock()
 
 	if !g.unsafeExistID(id1) {
-		return fmt.Errorf("%s does not exist in the graph.", g.idToNodes[id1])
+		return fmt.Errorf("%s does not exist in the graph.", id1)
 	}
 	if !g.unsafeExistID(id2) {
-		return fmt.Errorf("%s does not exist in the graph.", g.idToNodes[id2])
+		return fmt.Errorf("%s does not exist in the graph.", id2)
 	}
 
 	if _, ok := g.nodeToTargets[id1]; ok {
@@ -334,10 +294,10 @@ func (g *graph) ReplaceEdge(id1, id2 ID, weight float64) error {
 	defer g.mu.Unlock()
 
 	if !g.unsafeExistID(id1) {
-		return fmt.Errorf("%s does not exist in the graph.", g.idToNodes[id1])
+		return fmt.Errorf("%s does not exist in the graph.", id1)
 	}
 	if !g.unsafeExistID(id2) {
-		return fmt.Errorf("%s does not exist in the graph.", g.idToNodes[id2])
+		return fmt.Errorf("%s does not exist in the graph.", id2)
 	}
 
 	if _, ok := g.nodeToTargets[id1]; ok {
@@ -362,10 +322,10 @@ func (g *graph) DeleteEdge(id1, id2 ID) error {
 	defer g.mu.Unlock()
 
 	if !g.unsafeExistID(id1) {
-		return fmt.Errorf("%s does not exist in the graph.", g.idToNodes[id1])
+		return fmt.Errorf("%s does not exist in the graph.", id1)
 	}
 	if !g.unsafeExistID(id2) {
-		return fmt.Errorf("%s does not exist in the graph.", g.idToNodes[id2])
+		return fmt.Errorf("%s does not exist in the graph.", id2)
 	}
 
 	if _, ok := g.nodeToTargets[id1]; ok {
@@ -386,10 +346,10 @@ func (g *graph) GetWeight(id1, id2 ID) (float64, error) {
 	defer g.mu.RUnlock()
 
 	if !g.unsafeExistID(id1) {
-		return 0, fmt.Errorf("%s does not exist in the graph.", g.idToNodes[id1])
+		return 0, fmt.Errorf("%s does not exist in the graph.", id1)
 	}
 	if !g.unsafeExistID(id2) {
-		return 0, fmt.Errorf("%s does not exist in the graph.", g.idToNodes[id2])
+		return 0, fmt.Errorf("%s does not exist in the graph.", id2)
 	}
 
 	if _, ok := g.nodeToTargets[id1]; ok {
@@ -397,7 +357,7 @@ func (g *graph) GetWeight(id1, id2 ID) (float64, error) {
 			return v, nil
 		}
 	}
-	return 0.0, fmt.Errorf("there is no edge from %s to %s", g.idToNodes[id1], g.idToNodes[id2])
+	return 0.0, fmt.Errorf("there is no edge from %s to %s", id1, id2)
 }
 
 func (g *graph) GetSources(id ID) (map[ID]Node, error) {
@@ -405,7 +365,7 @@ func (g *graph) GetSources(id ID) (map[ID]Node, error) {
 	defer g.mu.RUnlock()
 
 	if !g.unsafeExistID(id) {
-		return nil, fmt.Errorf("%s does not exist in the graph.", g.idToNodes[id])
+		return nil, fmt.Errorf("%s does not exist in the graph.", id)
 	}
 
 	rs := make(map[ID]Node)
@@ -422,7 +382,7 @@ func (g *graph) GetTargets(id ID) (map[ID]Node, error) {
 	defer g.mu.RUnlock()
 
 	if !g.unsafeExistID(id) {
-		return nil, fmt.Errorf("%s does not exist in the graph.", g.idToNodes[id])
+		return nil, fmt.Errorf("%s does not exist in the graph.", id)
 	}
 
 	rs := make(map[ID]Node)
@@ -443,7 +403,7 @@ func (g *graph) String() string {
 		nmap, _ := g.GetTargets(id1)
 		for id2, nd2 := range nmap {
 			weight, _ := g.GetWeight(id1, id2)
-			fmt.Fprintf(buf, "%s -- %.3f --> %s\n", nd1, weight, nd2)
+			fmt.Fprintf(buf, "%s -- %.3f -→ %s\n", nd1, weight, nd2)
 		}
 	}
 	return buf.String()
@@ -519,18 +479,18 @@ func NewGraphFromJSON(rd io.Reader, graphID string) (Graph, error) {
 	gmap := js[graphID]
 
 	g := newGraph()
-	for name1, mm := range gmap {
-		nd1 := g.GetNode(name1)
+	for id1, mm := range gmap {
+		nd1 := g.GetNode(StringID(id1))
 		if nd1 == nil {
-			nd1 = NewNode(name1)
+			nd1 = NewNode(id1)
 			if ok := g.AddNode(nd1); !ok {
 				return nil, fmt.Errorf("%s already exists", nd1)
 			}
 		}
-		for name2, weight := range mm {
-			nd2 := g.GetNode(name2)
+		for id2, weight := range mm {
+			nd2 := g.GetNode(StringID(id2))
 			if nd2 == nil {
-				nd2 = NewNode(name2)
+				nd2 = NewNode(id2)
 				if ok := g.AddNode(nd2); !ok {
 					return nil, fmt.Errorf("%s already exists", nd2)
 				}

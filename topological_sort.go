@@ -34,7 +34,7 @@ package goraph
 //	27. 		v.color = "black"
 //	28.			L.push_front(v)
 //
-func TopologicalSort(g Graph) ([]string, bool) {
+func TopologicalSort(g Graph) ([]ID, bool) {
 
 	// L = Empty list that will contain the sorted nodes
 	L := []ID{}
@@ -53,11 +53,7 @@ func TopologicalSort(g Graph) ([]string, bool) {
 		}
 	}
 
-	var rs []string
-	for _, id := range L {
-		rs = append(rs, g.GetNodeByID(id).String())
-	}
-	return rs, isDAG
+	return L, isDAG
 }
 
 func topologicalSortVisit(
