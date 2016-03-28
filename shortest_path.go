@@ -49,62 +49,63 @@ import (
 //	35.
 //	36. 	return path, prev
 //
-func Dijkstra(g Graph, source, target string) ([]string, map[string]float64, error) {
+func Dijkstra(g Graph, src, tgt string) ([]string, map[string]float64, error) {
+	source := g.GetNode(src).ID()
+	target := g.GetNode(tgt).ID()
 
 	// let Q be a priority queue
-	minHeap := &vertexDistanceHeap{}
+	minHeap := &nodeDistanceHeap{}
 
 	// distance[source] = 0
-	distance := make(map[string]float64)
+	distance := make(map[ID]float64)
 	distance[source] = 0.0
 
 	// for each vertex v in G:
-	for vtx := range g.GetVertices() {
-
+	for id := range g.GetNodes() {
 		// if v ≠ source:
-		if vtx != source {
+		if id != source {
 			// distance[v] = ∞
-			distance[vtx] = math.MaxFloat64
+			distance[id] = math.MaxFloat64
 
 			// prev[v] = undefined
 			// prev[v] = ""
 		}
 
 		// Q.add_with_priority(v, distance[v])
-		vd := vertexDistance{}
-		vd.vertex = vtx
-		vd.distance = distance[vtx]
+		nds := nodeDistance{}
+		nds.id = id
+		nds.distance = distance[id]
 
-		heap.Push(minHeap, vd)
+		heap.Push(minHeap, nds)
 	}
 
 	heap.Init(minHeap)
-	prev := make(map[string]string)
+	prev := make(map[ID]ID)
 
 	// while Q is not empty:
 	for minHeap.Len() != 0 {
 
 		// u = Q.extract_min()
-		u := heap.Pop(minHeap).(vertexDistance)
+		u := heap.Pop(minHeap).(nodeDistance)
 
 		// if u == target:
-		if u.vertex == target {
+		if u.id == target {
 			break
 		}
 
 		// for each child vertex v of u:
-		cmap, err := g.GetChildren(u.vertex)
+		cmap, err := g.GetTargets(u.id)
 		if err != nil {
 			return nil, nil, err
 		}
 		for v := range cmap {
 
 			// alt = distance[u] + weight(u, v)
-			weight, err := g.GetWeight(u.vertex, v)
+			weight, err := g.GetWeight(u.id, v)
 			if err != nil {
 				return nil, nil, err
 			}
-			alt := distance[u.vertex] + weight
+			alt := distance[u.id] + weight
 
 			// if distance[v] > alt:
 			if distance[v] > alt {
@@ -113,7 +114,7 @@ func Dijkstra(g Graph, source, target string) ([]string, map[string]float64, err
 				distance[v] = alt
 
 				// prev[v] = u
-				prev[v] = u.vertex
+				prev[v] = u.id
 
 				// Q.decrease_priority(v, alt)
 				minHeap.updateDistance(v, alt)
@@ -135,7 +136,7 @@ func Dijkstra(g Graph, source, target string) ([]string, map[string]float64, err
 		}
 		// path.push_front(u)
 		temp := make([]string, len(path)+1)
-		temp[0] = u
+		temp[0] = g.GetNodeByID(u).String()
 		copy(temp[1:], path)
 		path = temp
 
@@ -145,11 +146,15 @@ func Dijkstra(g Graph, source, target string) ([]string, map[string]float64, err
 
 	// add the source
 	temp := make([]string, len(path)+1)
-	temp[0] = source
+	temp[0] = g.GetNodeByID(source).String()
 	copy(temp[1:], path)
 	path = temp
 
-	return path, distance, nil
+	rds := make(map[string]float64)
+	for k, v := range distance {
+		rds[g.GetNodeByID(k).String()] = v
+	}
+	return path, rds, nil
 }
 
 // BellmanFord returns the shortest path using Bellman-Ford algorithm
@@ -195,39 +200,41 @@ func Dijkstra(g Graph, source, target string) ([]string, map[string]float64, err
 //	33.
 //	34. 	return path, prev
 //
-func BellmanFord(g Graph, source, target string) ([]string, map[string]float64, error) {
+func BellmanFord(g Graph, src, tgt string) ([]string, map[string]float64, error) {
+	source := g.GetNode(src).ID()
+	target := g.GetNode(tgt).ID()
 
 	// distance[source] = 0
-	distance := make(map[string]float64)
+	distance := make(map[ID]float64)
 	distance[source] = 0.0
 
 	// for each vertex v in G:
-	for vtx := range g.GetVertices() {
+	for id := range g.GetNodes() {
 
 		// if v ≠ source:
-		if vtx != source {
+		if id != source {
 			// distance[v] = ∞
-			distance[vtx] = math.MaxFloat64
+			distance[id] = math.MaxFloat64
 
 			// prev[v] = undefined
 			// prev[v] = ""
 		}
 	}
 
-	prev := make(map[string]string)
+	prev := make(map[ID]ID)
 
 	// for 1 to |V|-1:
-	for i := 1; i <= len(g.GetVertices())-1; i++ {
+	for i := 1; i <= g.GetNodeCount()-1; i++ {
 
 		// for every edge (u, v):
-		for vtx := range g.GetVertices() {
+		for id := range g.GetNodes() {
 
-			cmap, err := g.GetChildren(vtx)
+			cmap, err := g.GetTargets(id)
 			if err != nil {
 				return nil, nil, err
 			}
+			u := id
 			for v := range cmap {
-				u := vtx
 				// edge (u, v)
 				weight, err := g.GetWeight(u, v)
 				if err != nil {
@@ -247,12 +254,12 @@ func BellmanFord(g Graph, source, target string) ([]string, map[string]float64, 
 				}
 			}
 
-			pmap, err := g.GetParents(vtx)
+			pmap, err := g.GetSources(id)
 			if err != nil {
 				return nil, nil, err
 			}
+			v := id
 			for u := range pmap {
-				v := vtx
 				// edge (u, v)
 				weight, err := g.GetWeight(u, v)
 				if err != nil {
@@ -275,14 +282,14 @@ func BellmanFord(g Graph, source, target string) ([]string, map[string]float64, 
 	}
 
 	// for every edge (u, v):
-	for vtx := range g.GetVertices() {
+	for id := range g.GetNodes() {
 
-		cmap, err := g.GetChildren(vtx)
+		cmap, err := g.GetTargets(id)
 		if err != nil {
 			return nil, nil, err
 		}
+		u := id
 		for v := range cmap {
-			u := vtx
 			// edge (u, v)
 			weight, err := g.GetWeight(u, v)
 			if err != nil {
@@ -298,12 +305,12 @@ func BellmanFord(g Graph, source, target string) ([]string, map[string]float64, 
 			}
 		}
 
-		pmap, err := g.GetParents(vtx)
+		pmap, err := g.GetSources(id)
 		if err != nil {
 			return nil, nil, err
 		}
+		v := id
 		for u := range pmap {
-			v := vtx
 			// edge (u, v)
 			weight, err := g.GetWeight(u, v)
 			if err != nil {
@@ -333,7 +340,7 @@ func BellmanFord(g Graph, source, target string) ([]string, map[string]float64, 
 		}
 		// path.push_front(u)
 		temp := make([]string, len(path)+1)
-		temp[0] = u
+		temp[0] = g.GetNodeByID(u).String()
 		copy(temp[1:], path)
 		path = temp
 
@@ -343,9 +350,13 @@ func BellmanFord(g Graph, source, target string) ([]string, map[string]float64, 
 
 	// add the source
 	temp := make([]string, len(path)+1)
-	temp[0] = source
+	temp[0] = src
 	copy(temp[1:], path)
 	path = temp
 
-	return path, distance, nil
+	rds := make(map[string]float64)
+	for k, v := range distance {
+		rds[g.GetNodeByID(k).String()] = v
+	}
+	return path, rds, nil
 }

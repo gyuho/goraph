@@ -37,15 +37,15 @@ package goraph
 func TopologicalSort(g Graph) ([]string, bool) {
 
 	// L = Empty list that will contain the sorted nodes
-	L := []string{}
+	L := []ID{}
 	isDAG := true
-	color := make(map[string]string)
-	for v := range g.GetVertices() {
+	color := make(map[ID]string)
+	for v := range g.GetNodes() {
 		color[v] = "white"
 	}
 
 	// for each vertex v in G:
-	for v := range g.GetVertices() {
+	for v := range g.GetNodes() {
 		// if v.color == "white":
 		if color[v] == "white" {
 			// topologicalSortVisit(v, L, isDAG)
@@ -53,31 +53,35 @@ func TopologicalSort(g Graph) ([]string, bool) {
 		}
 	}
 
-	return L, isDAG
+	var rs []string
+	for _, id := range L {
+		rs = append(rs, g.GetNodeByID(id).String())
+	}
+	return rs, isDAG
 }
 
 func topologicalSortVisit(
 	g Graph,
-	vtx string,
-	L *[]string,
+	id ID,
+	L *[]ID,
 	isDAG *bool,
-	color *map[string]string,
+	color *map[ID]string,
 ) {
 
 	// if v.color == "gray":
-	if (*color)[vtx] == "gray" {
+	if (*color)[id] == "gray" {
 		// isDAG = false
 		*isDAG = false
 		return
 	}
 
 	// if v.color == "white":
-	if (*color)[vtx] == "white" {
+	if (*color)[id] == "white" {
 		// v.color = "gray":
-		(*color)[vtx] = "gray"
+		(*color)[id] = "gray"
 
 		// for each child vertex w of v:
-		cmap, err := g.GetChildren(vtx)
+		cmap, err := g.GetTargets(id)
 		if err != nil {
 			panic(err)
 		}
@@ -87,11 +91,11 @@ func topologicalSortVisit(
 		}
 
 		// v.color = "black"
-		(*color)[vtx] = "black"
+		(*color)[id] = "black"
 
 		// L.push_front(v)
-		temp := make([]string, len(*L)+1)
-		temp[0] = vtx
+		temp := make([]ID, len(*L)+1)
+		temp[0] = id
 		copy(temp[1:], *L)
 		*L = temp
 	}

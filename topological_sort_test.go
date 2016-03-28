@@ -8,13 +8,13 @@ import (
 	"github.com/gyuho/goraph/testgraph"
 )
 
-func TestDefaultGraph_TopologicalSort_05(t *testing.T) {
+func TestGraph_TopologicalSort_05(t *testing.T) {
 	f, err := os.Open("testdata/graph.json")
 	if err != nil {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := newDefaultGraphFromJSON(f, "graph_05")
+	g, err := NewGraphFromJSON(f, "graph_05")
 	if err != nil {
 		t.Error(err)
 	}
@@ -25,13 +25,13 @@ func TestDefaultGraph_TopologicalSort_05(t *testing.T) {
 	fmt.Println("graph_05:", L)
 }
 
-func TestDefaultGraph_TopologicalSort_06(t *testing.T) {
+func TestGraph_TopologicalSort_06(t *testing.T) {
 	f, err := os.Open("testdata/graph.json")
 	if err != nil {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := newDefaultGraphFromJSON(f, "graph_06")
+	g, err := NewGraphFromJSON(f, "graph_06")
 	if err != nil {
 		t.Error(err)
 	}
@@ -42,13 +42,13 @@ func TestDefaultGraph_TopologicalSort_06(t *testing.T) {
 	fmt.Println("graph_06:", L)
 }
 
-func TestDefaultGraph_TopologicalSort_07(t *testing.T) {
+func TestGraph_TopologicalSort_07(t *testing.T) {
 	f, err := os.Open("testdata/graph.json")
 	if err != nil {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := newDefaultGraphFromJSON(f, "graph_07")
+	g, err := NewGraphFromJSON(f, "graph_07")
 	if err != nil {
 		t.Error(err)
 	}
@@ -59,14 +59,14 @@ func TestDefaultGraph_TopologicalSort_07(t *testing.T) {
 	fmt.Println("graph_07:", L)
 }
 
-func TestDefaultGraph_TopologicalSort(t *testing.T) {
+func TestGraph_TopologicalSort(t *testing.T) {
 	for _, graph := range testgraph.GraphSlice {
 		f, err := os.Open("testdata/graph.json")
 		if err != nil {
 			t.Error(err)
 		}
 		defer f.Close()
-		g, err := newDefaultGraphFromJSON(f, graph.Name)
+		g, err := NewGraphFromJSON(f, graph.Name)
 		if err != nil {
 			t.Error(err)
 		}
