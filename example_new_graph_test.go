@@ -8,13 +8,13 @@ import (
 	"github.com/gyuho/goraph"
 )
 
-func Example_newDefaultGraphFromJSON() {
+func Example_NewGraphFromJSON() {
 	f, err := os.Open("testdata/graph.json")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer f.Close()
-	g, err := goraph.NewDefaultGraphFromJSON(f, "graph_00")
+	g, err := goraph.NewGraphFromJSON(f, "graph_00")
 	if err != nil {
 		log.Fatal(err)
 	}

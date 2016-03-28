@@ -4,8 +4,8 @@ import "testing"
 
 func TestDisjointSet(t *testing.T) {
 	forests := NewForests()
-	for _, vtx := range []string{"A", "B", "C", "D", "E", "F", "G", "H", "I"} {
-		MakeDisjointSet(forests, vtx)
+	for _, name := range []string{"A", "B", "C", "D", "E", "F", "G", "H", "I"} {
+		MakeDisjointSet(forests, name)
 	}
 	for _, u := range []string{"A", "B", "C", "D", "E", "F", "G", "H", "I"} {
 		if FindSet(forests, u) == nil {

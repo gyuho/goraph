@@ -6,7 +6,7 @@ import "sync"
 // (https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
 type DisjointSet struct {
 	represent string
-	member    map[string]struct{}
+	members   map[string]struct{}
 }
 
 // Forests is a set of DisjointSet.
@@ -23,27 +23,27 @@ func NewForests() *Forests {
 }
 
 // MakeDisjointSet creates a DisjointSet.
-func MakeDisjointSet(forests *Forests, vtx string) {
+func MakeDisjointSet(forests *Forests, name string) {
 	newDS := &DisjointSet{}
-	newDS.represent = vtx
-	member := make(map[string]struct{})
-	member[vtx] = struct{}{}
-	newDS.member = member
+	newDS.represent = name
+	members := make(map[string]struct{})
+	members[name] = struct{}{}
+	newDS.members = members
 	forests.mu.Lock()
 	defer forests.mu.Unlock()
 	forests.data[newDS] = struct{}{}
 }
 
-// FindSet returns the DisjointSet with the represent u.
-func FindSet(forests *Forests, u string) *DisjointSet {
+// FindSet returns the DisjointSet with the represent name.
+func FindSet(forests *Forests, name string) *DisjointSet {
 	forests.mu.Lock()
 	defer forests.mu.Unlock()
 	for data := range forests.data {
-		if data.represent == u {
+		if data.represent == name {
 			return data
 		}
-		for k := range data.member {
-			if k == u {
+		for k := range data.members {
+			if k == name {
 				return data
 			}
 		}
@@ -55,9 +55,9 @@ func FindSet(forests *Forests, u string) *DisjointSet {
 func Union(forests *Forests, ds1, ds2 *DisjointSet) {
 	newDS := &DisjointSet{}
 	newDS.represent = ds1.represent
-	newDS.member = ds1.member
-	for k := range ds2.member {
-		newDS.member[k] = struct{}{}
+	newDS.members = ds1.members
+	for k := range ds2.members {
+		newDS.members[k] = struct{}{}
 	}
 	forests.mu.Lock()
 	defer forests.mu.Unlock()

@@ -6,13 +6,13 @@ import (
 	"testing"
 )
 
-func TestDefaultGraph_BFS(t *testing.T) {
+func TestGraph_BFS(t *testing.T) {
 	f, err := os.Open("testdata/graph.json")
 	if err != nil {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := newDefaultGraphFromJSON(f, "graph_00")
+	g, err := NewGraphFromJSON(f, "graph_00")
 	if err != nil {
 		t.Error(err)
 	}
@@ -23,13 +23,13 @@ func TestDefaultGraph_BFS(t *testing.T) {
 	}
 }
 
-func TestDefaultGraph_DFS(t *testing.T) {
+func TestGraph_DFS(t *testing.T) {
 	f, err := os.Open("testdata/graph.json")
 	if err != nil {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := newDefaultGraphFromJSON(f, "graph_00")
+	g, err := NewGraphFromJSON(f, "graph_00")
 	if err != nil {
 		t.Error(err)
 	}
@@ -40,13 +40,13 @@ func TestDefaultGraph_DFS(t *testing.T) {
 	}
 }
 
-func TestDefaultGraph_DFSRecursion(t *testing.T) {
+func TestGraph_DFSRecursion(t *testing.T) {
 	f, err := os.Open("testdata/graph.json")
 	if err != nil {
 		t.Error(err)
 	}
 	defer f.Close()
-	g, err := newDefaultGraphFromJSON(f, "graph_00")
+	g, err := NewGraphFromJSON(f, "graph_00")
 	if err != nil {
 		t.Error(err)
 	}

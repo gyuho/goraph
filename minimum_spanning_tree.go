@@ -2,7 +2,6 @@ package goraph
 
 import (
 	"container/heap"
-	"fmt"
 	"math"
 	"sort"
 )
@@ -27,7 +26,7 @@ import (
 //	14.
 //	15. 	return A
 //
-func Kruskal(g Graph) map[Edge]struct{} {
+func Kruskal(g Graph) (map[Edge]struct{}, error) {
 
 	// A = ∅
 	A := make(map[Edge]struct{})
@@ -37,52 +36,44 @@ func Kruskal(g Graph) map[Edge]struct{} {
 	forests := NewForests()
 
 	// for each vertex v in G:
-	for v := range g.GetVertices() {
+	for _, nd := range g.GetNodes() {
 		// MakeDisjointSet(v)
-		MakeDisjointSet(forests, v)
+		MakeDisjointSet(forests, nd.String())
 	}
 
 	// edges = get all edges
 	edges := []Edge{}
 	foundEdge := make(map[string]struct{})
-	for vtx := range g.GetVertices() {
-		cmap, err := g.GetChildren(vtx)
+	for id1, nd1 := range g.GetNodes() {
+		tm, err := g.GetTargets(id1)
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
-		for c := range cmap {
-			// edge (vtx, c)
-			weight, err := g.GetWeight(vtx, c)
+		for id2, nd2 := range tm {
+			weight, err := g.GetWeight(id1, id2)
 			if err != nil {
-				panic(err)
+				return nil, err
 			}
-			edge := Edge{}
-			edge.Source = vtx
-			edge.Target = c
-			edge.Weight = weight
-			if _, ok := foundEdge[fmt.Sprintf("%+v", edge)]; !ok {
+			edge := NewEdge(nd1, nd2, weight)
+			if _, ok := foundEdge[edge.String()]; !ok {
 				edges = append(edges, edge)
-				foundEdge[fmt.Sprintf("%+v", edge)] = struct{}{}
+				foundEdge[edge.String()] = struct{}{}
 			}
 		}
 
-		pmap, err := g.GetParents(vtx)
+		sm, err := g.GetSources(id1)
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
-		for p := range pmap {
-			// edge (p, vtx)
-			weight, err := g.GetWeight(p, vtx)
+		for id3, nd3 := range sm {
+			weight, err := g.GetWeight(id3, id1)
 			if err != nil {
-				panic(err)
+				return nil, err
 			}
-			edge := Edge{}
-			edge.Source = p
-			edge.Target = vtx
-			edge.Weight = weight
-			if _, ok := foundEdge[fmt.Sprintf("%+v", edge)]; !ok {
+			edge := NewEdge(nd3, nd1, weight)
+			if _, ok := foundEdge[edge.String()]; !ok {
 				edges = append(edges, edge)
-				foundEdge[fmt.Sprintf("%+v", edge)] = struct{}{}
+				foundEdge[edge.String()] = struct{}{}
 			}
 		}
 	}
@@ -93,18 +84,18 @@ func Kruskal(g Graph) map[Edge]struct{} {
 	// for each edge (u, v) in edges:
 	for _, edge := range edges {
 		// if FindSet(u) ≠ FindSet(v):
-		if FindSet(forests, edge.Source).represent != FindSet(forests, edge.Target).represent {
+		if FindSet(forests, edge.Source().String()).represent != FindSet(forests, edge.Target().String()).represent {
 
 			// A = A ∪ {(u, v)}
 			A[edge] = struct{}{}
 
 			// Union(u, v)
 			// overwrite v's represent with u's represent
-			Union(forests, FindSet(forests, edge.Source), FindSet(forests, edge.Target))
+			Union(forests, FindSet(forests, edge.Source().String()), FindSet(forests, edge.Target().String()))
 		}
 	}
 
-	return A
+	return A, nil
 }
 
 // Prim finds the minimum spanning tree with min-heap (priority queue).
@@ -138,111 +129,113 @@ func Kruskal(g Graph) map[Edge]struct{} {
 //	26.
 //	27. 	return tree from prev
 //
-func Prim(g Graph, source string) map[Edge]struct{} {
+func Prim(g Graph, src ID) (map[Edge]struct{}, error) {
 
 	// let Q be a priority queue
-	minHeap := &vertexDistanceHeap{}
+	minHeap := &nodeDistanceHeap{}
 
 	// distance[source] = 0
-	distance := make(map[string]float64)
-	distance[source] = 0.0
+	distance := make(map[ID]float64)
+	distance[src] = 0.0
 
 	// for each vertex v in G:
-	for vtx := range g.GetVertices() {
+	for id := range g.GetNodes() {
 
-		// if v ≠ source:
-		if vtx != source {
+		// if v ≠ src:
+		if id != src {
 			// distance[v] = ∞
-			distance[vtx] = math.MaxFloat64
+			distance[id] = math.MaxFloat64
 
 			// prev[v] = undefined
 			// prev[v] = ""
 		}
 
 		// Q.add_with_priority(v, distance[v])
-		vd := vertexDistance{}
-		vd.vertex = vtx
-		vd.distance = distance[vtx]
+		nds := nodeDistance{}
+		nds.id = id
+		nds.distance = distance[id]
 
-		heap.Push(minHeap, vd)
+		heap.Push(minHeap, nds)
 	}
 
 	heap.Init(minHeap)
-	prev := make(map[string]string)
+	prev := make(map[ID]ID)
 
 	// while Q is not empty:
 	for minHeap.Len() != 0 {
 
 		// u = Q.extract_min()
-		u := heap.Pop(minHeap).(vertexDistance)
+		u := heap.Pop(minHeap).(nodeDistance)
+		uID := u.id
 
 		// for each adjacent vertex v of u:
-		cmap, err := g.GetChildren(u.vertex)
+		tm, err := g.GetTargets(uID)
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
-		for v := range cmap {
+		for vID := range tm {
 
 			isExist := false
 			for _, one := range *minHeap {
-				if v == one.vertex {
+				if vID == one.id {
 					isExist = true
 					break
 				}
 			}
 
 			// weight(u, v)
-			weight, err := g.GetWeight(u.vertex, v)
+			weight, err := g.GetWeight(uID, vID)
 			if err != nil {
-				panic(err)
+				return nil, err
 			}
 
 			// if v ∈ Q and distance[v] > weight(u, v):
-			if isExist && distance[v] > weight {
+			if isExist && distance[vID] > weight {
 
 				// distance[v] = weight(u, v)
-				distance[v] = weight
+				distance[vID] = weight
 
 				// prev[v] = u
-				prev[v] = u.vertex
+				prev[vID] = uID
 
 				// Q.decrease_priority(v, weight(u, v))
-				minHeap.updateDistance(v, weight)
+				minHeap.updateDistance(vID, weight)
 				heap.Init(minHeap)
 			}
 		}
-		pmap, err := g.GetParents(u.vertex)
+
+		sm, err := g.GetSources(uID)
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
-		for uu := range pmap {
-			v := u.vertex
+		vID := uID
+		for uID := range sm {
 
 			isExist := false
 			for _, one := range *minHeap {
-				if v == one.vertex {
+				if vID == one.id {
 					isExist = true
 					break
 				}
 			}
 
 			// weight(u, v)
-			weight, err := g.GetWeight(uu, v)
+			weight, err := g.GetWeight(uID, vID)
 			if err != nil {
-				panic(err)
+				return nil, err
 			}
 
 			// if v ∈ Q and distance[v] > weight(u, v):
-			if isExist && distance[v] > weight {
+			if isExist && distance[vID] > weight {
 
 				// distance[v] = weight(u, v)
-				distance[v] = weight
+				distance[vID] = weight
 
 				// prev[v] = u
-				prev[v] = uu
+				prev[vID] = uID
 
 				// Q.decrease_priority(v, weight(u, v))
-				minHeap.updateDistance(v, weight)
+				minHeap.updateDistance(vID, weight)
 				heap.Init(minHeap)
 			}
 		}
@@ -250,15 +243,45 @@ func Prim(g Graph, source string) map[Edge]struct{} {
 
 	tree := make(map[Edge]struct{})
 	for k, v := range prev {
-		one := Edge{}
-		one.Source = v
-		one.Target = k
 		weight, err := g.GetWeight(v, k)
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
-		one.Weight = weight
-		tree[one] = struct{}{}
+		tree[NewEdge(g.GetNodeByID(v), g.GetNodeByID(k), weight)] = struct{}{}
 	}
-	return tree
+	return tree, nil
+}
+
+type nodeDistance struct {
+	id       ID
+	distance float64
+}
+
+// container.Heap's Interface needs sort.Interface, Push, Pop to be implemented
+
+// nodeDistanceHeap is a min-heap of nodeDistances.
+type nodeDistanceHeap []nodeDistance
+
+func (h nodeDistanceHeap) Len() int           { return len(h) }
+func (h nodeDistanceHeap) Less(i, j int) bool { return h[i].distance < h[j].distance } // Min-Heap
+func (h nodeDistanceHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+
+func (h *nodeDistanceHeap) Push(x interface{}) {
+	*h = append(*h, x.(nodeDistance))
+}
+
+func (h *nodeDistanceHeap) Pop() interface{} {
+	heapSize := len(*h)
+	lastNode := (*h)[heapSize-1]
+	*h = (*h)[0 : heapSize-1]
+	return lastNode
+}
+
+func (h *nodeDistanceHeap) updateDistance(id ID, val float64) {
+	for i := 0; i < len(*h); i++ {
+		if (*h)[i].id == id {
+			(*h)[i].distance = val
+			break
+		}
+	}
 }

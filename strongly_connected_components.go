@@ -67,7 +67,7 @@ func Tarjan(g Graph) [][]string {
 	data := newTarjanData()
 
 	// for each vertex v in G:
-	for v := range g.GetVertices() {
+	for v := range g.GetNodes() {
 		// if v.index is undefined:
 		if _, ok := data.index[v]; !ok {
 			// tarjan(G, v, globalIndex, S, result)
@@ -75,7 +75,15 @@ func Tarjan(g Graph) [][]string {
 		}
 	}
 
-	return data.result
+	var rs [][]string
+	for _, row := range data.result {
+		r := []string{}
+		for _, id := range row {
+			r = append(r, g.GetNodeByID(id).String())
+		}
+		rs = append(rs, r)
+	}
+	return rs
 }
 
 type tarjanData struct {
@@ -86,35 +94,35 @@ type tarjanData struct {
 
 	// index is an index of a node to record
 	// the order of being discovered.
-	index map[string]int
+	index map[ID]int
 
 	// lowLink is the smallest index of any index
 	// reachable from v, including v itself.
-	lowLink map[string]int
+	lowLink map[ID]int
 
 	// S is the stack.
-	S []string
+	S []ID
 
 	// extra map to check if a vertex is in S.
-	smap map[string]struct{}
+	smap map[ID]struct{}
 
-	result [][]string
+	result [][]ID
 }
 
 func newTarjanData() *tarjanData {
-	d := tarjanData{}
-	d.globalIndex = 0
-	d.index = make(map[string]int)
-	d.lowLink = make(map[string]int)
-	d.S = []string{}
-	d.smap = make(map[string]struct{})
-	d.result = [][]string{}
-	return &d
+	return &tarjanData{
+		globalIndex: 0,
+		index:       make(map[ID]int),
+		lowLink:     make(map[ID]int),
+		S:           []ID{},
+		smap:        make(map[ID]struct{}),
+		result:      [][]ID{},
+	}
 }
 
 func tarjan(
 	g Graph,
-	vtx string,
+	id ID,
 	data *tarjanData,
 ) {
 	// This is not inherently parallelizable problem,
@@ -122,22 +130,22 @@ func tarjan(
 	data.mu.Lock()
 
 	// v.index = globalIndex
-	data.index[vtx] = data.globalIndex
+	data.index[id] = data.globalIndex
 
 	// v.lowLink = globalIndex
-	data.lowLink[vtx] = data.globalIndex
+	data.lowLink[id] = data.globalIndex
 
 	// globalIndex++
 	data.globalIndex++
 
 	// S.push(v)
-	data.S = append(data.S, vtx)
-	data.smap[vtx] = struct{}{}
+	data.S = append(data.S, id)
+	data.smap[id] = struct{}{}
 
 	data.mu.Unlock()
 
 	// for each child vertex w of v:
-	cmap, err := g.GetChildren(vtx)
+	cmap, err := g.GetTargets(id)
 	if err != nil {
 		panic(err)
 	}
@@ -150,13 +158,13 @@ func tarjan(
 			tarjan(g, w, data)
 
 			// v.lowLink = min(v.lowLink, w.lowLink)
-			data.lowLink[vtx] = min(data.lowLink[vtx], data.lowLink[w])
+			data.lowLink[id] = min(data.lowLink[id], data.lowLink[w])
 
 		} else if _, ok := data.smap[w]; ok {
 			// else if w is in S:
 
 			// v.lowLink = min(v.lowLink, w.index)
-			data.lowLink[vtx] = min(data.lowLink[vtx], data.index[w])
+			data.lowLink[id] = min(data.lowLink[id], data.index[w])
 		}
 	}
 
@@ -165,9 +173,9 @@ func tarjan(
 
 	// if v is the root
 	// if v.lowLink == v.index:
-	if data.lowLink[vtx] == data.index[vtx] {
+	if data.lowLink[id] == data.index[id] {
 		// start a new strongly connected component
-		component := []string{}
+		component := []ID{}
 
 		// while True:
 		for {
@@ -181,7 +189,7 @@ func tarjan(
 			component = append(component, u)
 
 			// if u == v:
-			if u == vtx {
+			if u == id {
 				data.result = append(data.result, component)
 				break
 			}
