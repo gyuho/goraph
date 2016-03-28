@@ -49,8 +49,8 @@ func TestNewGraphFromJSON_graph(t *testing.T) {
 		if err != nil || !ok {
 			t.Fatalf("nil graph %v", err)
 		}
-		if g.GetNodeCount() != tg.TotalVertexCount {
-			t.Fatalf("%s | Expected %d but %d", tg.Name, tg.TotalVertexCount, g.GetNodeCount())
+		if g.GetNodeCount() != tg.TotalNodeCount {
+			t.Fatalf("%s | Expected %d but %d", tg.Name, tg.TotalNodeCount, g.GetNodeCount())
 		}
 		for _, elem := range tg.EdgeToWeight {
 			weight1, err := g.GetWeight(StringID(elem.Nodes[0]), StringID(elem.Nodes[1]))
@@ -76,7 +76,7 @@ func TestGraph_GetVertices(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if g.GetNodeCount() != tg.TotalVertexCount {
+		if g.GetNodeCount() != tg.TotalNodeCount {
 			t.Fatalf("wrong number of vertices: %s", g)
 		}
 	}

@@ -93,7 +93,7 @@ func (e EdgeSlice) Less(i, j int) bool { return e[i].Weight() < e[j].Weight() }
 func (e EdgeSlice) Swap(i, j int)      { e[i], e[j] = e[j], e[i] }
 
 // Graph describes the methods of graph operations.
-// It assumes that the identifier of a Vertex is string and unique.
+// It assumes that the identifier of a Node is unique.
 // And weight values is float64.
 type Graph interface {
 	// Init initializes a Graph.

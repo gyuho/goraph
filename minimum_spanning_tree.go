@@ -31,7 +31,7 @@ func Kruskal(g Graph) (map[Edge]struct{}, error) {
 	// A = ∅
 	A := make(map[Edge]struct{})
 
-	// disjointSet maps a member Vertex to a represent.
+	// disjointSet maps a member Node to a represent.
 	// (https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
 	forests := NewForests()
 
