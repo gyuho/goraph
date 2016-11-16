@@ -20,7 +20,7 @@ package goraph
 //	14. 				label w as visited
 //
 func BFS(g Graph, id ID) []ID {
-	if g.GetNode(id) == nil {
+	if _, err := g.GetNode(id); err != nil {
 		return nil
 	}
 
@@ -83,7 +83,7 @@ func BFS(g Graph, id ID) []ID {
 //	16. 					S.push(w)
 //
 func DFS(g Graph, id ID) []ID {
-	if g.GetNode(id) == nil {
+	if _, err := g.GetNode(id); err != nil {
 		return nil
 	}
 
@@ -140,7 +140,7 @@ func DFS(g Graph, id ID) []ID {
 //	10. 			recursive DFS(G, u)
 //
 func DFSRecursion(g Graph, id ID) []ID {
-	if g.GetNode(id) == nil {
+	if _, err := g.GetNode(id); err != nil {
 		return nil
 	}
 
