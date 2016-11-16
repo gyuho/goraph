@@ -1,2 +1,2 @@
 // Package testgraph contains graph test data.
-package testgraph // import "github.com/gyuho/goraph/testgraph"
+package testgraph // import "github.com/tcharding/goraph/testgraph"

@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gyuho/goraph/testgraph"
+	"github.com/tcharding/goraph/testgraph"
 )
 
 func TestGraph_TopologicalSort_05(t *testing.T) {
