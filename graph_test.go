@@ -113,8 +113,8 @@ func TestGraph_DeleteNode(t *testing.T) {
 	if !g.DeleteNode(StringID("D")) {
 		t.Fatal("D does not exist in the graph")
 	}
-	if g.GetNode(StringID("D")) != nil {
-		t.Fatalf("Expected Node but %s", g.GetNode(StringID("D")))
+	if nd, err := g.GetNode(StringID("D")); err == nil {
+		t.Fatalf("No Node Expected but got %s", nd)
 	}
 	if v, err := g.GetSources(StringID("C")); err != nil || len(v) != 1 {
 		t.Fatalf("Expected 1 edge incoming to C but %v\n\n%s", err, g)

@@ -102,9 +102,8 @@ type Graph interface {
 	// GetNodeCount returns the total number of nodes.
 	GetNodeCount() int
 
-	// GetNode finds the Node. It returns nil if the Node
-	// does not exist in the graph.
-	GetNode(id ID) Node
+	// GetNode finds the Node.
+	GetNode(id ID) (Node, error)
 
 	// GetNodes returns a map from node ID to
 	// empty struct value. Graph does not allow duplicate
@@ -197,11 +196,15 @@ func (g *graph) GetNodeCount() int {
 	return len(g.idToNodes)
 }
 
-func (g *graph) GetNode(id ID) Node {
+func (g *graph) GetNode(id ID) (Node, error) {
 	g.mu.RLock()
 	defer g.mu.RUnlock()
 
-	return g.idToNodes[id]
+	if !g.unsafeExistID(id) {
+		return nil, fmt.Errorf("%s does not exist in the graph.", id)
+	}
+
+	return g.idToNodes[id], nil
 }
 
 func (g *graph) GetNodes() map[ID]Node {
@@ -480,20 +483,16 @@ func NewGraphFromJSON(rd io.Reader, graphID string) (Graph, error) {
 
 	g := newGraph()
 	for id1, mm := range gmap {
-		nd1 := g.GetNode(StringID(id1))
-		if nd1 == nil {
+		nd1, err := g.GetNode(StringID(id1))
+		if err != nil {
 			nd1 = NewNode(id1)
-			if ok := g.AddNode(nd1); !ok {
-				return nil, fmt.Errorf("%s already exists", nd1)
-			}
+			g.AddNode(nd1)
 		}
 		for id2, weight := range mm {
-			nd2 := g.GetNode(StringID(id2))
-			if nd2 == nil {
+			nd2, err := g.GetNode(StringID(id2))
+			if err != nil {
 				nd2 = NewNode(id2)
-				if ok := g.AddNode(nd2); !ok {
-					return nil, fmt.Errorf("%s already exists", nd2)
-				}
+				g.AddNode(nd2)
 			}
 			g.ReplaceEdge(nd1.ID(), nd2.ID(), weight)
 		}
