@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io"
 	"sync"
+
+	"gopkg.in/yaml.v2"
 )
 
 // ID is unique identifier.
@@ -474,6 +476,95 @@ func NewGraphFromJSON(rd io.Reader, graphID string) (Graph, error) {
 			break
 		} else if err != nil {
 			return nil, err
+		}
+	}
+	if _, ok := js[graphID]; !ok {
+		return nil, fmt.Errorf("%s does not exist", graphID)
+	}
+	gmap := js[graphID]
+
+	g := newGraph()
+	for id1, mm := range gmap {
+		nd1, err := g.GetNode(StringID(id1))
+		if err != nil {
+			nd1 = NewNode(id1)
+			g.AddNode(nd1)
+		}
+		for id2, weight := range mm {
+			nd2, err := g.GetNode(StringID(id2))
+			if err != nil {
+				nd2 = NewNode(id2)
+				g.AddNode(nd2)
+			}
+			g.ReplaceEdge(nd1.ID(), nd2.ID(), weight)
+		}
+	}
+
+	return g, nil
+}
+
+// NewGraphFromYAML returns a new Graph from a YAML file.
+// Here's the sample YAML data:
+//
+// graph_00:
+//   S:
+//     A: 100
+//     B: 14
+//     C: 200
+//   A:
+//     S: 15
+//     B: 5
+//     D: 20
+//     T: 44
+//   B:
+//     S: 14
+//     A: 5
+//     D: 30
+//     E: 18
+//   C:
+//     S: 9
+//     E: 24
+//   D:
+//     A: 20
+//     B: 30
+//     E: 2
+//     F: 11
+//     T: 16
+//   E:
+//     B: 18
+//     C: 24
+//     D: 2
+//     F: 6
+//     T: 19
+//   F:
+//     D: 11
+//     E: 6
+//     T: 6
+//   T:
+//     A: 44
+//     D: 16
+//     F: 6
+//     E: 19
+//
+func NewGraphFromYAML(rd io.Reader, graphID string) (Graph, error) {
+	js := make(map[string]map[string]map[string]float64)
+	var data []byte
+	d := make([]byte, 1024)
+	for {
+		n, err := rd.Read(d)
+		if err == io.EOF {
+			break
+		}
+
+		data = append(data, d[0:n]...)
+	}
+
+	err := yaml.Unmarshal(data, &js)
+	for {
+		if err != nil {
+			return nil, err
+		} else {
+			break
 		}
 	}
 	if _, ok := js[graphID]; !ok {
