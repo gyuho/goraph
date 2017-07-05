@@ -65,6 +65,47 @@ func TestNewGraphFromJSON_graph(t *testing.T) {
 	}
 }
 
+func TestNewGraphFromYAML_graph(t *testing.T) {
+	f, err := os.Open("testdata/graph.yml")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
+	jg, err := NewGraphFromYAML(f, "graph_00")
+	g, ok := jg.(*graph)
+	if err != nil || !ok {
+		t.Fatalf("nil graph %v", err)
+	}
+	if g.nodeToTargets[StringID("C")][StringID("S")] != 9.0 {
+		t.Fatalf("weight from C to S must be 9.0 but %f", g.nodeToTargets[StringID("C")][StringID("S")])
+	}
+	for _, tg := range testgraph.GraphSlice {
+		f, err := os.Open("testdata/graph.yml")
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer f.Close()
+		jg, err := NewGraphFromYAML(f, tg.Name)
+		g, ok := jg.(*graph)
+		if err != nil || !ok {
+			t.Fatalf("nil graph %v", err)
+		}
+		if g.GetNodeCount() != tg.TotalNodeCount {
+			t.Fatalf("%s | Expected %d but %d", tg.Name, tg.TotalNodeCount, g.GetNodeCount())
+		}
+		for _, elem := range tg.EdgeToWeight {
+			weight1, err := g.GetWeight(StringID(elem.Nodes[0]), StringID(elem.Nodes[1]))
+			if err != nil {
+				t.Fatal(err)
+			}
+			weight2 := elem.Weight
+			if weight1 != weight2 {
+				t.Fatalf("Expected %f but %f", weight2, weight1)
+			}
+		}
+	}
+}
+
 func TestGraph_GetVertices(t *testing.T) {
 	for _, tg := range testgraph.GraphSlice {
 		f, err := os.Open("testdata/graph.json")
