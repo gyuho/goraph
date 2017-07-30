@@ -81,7 +81,6 @@ func Dijkstra(g Graph, source, target ID) ([]ID, map[ID]float64, error) {
 
 	// while Q is not empty:
 	for minHeap.Len() != 0 {
-
 		// u = Q.extract_min()
 		u := heap.Pop(minHeap).(nodeDistance)
 
@@ -96,7 +95,6 @@ func Dijkstra(g Graph, source, target ID) ([]ID, map[ID]float64, error) {
 			return nil, nil, err
 		}
 		for v := range cmap {
-
 			// alt = distance[u] + weight(u, v)
 			weight, err := g.GetWeight(u.id, v)
 			if err != nil {
@@ -200,7 +198,6 @@ func BellmanFord(g Graph, source, target ID) ([]ID, map[ID]float64, error) {
 
 	// for each vertex v in G:
 	for id := range g.GetNodes() {
-
 		// if v ≠ source:
 		if id != source {
 			// distance[v] = ∞
@@ -215,10 +212,8 @@ func BellmanFord(g Graph, source, target ID) ([]ID, map[ID]float64, error) {
 
 	// for 1 to |V|-1:
 	for i := 1; i <= g.GetNodeCount()-1; i++ {
-
 		// for every edge (u, v):
 		for id := range g.GetNodes() {
-
 			cmap, err := g.GetTargets(id)
 			if err != nil {
 				return nil, nil, err
@@ -273,7 +268,6 @@ func BellmanFord(g Graph, source, target ID) ([]ID, map[ID]float64, error) {
 
 	// for every edge (u, v):
 	for id := range g.GetNodes() {
-
 		cmap, err := g.GetTargets(id)
 		if err != nil {
 			return nil, nil, err
