@@ -35,7 +35,6 @@ package goraph
 //	28.			L.push_front(v)
 //
 func TopologicalSort(g Graph) ([]ID, bool) {
-
 	// L = Empty list that will contain the sorted nodes
 	L := []ID{}
 	isDAG := true
@@ -63,7 +62,6 @@ func topologicalSortVisit(
 	isDAG *bool,
 	color *map[ID]string,
 ) {
-
 	// if v.color == "gray":
 	if (*color)[id] == "gray" {
 		// isDAG = false
