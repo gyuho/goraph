@@ -1,4 +1,4 @@
-## goraph [![Go Report Card](https://goreportcard.com/badge/github.com/gyuho/goraph?style=flat-square)](https://goreportcard.com/report/github.com/gyuho/goraph) [![Build Status](https://img.shields.io/travis/gyuho/goraph.svg?style=flat-square)](https://travis-ci.org/gyuho/goraph) [![Godoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](https://godoc.org/github.com/gyuho/goraph)
+## goraph [![Go Report Card](https://goreportcard.com/badge/github.com/gyuho/goraph?style=flat-square)](https://goreportcard.com/report/github.com/gyuho/goraph) [![Build Status](https://img.shields.io/travis/gyuho/goraph.svg?style=flat-square)](https://travis-ci.org/gyuho/goraph) [![Godoc](https://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](https://godoc.org/github.com/gyuho/goraph)
 
 Package goraph implements graph data structure and algorithms.
 
