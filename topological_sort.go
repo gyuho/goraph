@@ -52,6 +52,7 @@ func TopologicalSort(g Graph) ([]ID, bool) {
 		}
 	}
 
+	reverse(L)
 	return L, isDAG
 }
 
@@ -87,10 +88,13 @@ func topologicalSortVisit(
 		// v.color = "black"
 		(*color)[id] = "black"
 
-		// L.push_front(v)
-		temp := make([]ID, len(*L)+1)
-		temp[0] = id
-		copy(temp[1:], *L)
-		*L = temp
+		// L.append(v)
+		*L = append(*L, id)
+	}
+}
+
+func reverse(a []ID) {
+	for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
+		a[i], a[j] = a[j], a[i]
 	}
 }
